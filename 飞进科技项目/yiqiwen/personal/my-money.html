@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<title>我的账户</title>
+</head>
+<body>
+	<header class="header">
+		<a href="personal-index.html" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">我的账户</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div v-cloak id="money" class="my-money1">
+		<img src="../resources/images/money.png" alt="">
+		<p class="money-num">{{coin}}</p>
+		<a href="recharge.html" class="add-money">充值</a>
+	</div>
+
+	<div class="my-money2">
+		<a href="money-pay.html" class="item">
+			<div class="fleft">
+				<span>交易记录</span>
+			</div>
+			<div class="fright">
+				<em class="item-more"></em>
+			</div>
+		</a>
+		<a href="money-description.html" class="item">
+			<div class="fleft">
+				<span>元宝说明</span>
+			</div>
+			<div class="fright">
+				<em class="item-more"></em>
+			</div>
+		</a>			
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/my-money.js" type="text/javascript" charset="utf-8"></script>
+</html>

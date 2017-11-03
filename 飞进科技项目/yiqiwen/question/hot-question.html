@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="yes" name="apple-touch-fullscreen">
+	<meta content="telephone=no,email=no" name="format-detection">	
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<link rel="stylesheet" href="../resources/css/dropload.css">
+	<title>热门问题</title>
+</head>
+<body>
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">热门问题</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div class="index-1 nav nav50">
+		<div class="nav-warp">
+			<a id="hotQuestion" class="nav-item active"><span>最热</span></a>
+			<a id="newQuestion" class="nav-item"><span>最新</span></a>
+		</div>
+	</div>
+
+	<div class="content">
+		<div v-cloak id="answerList" class="index-5 question-list martop10">
+			<ul id="audioWarp">
+				<template v-for="item in datas">
+					<li v-if="item.is_limit != 1">
+						<a v-bind:href="'../answer/detail.html?id=' + item.id" class="title">{{item.ask}}</a>
+						<div class="imgs" v-html="item.image"></div>
+						<div class="answer">
+							<a v-bind:href="'../teacher/detail.html?id=' + item.answer_uid" class="portrait">
+								<img v-if="item.avatar != '' || item.avatar.length > 0" v-bind:src="item.avatar" class="pic">
+								<img v-else src="../resources/images/portrait.png" alt="">
+								<i class="i-vip"></i>
+							</a>
+
+							<template v-if="item.has_read == false && item.is_limit != 1">
+								<audio class="audioBtn" src="" controls="controls"></audio>
+								<em v-bind:data-id="item.id" class="audio eavesdropping touting">{{item.jiage}}元宝偷听</em>
+							</template>
+							<template v-if="item.has_read == true">
+								<audio class="audioBtn" v-bind:src="item.media_url" controls="controls"></audio>
+								<em class="audio">点击播放</em>	
+							</template>
+
+						</div>
+						<p class="name">{{item.nickname}} | {{item.job_title}}</p>
+						<div class="foot">
+							<span class="date">{{item.ask_time}}</span>
+							<span class="listen-num">{{item.touting}}人已偷听</span>
+						</div>
+					</li>
+				</template>
+			</ul>
+		</div>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>			
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="../personal/personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/dropload.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/hot-question.js" type="text/javascript" charset="utf-8"></script>
+</html>

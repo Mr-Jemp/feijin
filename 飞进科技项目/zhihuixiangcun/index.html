@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="./resources/css/mui.min.css" rel="stylesheet" />
+		<link href="./resources/css/main.css" rel="stylesheet" />
+
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab navmenu">
+			<a id="home" class="mui-tab-item mui-active" href="home/home.html">
+				<span class="mui-icon i-home"></span>
+				<span class="mui-tab-label">智慧村</span>
+			</a>
+			<a id="raiders" class="mui-tab-item" href="raiders/sub.html">
+				<span class="mui-icon i-raiders"></span>
+				<span class="mui-tab-label">攻略</span>
+			</a>
+			<a id="personal" class="mui-tab-item" href="personal/index.html">
+				<span class="mui-icon i-personal"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+		</nav>
+		<script src="./resources/js/mui.min.js"></script>
+		<script src="./resources/js/conf.js"></script>
+		<script type="text/javascript">
+			mui.init({});
+
+			var subpages = ['home/home.html'];
+			var subpage_style = {
+				top: '0px',
+				bottom: '51px'
+			};
+
+			var waiting = null;
+			var aniShow = {};
+			 //创建子页面，首个选项卡页面显示，其它均隐藏；
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				for (var i = 0; i < subpages.length; i++) {
+					var temp = {};
+					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+					if (i > 0) {
+						sub.hide();
+					} else {
+						temp[subpages[i]] = "true";
+						mui.extend(aniShow, temp);
+					}
+					self.append(sub);
+				}
+			
+				//当前激活选项
+				var activeTab = subpages[0];
+				//选项卡点击事件
+				mui('.mui-bar-tab').on('tap', 'a', function(e) {
+					var targetTab = this.getAttribute('href');
+					if (targetTab == activeTab) {
+						return;
+					}	
+					showTab(targetTab);
+				});
+	
+				document.addEventListener('goTab', function(event) {
+					var tabId = event.detail.tabId;
+					var typeId = event.detail.typeId;
+					var tabPage = event.detail.tabPage;
+					var triggerTab = document.getElementById(tabId);
+					//切换选项卡高亮
+					var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+					if (triggerTab !== current) {
+						current.classList.remove('mui-active');
+						triggerTab.classList.add('mui-active');
+					}
+	
+					tabPage = (typeId == 0) ? tabPage : tabPage + "?id=" + typeId;
+					showTab(tabPage);
+				});
+	
+				function showTab(tabPage) {
+					if (mui.os.ios || aniShow[tabPage]) {
+						plus.webview.show(tabPage);
+					} else {
+						var temp = {};
+						var nwaiting = plus.nativeUI.showWaiting();
+						var sub = plus.webview.create(tabPage, tabPage, subpage_style);
+						temp[tabPage] = "true";
+						mui.extend(aniShow, temp);
+						sub.addEventListener("loaded", function() { //注册新webview的载入完成事件
+							nwaiting.close();
+							sub.show();
+						}, true);
+						plus.webview.currentWebview().append(sub);
+					}
+	
+					//隐藏当前;
+					plus.webview.hide(activeTab);
+					//更改当前活跃的选项卡
+					activeTab = tabPage;
+				}			
+			});
+				
+		</script>
+	</body>
+
+</html>

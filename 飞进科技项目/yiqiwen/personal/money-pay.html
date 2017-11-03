@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<link rel="stylesheet" href="../resources/css/dropload.css">
+	<title>交易记录</title>
+</head>
+<body>
+	<header class="header">
+		<a href="my-money.html" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">交易记录</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div class="money-record1">
+		<a class="active">支出</a>
+		<a href="money-income.html">收入</a>
+	</div>
+
+	<div class="content">
+		<div v-cloak id="payList" class="money-record">
+			<template v-for="item in datas">
+				<template v-if="item.type == 1">
+					<a v-bind:href="'../answer/detail.html?id=' + item.ask_id" class="item">
+						<p>{{item.info}}</p>
+						<h6>
+							<span class="time">{{item.created_time}}</span>
+							<span class="money">
+								<strong>元宝 {{item.amount}}</strong>
+								<template v-if="item.status == 0">支付失败</template>
+								<template v-if="item.status == 1">支付成功</template>
+								<template v-if="item.status == 2">已退款</template>
+							</span>
+						</h6>
+					</a>
+				</template>
+				<template v-if="item.type == 2">
+					<a v-bind:href="'../answer/detail.html?id=' + item.ask_id" class="item">
+						<p>{{item.info}}</p>
+						<h6>
+							<span class="time">{{item.created_time}}</span>
+							<span class="money">
+								<strong>元宝 {{item.amount}}</strong>
+								<template v-if="item.status == 0">支付失败</template>
+								<template v-if="item.status == 1">支付成功</template>
+								<template v-if="item.status == 2">已退款</template>
+							</span>
+						</h6>
+					</a>
+				</template>
+			</template>
+		</div>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/dropload.min.js"></script>
+<script src="../resources/pages-js/money-pay.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<title>个人中心-模板页</title>
+	<style>
+		.self-info{
+			text-align: center;
+		}
+		img{
+			width: 85px;
+			height: 85px;
+            border-radius: 50%;
+            border: 3px solid #80CFD7;
+            margin-top: 65px;
+		}
+		h3{
+			color: white;
+			font-size: 16px;
+            margin-top: 10px;
+		}
+	</style>
+</head>
+<body id="personal-me">
+	<header id="header" class="mui-bar mui-bar-transparent header">
+		<a class="mui-action-back mui-icon mui-pull-left back"></a>
+			<h1 class="mui-title">个人中心</h1>
+	</header>
+	<div class="main mui-content personal-center">
+		<div class="self-info">					
+			<a><img src="../images/user-img.png" alt=""></a>
+			<h3><a>请登录</a></h3>
+			<div class="self-info-nav">
+				<ul>
+					<li>
+						<a id="fllow">
+							我的关注：
+							<span>0</span>
+						</a>
+					</li>
+					<li>
+						<a id="speech">
+							<em></em>
+							我的发帖：
+							<span>0</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="self-list">
+			<p>
+				<a id="info">
+					<i class="icon1"></i>
+					<span>完善资料</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="message1">
+					<i class="icon2"></i>
+					<span>每日至尊投资内参</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="message2">
+					<i class="icon3"></i>
+					<span>消息中心</span>
+					<em></em>
+				</a>
+			</p>
+			<p id="shareBtn" class="invitationTit">
+				<a>
+					<i class="icon4"></i>
+					<span>我的邀请码</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="exchange">
+					<i class="icon5"></i>
+					<span>积分兑换VIP</span>
+					<em></em>
+				</a>
+			</p>
+		</div>
+		<div class="self-list">
+			<p>
+				<a id="question">
+					<i class="icon6"></i>
+					<span>我的风险偏好</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="preference">
+					<i class="icon7"></i>
+					<span>我的定制理财规划书</span>
+					<em></em>
+				</a>
+			</p>
+		</div>
+
+		<!--
+		<div class="self-list">
+			<p>
+				<a id="setup">
+					<i class="icon8"></i>
+					<span>设置</span>
+					<em></em>
+				</a>
+			</p>
+		</div>
+		-->
+	</div>
+</body>
+
+	<script>
+		(function($, doc) {
+			$(".self-list").on('tap', 'a', function(){
+				var id = this.getAttribute("id");
+				if (id == "question") {
+					$.app.openWindow("info-questionnaire.html");
+				} else {
+					toLogin();
+				}
+			})
+
+			$(".self-info").on('tap', 'a', function(){
+				toLogin();
+			})
+
+			function toLogin() {
+				var btnArray = ['取消', '现在去登录'];
+				mui.confirm('您还未登录？', '提示', btnArray, function(e) {
+					if (e.index == 1) {
+						$.app.openWindow("../login/login.html");
+					} else {
+						return false;
+					}
+				})
+			}
+		})(mui, document)
+	</script>
+</html>

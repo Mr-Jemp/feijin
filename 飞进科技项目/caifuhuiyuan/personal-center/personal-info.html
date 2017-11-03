@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<title>个人中心-完善资料</title>
+	<style>
+		label,span,p{
+			-webkit-box-sizing: initial;
+            box-sizing: initial;
+		}
+	</style>
+	<script>
+		function back() {
+			mui.app.openWindow("index.html");
+		}
+	</script>
+</head>
+<body id="info">	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="back()"></a>
+		<h1 class="mui-title">完善个人资料</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="self-list-info">
+			<a id="head-icon" style="display:block">
+				<p class="photo">
+					<span>头像</span>
+					<label for="text_file" class="text_file"></label>
+					<img v-if="headerImg == '' || headerImg.length <= 0" id="head-img" class="user-img" src="../images/user-img.png" alt="" />
+					<img v-else class="user-img" id="head-img" src="{{headerImg}}" alt="">					
+					<em></em>
+				</p>
+			</a>
+			<p>
+				<span>昵称</span>
+				<label>{{nickname}}</label>
+			</p>
+			<p>
+				<a id="autograph">
+					<span>个性签名</span>
+					<label v-if="talk == null || talk.length == 0">暂无</label>
+					<label v-else>{{talk}}</label>
+					<em></em>
+				</a>					
+			</p>
+			<p>
+				<a id="fllow">
+					<span>关注领域</span>
+					<label v-if="concerns == null || concerns.length == 0">暂无</label>
+					<label v-else>{{concerns}}</label>
+					<em></em>
+				</a>					
+			</p>
+		</div>
+		<div class="self-list-info">
+			<p>
+				<a id="phone">
+					<span>手机号</span>
+					<label v-if="mobile == null || mobile.length == 0">暂无</label>
+					<label v-else>{{mobile}}</label>
+					<em></em>
+				</a>					
+			</p>
+			<p>
+				<a id="mail">
+					<span>邮箱</span>
+					<label v-if="email == null || email.length == 0">暂无</label>
+					<label c-else>{{email}}</label>
+					<em></em>
+				</a>					
+			</p>			
+		</div>
+	</div>
+</body>
+
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+	<script>
+		(function($, doc){
+			$.ajax({
+				type: "GET",
+				url: api_domain + "personal/me",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					if (data["result"] != 1) {
+						return;
+					}
+					
+					var vm = new Vue({
+						el: '#info',
+						data: data["data"]
+					});
+
+					vm.$nextTick(function() {});
+				}
+			});
+
+			document.getElementById("head-icon").addEventListener("tap", function(e) {
+				if (mui.os.plus) {
+					$.app.uploadPhoneImage("修改头像",function(image, picData) {
+						$.app.post(api_domain + "personal/upload/avatar", {"data":picData}, function (data) {
+							document.getElementById("head-img").src = data.image ;
+							var state = app.getState();
+							state.image = data.image;
+							app.setState(state);
+
+							var mainPage = plus.webview.getWebviewById("personal-center/index.html");
+							mui.fire(mainPage, "updateImage", null);
+						});
+					})
+				}
+			});
+
+			$.plusReady(function() {
+				var page1 = document.getElementById("autograph");
+				page1.addEventListener('tap', function(){
+					$.app.openWindow("info-autograph.html");
+				});
+				var page3 = document.getElementById("fllow");
+				page3.addEventListener('tap', function(){
+					$.app.openWindow("info-fllowField.html");
+				});
+				var page4 = document.getElementById("phone");
+				page4.addEventListener('tap', function(){
+					$.app.openWindow("info-phone.html");
+				});
+				var page5 = document.getElementById("mail");
+				page5.addEventListener('tap', function(){
+					$.app.openWindow("info-mail.html");
+				});
+
+			});
+		})(mui, document)
+	</script>
+</html>

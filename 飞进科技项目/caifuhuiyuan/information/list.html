@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/js.js"></script>
+		<script src="../js/conf.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<title>股市内参</title>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<h1 id="messageInfo" class="mui-icon mui-pull-left messageInfo" onclick="listMessageCenter()"></h1>
+			<h1 class="mui-title">理财内参</h1>
+			<li id="selfCenter" class="mui-icon mui-pull-right selfCenter" onclick="listPersonCenter()"></li>
+		</header>
+		<div class="main mui-content mui-fullscreen">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="market-nav infor-nav mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item0">全部</a>
+					<a class="mui-control-item" href="#item1">即时要闻</a>
+					<a class="mui-control-item" href="#item2">行情分析</a>
+					<a class="mui-control-item" href="#item3">策略选股</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+				<div id="infomation-list" class="mui-slider-group">
+					<div id="item0" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<p class="last">
+													<span class="fleft">
+														<template v-if="item.type == 1">
+															即时要闻
+														</template>
+														<template v-if="item.type == 2">
+															行情分析
+														</template>
+														<template v-if="item.type == 3">
+															策略选股
+														</template>
+													</span>
+												</p>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item1" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		mui.init({
+			swipeBack: false
+		});
+
+		if (window.plus) {
+			plusReady();
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+		}
+
+		(function($) {
+			var deceleration = mui.os.ios ? 0.001 : 0.0003;
+			$('.mui-scroll-wrapper').scroll({
+				bounce: false,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration
+			});
+
+			var url = api_domain + "stock/list";
+			$.app.url = url + "?type=";
+			var id = $.app.getId(document.URL);
+			if (id == "") {
+				id = 0;
+			} else {
+				removeClass(document.getElementById('item0'), "mui-active");
+				addClass(document.getElementById('item' + id), "mui-active");
+				url = url + "?type=" + id;
+			}
+			initLoad(url, id);
+
+			function initLoad(url, typeId) {
+				$.app.request(url, function(data) {
+					$.app.initItemListVm(typeId, data);
+					$.app.pageNo++;
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', function () {
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					$.app.pageNo = 1;
+					var url = $.app.url + e.detail.slideNumber + "&pageNo=" + $.app.pageNo;
+					$.app.request(url, function(data) {
+						$.app.initItemListVm(e.detail.slideNumber, data);
+						$.app.pageNo++;
+					});
+				});
+
+				$('#infomation-list').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					$.app.openDetail(id);
+				})
+			});
+
+			var createFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				var text_type;
+				for(var i = 0; i < data["result"].length; i++) {
+					var item = data["result"][i];
+					li = document.createElement('li');
+					li.setAttribute("id", item["id"]);
+					var html = '<div class="img">'
+								 + '<img src="'+item["thumbnail"]+'" alt="">'
+								 + '</div>'
+								 + '<div class="txt">'
+								 + '<h4>'+item["title"]+'</h4>'
+								 + '<p>'+item["abstractContent"]+'</p>';								
+					if (index == 0) {
+						if (item["type"] == 1) {
+							text_type = "即时要闻";
+						}
+						if (item["type"] == 2) {
+							text_type = "行情分析";
+						}
+						if (item["type"] == 3) {
+							text_type = "策略选股";
+						}
+						html += '<p class="last"><span class="fleft">' + text_type + '</span></p></div>';
+					} else {
+						html += '</div>';
+					}
+					
+					// 刷新出来的li内容
+					li.innerHTML = html;
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+			
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					var url = $.app.url + index;
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.innerHTML = "";
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo = 2;
+					})
+				},
+				function(self, index) { // up
+					var url = $.app.url + index +  "&pageNo=" + $.app.pageNo;
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo++;
+					})
+				}
+			)
+		})(mui);
+	</script>
+
+</html>

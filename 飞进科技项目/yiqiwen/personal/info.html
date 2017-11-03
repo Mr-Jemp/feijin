@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<title>账户信息</title>
+</head>
+<body>
+	<header class="header">
+		<a href="personal-index.html" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">账户信息</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div v-cloak id="info">
+		<div class="personal-info1 info-group">
+			<div id="change-portrait" class="info-item">
+
+				<input type="file" name="file_head" id="file_head" onchange="javascript:setImagePreview(this);" />
+
+				<div class="fleft">
+					<label>头像</label>
+				</div>
+				<div class="fright">
+					<img v-if="avatar != '' && avatar.length > 0 " v-bind:src="avatar" id="preview" class="portrait" alt="">
+					<img v-else src="../resources/images/portrait.png" id="preview" class="portrait" alt="">
+					<em class="more"></em>
+				</div>
+			</div>
+			<a href="name.html" class="info-item">
+				<div class="fleft">
+					<label>用户名</label>
+				</div>
+				<div class="fright">
+					<span class="text">{{nickname}}</span>
+					<em class="more"></em>
+				</div>
+			</a>
+		</div>
+
+		<div class="personal-info-tit">
+			<p>账号绑定</p>
+		</div>
+
+		<div class="personal-info2 info-group">
+			<a href="phone.html" class="info-item">
+				<div class="fleft">
+					<i class="i-phone"></i>
+					<label>手机</label>
+				</div>
+				<div class="fright">
+					<span v-if="phone == null && phone.length == 0" class="text">未绑定</span>
+					<span v-else class="text">{{phone}}</span>
+					<em class="more"></em>
+				</div>
+			</a>
+			<!-- <a href="wechat.html" class="info-item">
+				<div class="fleft">
+					<i class="i-wechat"></i>
+					<label>微信</label>
+				</div>
+				<div class="fright">
+					<span class="text">未绑定</span>
+					<em class="more"></em>
+				</div>
+			</a> -->
+		</div>
+	</div>
+
+	<div class="personal-info-tit">
+		<p>安全设置</p>
+	</div>
+
+	<div class="personal-info2 info-group">
+		<a href="modify-password.html" class="info-item">
+			<div class="fleft">
+				<i class="i-password"></i>
+				<label>修改密码</label>
+			</div>
+			<div class="fright">
+				<span class="text">设置</span>
+				<em class="more"></em>
+			</div>
+		</a>
+	</div>
+
+	<div id="loading" class="alertBox hide">
+		<div class="transparentBg" style="background-color:rgba(255,255,255,0.5)"></div>
+		<div class="tip-content" style="text-align:center;">
+			<img src="../resources/images/loading.gif" alt="">
+		</div>
+	</div>	
+
+	<div id="loading" class="alertBox hide">
+		<div class="transparentBg" style="background-color:rgba(255,255,255,0.5)"></div>
+		<div class="tip-content" style="text-align:center;">
+			<img src="../resources/images/loading.gif" alt="">
+		</div>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/info.js" type="text/javascript" charset="utf-8"></script>
+</html>

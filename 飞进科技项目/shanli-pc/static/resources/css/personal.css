@@ -1,0 +1,438 @@
+body {
+  background-color: #eaeaea;
+}
+.main {
+  margin-top: 20px;
+  margin-bottom: 21px;
+  padding-bottom: 0;
+  overflow: hidden;
+  background-color: #eaeaea;
+  /* 导航 */
+  /* 我的佣金 */
+  /* 我的客户 */
+  /* 我的邀请 */
+  /* 我的资料 */
+}
+.main .nav {
+  float: left;
+  margin-right: 10px;
+}
+.main .nav ul {
+  border-radius: 6px;
+  background-color: #fff;
+}
+.main .nav ul li {
+  width: 225px;
+  padding: 14px 0 14px 25px;
+  font-size: 16px;
+  border-top: 1px solid #eee;
+  color: #333333;
+}
+.main .nav ul li.title {
+  color: #00a1e9;
+  font-weight: 700;
+}
+.main .nav ul li.active {
+  background-color: #00a1e9;
+  color: #fff;
+}
+.main .my-balance {
+  overflow: hidden;
+}
+.main .my-balance .top {
+  height: 260px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
+.main .my-balance .top .money {
+  font-size: 36px;
+  font-weight: 900;
+  color: #0094f2;
+  margin: 60px 0 40px 0;
+}
+.main .my-balance .top button {
+  color: #0094f2;
+  width: 180px;
+  height: 50px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #0094f2;
+  border: hidden;
+  border-radius: 5px;
+  margin-bottom: 40px;
+}
+.main .my-balance .top .hint {
+  color: #666;
+  font-size: 14px;
+}
+.main .my-balance .center,
+.main .my-balance .bottom {
+  margin-top: 10px;
+}
+.main .my-balance .center .table,
+.main .my-balance .bottom .table {
+  width: 928px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+.main .my-balance .center .table .head,
+.main .my-balance .bottom .table .head {
+  overflow: hidden;
+  padding: 16px 24px 5px;
+}
+.main .my-balance .center .table .head h4,
+.main .my-balance .bottom .table .head h4 {
+  float: left;
+  font-size: 18px;
+}
+.main .my-balance .center .table .head span,
+.main .my-balance .bottom .table .head span {
+  float: right;
+  font-size: 12px;
+  color: #00a1e9;
+}
+.main .my-balance .center .table ul,
+.main .my-balance .bottom .table ul {
+  overflow: hidden;
+  border-top: 1px solid #ddd;
+}
+.main .my-balance .center .table ul li,
+.main .my-balance .bottom .table ul li {
+  float: left;
+  width: 308px;
+  text-align: center;
+  padding: 12px 0;
+}
+.main .my-balance .center .table ul.title li,
+.main .my-balance .bottom .table ul.title li {
+  font-weight: 700;
+  background-color: #0094f2;
+  font-size: 14px;
+  color: #fff;
+  border-right: 1px solid #fff;
+}
+.main .my-balance .center .table ul.item li,
+.main .my-balance .bottom .table ul.item li {
+  font-size: 12px;
+}
+.main .my-balance .bottom .table ul li {
+  width: 185px;
+}
+.main .my-balance .bottom .table ul.title li {
+  border-right: hidden;
+}
+.main .my-customer,
+.main .my-attention {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.main .my-customer .head,
+.main .my-attention .head {
+  position: relative;
+}
+.main .my-customer .head .tab,
+.main .my-attention .head .tab {
+  background-color: #02a2ea;
+  height: 36px;
+  padding-top: 4px;
+  padding-left: 21px;
+  color: #feffff;
+  box-shadow: 0 0 5px 3px #dddddd;
+  -webkit-box-shadow: 0 0 5px 3px #dddddd;
+}
+.main .my-customer .head .tab li,
+.main .my-attention .head .tab li {
+  float: left;
+  line-height: 36px;
+  height: 36px;
+  padding: 0 28px;
+  font-size: 14px;
+  text-align: center;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+  color: #feffff;
+  cursor: pointer;
+}
+.main .my-customer .head .tab li.active,
+.main .my-attention .head .tab li.active {
+  background-color: #fff;
+  color: #00a1e9;
+}
+.main .my-customer .head .search,
+.main .my-attention .head .search {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+}
+.main .my-customer .head .search .icon,
+.main .my-attention .head .search .icon {
+  background-color: #fff;
+  height: 25px;
+  display: inline-block;
+  padding: 2px 6px 0;
+  margin-right: -5px;
+  border-radius: 8px 0 0 8px;
+}
+.main .my-customer .head .search .icon img,
+.main .my-attention .head .search .icon img {
+  margin: 2px 0 0 2px;
+}
+.main .my-customer .head .search input,
+.main .my-attention .head .search input {
+  height: 25px;
+  border-radius: 0 5px 5px 0;
+  border: hidden;
+  outline: none;
+}
+.main .my-customer .content,
+.main .my-attention .content {
+  background-color: #fff;
+  padding: 10px 20px 30px;
+}
+.main .my-customer .content li,
+.main .my-attention .content li {
+  float: left;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 12px;
+  color: #333333;
+  border-right: 1px solid #ddd;
+}
+.main .my-customer .content li:last-child,
+.main .my-attention .content li:last-child {
+  border-right: hidden;
+}
+.main .my-customer .content .title,
+.main .my-attention .content .title {
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+.main .my-customer .content .title li,
+.main .my-attention .content .title li {
+  width: 125px;
+}
+.main .my-customer .content .item,
+.main .my-attention .content .item {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+.main .my-customer .content .item .one,
+.main .my-attention .content .item .one {
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+}
+.main .my-customer .content .item .one li,
+.main .my-attention .content .item .one li {
+  width: 125px;
+}
+.main .my-customer .content .item .two,
+.main .my-attention .content .item .two {
+  overflow: hidden;
+}
+.main .my-customer .content .item .two li:first-child,
+.main .my-attention .content .item .two li:first-child {
+  width: 735px;
+  text-align: start;
+  padding-left: 20px;
+}
+.main .my-customer .content .item .two li:last-child,
+.main .my-attention .content .item .two li:last-child {
+  width: 125px;
+}
+.main .my-attention .content .title li {
+  width: 293px;
+}
+.main .my-attention .content .item .one li {
+  width: 293px;
+}
+.main .my-attention .content .item .two li:last-child {
+  width: 880px;
+}
+.main .my-invite {
+  overflow: hidden;
+}
+.main .my-invite .top {
+  position: relative;
+  background-color: #fff;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.main .my-invite .top .left span {
+  font-size: 16px;
+}
+.main .my-invite .top .left a {
+  font-size: 18px;
+}
+.main .my-invite .top .left button {
+  font-size: 12px;
+  padding: 12px 26px;
+  border-radius: 5px;
+  margin-left: 26px;
+  border: hidden;
+  background-color: #00abf8;
+  color: #fff;
+}
+.main .my-invite .top .right {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  margin-top: -12px;
+  color: #333333;
+  background-image: url(../img/web/rule.png);
+  background-repeat: no-repeat;
+  height: 22px;
+  background-size: 22px 22px;
+  background-position: 68px 0;
+  padding-right: 26px;
+}
+.main .my-invite .bottom .head {
+  border-radius: 5px 5px 0 0;
+}
+.main .my-invite .bottom .head .tab {
+  background-color: #02a2ea;
+  height: 36px;
+  padding-top: 4px;
+  padding-left: 21px;
+  color: #feffff;
+  border-radius: 5px 5px 0 0;
+}
+.main .my-invite .bottom .head .tab li {
+  float: left;
+  line-height: 36px;
+  height: 36px;
+  padding: 0 28px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+  color: #feffff;
+  cursor: pointer;
+}
+.main .my-invite .bottom .head .tab li.active {
+  background-color: #fff;
+  color: #00a1e9;
+}
+.main .my-invite .bottom .content {
+  border-radius: 0 0 5px 5px;
+  background-color: #fff;
+  padding: 10px 20px 30px;
+}
+.main .my-invite .bottom .content ul {
+  overflow: hidden;
+}
+.main .my-invite .bottom .content ul li {
+  float: left;
+  width: 293px;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  padding: 20px 0;
+}
+.main .my-data {
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.main .my-data .avatar {
+  width: 440px;
+  margin: 20px auto;
+  /* display: inline-block; */
+  text-align: center;
+}
+.main .my-data .avatar a {
+  display: inline-block;
+  width: 80px;
+}
+.main .my-data .avatar a img {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  display: block;
+}
+.main .my-data .avatar a span {
+  font-size: 12px;
+  color: #00a1e9;
+}
+.main .my-data .data {
+  width: 440px;
+  margin: 20px auto;
+  font-size: 16px;
+}
+.main .my-data .data label {
+  color: #333333;
+  width: 15%;
+  margin-right: 16px;
+  text-align: right;
+  display: inline-block;
+}
+.main .my-data .data input[type="text"] {
+  width: 280px;
+  height: 50px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+.main .my-data .data button {
+  width: 300px;
+  height: 50px;
+  color: #fff;
+  border-radius: 5px;
+  border: hidden;
+  margin-left: 20%;
+  padding: 0 2px;
+  background-color: #00a1e9;
+}
+.main .my-data .data .radioclass {
+  margin-left: 10px;
+}
+.main .my-data .data .radioclass span {
+  position: relative;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+.main .my-data .data .radioclass span img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+}
+.main .my-data .data .radioclass span input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.main .my-complaints {
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 20px 90px;
+}
+.main .my-complaints .image-upload {
+  position: relative;
+}
+.main .my-complaints .image-upload .imgs {
+  display: none;
+}
+.main .my-complaints .image-upload .add-button span {
+  position: relative;
+  background-image: url(../img/web/add.png);
+  background-repeat: no-repeat;
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+}
+.main .my-complaints .image-upload .add-button span input {
+  position: absolute;
+  opacity: 0;
+  width: 80px;
+  height: 80px;
+}

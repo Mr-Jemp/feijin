@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>登录</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">登录</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="login-form">
+			<div class="register login-box-warp">
+				<div class="form-group">
+					<i class="i-phone"></i>
+					<input type="number" id="account" class="input_text" placeholder="请输入您的手机号码" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')">
+				</div>
+				<div class="form-group">
+					<i class="i-password"></i>
+					<input type="password" id="password" class="input_text" placeholder="请输入您的密码">
+				</div>
+			</div>
+			<button id="loginButton" class="button disabled">登录</button>
+			<div class="register-password">
+				<a id="regBtn" class="register-href">注册</a>
+				<a id="forget-password" class="password-href">忘记密码</a>
+			</div>
+			<div class="three-login">
+				<p>使用第三方平台登录</p>
+				<div id="thirdImage" class="oauth-area">
+					<!--<a class="i-wechat"></a>
+					<a class="i-sina"></a>
+					<a class="i-qq"></a>-->
+				</div>
+			</div>
+		</div>							
+	</div>	
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/md5.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+    (function ($, doc) {
+        $.plusReady(function () {
+            var toMain = function() {
+                var index = "personal/index.html";
+                var personalCenter = plus.webview.getWebviewById(index);
+                setTimeout(function() {
+                    if (null != personalCenter) {
+                        plus.webview.show(personalCenter);
+                        plus.webview.hide(plus.webview.currentWebview());
+                        personalCenter.reload(true);
+                    } else {
+                        $.app.openWindowWithId(index, "../" + index);
+                    }
+				}, 0);
+            };
+
+            app.setState(null);
+            //第三方登录
+            var authBtns = ['weixin', 'qq', 'sinaweibo']; //配置业务支持的第三方登录
+            var auths = {};
+            var oauthArea = doc.querySelector('.oauth-area');
+            plus.oauth.getServices(function (services) {
+                for (var i in services) {
+                    var service = services[i];
+                    auths[service.id] = service;
+                    if (~authBtns.indexOf(service.id)) {
+                        var isInstalled = app.isInstalled(service.id);
+                        var btn = document.createElement('div');
+                        //如果微信未安装，则为不启用状态
+                        btn.setAttribute('class', 'oauth-btn' + (!isInstalled && service.id === 'weixin' ? (' disabled') : ''));
+                        btn.authId = service.id;
+                        btn.style.backgroundImage = 'url("../resources/images/' + service.id + '.png")';
+                        oauthArea.appendChild(btn);
+                    }
+                }
+
+                $(oauthArea).on('tap', '.oauth-btn', function () {
+                    if (this.classList.contains('disabled')) {
+                        plus.nativeUI.toast('您尚未安装微信客户端');
+                        return;
+                    }
+                    var authId = this.authId;
+                    var auth = auths[this.authId];
+                    var waiting = plus.nativeUI.showWaiting();
+                    auth.login(function () {
+                        waiting.close();
+                        plus.nativeUI.toast("登录认证成功");
+
+                        auth.getUserInfo(function () {
+                            plus.nativeUI.toast("获取用户信息成功");
+                            auth.userInfo.isThird = true;
+                            var nickname = auth.userInfo.nickname || auth.userInfo.screen_name;
+                            var id = auth.userInfo.unionid || auth.userInfo.id || auth.authResult.openid;
+                            var image = auth.userInfo.avatar_hd || auth.userInfo.figureurl_qq_1 || auth.userInfo.headimgurl || auth.userInfo.profile_image_url;
+                            console.log(nickname + '-' + id + '-' + authId + '-' + image);
+                            var body = {"username":id,"nickname":nickname,"source":authId,"avatar":image};
+                            $.app.post("security/authorizationLogin",body,function(data){
+                            	console.log("ok");
+                                auth.userInfo.username = id;
+                                auth.userInfo.image = image;
+                                auth.userInfo.nickname = nickname;
+                                app.createState(auth.userInfo, function () {});
+                                toMain();
+                            });
+                        }, function (e) {
+                            plus.nativeUI.toast("获取用户信息失败：" + e.message);
+                        });
+                    }, function (e) {
+                        waiting.close();
+                        //plus.nativeUI.toast("登录认证失败：" + e.message);
+                    });
+                });
+            }, function (e) {
+                oauthArea.style.display = 'none';
+                //plus.nativeUI.toast("获取登录认证失败：" + e.message);
+            });
+
+            var accountBox = document.getElementById('account');
+            var passwordBox = document.getElementById('password');
+            var loginButton = document.getElementById("loginButton");
+            var regBtn = document.getElementById("regBtn");
+            regBtn.addEventListener('tap', function (event) {
+                $.app.openWindow("register.html");
+            });
+
+            loginButton.addEventListener('tap', function (event) {
+            	if (!hasClass(this, 'disabled')) {
+	                var loginInfo = {
+	                    username: accountBox.value,
+	                    password: passwordBox.value
+	                };
+	
+	                app.login(loginInfo, function (err) {
+	                    if (err) {
+	                        plus.nativeUI.toast(err);
+	                        return;
+	                    }
+	                    toMain();
+	                });
+				} else {
+				  	mui.toast("请输入完整！");
+				}
+            });
+
+            document.getElementById("forget-password").addEventListener('tap', function (event) {
+                $.app.openWindow("forget.html");
+            });
+
+            window.addEventListener("resize", function() {
+                var height = document.body.scrollHeight;
+                if (plus) {
+                    var h = screen.height - plus.android.invoke(plus.android.currentWebview(),"getHeight");
+                    if (h > height) {
+                        document.getElementById("thirdImage").style.display = "none";
+                    } else {
+                        document.getElementById("thirdImage").style.display = "";
+                    }
+                }
+            })
+            
+            $(".form-group").on('input', '.input_text', function(){
+				$(".input_text").each(function(){
+					if (this.value != '') {
+						removeClass($("#loginButton")[0], 'disabled');
+					} else {
+						addClass($("#loginButton")[0], 'disabled');
+					}
+				})
+			})
+        })
+    })(mui, document)
+</script>
+</html>

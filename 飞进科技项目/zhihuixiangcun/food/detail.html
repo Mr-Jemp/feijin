@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/swiper.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../resources/css/mui.picker.min.css" />
+	<title>美食详情</title>
+	<style>
+		#header .title{right: 100px;}
+	</style>
+</head>
+<body>
+	<div class="main mui-content attractions-warp food-warp">
+		<div v-cloak id="main">
+			<div class="wineshop-detail-1 pos-header">
+				<header id="header" class="mui-bar mui-bar-nav header transparent">
+					<a class="mui-action-back mui-icon mui-pull-left back"></a>
+					<h1 class="mui-title title">{{foodName}}</h1>
+					<a class="mui-pull-right">
+						<i id="call" :data-id="telephone" class="mui-icon phone"></i>
+						<i id="collect" :type-id="collectionStatus" class="mui-icon collect marginR" :class="{'collected': collectionStatus == true}"></i>
+						<i class="mui-icon share marginR" onclick="openShareWindow(this)"></i>
+					</a>
+				</header>
+				<a class="cover-img">
+					<div class="banner-warp">
+						<div class="swiper-container swiper-banner" :class="{'isslide' : foodImageList.length > 1}">
+							<div class="swiper-wrapper">	
+								<template v-for="item in foodImageList">
+									<div class="swiper-slide">
+										<img :src="item.name" :alt="item.title" class="banner-img">
+									</div>
+								</template>
+							</div>
+						</div>
+					</div>
+				</a>
+				<em class="price">{{price}}元 /人</em>
+				<em class="img-total">
+					<i class="i-img"></i>
+					<span>{{foodImageList.length}}张</span>
+				</em>
+			</div>
+			
+			<div class="wineshop-detail-2 attractions-detail-1">
+				<div class="info-group">
+					<a id="map" class="left address-info">
+						<i class="i-address"></i>
+						<p>{{address}}</p>
+					</a>
+					<a id="comment" class="right">{{commentCount}}评论</a>
+				</div>
+			</div>
+			
+			<div class="wineshop-detail-2 marginT10 attractions-detail-1">
+				<div id="showBox" class="info-group attractions-detail-2">
+					<label>选择：</label>
+					<span>日期 <strong id="date"></strong> <strong id="zhong"></strong>/数量 <strong id="num"></strong></span>
+					<em class="more"></em>
+				</div>
+			</div>
+			
+			<div class="food-detail1 marginT10">
+				<h1 class="tit">推荐菜</h1>
+				<p class="tags" v-html="dishes"></p>
+				<h1 class="tit">餐厅介绍</h1>
+				<p class="info">营业时间：{{businessTime}}</p>
+				<p class="info">服务信息：{{service}}</p>
+			</div>
+			
+			<div id="reserveBox" class="alertBox hide">
+				<div class="transparentBg"></div>
+				<div class="reserveBox">
+					<em id="close" class="close"></em>
+					<div class="tit">
+						<img :src="foodImg" alt="" />
+						<h1>{{foodName}}</h1>
+					</div>
+					<div id='timeSelect' data-options='{"type":"date"}' class="item-group">
+						<label>选择日期</label>
+						<p id="timeResult"></p>
+						<em class="more"></em>
+					</div>
+					<div id="zhongSelect" data-options='{"type":"time"}' class="item-group">
+						<label>时间</label>
+						<p id="zhongResult"></p>
+						<em class="more"></em>
+					</div>
+					<div class="item-group padr">
+						<label>人数</label>
+						<div class="mui-numbox number" data-numbox-min='1' data-numbox-max='9'>
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input id="number2" class="mui-input-numbox" type="number" value="1" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="item-group buttons">
+						<p>金额：￥<span id="price">{{price}}</span></p>
+						<button id="submit" class="button">预定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="food-detail2 marginT10">
+			<h1 class="tit">游客点评</h1>
+			<div id="commentList" class="personal-comment3 comment1 marginT0">
+				<div class="notdata">暂无评论</div>
+				<ul class="mui-table-view mui-table-view-chevron">
+					<template v-for="item in datas">
+						<li :id="item.id">
+							<div class="img">
+								<img v-if="item.avatar != null" :src="item.avatar" alt="" />
+								<img v-else src="../resources/images/portrait.png" alt="" />
+							</div>
+							<div class="text-info">
+								<div class="info">
+									<h1 class="name">{{item.authorName}}</h1>
+									<div class="star">
+										<label>评分：</label>
+										<p v-html="item.score"></p>
+									</div>
+									<p class="txt">{{item.textContent}}</p>
+									<h6 class="date">{{item.createTime}}</h6>
+								</div>
+								<div v-if="item.commentaryDTOList.length > 0" class="reply">
+									<template v-for="child in item.commentaryDTOList">
+										<ol>
+											<li :id="child.id" class="item-group">
+												<label class="name">{{child.authorName}}：</label>
+												<p>{{child.textContent}}</p>
+											</li>
+										</ol>
+									</template>
+								</div>
+							</div>	
+							<em class="replyBtn"></em>
+						</li>
+					</template>						
+				</ul>
+				<div v-show="datas.length > 0" id="viewMore" class="view-more">查看更多</div>
+			</div>
+		</div>
+		
+		<div class="attractions-detail-4">
+			<button id="submit2" class="button">预定</button>
+		</div>	
+			
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/swiper.min.js"></script>
+<script src="../resources/js/mui.picker.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+
+	(function($) {
+
+		var vm = vm2 = null,address,id,name,img,zongjia,price,quantity,consumeDate,predictDate,childQuantity = 1;
+		var id = $.app.getId(document.URL);
+		
+		var url = 'food/details';
+		$.app.post(url, {"id": id}, function(data){
+			vm = new Vue({
+				el: "#main",
+				data: data
+			})
+			
+			id = data.id;
+			name = data.foodName;
+			img = data.foodImg;
+			price = data.price;
+			address = data.province + data.city + data.address;
+			
+			var shareMessage = {};
+			shareMessage.href = data["shareLink"];
+			shareMessage.title = data["foodName"];
+			if (data.summary != null) {
+				shareMessage.content = data["summary"];
+			} else {
+				shareMessage.content = data["foodName"];
+			}
+			shareMessage.thumbs = data["foodImg"];
+			window.shareMessage = shareMessage;
+			
+			onevent();
+		})			
+		
+		function onevent() {
+			var page = 1;
+			commentUrl = 'commentary/list';
+			commentData = {
+				"itemId": id,
+				"type": 4
+			}
+			$.app.post(commentUrl+'?pageNo='+page, commentData, function(data){
+				vm2 = new Vue({
+					el: "#commentList",
+					data: {
+						datas: data.commentaryDTOList
+					}
+				})
+				page++;
+				starNum(data.commentaryDTOList);
+			
+				$(".personal-comment3").on('tap', '.replyBtn', function(){
+					id = this.parentNode.id;
+					var name = this.parentNode.getElementsByClassName("name")[0].innerHTML;
+					$.app.openWindow('../comment/creat.html?id=' + id + '&type=4' + '&status=2' + '&name=' + name + '：');
+				})
+				
+				$(".reply").on('tap', '.item-group', function(){
+					id = this.id;
+					var name = this.getElementsByClassName('name')[0].innerHTML;
+					$.app.openWindow('../comment/creat.html?id=' + id + '&type=4' + '&status=2' + '&name=' + name);
+				})
+			})			
+		}
+		
+		mui.plusReady(function() {
+			$.app.getShareSerivces();
+			
+			new Swiper('.isslide', {
+				loop: true,
+				pagination: false,
+				paginationClickable: true,
+				preloadImages: false,
+				speed: 300,
+				autoplay: 5000
+			});
+			plus.navigator.closeSplashscreen();
+			
+			$("#map")[0].addEventListener('tap', function(){
+				$.app.openWindow('../map.html?title=' + address);
+			})
+			
+			$("#comment")[0].addEventListener('tap', function(){
+				$.app.openWindow('../page.html?id=' + id + '&type=4&title=评论&url=comment/list');
+			})
+			
+			$("#collect")[0].addEventListener('tap', function(){
+				if (this.getAttribute('type-id')) {
+					var param = {
+						"goodId": id
+					}
+					$.app.delete('collection/remove', param, function(data){
+						mui.toast("取消成功！");
+						vm.$data.collectionStatus = false;
+					})
+				} else {
+					var param = {
+						"goodId": id,
+						"type": 1
+					}
+					$.app.post('collection/create', param, function(data){
+						mui.toast("收藏成功！");
+						vm.$data.collectionStatus = true;
+					})
+				}					
+			})
+			
+			$("#showBox")[0].addEventListener('tap', function(){
+				removeClass($("#reserveBox")[0], 'hide');
+			})
+			
+			$("#close")[0].addEventListener('tap', function(){
+				addClass($("#reserveBox")[0], 'hide');
+			})
+			
+			$('.mui-numbox').numbox();
+			$("#number2")[0].addEventListener('change',function(){
+				$("#price")[0].innerHTML = zongjia = price * $("#number2")[0].value;
+				$("#num")[0].innerHTML = $("#number2")[0].value;
+			});
+		
+			document.getElementById("timeSelect").addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					$("#timeResult")[0].innerHTML = $("#date")[0].innerHTML = consumeDate = rs.text;
+					picker.dispose();
+				});
+			}, false);
+			
+			document.getElementById("zhongSelect").addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					$("#zhongResult")[0].innerHTML = $("#zhong")[0].innerHTML = predictDate = rs.text;
+					picker.dispose();
+				});
+			}, false);
+			
+			$("#submit")[0].addEventListener('tap', function(){
+				submit();	
+			})
+			
+			$("#submit2")[0].addEventListener('tap', function(){
+				submit();
+			})
+			
+			$("#viewMore")[0].addEventListener('tap', function(){
+				$.app.openWindow('../page.html?id=' + id + '&type=4&title=评论&url=comment/list');
+			})
+			
+			$("#call")[0].addEventListener('tap', function(){
+				var phoneNumber = this.getAttribute('data-id');
+				plus.device.dial(phoneNumber, true);
+			})
+		});		
+		
+		function submit(){
+			if (!consumeDate) {
+				mui.toast("请选择日期");
+				return;
+			}
+			if (!predictDate) {
+				mui.toast("请选择时间");
+				return;
+			}
+			addClass($("#reserveBox")[0], 'hide');
+			quantity = parseInt($("#number2")[0].value);
+			zongjia = $("#price")[0].innerHTML;
+			$.app.openWindow("from.html?id=" + id + "&name=" + name + "&img=" + img + "&price=" + zongjia + "&quantity=" + quantity + "&childQuantity=" + childQuantity + "&consumeDate=" + consumeDate + "&predictDate=" + predictDate);
+		}
+		
+		window.onscroll = function () {  
+            var top = document.documentElement.scrollTop || document.body.scrollTop;  
+            if (top > 10) {
+            	removeClass($("#header")[0], 'transparent');
+            } else {
+            	addClass($("#header")[0], 'transparent');
+            }
+        };
+	})(mui);		
+</script>
+
+</html>

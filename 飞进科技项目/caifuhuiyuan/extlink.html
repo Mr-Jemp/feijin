@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/conf.js"></script>
+		<title>外部连接</title>
+	</head>
+
+	<body id="infomation-detail">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-pull-left back"></a>
+			<h1 class="mui-title"></h1>
+		</header>
+	</body>
+
+	<script>
+		var state = window.app.getState();
+		var url = state.extlink;
+		if (url.indexOf("http") < 0) {
+			url = "http://" + url;
+		}
+		mui.init({
+			swipeBack: true, 
+			subpages: [{
+				url: url, 
+				id: url, 
+				styles: {
+					top: 40, 
+					bottom: 0, 
+				}
+			}]
+		});
+	</script>
+</html>

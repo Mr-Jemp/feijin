@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<title>个人中心-设置</title>
+</head>
+<body>	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+		<h1 class="mui-title">设置</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="setup-list">
+			<!--<p>
+				<span class="fleft">检查更新</span>
+				<span class="fright">当前版本 V1.0</span>
+			</p>
+			<p>
+				<span class="fleft">清除缓存</span>
+				<span class="fright">56.1M</span>
+			</p>-->
+			<div>
+				<input id="logout" type="submit" class="input_submit" value="退出当前账号" />
+			</div>			
+		</div>
+	</div>
+</body>
+
+	<script>
+		(function($, doc){
+			$.plusReady(function() {
+				document.getElementById("logout").addEventListener('tap', function(){
+					$.app.post(api_domain + "security/logout",{}, function(data) {
+						app.setState(null);
+						var top = plus.webview.getLaunchWebview();
+						plus.webview.show(top);
+						plus.webview.hide(plus.webview.currentWebview());
+					});
+				});
+			});
+		})(mui, document)
+	</script>
+</html>

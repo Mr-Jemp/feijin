@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>评论</title>
+</head>
+<body>	
+	<div class="main mui-content">
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div v-cloak id="commentList">
+					<div class="personal-comment2 notdata" :class="{'hide' : datas.length > 0}">
+						<img src="../resources/images/nodata.png" alt="" />
+					</div>
+					
+					<div class="personal-comment3 comment1 marginT0">
+						<ul class="mui-table-view mui-table-view-chevron">
+							<template v-for="item in datas">
+								<li :id="item.id">
+									<div class="img">
+										<img v-if="item.avatar != null" :src="item.avatar" alt="" />
+										<img v-else src="../resources/images/portrait.png" alt="" />
+									</div>
+									<div class="text-info">
+										<div class="info">
+											<h1 class="name">{{item.authorName}}</h1>
+											<div class="star">
+												<label>评分：</label>
+												<p v-html="item.score"></p>
+											</div>
+											<p class="txt">{{item.textContent}}</p>
+											<h6 class="date">{{item.createTime}}</h6>
+										</div>
+										<div v-if="item.commentaryDTOList.length > 0" class="reply">
+											<template v-for="child in item.commentaryDTOList">
+												<ol>
+													<li :id="child.id" class="item-group">
+														<label class="name">{{child.authorName}}：</label>
+														<p>{{child.textContent}}</p>
+													</li>
+												</ol>
+											</template>
+										</div>
+									</div>	
+									<em class="replyBtn"></em>
+								</li>
+							</template>						
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="addComment" class="comment2">添加评论</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+			
+		var vm = null,page = 1,commentUrl,commentData;
+		
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					auto: false,
+					callback: pulldownRefresh
+				},
+				up: {
+					auto: false,
+					contentrefresh: '正在加载...',
+					contentnomore:'暂无更多数据',
+					callback: pullupRefresh
+				}
+			}
+		});
+		
+		//上拉刷新、下拉加载
+		function pulldownRefresh() {
+			page = 1;
+			$.app.post(commentUrl+'?pageNo='+page, commentData, function(data){
+				vm.datas = data.commentaryDTOList;
+				page++;
+				starNum(data.commentaryDTOList);
+			})
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(false);
+			mui('#pullrefresh').pullRefresh().refresh(true);
+		}
+
+		function pullupRefresh() {
+			$.app.post(commentUrl+'?pageNo='+page, commentData, function(data){
+				if (data.commentaryDTOList.length != 0) {
+					setTimeout(function(){
+						vm.datas = vm.datas.concat(data.commentaryDTOList);
+					},200);
+					page++;
+					starNum(data.commentaryDTOList);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+				} else {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
+			})
+		}					
+		
+		$.plusReady(function() {
+			
+			var type = $.app.getName(document.URL, 'type');
+			var id = $.app.getId(document.URL);
+			commentUrl = 'commentary/list';
+			commentData = {
+				"itemId": id,
+				"type": type
+			}
+			$.app.post(commentUrl+'?pageNo='+page, commentData, function(data){
+				vm = new Vue({
+					el: "#commentList",
+					data: {
+						datas: data.commentaryDTOList
+					}
+				})
+				page++;
+				starNum(data.commentaryDTOList);
+				
+				$(".personal-comment3").on('tap', '.replyBtn', function(){
+					id = this.parentNode.id;
+					var name = this.parentNode.getElementsByClassName("name")[0].innerHTML;
+					$.app.openWindow('creat.html?id=' + id + '&type=' + type + '&status=2' + '&name=' + name + '：');
+				})
+				
+				$(".reply").on('tap', '.item-group', function(){
+					id = this.id;
+					var name = this.getElementsByClassName('name')[0].innerHTML;
+					$.app.openWindow('creat.html?id=' + id + '&type=' + type + '&status=2' + '&name=' + name);
+				})
+			})
+			
+			$("#addComment")[0].addEventListener('tap', function(){
+				$.app.openWindow('creat.html?id=' + id + '&type=' + type + '&status=1');
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

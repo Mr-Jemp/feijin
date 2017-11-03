@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/conf.js"></script>
+		<script src="../js/js.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<title>个人中心－我的关注</title>
+
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">关注</h1>
+		</header>
+		<div class="main mui-content mui-fullscreen">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="fllow-list" class="mui-slider-group">
+					<div id="item0" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll fllow-list">
+								<ul>
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.headerImg}}" alt="" style="width:50px">
+											</div>
+											<div class="txt">
+												<h4>{{item.name}}</h4>
+												<p>“{{item.concerns}}”</p>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		(function($) {
+			$('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+
+			$.app.url = api_domain + "personal/concern/list";
+			$.app.request($.app.url, function(data) {
+				console.log(JSON.stringify(data));
+				$.app.initItemListVm(0, data);
+				$.app.pageNo++;
+			});
+
+			var createFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				for(var i = 0; i < data["result"].length; i++) {
+					var item = data["result"][i];
+					li = document.createElement('li');
+					li.setAttribute("id", item["id"]);
+					li.innerHTML = '<div class="img">'
+								  +'<img src="../images/userphoto.png" alt="">'
+								  +'	</div>'
+								  +'	<div class="txt">'
+								  +'	 <h4>轻描淡写的人生</h4>'
+								  +'	 <p>“会买的是徒弟，会卖的是师傅。”</p>'
+								  +'	</div>';
+					// 刷新出来的li内容
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request($.app.url, function(data) {
+						ul.innerHTML = "";
+						ul.appendChild(createFragment(ul, index, data));
+					})
+				},
+				function(self, index) { // up
+					var url = $.app.url + "?pageNo=" + $.app.pageNo;
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo++;
+					})
+				}
+			)
+
+			$.plusReady(function() {
+				$('#fllow-list').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					$.app.openFlowDetail(id);
+				})
+			});
+		})(mui);
+	</script>
+
+</html>

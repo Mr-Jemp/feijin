@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/js.js"></script>
+		<script src="../js/conf.js"></script>
+		<title>理财课堂-详情</title>
+	</head>
+
+	<body v-cloak id="classroom-detail">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title" id="title">
+				<template v-if="type == 5">
+					轻松买房
+				</template>
+				<template v-if="type == 6">
+					小白炒股			
+				</template>
+				<template v-if="type == 7">
+					走进P2P
+				</template>
+				<template v-if="type == 8">
+					玩转基金
+				</template>
+				<template v-if="type == 9">
+					用好保险
+				</template>
+				<template v-if="type == 10">
+					尝试高风险
+				</template>
+				<template v-if="type == 4">
+					综合理财
+				</template>
+			</h1>
+			<a class="mui-icon mui-pull-right share shareBtn" id="shareBtn" onclick="openShareWindow(this)"></a>
+		</header>
+		<div class="main mui-content">
+			<div class="infor-detail">
+				<div id="content"></div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		(function($) {
+			var id = $.app.getId(document.URL); //获取页面传递的数据
+			var url = api_domain + "class/details";
+			$.app.post(url, {
+				id: id
+			}, function(data) {
+				new Vue({
+					el: '#classroom-detail',
+					data: data
+				});
+				
+				//document.getElementById("title").innerText = titles[data["type"]];
+				document.getElementById("content").innerHTML = data["textContent"];
+				var shareMessage = {};
+				shareMessage.href = data["shareLink"];
+				shareMessage.title = data["title"];
+				shareMessage.content = data["title"];
+				shareMessage.thumbs = data["thumbnail"];
+				window.shareMessage = shareMessage;
+			});
+
+			mui.plusReady(function() {
+				$.app.getShareSerivces();
+				//$.app.openShareWindow();
+			});
+		})(mui)
+	</script>
+
+</html>

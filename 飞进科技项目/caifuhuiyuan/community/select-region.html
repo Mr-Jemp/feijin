@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/conf.js"></script>
+	<title>社区-发帖</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">选择发帖主题</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="community-title">
+			<p>请选择您要发帖的主题</p>
+		</div>
+		<div class="community-talk zhuti">
+			<a id="1">理财大家说</a>
+			<a id="2">股票涨涨涨</a>
+			<a id="3">基金机会多</a>
+			<a id="4">保险抗风险</a>
+			<a id="5">买房也轻松</a>
+			<a id="6">资金全球配</a>
+		</div>
+		
+	</div>
+</body>
+
+	<script>
+		(function($) {
+			$('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			
+			$.plusReady(function() {
+				$('.community-talk').on('tap', "a", function() {
+					var id = this.getAttribute("id");
+					$.app.openUpdata(id);
+				})
+			});
+		})(mui)
+	</script>
+</html>

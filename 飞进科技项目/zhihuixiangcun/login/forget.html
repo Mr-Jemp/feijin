@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>忘记密码</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">忘记密码</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="login-form">
+			<div class="register login-box-warp">
+				<div class="form-group">
+					<i class="i-phone"></i>
+					<input id="username" type="number" class="input_text" placeholder="请输入您的手机号码" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')">
+				</div>
+				<div class="form-group">
+					<input id="captcha" type="number" class="input_text padding0" placeholder="请输入您的验证码">
+					<em id="gainCode" class="vailcode"></em>
+				</div>
+				<div class="form-group">
+					<i class="i-password"></i>
+					<input id="password1" type="password" class="input_text" placeholder="请输入您的新密码">
+				</div>
+				<div class="form-group last">
+					<i class="i-password"></i>
+					<input id="password2" type="password" class="input_text" placeholder="请再次确认您的新密码">
+				</div>
+			</div>
+			<button id="submitBtn" class="button disabled">确定</button>
+		</div>				
+	</div>	
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/md5.js"></script>
+<script src="../resources/js/plugin.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($) {
+		
+		var username,vailcode,password,password1,password2;
+  		var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+		
+		$("#gainCode")[0].addEventListener('tap', function(){
+			username = $("#username")[0].value;
+			if (username == '' || username.length == 0) {
+				mui.toast("请输入手机号码！");
+				$("#username")[0].focus();
+				return false;
+			}
+			else if (username.length < 11 || !myreg.test(username)) {
+				mui.toast("请输入正确的手机号码！");
+				$("#username")[0].focus();
+				return false;
+			}
+			getVerificationCode();
+		})
+		
+		$("#submitBtn")[0].addEventListener('tap', function(){
+			if (!hasClass(this, 'disabled')) {
+				username = $("#username")[0].value;
+				password1 = $("#password1")[0].value;
+				password2 = $("#password2")[0].value;
+				
+				if (username.length < 11 || !myreg.test(username)) {
+					mui.toast("请输入正确的手机号码！");
+					$("#username")[0].focus();
+					return;
+				}
+				
+				if (password1 != password2) {
+					mui.toast("两次输入的密码不一致！");
+					$("#password2")[0].focus();
+					return;
+				}
+				
+				submitVerificationCode(function(result) {
+					if (result == false) {
+						mui.toast("手机验证码不正确");
+						return;
+					}
+					
+					password = md5(password2);
+					var forgetUrl = 'forget/reset';
+					var forgetData = {
+						"username": username,
+						"password": password
+					}
+					$.app.post(forgetUrl, forgetData, function(data){
+						mui.toast("密码重置成功,请重新登录");
+	                	$.app.openWindow("login.html");
+					})
+				});
+			} else {
+				mui.toast("请输入完整！");
+			}
+		})	
+		
+		function getVerificationCode() {
+			var phone = $("#username")[0].value;
+			plus.MobMsm.getVerificationCode(phone, function( result ) {
+				mui.toast("验证码已发送");
+				time();
+			},function(result){
+				mui.toast("请重试...");
+			});			
+		}
+		
+		function submitVerificationCode(callback) {
+			var phone = document.getElementById("username").value;
+			var captcha = document.getElementById("captcha").value;
+			plus.MobMsm.submitVerificationCode([phone,captcha], function( result ) {callback(result)},function(result){mui.toast("请重试...");});
+		}
+		
+		$(".form-group").on('input', '.input_text', function(){
+			$(".input_text").each(function(){
+				if (this.value != '') {
+					removeClass($("#submitBtn")[0], 'disabled');
+				} else {
+					addClass($("#submitBtn")[0], 'disabled');
+				}
+			})
+		})
+		
+	})(mui);
+</script>
+</html>

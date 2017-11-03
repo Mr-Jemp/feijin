@@ -1,0 +1,220 @@
+{
+  "home/address.html": {
+    "href": "home/address.html",
+    "resources": [],
+    "priority": 0
+  },
+  "food/list.html": {
+    "href": "food/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "extlink.html": {
+    "href": "extlink.html",
+    "resources": [],
+    "priority": 1
+  },
+  "page.html": {
+    "href": "page.html",
+    "resources": [],
+    "priority": 2
+  },
+  "specialty/list.html": {
+    "href": "specialty/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "comment/creat.html": {
+    "href": "comment/creat.html",
+    "resources": [],
+    "priority": 5
+  },
+  "raiders/detail.html": {
+    "href": "raiders/detail.html",
+    "resources": [],
+    "refer": [],
+    "priority": 4
+  },
+  "home/features-detail.html": {
+    "href": "home/features-detail.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "farmhouse/list.html": {
+    "href": "farmhouse/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 7
+  },
+  "map.html": {
+    "href": "map.html",
+    "resources": [],
+    "priority": 8
+  },
+  "personal/coupon.html": {
+    "href": "personal/coupon.html",
+    "resources": [],
+    "priority": 9
+  },
+  "pay/payment.html": {
+    "href": "pay/payment.html",
+    "resources": [],
+    "refer": [],
+    "priority": 10
+  },
+  "wineshop/from.html": {
+    "href": "wineshop/from.html",
+    "resources": [],
+    "refer": [],
+    "priority": 9
+  },
+  "wineshop/detail.html": {
+    "href": "wineshop/detail.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "wineshop/list.html": {
+    "href": "wineshop/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "wineshop/sub.html": {
+    "href": "wineshop/sub.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "wineshop/index.html": {
+    "href": "wineshop/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "search/search.html": {
+    "href": "search/search.html",
+    "resources": [],
+    "priority": 9
+  },
+  "home/banner-detail.html": {
+    "href": "home/banner-detail.html",
+    "resources": [],
+    "priority": 10
+  },
+  "home/home.html": {
+    "href": "home/home.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "raiders/list.html": {
+    "href": "raiders/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 1
+  },
+  "raiders/updata.html": {
+    "href": "raiders/updata.html",
+    "resources": [],
+    "priority": 2
+  },
+  "raiders/sub.html": {
+    "href": "raiders/sub.html",
+    "resources": [],
+    "refer": [],
+    "priority": 1
+  },
+  "login/forget.html": {
+    "href": "login/forget.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "login/register.html": {
+    "href": "login/register.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "login/login.html": {
+    "href": "login/login.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "personal/modifyPassword.html": {
+    "href": "personal/modifyPassword.html",
+    "resources": [],
+    "priority": 4
+  },
+  "personal/info.html": {
+    "href": "personal/info.html",
+    "resources": [],
+    "refer": [],
+    "priority": 4
+  },
+  "personal/orderDetail.html": {
+    "href": "personal/orderDetail.html",
+    "resources": [],
+    "priority": 6
+  },
+  "personal/evaluate.html": {
+    "href": "personal/evaluate.html",
+    "resources": [],
+    "priority": 7
+  },
+  "personal/refund.html": {
+    "href": "personal/refund.html",
+    "resources": [],
+    "refer": [],
+    "priority": 9
+  },
+  "personal/orderList.html": {
+    "href": "personal/orderList.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "personal/download.html": {
+    "href": "personal/download.html",
+    "resources": [],
+    "priority": 7
+  },
+  "personal/aboutUs.html": {
+    "href": "personal/aboutUs.html",
+    "resources": [],
+    "priority": 8
+  },
+  "personal/proposal.html": {
+    "href": "personal/proposal.html",
+    "resources": [],
+    "priority": 9
+  },
+  "personal/twocode.html": {
+    "href": "personal/twocode.html",
+    "resources": [],
+    "priority": 10
+  },
+  "personal/setup.html": {
+    "href": "personal/setup.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "personal/index.html": {
+    "href": "personal/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  }
+}

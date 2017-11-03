@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>定位</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">定位</h1>
+	</header>
+	
+	<div class="main mui-content">
+		<div class="address1">
+			<h1 class="title">当前位置</h1>
+			<div class="current-address">
+				<span id="hidprovince">请选择位置</span>
+				<span id="hidcity"></span>
+			</div>
+			<h1 class="title">选择省份</h1>
+			<div class="address-list">
+				<ul id="list">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+<script src="../resources/js/area.js"></script>
+
+<script>
+	(function($){
+	
+		for (var province in chinaJSON) {
+			var li = document.createElement('li');
+			li.innerHTML = province;
+			addClass(li, 'province');
+			$("#list")[0].appendChild(li);
+		}
+		
+		mui.plusReady(function() {
+			$("#list").on('tap', 'li', function(){
+				if (hasClass(this, 'province')) {
+					var name = this.innerHTML;
+					$("#hidprovince")[0].innerHTML = name;
+					$("#list")[0].innerHTML = '';
+					for (var city in chinaJSON[name]) {
+						var child_li = document.createElement('li');
+						child_li.innerHTML = city;
+						$("#list")[0].appendChild(child_li);
+					}
+				} else {
+					var city = this.innerHTML;
+					localStorage.setItem('$address', city);
+                	var home = plus.webview.currentWebview().opener();
+                    plus.webview.close(plus.webview.currentWebview());
+                    home.reload(true);
+				}					
+			})
+		});
+		
+	})(mui)
+</script>
+
+</html>

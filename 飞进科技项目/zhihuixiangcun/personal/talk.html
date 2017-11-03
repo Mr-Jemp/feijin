@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>我的评论</title>
+</head>
+<body>
+	<div class="main mui-content">
+		<div id="navList" class="personal-coupon1 personal-comment1">
+			<a id="isok" class="nav active">收到的评论</a>
+			<a id="isno" class="nav">发出的评论</a>
+		</div>
+		
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div v-cloak id="commentList">
+					<div class="personal-comment2 notdata" :class="{'hide' : datas.length > 0}">
+						<img src="../resources/images/nodata.png" alt="" />
+					</div>
+					
+					<div class="personal-comment3">
+						<ul class="mui-table-view mui-table-view-chevron">
+							<template v-for="item in datas">
+								<li>
+									<div class="img">
+										<img :src="item.avatar" alt="" />
+									</div>
+									<div class="text-info">
+										<div class="info">
+											<h1 class="name">{{item.authorName}}</h1>
+											<div class="star">
+												<label>评分：</label>
+												<p v-html="item.score"></p>
+											</div>
+											<p class="txt">{{item.textContent}}</p>
+											<h6 class="date">{{item.createTime}}</h6>
+										</div>
+										<div v-if="item.commentaryDTOList.length > 0" class="reply">
+											<template v-for="child in item.commentaryDTOList">
+												<ol>
+													<li class="item-group">
+														<label class="name">{{child.authorName}}：</label>
+														<p>{{child.textContent}}</p>
+													</li>
+												</ol>
+											</template>
+										</div>
+									</div>							
+								</li>
+							</template>						
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+			
+		var vm = null,page = 1,commentUrl;
+		
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					auto: false,
+					callback: pulldownRefresh
+				},
+				up: {
+					auto: false,
+					contentrefresh: '正在加载...',
+					contentnomore:'暂无更多数据',
+					callback: pullupRefresh
+				}
+			}
+		});
+		
+		//上拉刷新、下拉加载
+		function pulldownRefresh() {
+			page = 1;
+			$.app.get(commentUrl+'?pageNo='+page, function(data){
+				vm.datas = data.result;
+				page++;
+				starNum(data.result);			
+			})
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(false);
+			mui('#pullrefresh').pullRefresh().refresh(true);
+		}
+
+		function pullupRefresh() {
+			$.app.get(commentUrl+'?pageNo='+page, function(data){
+				if (data.result.length != 0) {
+					setTimeout(function(){
+						vm.datas = vm.datas.concat(data.result);
+					},200);
+					page++;
+					starNum(data.result);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+				} else {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
+			})
+		}
+		
+		$.plusReady(function() {
+		
+			commentUrl = 'mycommentary/receive';
+			$.app.get(commentUrl+'?pageNo='+page, function(data){
+				vm = new Vue({
+					el: "#commentList",
+					data: {
+						datas: data.result
+					}
+				})
+				page++;
+				starNum(data.result);
+			})
+			
+			$("#navList").on('tap', '.nav', function(){
+				if (!hasClass(this, 'active')) {
+					page = 1;
+					if (this.id == 'isno') {
+						commentUrl = 'mycommentary/send';
+						removeClass($("#isok")[0], 'active');
+					}
+					if (this.id == 'isok') {
+						commentUrl = 'mycommentary/receive';
+						removeClass($("#isno")[0], 'active');
+					}
+					addClass(this, 'active');
+					$.app.get(commentUrl+'?pageNo='+page, function(data){
+						vm.$nextTick(function() {
+							vm.datas = data.result;
+						})
+						page++;
+						starNum(data.result);
+					})
+					mui('#pullrefresh').pullRefresh().refresh(true);
+				}					
+			})
+			
+		})
+		
+	})(mui)
+</script>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<link rel="stylesheet" href="../resources/css/dropload.css">
+	<title>老师详情</title>
+</head>
+<body>
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">老师详情页</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+	
+	<div v-cloak id="teacherDetail" class="post-question1 business-card">
+		<div class="width100">
+			<div class="portrait">
+				<img v-if="avatar != '' || avatar.length > 0" v-bind:src="avatar" class="pic" alt="">
+				<img v-else v-bind:src="../resources/images/portrait.png" class="pic" alt="">
+				<i class="i-vip"></i>
+			</div>
+				
+			<div class="info-card">
+				<p class="name">{{nickname}}</p>
+				<div class="statistics">
+					<template v-if="star != null || star.length > 0">
+						<p class="score" v-html="star"></p>
+					</template>
+					<template v-else>
+						<p class="score">暂无评分</p>
+					</template>	
+				<p class="answer-num">
+					<i class="i-call"></i>
+					<span>{{answers}}个回答</span>
+				</p>
+				</div>
+			</div>
+			<a class="question-btn" v-bind:data-id="id">提问</a>
+			
+		</div>
+		<div class="autograph">
+			<p>{{introduce}}</p>
+		</div>
+		<em class="view-more"></em>
+	</div>
+
+	<div class="content">
+		<div v-cloak id="teacherAnswerDetail" class="answer-warp">
+			<div class="tit">
+				<div class="fleft">
+					<i class="i-bookmark"></i>
+					<span>已回答{{datas[0].answers}}个问题</span>
+				</div>
+				<div class="fright">
+					<span id="morenAnswer" class="active tab">默认</span>
+					<em>|</em>
+					<span id="newAnswer" class="tab">最新</span>
+				</div>
+			</div>
+
+			<div class="question-list">
+				<ul id="audioWarp">
+					<template v-for="item in datas">
+						<li>
+							<a v-bind:href="'../answer/detail.html?id=' + item.id" class="title">{{item.ask}}</a>
+							<div class="answer">
+								<div class="portrait">
+									<img v-if="item.avatar != '' || item.avatar.length > 0" v-bind:src="item.avatar" class="pic">
+									<img v-else src="../resources/images/portrait.png" class="pic">
+									<i class="i-vip"></i>
+								</div>
+
+								<template v-if="item.has_read == false && item.is_limit != 1">
+									<audio class="audioBtn" src="" controls="controls"></audio>
+									<em v-bind:data-id="item.id" class="audio eavesdropping touting">{{item.jiage}}元宝偷听</em>
+								</template>
+								<template v-if="item.is_limit == 1">
+									<audio class="audioBtn" v-bind:src="item.media_url" controls="controls"></audio>
+									<em class="audio">限时免费</em>
+								</template>
+								<template v-if="item.has_read == true">
+									<audio class="audioBtn" v-bind:src="item.media_url" controls="controls"></audio>
+									<em class="audio">点击播放</em>	
+								</template>
+
+							</div>
+							<p class="teacher-name name">{{item.nickname}} | {{item.job_title}}</p>
+							<div class="foot">
+								<span class="date">{{item.ask_time}}</span>
+								<span class="listen-num">{{item.touting}}人已偷听</span>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="list.html"></a>
+		</em>
+		<span>
+			<a href="../personal/personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/dropload.min.js"></script>
+<script src="../resources/pages-js/teacher-detail.js" type="text/javascript" charset="utf-8"></script>
+</html>

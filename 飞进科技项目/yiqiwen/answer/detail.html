@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<title>问题详情</title>
+</head>
+<body>
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">问题详情</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div v-cloak id="answerDetail">
+		<div id="audioWarp">
+			<div class="answer-detail1">
+				<a>
+					<img v-if="ask.ask_avater != null" v-bind:src="ask.ask_avater" class="askpic" alt="">
+					<img v-else src="../resources/images/portrait.png" class="askpic" alt="">
+				</a>
+				<p class="info">{{ask.ask}}</p>	
+				<div v-if="ask.image != ''" class="imgs" v-html="ask.image"></div>
+
+				<!-- 已回答无追问 -->
+				<template v-if="ask.status == 2">
+					<li class="answer-body">
+						<a v-bind:href="'../teacher/detail.html?id=' + ask.answer_uid" class="portrait">
+							<img v-if="ask.answer_avater != null" v-bind:src="ask.answer_avater" class="pic" alt="">
+							<img v-else src="../resources/images/portrait.png" class="pic" alt="">
+							<i class="i-vip"></i>
+						</a>
+
+						<template v-if="datas.has_read == false && ask.is_limit != 1">
+							<audio class="audioBtn" src=" " controls="controls"></audio>
+							<em v-bind:data-id="ask.id" class="audio eavesdropping touting">{{ask.jiage}}元宝偷听</em>
+						</template>
+						<template v-if="ask.is_limit == 1">
+							<audio class="audioBtn" v-bind:src="ask.answer" controls="controls"></audio>
+							<em class="audio">限时免费</em>
+						</template>
+						<template v-if="datas.has_read == true">
+							<audio class="audioBtn" v-bind:src="ask.answer" controls="controls"></audio>
+							<em class="audio">点击播放</em>
+						</template>		
+						<span class="audioTime">时长{{ask.media_time}}"</span>
+						<p class="foot">
+							<span class="time">{{ask.answer_time}}</span>
+							<span class="listen-num">{{ask.touting}}人已偷听</span>
+						</p>		
+					</li>
+				</template>
+			</div>
+
+			<div v-show="datas.press_count > 0 && datas.current_user == false" class="answer-detail2">
+				<p class="text-left margin0">追问</p>
+			</div>
+
+			<div v-show="datas.press_count > 0 && datas.current_user == true" class="answer-detail2">
+				<p class="text-left margin0">免费追问</p>
+			</div>
+
+			<template v-if="datas.press_count > 0" v-for="item in press">
+				<div class="answer-detail1 pressNum">
+					<a>
+						<img v-if="ask.ask_avater != null" v-bind:src="ask.ask_avater" class="askpic" alt="">
+						<img v-else src="../resources/images/portrait.png" class="askpic" alt="">
+					</a>
+					<p class="info">{{item.ask_content}}</p>
+			
+					<template v-if="item.status == 2">
+						<div class="answer-body">
+							<a v-bind:href="'../teacher/detail.html?id=' + item.answer_uid" class="portrait">
+								<img v-if="ask.answer_avater != null" v-bind:src="ask.answer_avater" class="pic" alt="">
+								<img v-else src="../resources/images/portrait.png" class="pic" alt="">
+								<i class="i-vip"></i>
+							</a>
+							
+							<template v-if="datas.has_read == false && item.is_limit != 1">
+								<audio class="audioBtn" src="" controls="controls"></audio>
+								<em v-bind:data-id="item.id" class="audio eavesdropping notTouting">不可偷听</em>
+							</template>
+							<template v-if="item.is_limit == 1">
+								<audio class="audioBtn" v-bind:src="item.media_url" controls="controls"></audio>
+								<em class="audio">限时免费</em>
+							</template>
+							<template v-if="datas.has_read == true">
+								<audio class="audioBtn" v-bind:src="item.media_url" controls="controls"></audio>
+								<em class="audio">点击播放</em>	
+							</template>
+			
+							<span class="audioTime">{{item.media_time}}"</span>				
+						</div>
+						<p class="foot">
+							<span class="time">{{item.answer_time}}</span>
+							<span class="listen-num">{{ask.touting}}人已偷听</span>
+						</p>
+					</template>				
+				</div>
+			</template>
+		</div>
+
+		<!-- 未回答 -->
+		<div v-show="ask.status == 1 && datas.current_user == true" class="answer-detail2">
+			<h1>老师目前接受咨询人数较多，请您耐心等待</h1>
+			<p>为您推荐</p>
+		</div>
+
+		<div v-show="ask.status == 2 && datas.current_user == true" class="answer-detail2">
+			<h1></h1>
+			<h1 class="text-left">如果对老师的回答还有疑问你可以继续 <a id="pressBtn">追问</a> 或者咨询其他老师；
+			<template v-if="datas.is_comment == 1"> 您已对老师回答评分：{{datas.cur_star}}分 </template>
+			<template v-else>如果对结果满意，也可以对老师服务进行<a v-bind:href="'score.html?id=' + ask.id"> 评价 </a>哦！</template>
+			</h1>
+		</div>
+		
+		<div class="answer-detail3 martop10">
+			<template v-for="item in teachers">
+				<div class="post-question1 business-card answer-item center">
+					<a v-bind:href="'../teacher/detail.html?id=' + item.id" class="portrait">
+						<img v-if="item.avatar != null" v-bind:src="item.avatar" class="pic" alt="">
+						<img v-else src="../resources/images/pic.png" class="pic" alt="">
+						<i class="i-vip"></i>
+					</a>
+					<a v-bind:href="'../teacher/detail.html?id=' + item.id" class="info-card">
+						<p class="name name-info">
+							<span class="mingzi">{{item.nickname}}</span>
+							<span v-show="item.is_recommend == 1" class="tui">推荐</span>
+						</p>
+						<p class="jobTitle">{{item.job_title}}</p>
+					</a>
+					<div class="statistics answer-teacher">
+						<template v-if="item.star != null">
+							<p class="score" v-html="item.star"></p>
+						</template>
+						<template v-else>
+							<p class="score">暂无评分</p>
+						</template>	
+						<p class="answer-num">
+							<i class="i-call"></i>
+							<span>{{item.answers}}个回答</span>
+						</p>
+					</div>
+					<a class="ask-btn" v-bind:data-id="item.id">提问</a>
+				</div>
+			</template>			
+		</div>
+
+		<div v-if="randAsk != null && datas.current_user == false" class="answer-detail2">
+			<br>
+			<p class="text-left margin0">值得一听</p>
+		</div>
+
+		<div v-if="randAsk != null && datas.current_user == false" class="answer-detail5">
+			<a v-bind:href="'detail.html?id=' + randAsk.id" class="info">{{randAsk.ask}}</a>
+			<p class="date">
+				<span class="time">{{randAsk.ask_time}}</span>
+				<span class="num">{{randAsk.touting}}人已偷听</span>
+			</p>
+		</div>
+
+		<div v-if="datas.current_user == true" class="answer-detail4">
+			<p>想和老师进行更多沟通可以添加老师助手微信号</p>
+			<img src="../resources/images/twoCode.png" alt="">
+		</div>
+
+		<div class="alertBox answer-detail6 hide">
+			<div class="transparentBg"></div>
+			<div class="tip-content">
+				<div class="body">
+					<h2>免费追问</h2>
+					<textarea name="" id="textBody" placeholder="老师，2017年我的事业运河财运上面有比较大的联系么，如何能够稳定两者的关系呢？"></textarea>
+					<button id="close">取消</button>
+					<button id="pressSubmit">免费追问</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="fot-menu">
+			<span>
+				<a href="../index.html">
+					<i class="i-home"></i>
+					<span>首页</span>
+				</a>
+			</span>		
+			<em class="updata-question">
+				<a href="../teacher/list.html"></a>
+			</em>
+			<span>
+				<a href="../personal/personal-index.html">
+					<i class="i-personal"></i>
+					<span>我的</span>
+				</a>
+			</span>			
+		</div>
+	</div>
+	
+</body>
+
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/answer-detail.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

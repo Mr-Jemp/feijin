@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>反馈与建议</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">反馈与建议</h1>
+		<a id="submit" class="mui-pull-right txt">发表</a>
+	</header>
+	
+	<div class="main mui-content h100 bgWhite">
+		<div class="personal-proposal1">
+			<textarea id="textBody" placeholder="此刻你想说的..."></textarea>
+		</div>
+		
+		<div class="personal-proposal2">
+			<ul class="imgList"></ul>
+			<div class="add-img">
+				<i class="i-add"></i>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var img_arr = [],n = 0;
+		mui(".personal-proposal2").on("tap", '.add-img', function(e) {
+			var addBtn = this;
+			if (img_arr.length < 3) {
+				if (mui.os.plus) {
+					$.app.uploadPhoneImage("选择图片",function(image, picData) {				
+						setTimeout(function() {
+							$.app.post('upload/text/imagepath', {"data":picData}, function (data) {
+								img_arr[n] = data.src;
+								n++;
+							});
+						}, 0);
+	
+						setTimeout(function () {
+							plus.nativeUI.closeWaiting();
+							var li = document.createElement("li");
+							var imgList = addBtn.parentNode.getElementsByClassName('imgList')[0];
+							imgList.appendChild(li);
+							li.innerHTML = '<em class="close" data-id=' + n + '></em><img src="' + image + '" />';						
+						}, 1000);				
+					})
+				}
+			} else {
+				mui.toast("最多上传三张图片！");	
+			}
+		});
+		
+		$.plusReady(function() {
+			//删除图片
+			mui(".personal-proposal2").on('tap', '.close', function(){
+				var child_id = this.getAttribute('data-id');
+				img_arr.splice([child_id], 1);
+				var li = this.parentNode;
+				li.parentNode.removeChild(li);
+			});
+			
+			$("#submit")[0].addEventListener('tap', function(){
+				var text = $("#textBody")[0].value;
+				if (text == '') {
+					mui.toast("请输入反馈或建议内容！");
+					return;
+				}
+				var imgs = '';
+				for (var i = 0; i < img_arr.length; i++) {
+					imgs += '<img src"' + img_arr[i] + '" />';
+				}
+				var textBody = text + imgs;
+				$.app.post('feedback/create', {"textContent": textBody}, function(data){
+					mui.toast("发表成功，感谢您的建议与反馈！");
+					mui.back();
+				})
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

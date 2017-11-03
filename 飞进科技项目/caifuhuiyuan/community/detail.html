@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/conf.js"></script>
+		<script src="../js/js.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<title>社区-看帖</title>
+		<style>
+			.mui-bar-nav~.mui-content .mui-slider.mui-fullscreen{
+				bottom: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="community-replyBox">
+			<p class="mui-input-row"><input id="reply-content" type="text" class="input_text mui-input-clear" placeholder="我也来说一句..."></p>
+			<button id="save-btn">发表</button>
+		</div>
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">看帖</h1>
+			<a id="{{authorId}}" class="mui-btn mui-btn-link mui-pull-right text replylz hide">回复楼主</a> 
+		</header>
+		<div v-cloak id="community-detail" class="main mui-content" style="padding-bottom:30px">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div class="mui-slider-group">
+					<div id="item0" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll">
+								<div class="community-detail">
+									<div class="userInfo">
+										<div id="{{authorId}}" class="people-info">
+											<div class="imgWarp">
+												<img v-if="avatar != '' || avatar.length > 0" src="{{avatar}}" alt="">
+												<img v-else src="../images/user-img.png" alt="">
+											</div>
+											<span>{{authorName}}</span>
+										</div>						
+										<template v-if="concern">
+											<em class="disabled follow" id="follow">已关注</em>
+										</template>
+										<template v-else>
+											<em class="follow" id="follow">关注</em>
+										</template>										
+									</div>
+									<div class="community-detail-text">
+										<h4>{{title}}</h4>
+										<div id="content"></div>
+									</div>
+								</div>
+								<div class="operation">
+									<div>
+										<template v-if="collection == true">
+											<img class="collection cur" id="collection" src="../images/collection.png">
+										</template>
+										<template v-else>
+											<img  class="collection" id="collection" src="../images/collection_1.png">
+										</template>
+										<span id="collectionCount">{{collectionCount}}</span>
+									</div>
+									<div>
+										<template v-if="like == true">
+											<img class="zan" id="zan" src="../images/dzhang.png">
+										</template>
+										<template v-else>
+											<img class="zan" id="zan" src="../images/dzhang_1.png">
+										</template>
+										<span id="likeCount">{{likeCount}}</span>
+									</div>
+									
+										
+					
+								</div>
+								<div id="replys-list" class="replys-list">
+									<ul id="zhangsan" class="mui-table-view">
+										<template v-for="(index,reply) in communityDTOs">
+											<li>
+												<div class="userInfo">
+													<div id="{{reply.authorId}}" class="img user">
+														<img v-if="reply.avatar != '' || reply.avatar.length > 0" src="{{reply.avatar}}" alt="">
+														<img v-else src="../images/user-img.png" alt="">
+													</div>
+													<div id="{{reply.authorId}}" class="name user">
+														<h4 id="name{{reply.id}}">{{reply.authorName}}</h4>
+														<strong>{{reply.createTime}}</strong>
+													</div>
+													<div id="{{reply.id}}" class="talk">
+														<i class="i-comment"></i>
+													</div>
+												</div>
+												<p class="text">{{reply.textContent}}</p>
+												<div class="track-community">
+													<ol>
+														<template v-for="(index,replyTrack) in reply.communityDTOs">
+															<li>
+																<p><a id="{{replyTrack.authorId}}" class="lzl-user"><i id="name{{replyTrack.id}}">{{replyTrack.authorName}}</i></a> 回复 <a id="{{replyTrack.targetAuthorId}}" class="lzl-user">{{replyTrack.targetAuthorName}}</a> ：<span id="{{replyTrack.id}}" class="lzl-text">{{replyTrack.textContent}}</span></p>
+																<strong>{{replyTrack.createTime}}</strong>
+															</li>
+														</template>
+													</ol>
+												</div>
+											</li>
+										</template>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		if (window.plus) {
+			plusReady();
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+		}
+
+		(function($) {
+			var id = $.app.getId(document.URL);
+			var authorId = "";
+			$.app.pageNo = 1;
+			url = api_domain + "community/details";
+			$.app.url = api_domain + "community/details";
+			var vm = null;
+
+			setTimeout(function() {
+				$.app.post(url, {id: id }, function(data) {
+					vm = new Vue({
+						el: '#community-detail',
+						data: data
+					});
+					authorId = data["authorId"];
+					document.getElementById("content").innerHTML = data["textContent"];
+					$.app.pageNo++;
+
+					var follow = document.getElementById("follow");
+					follow.addEventListener('tap', function(){
+						if (!$.app.isLogin(app.getState())) {
+							$.app.openWindow("../login/login.html");
+							return;
+						}
+
+						var url = api_domain + "personal/concern/posted";
+						$.app.post(url, {id: authorId}, function(data) {
+							var btn = document.getElementById("follow");
+							addClass(btn, "disabled");
+							btn.innerHTML = '已关注';
+						});
+					})
+
+					var zan = document.getElementById("zan");
+					if (zan) {
+						zan.addEventListener("tap", function() {
+							if (!$.app.isLogin(app.getState())) {
+								$.app.openWindow("../login/login.html");
+								return;
+							}
+
+							var url = api_domain + "personal/community/like";
+							$.app.post(url, { id: id}, function(data) {
+								zan.src = "../images/dzhang.png?v=" + new Date().getTime();
+								var count = document.getElementById("likeCount").innerHTML;
+								count = parseInt(count) + 1;
+								document.getElementById("likeCount").innerHTML = count;
+								mui.toast("点赞成功");
+							});
+						});
+					}
+
+					var collection = document.getElementById("collection");
+					if (collection) {
+						collection.addEventListener("tap", function() {
+							if (!$.app.isLogin(app.getState())) {
+								$.app.openWindow("../login/login.html");
+								return;
+							}
+							if (hasClass(this, "cur")) {
+								var url = api_domain + "personal/community/action/removeByCommunityId";
+								$.ajax({
+									type: "delete",
+									url: url,
+									dataType: "json",
+									contentType:"application/json",
+									async: false,
+									data: {
+										"id": id
+									},
+									success: function(data) {
+										if (data["result"] != 1) {
+											mui.toast(data.msg, '提示');
+											return;
+										}
+										collection.src = "../images/collection_1.png?v=" + new Date().getTime();
+										removeClass(collection, "cur");
+										var count = document.getElementById("collectionCount").innerHTML;
+										count = parseInt(count) - 1;
+										document.getElementById("collectionCount").innerHTML = count;
+										mui.toast("取消收藏成功");
+									},
+									error: function(data) {
+										mui.toast(data["msg"]);
+									}
+								});
+							} else {
+								var url = api_domain + "personal/community/collection";
+								$.app.post(url, {id: id}, function(data) {
+									collection.src = "../images/collection.png?v=" + new Date().getTime();
+									addClass(collection, "cur");
+									var count = document.getElementById("collectionCount").innerHTML;
+									count = parseInt(count) + 1;
+									document.getElementById("collectionCount").innerHTML = count;
+									mui.toast("收藏成功");
+								});
+							}
+						});
+					}
+
+					$('.userInfo').on('tap', ".people-info", function () {
+						var id = this.getAttribute("id");
+						$.app.openUserDetail(id);
+					});
+
+					$('.userInfo').on('tap', ".user", function () {
+						var id = this.getAttribute("id");
+						$.app.openUserDetail(id);
+					});
+
+					$(".replys-list").on('tap', ".lzl-user", function () {
+						var id = this.getAttribute("id");
+						$.app.openUserDetail(id);
+					});
+
+					var state = 1;
+					var txtId = id;
+					document.getElementById("save-btn").addEventListener("tap", function() {
+						if (!$.app.isLogin(app.getState())) {
+							$.app.openWindow("../login/login.html");
+							return;
+						}
+						if (state == 1) {
+							reply1();
+						} else if (state == 2) {
+							reply2();
+						} else if (state == 3) {
+							reply3();
+						}
+					});
+
+					function reply1() {
+						var reply_cotent = document.getElementById("reply-content");
+						var value = document.getElementById("reply-content").value;
+						var url = api_domain + "personal/community/comment";
+						if (value.trim() == "") return;
+						var body = {"id":id,"textContent":value};
+						$.app.post(url, body, function(data) {
+							mui.toast("回复成功");
+							reply_cotent.value = '';
+							reply_cotent.placeholder = '我也来说一句...';
+
+							var id = $.app.getId(document.URL);
+							var detailUrl = api_domain + "community/details";
+							$.app.post(detailUrl, {id:id}, function(data) {
+								var ul = document.getElementsByClassName('mui-table-view')[0];
+								ul.innerHTML = "";
+								ul.appendChild(createFragment(ul, 0, data));
+							});
+						});
+					}
+
+					function reply2() {
+						var url = api_domain + "personal/community/comment";
+						//document.getElementById("save-btn").addEventListener("tap", function(event) {
+							var value = document.getElementById("reply-content").value;
+							if (value.trim() == "") return;
+							var body = {"id": txtId,"textContent": value};
+							$.app.post(url, body, function(data){
+								mui.toast("回复成功","提示");
+								
+								var reply_cotent = document.getElementById("reply-content");
+								reply_cotent.value = '';
+								reply_cotent.placeholder = '我也来说一句...';
+
+								var id = $.app.getId(document.URL);
+								var detailUrl = api_domain + "community/details";
+								$.app.post(detailUrl, {id:id}, function(data) {
+									var ul = document.getElementsByClassName('mui-table-view')[0];
+									ul.innerHTML = "";
+									ul.appendChild(createFragment(ul, 0, data));
+								});
+							});
+						//})
+					}
+
+					function reply3() {
+						var url = api_domain + "personal/community/comment";
+						//document.getElementById("save-btn").addEventListener("tap", function() {
+							var value = document.getElementById("reply-content").value;
+							if (value.trim() == "") return;
+							var body = {"id": txtId,"textContent": value};
+							console.log(body);
+							$.app.post(url, body, function(data){
+								mui.toast("回复成功","提示");
+								var reply_cotent = document.getElementById("reply-content");
+								reply_cotent.value = '';
+								reply_cotent.placeholder = '我也来说一句...';
+
+								var id = $.app.getId(document.URL);
+								var detailUrl = api_domain + "community/details";
+								$.app.post(detailUrl, {id:id}, function(data) {
+									var ul = document.getElementsByClassName('mui-table-view')[0];
+									ul.innerHTML = "";
+									ul.appendChild(createFragment(ul, 0, data));
+								});
+							});
+						//})
+					}
+
+					$(".replys-list").on('tap', ".talk", function() {
+						state = 2;
+						var reply_cotent = document.getElementById("reply-content");
+						reply_cotent.focus();
+						mui.trigger(reply_cotent,'tap');
+						var replylz = document.getElementsByClassName("replylz")[0];
+						txtId = this.id;
+						var name_id = "name" + this.id;
+						var name = document.getElementById(name_id).innerHTML;
+						reply_cotent.placeholder = "回复  " + name + "：";
+
+						removeClass(replylz, "hide");
+						replylz.addEventListener('tap', function(){
+							state = 1;
+							txtId = this.id;
+							reply_cotent.placeholder = "回复楼主：";
+						})
+					});
+
+					$(".replys-list").on('tap', ".lzl-text", function(){
+						state = 3;
+						var reply_cotent = document.getElementById("reply-content");
+						reply_cotent.focus();
+						mui.trigger(reply_cotent,'tap');
+						var replylz = document.getElementsByClassName("replylz")[0];
+						txtId = this.id;
+						var name_id = "name" + this.id;
+						var name = document.getElementById(name_id).innerHTML;
+						reply_cotent.placeholder = "回复  " + name + "：";
+
+						removeClass(replylz, "hide");
+						replylz.addEventListener('tap', function(){
+							state = 1;
+							txtId = this.id;
+							reply_cotent.placeholder = "回复楼主：";
+						})
+					})
+				});
+			},0)
+
+   			var createFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				for(var j = 0; j < data.communityDTOs.length; j++) {
+					var reply = data.communityDTOs[j];
+					li = document.createElement('li');
+					li.setAttribute("id", reply["id"]);
+					var html = '<div class="userInfo">' +
+							'<div id="' + reply["authorId"] + '" class="img user">';
+					if (reply["avatar"].length > 0){
+						html = html + '<img src="' + reply["avatar"] + '" alt="">';
+					} else {
+						html = html + '<img src="../images/user-img.png" alt="">';
+					}
+					html = html + '</div><div id="' + reply["authorId"] + '" class="name user">' +
+									'<h4 id="name' + reply["id"] + '">' + reply["authorName"] + '</h4>' +
+									'<strong>' + reply["createTime"] + '</strong>' +
+									'</div><div id="' + reply["id"] + '" class="talk">' +
+									'<i class="i-comment"></i></div></div>' +
+									'<p class="text">' + reply["textContent"] + '</p>' +
+									'<div class="track-community"><ol>';
+					for(var k = 0; k < reply.communityDTOs.length; k++) {
+						var replyTrack = reply.communityDTOs[k];
+						html = html + '<li><p><a id="' + replyTrack["authorId"] + '" class="lzl-user"><i id="name' + replyTrack["id"] + '">' + replyTrack["authorName"] + 
+										'</i></a> 回复 <a id="' + replyTrack["targetAuthorId"] + '" class="lzl-user">' + replyTrack.targetAuthorName + '</a> ：' + 
+										'<span id="' + replyTrack.id + '" class="lzl-text">' + replyTrack["textContent"] + '</span></p>' +
+										'<strong>' + replyTrack["createTime"] + '</strong></li>';		
+					}	
+					html = html + '</ol></div>';
+					// 刷新出来的li内容
+					li.innerHTML = html;
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.post($.app.url, {id: id }, function(data) {
+						ul.innerHTML = "";
+						ul.appendChild(createFragment(ul, index, data));
+					})
+				},
+				function(self, index) { // up
+					var url = $.app.url + "?pageNo=" + $.app.pageNo;
+					var ul = self.element.querySelector('.mui-table-view');
+					console.log(url);
+					$.app.post(url, {id: id }, function(data) {
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo++;
+					})
+				}
+			)
+
+			$.back = function(event) {
+				var top = plus.webview.getLaunchWebview();
+				plus.webview.show(top);
+				return false;
+			};
+		})(mui)
+	</script>
+
+</html>

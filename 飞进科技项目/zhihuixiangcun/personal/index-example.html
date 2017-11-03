@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>个人中心</title>
+</head>
+<body>
+	<div class="main mui-content">
+		<div id="personal" class="personal-1">
+			<div id="toinfo" class="self-warp">
+				<img src="../resources/images/portrait.png" class="portrait" alt="">
+				<p id="loginBtn">未登录</p>
+			</div>
+			<div class="personal-nav">
+				<div id="orderList" class="nav-item">
+					<i class="i-order"></i>
+					<span>我的订单</span>
+				</div>
+				<div class="nav-item">
+					<i class="i-comment"></i>
+					<span>评论</span>
+				</div>
+			</div>
+		</div>
+		<div class="personal-2">
+			<ol>
+				<li id="tocoupon">
+					<i class="i-menu1"></i>
+					<p>
+						<span>优惠券</span>
+						<em></em>
+					</p>						
+				</li>
+				<li id="download">
+					<i class="i-menu2"></i>
+					<p>
+						<span>我的下载</span>
+						<em></em>
+					</p>						
+				</li>
+				<li>
+					<i class="i-menu3"></i>
+					<p>
+						<span>我的收藏</span>
+						<em></em>
+					</p>					
+				</li>
+				<li>
+					<i class="i-menu4"></i>
+					<p>
+						<span>消息中心</span>
+						<em></em>
+					</p>						
+				</li>
+				<li id="tosetup">
+					<i class="i-menu5"></i>
+					<p>
+						<span>设置</span>
+						<em></em>
+					</p>						
+				</li>
+			</ol>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		$.plusReady(function() {			
+			$(".personal-2").on('tap', 'li', function(){
+				var id = this.getAttribute("id");
+				if (id == "download") {
+					$.app.openWindow("");
+				} else {
+					toLogin();
+				}
+			})
+			
+			$("#toinfo")[0].addEventListener('tap', function(){
+				var id = this.getAttribute("id");
+				if (id == "download") {
+					$.app.openWindow("");
+				} else {
+					toLogin();
+				}
+			})
+			
+			$(".personal-nav").on('tap', '.nav-item', function(){
+				var id = this.getAttribute("id");
+				if (id == "download") {
+					$.app.openWindow("download.html");
+				} else {
+					toLogin(); 
+				}
+			})
+			
+			function toLogin() {
+				var btnArray = ['取消', '现在去登录'];
+				mui.confirm('您还未登录？', '提示', btnArray, function(e) {
+					if (e.index == 1) {
+						$.app.openWindow("../login/login.html");
+					} else {
+						return false;
+					}
+				})
+			}
+		});
+		
+	})(mui)
+</script>
+
+</html>

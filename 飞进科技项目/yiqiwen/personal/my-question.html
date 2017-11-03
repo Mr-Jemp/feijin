@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<link rel="stylesheet" href="../resources/css/dropload.css">
+	<title>我的提问</title>
+</head>
+<body>
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">我的提问</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div class="content">
+		<div v-cloak id="questionList" class="my-question1">
+			<template v-for="item in datas">
+				<div class="item">
+					<a v-bind:href="'../teacher/detail.html?id=' + item.answer_uid" class="head">
+						<img v-if="item.avatar != 0 || item.avatar.length > 0" v-bind:src="item.avatar" class="portrait" alt="">
+						<img v-else src="../resources/images/portrait.png" class="portrait" alt="">
+						<span class="name">{{item.nickname}}</span>
+						<em class="money">
+							<i class="i-money"></i>
+							<span>{{item.ask_money}}</span>
+						</em>
+						<div class="fright">
+							<span v-if="item.status == 1" class="state wait">待回答</span>
+							<span v-if ="item.status == 2" class="state sure">已回答</span>
+							<span v-if ="item.status == 3" class="state overdue">已过期</span>
+						</div>				
+					</a>
+					<a v-bind:href="'../answer/detail.html?id=' + item.id">
+						<p class="text">{{item.ask}}</p>					
+						<div v-if="item.status == 2" class="answerBody">
+							<img v-if="item.avatar != '' || item.avatar.length > 0" v-bind:src="item.avatar" alt="">
+							<img v-else src="../resources/images/portrait.png">
+							<em class="audio">点击播放</em>
+							<span class="time">{{item.media_time}}</span>
+						</div>
+					</a>
+					<p class="fot">
+						<span class="date">{{item.ask_time}}</span>
+						<span class="zhui">有{{item.press_count}}个追问</span>
+						<span class="num">{{item.touting}}人 听过</span>
+					</p>
+				</div>
+			</template>
+		</div>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/dropload.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/my-question.js" type="text/javascript" charset="utf-8"></script>
+</html>

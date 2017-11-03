@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<script src="../resources/js/flexible.js"></script>
+	<script src="../resources/js/flexible_css.js"></script>
+	<script src="../resources/js/jquery.min.js"></script>
+	<script src="../resources/js/vue.min.js"></script>
+	<script src="../resources/js/conf.js"></script>
+	<title>充值中心</title>
+</head>
+<body class="padBot">
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">充值中心</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div id="money" class="recharge1">
+		<h1>您的当前余额：<span v-cloak>{{coin}}</span>元宝</h1>
+	</div>
+
+	<p class="recharge2">选择充值方式</p>
+
+	<div class="recharge3">
+		<!-- <div class="item">
+			<i class="i-wechat"></i>
+			<p>
+				<span>推荐已安装微信的用户使用</span>
+			</p>
+			<em class="check"></em>
+			<input type="radio" name="radio" class="input-radio">
+		</div> -->
+		<div class="item">
+			<i class="i-zhifubao"></i>
+			<p>
+				<span>推荐已安装支付宝的用户使用</span>
+			</p>
+			<em class="check checked"></em>
+			<input type="radio" name="radio" class="input-radio">
+		</div>
+		<!-- <div class="item">
+			<i class="i-paypal"></i>
+			<p>
+				<span>推荐已安装PayPal的用户使用</span>
+			</p>
+			<em class="check"></em>
+			<input type="radio" name="radio" class="input-radio">
+		</div> -->
+	</div>
+
+	<p class="recharge2">选择充值金额</p>
+
+	<div class="recharge4">
+		<span class="money-item">
+			<h1>
+				<span>10</span>
+				<i class="i-money"></i>
+			</h1>
+			<p>10元</p>
+		</span>
+		<span class="money-item">
+			<h1>
+				<span>50</span>
+				<i class="i-money"></i>
+			</h1>
+			<p>50元</p>
+		</span>
+		<span class="money-item last">
+			<h1>
+				<span>100</span>
+				<i class="i-money"></i>
+			</h1>
+			<p>100元</p>
+		</span>
+		<span class="money-item">
+			<h1>
+				<span>300</span>
+				<i class="i-money"></i>
+			</h1>
+			<p>300元</p>
+		</span>
+		<span class="money-item">
+			<h1>
+				<span>500</span>
+				<i class="i-money"></i>
+			</h1>
+			<p>500元</p>
+		</span>
+		<span class="money-item last">
+			<h1>
+				<span>1000</span>
+				<i class="i-money"></i>
+			</h1>
+			<p>1000元</p>
+		</span>
+	</div>
+
+	<div class="recharge5 submit-warp">
+		<button class="submit">提交订单</button>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/recharge.js" type="text/javascript" charset="utf-8"></script>
+</html>

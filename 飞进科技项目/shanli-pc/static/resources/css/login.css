@@ -1,0 +1,135 @@
+.header {
+  height: 160px;
+}
+.header .header_logo {
+  display: block;
+  width: 120px;
+  height: 160px;
+  background: url(../../resources/img/web/header_logo.png) 0 56px no-repeat;
+  -webkit-background-size: 100% 78px;
+  background-size: 100% 78px;
+  margin-left: 20px;
+}
+.header .welcome_login {
+  display: block;
+  font-size: 30px;
+  padding-left: 30px;
+  border-left: 1px solid #000000;
+  margin-left: 30px;
+  margin-top: 70px;
+}
+.main {
+  width: 100%;
+  height: 400px;
+  background: url(../../resources/img/web/login_bg.png) center 0 no-repeat;
+  padding-top: 519px;
+  position: relative;
+}
+.main .buttons {
+  width: 396px;
+  margin: 0 auto;
+}
+.main .buttons .to_login {
+  float: left;
+  width: 186px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #ffffff;
+  font-size: 12px;
+  color: #ffffff;
+  cursor: pointer;
+}
+.main .buttons .to_login.business {
+  margin-right: 20px;
+  background-color: #0181bb;
+  border-color: #0181bb;
+}
+.main .buttons .to_login:hover {
+  background-color: #00a1e9;
+  border-color: #00a1e9;
+}
+.main .login_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 699px;
+  padding-top: 220px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.main .login_layer .login_form {
+  background-color: rgba(6, 7, 7, 0.8);
+  width: 220px;
+  height: 350px;
+  margin: 0 auto;
+  padding: 40px 50px;
+  position: relative;
+}
+.main .login_layer .login_form .close_login_btn {
+  position: absolute;
+  width: 29px;
+  height: 29px;
+  top: 10px;
+  left: 20px;
+  background: url(../img/web/close_login_icon.png) center no-repeat;
+  cursor: pointer;
+}
+.main .login_layer .login_form h2 {
+  font-size: 18px;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 0 26px;
+}
+.main .login_layer .login_form .input_row {
+  position: relative;
+  margin-bottom: 10px;
+}
+.main .login_layer .login_form .input_row .input_cell label {
+  float: left;
+  width: 40px;
+  height: 40px;
+  background: #959ea1 no-repeat center center;
+}
+.main .login_layer .login_form .input_row .input_cell input {
+  float: left;
+  font-size: 12px;
+  padding: 0 10px;
+  width: 160px;
+  height: 40px;
+  line-height: 40px;
+  border: none;
+}
+.main .login_layer .login_form .input_row .forget_pwd {
+  margin-top: 10px;
+  text-align: right;
+}
+.main .login_layer .login_form .input_row .forget_pwd a {
+  color: #ffffff;
+  font-size: 12px;
+}
+.main .login_layer .login_form .login_btn {
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #00a1e9;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.main .login_layer .login_form .to_reg {
+  padding-top: 10px;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: right;
+}
+.main .login_layer .login_form .to_reg a {
+  color: #0194d2;
+}

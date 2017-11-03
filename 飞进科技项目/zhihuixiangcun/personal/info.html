@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../resources/css/mui.poppicker.css" rel="stylesheet" />
+	<title>基本资料</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">基本资料</h1>
+	</header>
+	<div v-cloak id="info" class="main mui-content">
+		<div class="personal-info1 group-warp">
+			<div id="head-icon" class="item-group">
+				<label>头像</label>
+				<p>
+					<img v-if="headerImg != null" id="head-img" class="user-img" :src="headerImg" />
+					<img v-else class="user-img" id="head-img" src="../resources/images/portrait.png" alt="" alt="">
+				</p>
+				<em class="more"></em>
+			</div>
+			<div id="setName" class="item-group">
+				<label>昵称</label>
+				<p id="nickname">{{nickname}}</p>
+				<em class="more"></em>
+			</div>
+			<div id="setSex" class="item-group">
+				<label>性别</label>
+				<p id="sex" :type-id="sex">
+					<template v-if="sex == 1">男</template>
+					<template v-if="sex == 2">女</template>
+				</p>
+			 	<em class="more"></em>
+			</div>
+			<div id="setBirthday" class="item-group last" data-options='{"type":"date","beginYear":1940,"endYear":2017}'>
+				<label>出生年月</label>
+				<p id="birthday">{{birthday}}</p>
+				<em class="more"></em>
+			</div>
+			<div id="modifyPassword" class="item-group last-item">
+				<label>修改密码</label>
+				<em class="more"></em>
+			</div>
+		</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+<script src="../resources/js/mui.picker.min.js"></script>
+<script src="../resources/js/mui.poppicker.js"></script>
+<script src="../resources/js/city.data.js"></script>
+<script src="../resources/js/city.data-3.js"></script>
+
+<script>
+	(function($){
+		
+		mui.init({
+			beforeback: function(){
+				var list = plus.webview.currentWebview().opener();
+				list.reload(true);
+				return true;
+			}
+		});
+		
+		var vm = null;
+		var personalUrl = 'security/getUserInfo'
+		$.app.get(personalUrl, function(data){
+			vm = new Vue({
+				el: "#info",
+				data: data
+			})
+		})			
+		
+		$.plusReady(function() {
+			$("#head-icon")[0].addEventListener("tap", function(e) {
+				if (mui.os.plus) {
+					$.app.uploadPhoneImage("修改头像",function(image, picData) {
+						plus.nativeUI.showWaiting();
+						$.app.post("upload/avatar", {"data":picData}, function (data) {
+							vm.$nextTick(function() {
+								vm.$data.headerImg = data.src;
+							})
+							//document.getElementById("head-img").src = data.src;
+							var state = app.getState();
+							state.image = data.image;
+							app.setState(state);
+	
+							var mainPage = plus.webview.getWebviewById("personal/index.html");
+							mui.fire(mainPage, "updateImage", null);
+							plus.nativeUI.closeWaiting();
+						},function(data){
+							plus.nativeUI.closeWaiting();
+						});
+					})
+				}
+			});
+			
+			function setInfo(sex, nickname, birthday) {
+				var infoUrl = 'security/editInfo';
+				var infoData = {
+					"sex": sex,
+					"nickname": nickname,
+					"birthday": birthday
+				}
+				$.app.post(infoUrl, infoData, function(data){
+					vm.$nextTick(function() {
+						vm.$data.nickname = nickname;
+						vm.$data.sex = sex;
+						vm.$data.birthday = birthday;
+					})
+				})
+			}
+				
+			
+			$("#setName")[0].addEventListener('tap', function(){
+				alertInput("昵称", "text", function(val){
+					var sex_txt = $("#sex")[0].innerHTML;
+					if (sex_txt) {
+						var sex = $("#sex")[0].getAttribute("type-id");
+					} else {
+						var sex = '';
+					}
+					var birthday = $("#birthday")[0].innerHTML;
+					setInfo(sex, val, birthday);
+				})
+			})
+			
+			var sexPicker = new $.PopPicker();
+			sexPicker.setData([
+				{value: '1',text: '男'}, 
+				{value: '2',text: '女'}
+			]);
+			$("#setSex")[0].addEventListener('tap', function(event) {
+				sexPicker.show(function(items) {
+					var nickname = $("#nickname")[0].innerHTML;
+					var birthday = $("#birthday")[0].innerHTML;
+					setInfo(items[0].value, nickname, birthday);
+				});
+			}, false);
+			
+			var timebtn = $('#setBirthday')[0];
+			timebtn.addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var id = this.getAttribute('id');
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					var sex_txt = $("#sex")[0].innerHTML;
+					if (sex_txt) {
+						var sex = $("#sex")[0].getAttribute("type-id");
+					} else {
+						var sex = '';
+					}
+					var nickname = $("#nickname")[0].innerHTML;
+					setInfo(sex, nickname, rs.text);
+					picker.dispose();
+				});
+			}, false);
+			
+			$("#modifyPassword")[0].addEventListener('tap', function(){
+				$.app.openWindow("modifyPassword.html");
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

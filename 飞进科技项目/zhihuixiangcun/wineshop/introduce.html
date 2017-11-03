@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>酒店介绍</title>
+</head>
+<body class="bgWhite">
+	<div v-cloak id="main">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-pull-left back"></a>
+			<h1 class="mui-title title">详情</h1>
+		</header>
+
+		<div class="main mui-content">
+			<div class="wineshop-introduce">
+				<h1 class="tit">{{info.name}}</h1>
+				<a id="call" class="phone" :data-id="info.telephone">
+					<i class="i-phone"></i>
+				</a>
+			</div>
+			
+			<div class="wineshop-introduce">
+				<h1 class="tit">可提供的服务</h1>
+				<div class="tags" v-html="info.tags">
+				</div>
+			</div>
+			
+			<div class="wineshop-introduce last">
+				<h1 class="tit">使用规则</h1>
+				<div class="txt">
+					<p>{{info.content}}</p>
+				</div>
+			</div>
+		</div>		
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+
+	(function($) {
+
+		var vm = null;
+		var id = $.app.getId(document.URL);
+
+		var url = 'hotels/detail?id=' + id;
+		$.app.get(url, function(data){
+			vm = new Vue({
+				el: "#main",
+				data: {
+					info: data
+				} 
+			})
+			Vue.set(data, 'tags', peitao(data));
+		})
+		
+		mui.plusReady(function() {
+			$("#call")[0].addEventListener('tap', function(){
+				var phoneNumber = this.getAttribute('data-id');
+				plus.device.dial(phoneNumber, true);
+			})		
+		});			
+
+		function peitao(data) {
+			var html = '';
+			if (data.serviceShower) html+='<em><i class="i-linyu"></i><span>淋浴</span></em>';
+			if (data.serviceAir) html+='<em><i class="i-kongitao"></i><span>空调</span></em>';
+			if (data.serviceNetwork) html+='<em><i class="i-wangluo"></i><span>无线网络</span></em>';
+			if (data.serviceHeating) html+='<em><i class="i-nuanqi"></i><span>暖气</span></em>';
+			if (data.serviceTv) html+='<em><i class="i-dianshi"></i><span>电视</span></em>';
+			if (data.serviceToilet) html+='<em><i class="i-wc"></i><span>独立卫生间</span></em>';
+			if (data.serviceBreakfast) html+='<em><i class="i-canting"></i><span>餐厅</span></em>';
+			if (data.servicePark) html+='<em><i class="i-tingchechang"></i><span>停车场</span></em>';
+			return html;
+		}
+
+	})(mui);		
+</script>
+
+</html>

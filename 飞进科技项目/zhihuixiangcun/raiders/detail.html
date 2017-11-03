@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/swiper.min.css" rel="stylesheet">
+	<title>攻略详情</title>
+</head>
+<body>
+	<div v-cloak id="main">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-pull-left mui-icon back"></a>
+			<h1 class="mui-title title">{{title}}</h1>
+			<a id="shareBtn" class="mui-icon mui-pull-right share" onclick="openShareWindow(this)"></a>
+		</header>
+	
+		<div class="reply-operation">
+			<div id="replyBtn" class="input-box">
+				<i class="i-reply"></i>
+				<p class="input-reply">请输入您要发表的内容</p>
+			</div>
+			<div id="comment" class="icon-warp">
+				<i class="i-message"></i>
+			</div>
+			<div id="collect" :type-id="collectionStatus" class="icon-warp">
+				<i v-if="collectionStatus == true" class="i-collected"></i>
+				<i v-else class="i-collect"></i>
+			</div>
+			<div id="download" class="icon-warp">
+				<i class="i-download"></i>
+			</div>
+		</div>
+	
+		<div class="main mui-content bg-white" style="padding-bottom: 50px;">
+			<div class="raiders-detail1">
+				<img :src="coverImage" class="raiders-banner" alt="">
+				<div class="view-num">
+					<i class="i-see"></i>
+					<span>{{readAmount}}</span>
+				</div>
+			</div>
+			<div class="raiders-detail2" v-html="textContent"></div>
+			<div class="raiders-detail3">
+				<p class="date">{{createTime}}</p>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/main.js"></script>
+<script>
+	mui.init({
+		beforeback: function(){
+			var list = plus.webview.currentWebview().opener();
+			list.reload(true);
+			return true;
+		}
+	});
+
+	(function($){
+		var vm = null;
+		var id = $.app.getId(document.URL);
+		
+		$.app.post('raiders/details', {"id": id}, function(data) {
+			vm = new Vue({
+				el: '#main',
+				data: data
+			});
+			
+			var shareMessage = {};
+			shareMessage.href = data["shareLink"];
+			shareMessage.title = data["title"];
+			if (data.summary != null) {
+				shareMessage.content = data["summary"];
+			} else {
+				shareMessage.content = data["title"];
+			}
+			shareMessage.thumbs = data["coverImage"];
+			window.shareMessage = shareMessage;
+			
+			$("#comment")[0].addEventListener('tap', function(){
+				$.app.openWindow('../page.html?id=' + id + '&type=1&title=评论&url=comment/list');
+			})
+			
+			$("#collect")[0].addEventListener('tap', function(){
+				if (this.getAttribute('type-id')) {
+					var param = {
+						"goodId": id
+					}
+					$.app.delete('collection/remove', param, function(data){
+						mui.toast("取消成功！");
+						vm.$data.collectionStatus = false;
+					})
+				} else {
+					var param = {
+						"goodId": id,
+						"type": 1
+					}
+					$.app.post('collection/create', param, function(data){
+						mui.toast("收藏成功！");
+						vm.$data.collectionStatus = true;
+					})
+				}					
+			})
+			
+			$("#replyBtn")[0].addEventListener('tap', function(){
+				$.app.openWindow('../comment/creat.html?id=' + id + '&type=1' + '&status=1');
+			})
+			
+			$("#download")[0].addEventListener('tap', function(){
+				
+			})
+		});
+
+		mui.plusReady(function() {
+			$.app.getShareSerivces();			
+		});
+	})(mui)
+</script>
+
+</html>

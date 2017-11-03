@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>个人中心</title>
+</head>
+<body>
+	<div class="main mui-content">
+		<div class="personal-1">
+			<div id="info" class="self-warp">
+				<img v-cloak v-if="headerImg != null" :src="headerImg" class="portrait" alt="">
+				<img v-else src="../resources/images/portrait.png" class="portrait" alt="">
+				<p v-cloak v-if="nickname != null" class="name">{{nickname}}</p>
+				<p v-else class="name">昵称未设置</p>
+				<p id="loginBtn" class="hide">未登录</p>
+			</div>
+			<div class="personal-nav">
+				<div class="zhezhao" style="height:100%"></div>
+				<div id="orderList" class="nav-item">
+					<i class="i-order"></i>
+					<span>我的订单</span>
+				</div>
+				<div id="commentList" class="nav-item">
+					<i class="i-comment"></i>
+					<span>评论</span>
+				</div>
+			</div>
+		</div>
+		<div class="personal-2 relative">
+			<div class="zhezhao" style="height:46px"></div>
+			<div class="zhezhao" style="height:138px;top:92px;"></div>
+			<ol>
+				<li id="tocoupon">
+					<i class="i-menu1"></i>
+					<p>
+						<span>优惠券</span>
+						<em></em>
+					</p>						
+				</li>
+				<li id="todownload">
+					<i class="i-menu2"></i>
+					<p>
+						<span>我的下载</span>
+						<em></em>
+					</p>						
+				</li>
+				<li id="tocollect">
+					<i class="i-menu3"></i>
+					<p>
+						<span>我的收藏</span>
+						<em></em>
+					</p>					
+				</li>
+				<li id="tomessage">
+					<i class="i-menu4"></i>
+					<p>
+						<span>消息中心</span>
+						<em></em>
+					</p>						
+				</li>
+				<li id="tosetup">
+					<i class="i-menu5"></i>
+					<p>
+						<span>设置</span>
+						<em></em>
+					</p>						
+				</li>
+			</ol>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var vm = null;			
+		
+		$.plusReady(function() {
+			$("#tocoupon")[0].addEventListener('tap', function(){
+				$.app.openWindow("coupon.html");
+			})
+			$("#orderList")[0].addEventListener('tap', function(){
+				$.app.openWindow("orderList.html");
+			})
+			$("#tosetup")[0].addEventListener('tap', function(){
+				$.app.openWindow("setup.html");
+			})
+			$("#todownload")[0].addEventListener('tap', function(){
+				$.app.openWindow("download.html");
+			})
+			$("#commentList")[0].addEventListener('tap', function(){
+				$.app.openWindow("../page.html?title=我的评论&url=personal/talk");
+			})
+			$("#tocollect")[0].addEventListener('tap', function(){
+				$.app.openWindow("../page.html?title=我的收藏&url=personal/collect");
+			})
+			$("#tomessage")[0].addEventListener('tap', function(){
+				$.app.openWindow("../page.html?title=消息中心&url=personal/message");
+			})
+			
+			if ($.app.isLogin(app.getState())) {
+				var personalUrl = 'security/getUserInfo'
+				$.app.get(personalUrl, function(data){
+					vm = new Vue({
+						el: "#info",
+						data: data
+					})
+				})
+				$(".personal-1").on('tap', '.portrait', function(){
+					$.app.openWindow("info.html");
+				})
+			} else {
+				$(".name").each(function(){
+					addClass(this, "hide");
+				})	
+				$(".personal-1").on('tap', '.portrait', function(){
+					$.app.openWindow("../login/login.html");
+				})
+				removeClass($("#loginBtn")[0], "hide");
+				$(".zhezhao").each(function(){
+					this.style.display = "block";
+				})
+				$(".main").on('tap', '.zhezhao', function(){
+					$.app.openWindow("../login/login.html");
+				})
+			}
+		});
+		
+	})(mui)
+</script>
+
+</html>

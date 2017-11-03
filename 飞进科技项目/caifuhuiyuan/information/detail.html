@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/js.js"></script>
+		<script src="../js/conf.js"></script>
+		<title>股市内参-详情</title>
+	</head>
+
+	<body v-cloak id="infomation-detail">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title" id="title">
+				<template v-if="type == 1">
+					即时要闻
+				</template>
+				<template v-if="type == 2">
+					行情分析			
+				</template>
+				<template v-if="type == 3">
+					策略选股
+				</template>
+			</h1>
+			<a class="mui-icon mui-pull-right share shareBtn" id="shareBtn" onclick="openShareWindow(this)"></a>
+		</header>
+		<div class="main mui-content">
+			<div class="infor-detail">
+				<div id="content"></div>
+			</div>
+		</div>
+		<div id="share-pop-window" style="display:none ">
+			<nav class="mui-bar mui-bar-tab">
+				<div style="height: 80px" class="share-pop">
+					<div id="weixin" ex="WXSceneSession" class="m-ui-video-detail-pop">
+						<img src="../images/thirdicon/weixin_friend.png" class="m-ui-img-m">
+						<span class="m-ui-video-detail-pop-media">微信</span>
+					</div>
+					<div id="weixin" ex="WXSceneTimeline" class="m-ui-video-detail-pop">
+						<img src="../images/thirdicon/weixin.png" class="m-ui-img-m"></span>
+						<span class="m-ui-video-detail-pop-media">朋友圈</span>
+					</div>
+					<div id="sinaweibo" ex="" class="m-ui-video-detail-pop">
+						<img src="../images/thirdicon/weibo.png" class="m-ui-img-m"></span>
+						<span class="m-ui-video-detail-pop-media">新浪</span>
+					</div>
+					<div id="tencentweibo" ex="" class="m-ui-video-detail-pop">
+						<img src="../images/thirdicon/qq.png" class="m-ui-img-m"></span>
+						<span class="m-ui-video-detail-pop-media">QQ</span>
+					</div>
+				</div>
+				<div style="width: 100%;text-align: center">
+					<img id="popCancel" src="../images/cancel.png" class="m-ui-img-l"></span>
+				</div>
+			</nav>
+		</div>
+	</body>
+
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		(function($) {
+			var id = $.app.getId(document.URL); //获取页面传递的数据
+			var url = api_domain + "stock/details";
+			var titles = ["","即时要闻","行情分析","策略选股"];
+			$.app.post(url, {id: id}, function(data) {
+				new Vue({
+					el: '#infomation-detail',
+					data: data
+				});
+
+				//document.getElementById("title").innerText = titles[data["type"]];
+				document.getElementById("content").innerHTML = data["textContent"];
+				var shareMessage = {};
+				shareMessage.href = data["shareLink"];
+				shareMessage.title = data["title"];
+				shareMessage.content = data["title"];
+				shareMessage.thumbs = data["thumbnail"];
+				window.shareMessage = shareMessage;
+			});
+
+			mui.plusReady(function() {
+				$.app.getShareSerivces();
+				//$.app.openShareWindow();
+			});
+		})(mui)
+	</script>
+
+</html>

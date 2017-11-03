@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<title>个人中心-消息详情</title>
+	<style>
+
+		/*
+		@media screen and (min-width: 1201px) {
+			#content img {max-width: 1200px}
+		}
+
+		@media screen and (max-width: 1200px) {
+			#content img {max-width: 900px}
+		}
+
+		@media screen and (max-width: 901px) {
+			#content img {max-width: 800px}
+		}
+		*/
+	</style>
+</head>
+<body>	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">消息中心</h1>
+	</header>
+	<div class="main mui-content">
+		<div id="content" class="message-detail">
+		</div>
+	</div>
+</body>
+
+	<script>
+		(function($) {
+			var url = window.location.search;
+			var wz = url.indexOf('id=');
+			wz = wz + 3;
+			var id = {
+				"id": url.substring(wz, url.length)
+			};
+			var type = url.substring(6,7);
+			if (type == '0') {
+				var invest_url = api_domain + "personal/message/details";
+				$.app.post(invest_url, id, function(data) {
+					document.getElementById("content").innerHTML = data.textContent;
+				});				
+			}
+			if (type == '1') {
+				var message_url = api_domain + "personal/message/details";
+				$.app.post(message_url, id, function(data) {
+					document.getElementById("content").innerHTML = data.textContent;
+				});
+			}
+			if (type == '2') {
+				var ment_url = api_domain + "personal/message/details";
+				$.app.post(ment_url, id, function(data) {
+					document.getElementById("content").innerHTML = data.textContent;
+				});
+			}
+		})(mui);
+	</script>
+</html>

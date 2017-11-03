@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<title>个人中心-主页</title>
+</head>
+<body v-cloak id="personal-me">
+	<header id="header" class="mui-bar mui-bar-transparent header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+		<h1 class="mui-title">个人中心</h1>
+		<a id="setup" class="mui-icon mui-pull-right setup"></a>
+	</header>
+	<div class="main mui-content personal-center">
+		<div class="self-info">
+			<div class="self-info-warp">
+				<div id="info1" class="portrait">
+					<img v-if="datas.headerImg == null || datas.headerImg == '' " id="header-icon" src="../images/user-img.png" alt="" />
+					<img v-else src="{{datas.headerImg}}" id="header-icon" alt="">
+				</div>
+				<div class="name">
+					<h2>
+						<span>{{datas.nickname}}</span>
+						<em v-if="datas.grade != null && datas.grade !='' && datas.grade > 0">VIP</em>
+					</h2>
+					<h6> 
+						<strong>关注领域：</strong>
+						<span v-show="datas.concerns == null">暂无</span>
+						<span>{{datas.concerns}}</span>
+					</h6>
+					<h6> 
+						<strong>积分：</strong>
+						<span>{{datas.integral}}</span>
+					</h6>
+					<p v-if="datas.talk == null">未设置个性签名。</p>
+					<p v-else>{{datas.talk}}</p>
+				</div>				
+			</div>
+			<div class="self-info-nav">
+				<ul>
+					<li>
+						<a id="fllow">
+							我的关注：
+							<span>{{datas.concernsCount}}</span>
+						</a>
+					</li>
+					<li>
+						<a id="speech">
+							<em></em>
+							我的发帖：
+							<span>{{datas.communityCount}}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="self-list">
+			<p>
+				<a id="info2">
+					<i class="icon1"></i>
+					<span>完善资料</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="investment">
+					<i class="icon2"></i>
+					<span>每日至尊投资内参</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="message">
+					<i class="icon3"></i>
+					<span>消息中心</span>
+					<em></em>
+				</a>
+			</p>
+			<p id="shareBtn" class="invitationTit">
+				<a>
+					<i class="icon4"></i>
+					<span>我的邀请码</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="exchange">
+					<i class="icon5"></i>
+					<span>积分兑换VIP</span>
+					<em></em>
+				</a>
+			</p>
+		</div>
+		<div class="self-list">
+			<p>
+				<a id="question">
+					<i class="icon6"></i>
+					<span>我的风险偏好</span>
+					<em></em>
+				</a>
+			</p>
+			<p>
+				<a id="preference">
+					<i class="icon7"></i>
+					<span>我的定制理财规划书</span>
+					<em></em>
+				</a>
+			</p>
+		</div>
+	</div>
+</body>
+
+	<script>
+
+		(function($, doc) {
+
+			var riskAssessment;
+			var grade;
+			var vm = null;
+			setTimeout(function() {
+				loadData();
+			}, 0);
+
+			var shareImage = null;
+			function loadData() {
+				$.app.get(api_domain + "personal/me", function(data){
+					if (vm == null) {
+						vm = new Vue({
+							el: '#personal-me',
+							data: {
+								datas:data
+							}
+						});
+					} else {
+						vm.datas = data;
+					}
+
+					vm.$nextTick(function(){});
+					shareImage = data["headerImg"];
+					riskAssessment = data.riskAssessment;
+					grade = data.grade;
+					//if (riskAssessment == '' || riskAssessment == undefined || riskAssessment == null) {
+					//	$.app.openWindowNew("info-questionnaire.html");
+					//	return;
+					//}
+				});
+			}
+
+			window.addEventListener('reLoad', function() {
+				setTimeout(function() {
+					loadData();
+				}, 0);
+			});
+
+			window.addEventListener('updateImage', function() {
+				updateImage();
+			}, false);
+
+			function updateImage() {
+				var state = app.getState();
+				document.getElementById("header-icon").src = state.image + "?version="+new Date().getTime();
+			}
+
+			$.plusReady(function() {
+				$.app.getShareSerivces();
+
+				var page1 = document.getElementById("fllow");
+				page1.addEventListener('tap', function(){
+					$.app.openWindow("info-fllow.html");
+				});
+				var page2 = document.getElementById("speech");
+				page2.addEventListener('tap', function(){
+					$.app.openWindow("info-speech.html");
+				});
+				var page3_1 = document.getElementById("info1");
+				page3_1.addEventListener('tap', function(){
+					$.app.openWindow("personal-info.html");
+				});
+				var page3_2 = document.getElementById("info2");
+				page3_2.addEventListener('tap', function(){
+					$.app.openWindow("personal-info.html");
+				});
+				var page4 = document.getElementById("investment");
+				page4.addEventListener('tap', function(){
+					if (grade <= 0 || grade == null || grade == undefined){
+						var btnArray = ['取消', '现在去升级'];
+						mui.confirm('Vip用户可见，请免费升级Vip用户', '提示', btnArray, function(e) {
+							if (e.index == 1) {
+								$.app.openWindow("info-exchange.html");
+							} else {
+								return false;
+							}
+						});
+					} else {
+						$.app.openWindow("info-investment.html");
+					}
+				});
+				var page5 = document.getElementById("message");
+				page5.addEventListener('tap', function(){
+					$.app.openWindow("info-message.html");
+				});
+				var page6 = document.getElementById("exchange");
+				page6.addEventListener('tap', function(){
+					$.app.openWindow("info-exchange.html");
+				});
+				var page7 = document.getElementById("question");
+				page7.addEventListener('tap', function(){
+					$.app.openWindowNew("info-questionnaire.html");
+				});
+				var page8 = document.getElementById("preference");
+				page8.addEventListener('tap', function(){
+					if(riskAssessment == '' || riskAssessment == null || riskAssessment == undefined){
+						var btnArray = ['取消', '现在去测评'];
+						mui.confirm('暂无您的定制理财规划书', '提示', btnArray, function(e) {
+							if (e.index == 1) {
+								$.app.openWindowNew("info-questionnaire.html");
+							} else {
+								return false;
+							}
+						});
+					} else {
+						$.app.openWindow("info-preference.html");
+					}
+				});
+
+				var page9 = document.getElementById("shareBtn");
+				page9.addEventListener('tap', function(){
+					$.app.get(api_domain + "personal/invitationCode/share",function(data) {
+						var shareMessage = {};
+						shareMessage.href = data["link"];
+						shareMessage.title = "分享码:" + data["code"];
+						shareMessage.content = "分享码:" + data["code"];
+						shareMessage.code = data["code"];
+						
+						shareMessage.thumbs = shareImage;
+						window.shareMessage = shareMessage;
+						openShareWindow(page9);
+					});
+				});
+				var page10 = document.getElementById("setup");
+				page10.addEventListener('tap', function(){
+					$.app.openWindow("info-setup.html");
+				})				
+
+				$.back = function(event) {
+					var top = plus.webview.getLaunchWebview();
+					plus.webview.show(top);
+					plus.webview.hide(plus.webview.currentWebview());
+					return false;
+				};
+
+			});
+		})(mui, document)
+	</script>
+</html>

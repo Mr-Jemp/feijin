@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>设置</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">设置</h1>
+	</header>
+	
+	<div class="main mui-content">
+		<div class="personal-setup1">
+			<p class="item-group first">
+				<label>消息提醒</label>
+				<em class="switch mui-switch mui-switch-mini mui-active ">
+					<i class="mui-switch-handle"></i>
+				</em>
+			</p>
+			<p id="twocode" class="item-group">
+				<label>二维码分享</label>
+			</p>
+		</div>
+		
+		<div class="personal-setup1">
+			<p id="aboutus" class="item-group">
+				<label>关于我们</label>
+			</p>
+			<p id="proposal" class="item-group">
+				<label>反馈与建议</label>
+			</p>
+		</div>
+		
+		<div class="personal-setup1">
+			<p class="item-group">
+				<label>清除缓存</label>
+				<span>21.00M</span>
+			</p>
+			<p class="item-group">
+				<label>版本更新</label>
+				<span>V1.0</span>
+			</p>
+		</div>
+		
+		<div class="personal-setup2">
+			<button id="logout" class="button">退出登录</button>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		$.plusReady(function() {
+			/*plus.cache.calculate( function ( size ) {
+				alert( "Application cache size: " + size + " byte!" );
+			});*/
+			
+			$("#aboutus")[0].addEventListener('tap', function(){
+				$.app.openWindow("aboutUs.html");
+			})
+			
+			$("#proposal")[0].addEventListener('tap', function(){
+				$.app.openWindow("proposal.html");
+			})
+			
+			$("#twocode")[0].addEventListener('tap', function(){
+				$.app.openWindow("twocode.html");
+			})
+			
+			$("#logout")[0].addEventListener('tap', function(){
+				var url = 'security/logout';
+				$.app.post(url, {}, function(data){
+					app.setState(null);
+					var index = "personal/index.html";
+                	var personalCenter = plus.webview.getWebviewById(index);
+                    plus.webview.show(personalCenter);
+                    plus.webview.close(plus.webview.currentWebview());
+                    personalCenter.reload(true);
+					//var top = plus.webview.getLaunchWebview();
+					//top.reload(true);
+					//$.back();
+					/*plus.webview.show(top);
+					plus.webview.hide(plus.webview.currentWebview());*/
+				})
+			})
+			
+		});
+		
+	})(mui)
+</script>
+
+</html>

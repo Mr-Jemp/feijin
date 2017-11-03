@@ -1,0 +1,366 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="renderer" content="webkit">
+		<title>闪力招商</title>
+		<link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
+		<link rel="stylesheet" href="../resources/css/comment.css">
+		<link rel="stylesheet" href="../resources/css/detail.css">
+	</head>
+
+	<body>
+		<div id="vue_content" v-cloak>
+
+			<!--头部开始-->
+			<div class="header">
+				<div class="wrap_1190 header_inner">
+					<h1 class="fl">闪力招商</h1>
+					<div class="search_box fl">
+						<div class="search_input">
+							<input class="fl" type="text" placeholder="搜索项目">
+							<span class="fl search_btn"></span>
+						</div>
+						<div class="hot_search">
+							<a href="">搜索关键字1</a>
+							<a href="">搜索关键字2</a>
+							<a href="">搜索关键字1</a>
+							<a href="">搜索关键字2</a>
+							<a href="">搜索关键字1</a>
+							<a href="">搜索关键字2</a>
+						</div>
+					</div>
+
+					<div class="guide_btn fl">
+						<!--新手引导页面-->
+						<a href="javascript: void(0);"></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="main wrap_1190">
+
+				<div class="top">
+					<div class="swiper-container fl">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide"><img src="../resources/img/web/detail_banner.png"></div>
+							<div class="swiper-slide"><img src="../resources/img/web/detail_banner.png"></div>
+							<div class="swiper-slide"><img src="../resources/img/web/detail_banner.png"></div>
+							<div class="swiper-slide"><img src="../resources/img/web/detail_banner.png"></div>
+						</div>
+						<!-- 分页器 -->
+						<div class="swiper-pagination"></div>
+						<!-- 导航按钮 -->
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+					</div>
+					<div class="info fl">
+						<h2 class="name">丸型水果珍珠饮品</h2>
+						<div class="content">
+							<p>亮点一：创新水果 真材实料</p>
+							<p>亮点二：现场手工制作，口碑传播</p>
+							<p>亮点三：潮流亮点趋势，健康天然</p>
+						</div>
+						<div class="belong">所属公司：广州丸型水果有限公司</div>
+						<div class="price">签约佣金：<span style="font-size: 14px; color: #f7611f; font-family: Arial,serif; font-weight: 600;">2300</span>元</div>
+						<div class="buttons">
+							<img class="recommend_btn" src="../resources/img/web/btn_recommend.png" />
+							<img class="follow_btn" src="../resources/img/web/btn_follow.png" />
+						</div>
+					</div>
+				</div>
+
+				<div class="content_box clearfix">
+
+					<!--主内容区域-->
+					<div class="content fl">
+
+						<div class="tab_1">
+							<a>项目介绍</a>
+							<a>招商详情</a>
+							<div class="bottom_block" :style="tab1 ? 'left : 140px' : 'left : 42px'"></div>
+						</div>
+
+						<div v-show="tab1 === 0" style="border-radius: 8px; overflow: hidden;">
+							<ul class="tab_2 one clearfix">
+								<li :class="tab1_2 === 0 ? 'active' : ''">品牌简介</li>
+								<li :class="tab1_2 === 1 ? 'active' : ''">品牌发展</li>
+								<li :class="tab1_2 === 2 ? 'active' : ''">品牌优势</li>
+								<li :class="tab1_2 === 3 ? 'active' : ''">产品系列</li>
+								<li :class="tab1_2 === 4 ? 'active' : ''">门店形象</li>
+							</ul>
+
+							<div class="tab_content">
+								<!--品牌简介-->
+								<div class="profile" v-show="tab1_2 === 0">
+									<ul>
+										<li>
+											<strong>品牌名称</strong>
+											<span>豪汤</span>
+										</li>
+										<li>
+											<strong>所属品类</strong>
+											<span>豪汤</span>
+										</li>
+										<li>
+											<strong>品牌总部</strong>
+											<span>豪汤</span>
+										</li>
+										<li>
+											<strong>门店数量</strong>
+											<span>50-100家</span>
+										</li>
+										<li>
+											<strong>主要分布城市</strong>
+											<span>广州、深圳、上海</span>
+										</li>
+									</ul>
+								</div>
+
+								<!--品牌发展-->
+								<div class="develop" v-show="tab1_2 === 1">
+									<p>集团化运营，让餐饮更规范、更专业</p>
+									<p>广州芋品鲜餐饮管理有限公司</p>
+									<p>公司创立于2012年广州，由欧洲华商联结 本地餐饮连锁企业共同建立</p>
+									<p>2012年国内首创芝士奶霜系列产品</p>
+									<p>2013年为国内连锁企业和厂家提供原材料和技术配方</p>
+									<p>2014年—2015年正式实施对外招商加盟</p>
+									<p>2015年下半年始全球门店总数突破110家，是国内唯一拥有皇茶注册商标的茶饮企业</p>
+									<p>2016年6月，广州芋品鲜餐饮管理有限公司正式于深圳前海挂牌上市</p>
+								</div>
+
+								<!--品牌优势-->
+								<div class="ascendancy" v-show="tab1_2 === 2">
+									<p>1、品牌连锁效应 （连锁式美食行业发展的最佳途径）</p>
+									<p>2、皇牌团队力量后备军（团队力量化繁为简，做到四两拨千斤）</p>
+									<p>3、投资灵活回报快 （投资可大可小，选址灵活，品牌认可度高）</p>
+									<p>4、不受金融政策影响 （餐饮是刚性需求的实体行业）</p>
+									<p>5、批量化成本低、统一配送便捷化（由总部采购原材料进行配送，方便快捷）</p>
+									<p>6、无库存积压、无季节限制 （当天消耗定点采购，无仓库积压的风险）</p>
+									<p>7、无需大厨、无人员问题（标准化操作，通过培训均可上岗）</p>
+									<p>8、调整空间大、发展机会多（新品根据市场而变，紧跟时代潮流）</p>
+								</div>
+
+								<!--产品系列-->
+								<div class="series" v-show="tab1_2 === 3">
+									<p><strong><span style="font-family: 宋体;font-size: 14px"></span></strong></p>
+									<p>CheeseBomb芝吱挞&amp;茶有四大类产品：</p>
+									<p>1、水吧品类（热饮和冷饮）</p>
+									<p>2、蛋挞品类（冰挞和热挞）</p>
+									<p>3、乳酪品类（乳酪包和岩烧乳酪）</p>
+									<p>4、冰淇淋品类（火焰雪糕/蛋仔冰淇淋/水果冰淇淋杯）</p>
+									<p>可以适用四季。</p>
+									<p><img src="http://admin.shanlizs.com/store/uploads/1506492929612.png" title="1506492929612.png" alt="1506492929612.png"><img src="http://admin.shanlizs.com/store/uploads/1506492932725.jpg" title="1506492932725.jpg" alt="1506492932725.jpg"><img src="http://admin.shanlizs.com/store/uploads/1506492936057.jpg" title="1506492936057.jpg" alt="1506492936057.jpg"><img src="http://admin.shanlizs.com/store/uploads/1506492938207.png" title="1506492938207.png" alt="1506492938207.png"></p>
+									<p><br></p>
+									<p><br></p>
+									<p><br></p>
+									<p><br></p>
+									<p><br></p>
+									<p><br></p>
+								</div>
+
+								<!--门店形象-->
+								<div class="image" v-show="tab1_2 === 4">
+									<p><img src="http://admin.shanlizs.com/store/uploads/1506492929612.png" title="1506492929612.png" alt="1506492929612.png"><img src="http://admin.shanlizs.com/store/uploads/1506492932725.jpg" title="1506492932725.jpg" alt="1506492932725.jpg"><img src="http://admin.shanlizs.com/store/uploads/1506492936057.jpg" title="1506492936057.jpg" alt="1506492936057.jpg"><img src="http://admin.shanlizs.com/store/uploads/1506492938207.png" title="1506492938207.png" alt="1506492938207.png"></p>
+
+								</div>
+							</div>
+						</div>
+
+						<div v-show="tab1 === 1" style="border-radius: 8px; overflow: hidden;">
+							<ul class="tab_2 two clearfix">
+								<li :class="tab2_2 === 0 ? 'active' : ''">投资政策</li>
+								<li :class="tab2_2 === 1 ? 'active' : ''">扶持政策</li>
+								<li :class="tab2_2 === 2 ? 'active' : ''">招商区域</li>
+							</ul>
+
+							<div class="tab_content">
+
+								<!--投资政策-->
+								<div class="profile" v-show="tab2_2 === 0">
+									<p><br></p>
+									<table data-sort="sortDisabled" width="auto">
+										<tbody>
+											<tr class="firstRow">
+												<td width="274" valign="middle" align="center">费用</td>
+												<td width="274" valign="middle" align="center">标准店/2个品类</td>
+												<td width="274" valign="middle" align="center">形象店/4个品类</td>
+											</tr>
+											<tr>
+												<td width="274" valign="middle" align="center">
+													<p><br></p>
+													<p>加盟费</p>
+													<p><br></p>
+												</td>
+												<td width="274" valign="middle" align="center">&nbsp; 9.68万</td>
+												<td width="274" valign="middle" align="center">&nbsp;11.68万</td>
+											</tr>
+											<tr>
+												<td width="274" valign="middle" align="center">
+													<p>&nbsp;</p>
+													<p>&nbsp;保证金 &nbsp;</p>
+													<p><br></p>
+												</td>
+												<td rowspan="1" colspan="2" valign="middle" align="center">&nbsp; &nbsp; &nbsp;1万（合同到期，无息退还） &nbsp; &nbsp;</td>
+											</tr>
+											<tr>
+												<td width="274" valign="middle" align="center">
+													<p>&nbsp;</p>
+													<p>&nbsp;管理费 &nbsp;</p>
+													<p><br></p>
+												</td>
+												<td rowspan="1" colspan="2" valign="middle" align="center">&nbsp;9600/年（交一年送两年）</td>
+											</tr>
+											<tr>
+												<td valign="middle" align="center" colspan="1" rowspan="1">
+													<p><br></p>
+													<p>设备费</p>
+													<p><br></p>
+												</td>
+												<td valign="middle" align="center" colspan="1" rowspan="1">送（价值55000元设备）</td>
+												<td valign="middle" align="center" colspan="1" rowspan="1">送（价值75000元设备）</td>
+											</tr>
+											<tr>
+												<td width="274" valign="middle" align="center">
+													<p>&nbsp;&nbsp;</p>
+													<p>开业物料</p>
+													<p>&nbsp;&nbsp;</p>
+												</td>
+												<td rowspan="1" colspan="2" valign="middle" align="center">1万（预估10天备货量）</td>
+											</tr>
+											<tr>
+												<td width="274" valign="middle" align="center">
+													<p><br></p>
+													<p>装修费</p>
+													<p><br></p>
+												</td>
+												<td rowspan="1" colspan="2" valign="middle" align="center">总部免费设计平面施工图，可自行装修，1000-1500元/平</td>
+											</tr>
+										</tbody>
+									</table>
+									<p>开业8重大礼</p>
+									<p>1、赠送全店定制设备：收银系统、1.5米操作冰柜、四门冷柜、热风炉、蛋仔机（2个）、萃茶机、冰淇淋机、鲜奶机、果糖定量机、开水机、制冰机等。</p>
+									<p>2、量身定做店铺平面设计图、施工图、统一效果图。</p>
+									<p>3、营业员专业培训课程：广州市以外均免费上门培训。</p>
+									<p>4、专业管理团队，一对一全程陪伴式服务。</p>
+									<p>5、每季度新品免费培训+宣传画。</p>
+								</div>
+
+								<!--扶持政策-->
+								<div class="" v-show="tab2_2 === 1">
+									<p class="MsoNormal">开业前期：选址调研——装修设计——产品技术——设备支持——形象包装——活动策划<span lang="EN-US"></span></p>
+									<p class="MsoNormal">培训期：员工统一培训——产品知识考核——产品设备操作使用——产品理论实践与操作——出入库存和仓储管理——店铺人员管理——财务管理和审核标准<span lang="EN-US"></span></p>
+									<p class="MsoNormal">试营业：一对一内训——人员培训流程——人员作业流程制定——营销推广辅导——运营训练辅导——市场活动策划分析——专人负责管理运营<span lang="EN-US"></span></p>
+									<p class="MsoNormal">开业后：供货保障系统——新品研发和推广——专人门店辅导——网络销售渠道建立——网络平台推广和管理——定期宣传推广<span lang="EN-US"></span></p>
+									<p><br></p>
+								</div>
+
+								<!--招商区域-->
+								<div class="series" v-show="tab2_2 === 2">
+									全国
+								</div>
+
+							</div>
+						</div>
+
+						<!--商家名称-->
+						<div class="vendor_name">
+							<h3>商家名称</h3>
+							<div style="padding: 14px 28px;">
+								传统的门店形象是以原木简约风为主，注重休闲情调的乐趣，但也同时表明了健康自然的生态理念，原木的餐桌椅，更显舒适休闲氛围，缓解现代人精神紧张的压力。门店升级后以另外一种不同的风格取胜——工业风。仍然沿用先前的“极简主义”精神，搭配如今流行的工业loft装修风格，也是时下追求个性与自由的年轻人最爱。裸露在外的管线，既可以拥有挑高的天花板，也可以恰当打造出工业风格；比起砖墙的复古感，水泥墙更有一分沉静与现代感，呆在由水泥建构起来的空间内，整个人都不由得放慢脚步，慢慢呼吸冰冷的空气，享受店内的静谧与美好；搭配原木桌椅和皮革，使空间更有复古韵味。传统的门店形象是以原木简约风为主，注重休闲情调的乐趣，但也同时表明了健康自然的生态理念，原木的餐桌椅，更显舒适休闲氛围，缓解现代人精神紧张的压力。门店升级后以另外一种不同的风格取胜——工业风。仍然沿用先前的“极简主义”精神，搭配如今流行的工业loft装修风格，也是时下追求个性与自由的年轻人最爱。裸露在外的管线，既可以拥有挑高的天花板，也可以恰当打造出工业风格；比起砖墙的复古感，水泥墙更有一分沉静与现代感，呆在由水泥建构起来的空间内，整个人都不由得放慢脚步，慢慢呼吸冰冷的空气，享受店内的静谧与美好；搭配原木桌椅和皮革，使空间更有复古韵味。
+							</div>
+						</div>
+
+					</div>
+
+					<!--广告位-->
+					<div class="advertising fl">
+						广告位
+					</div>
+				</div>
+			</div>
+
+			<div class="footer">
+				<div class="wrap_1190 clearfix footer_inner">
+					<div class="fl friend_link">
+						<a href="#">关于我们</a>
+						<a href="#">商务合作</a>
+						<a href="#">免责声明</a>
+						<a href="#">我要入驻</a>
+						<hr>
+						<p>地址：广东省广州市天河区员村四横路兴业创展</p>
+						<p>COPYRIGHT &COPY; 2017 闪力招商有限公司 All Rights Reserved</p>
+					</div>
+					<div class="connect_us fr">
+						<img class="fl footer_logo" src="../resources/img/web/footer_logo.png">
+						<img class="fl footer_code" src="../resources/img/web/footer_code.png">
+						<div class="fl">
+							<dl>
+								<dt>客服电话</dt>
+								<dd style="font-size: 26px; font-family: Impact,serif;">400-123-1233</dd>
+							</dl>
+							<dl>
+								<dt>邮箱</dt>
+								<dd>SERVICE@51FEIJIN.COM</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
+		<script>
+			var vm = new Vue({
+				el: "#vue_content",
+				data: {
+					tab1: 0,
+					tab1_2: 0,
+					tab2_2: 0
+				}
+			});
+			
+			var mySwiper = new Swiper('.swiper-container', {
+				loop: true,
+				pagination: '.swiper-pagination',
+				nextButton: '.swiper-button-next',
+				prevButton: '.swiper-button-prev'
+			});
+
+			//一级选项卡切换
+			$(".tab_1").on("click", "a", function() {
+				var $this = $(this);
+				if(!$this.hasClass("active")) {
+					var left;
+					var index = $this.index();
+					vm.tab2 = 0;
+					vm.tab1 = index;
+					index ? left = "140px" : left = "42px";
+					$(".bottom_block").animate({
+						"left": left
+					}, 300);
+					$this.addClass("active").siblings().removeClass("active");
+				}
+			});
+
+			//二级选项卡切换
+			$(".tab_2").on("click", "li", function() {
+				var $this = $(this);
+				if(!$this.hasClass("active")) {
+					if($.contains(document.getElementsByClassName("one")[0], this)) {
+						vm.tab1_2 = $this.index();
+					} else {
+						vm.tab2_2 = $this.index();
+					}
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/conf.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script src="../js/mui.lazyload.js"></script>
+		<script src="../js/mui.lazyload.img.js"></script>
+
+		<title>社区</title>
+		<style>
+			.mui-bar-nav~.mui-content .mui-slider.mui-fullscreen{
+				/*top: 280px;*/
+			}
+		</style>
+		<script>
+			function edit() {
+				if (mui.app.isLogin(app.getState())) {
+					mui.app.openWindow("select-region.html");
+				} else {
+					mui.app.openWindow("../login/login.html");
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<li id="select-region" class="mui-icon mui-pull-left edit" onclick="edit()"></li>
+			<h1 class="mui-title">社区</h1>
+			<li id="selfCenter" class="mui-icon mui-pull-right selfCenter" onclick="listPersonCenter()"></li>
+		</header>
+		<div id="pullrefresh" class="main mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div class="mui-slider-group">
+					<div id="item0" class="community-invitation mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll forum">
+								<div class="community-talk">
+									<a id="1">
+										<i class="community-i1"></i>
+										<p>理财大家说</p>
+									</a>
+									<a id="2">
+										<i class="community-i2"></i>
+										<p>股票涨涨涨</p>
+									</a>
+									<a id="3">
+										<i class="community-i3"></i>
+										<p>基金机会多</p>
+									</a>
+									<a id="4">
+										<i class="community-i4"></i>
+										<p>保险抗风险</p>
+									</a>
+									<a id="5">
+										<i class="community-i5"></i>
+										<p>买房也轻松</p>
+									</a>
+									<a id="6">
+										<i class="community-i6"></i>
+										<p>资金全球配</p>
+									</a>
+								</div>
+								<p class="all-invitation">全部帖子</p>
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul id="all-comnuntity" class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}" class="textInfo">
+											<div id="{{item.authorId}}" class="userInfo">							
+												<div class="imgWarp">
+													<img v-if="item.avatar != '' || item.avatar.length > 0" src="{{item.avatar}}" alt="" class="m-ui-img-l">
+													<img v-else src="../images/user-img.png" alt="">
+												</div>
+												<span>{{item.authorName}}</span>
+											</div>
+											<div id="{{item.id}}" class="textInfo">
+												<h2>{{item.title}}</h2>
+												<p>{{item.abstractContent}}</p>
+												<template v-if="item.communityImages != undefined || item.communityImages != '' || item.communityImages.length > 0">
+													<div class="imgs">
+														<template v-for="(index,image) in item.communityImages">
+															<img src="{{image.src}}" alt="">
+														</template>
+													</div>
+												</template>										
+												<div class="timeInfo">
+													<p>
+														<span class="time">{{item.createTime}}</span>
+														<span class="like"><i class="i-like"></i><span>{{item.likeCount}}</span></span>
+														<span class="comment"><i class="i-comment"></i><span>{{item.arguedCount}}</span></span>
+													</p>
+												</div>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+
+		mui.init({
+			swipeBack: false
+		});
+
+		if (window.plus) {
+			plusReady();
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+		}
+
+		(function($) {
+			var deceleration = mui.os.ios ? 0.001 : 0.0003;
+			$('.mui-scroll-wrapper').scroll({
+				bounce: false,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration
+			});
+
+			var lazyLoadApi = mui('#pullrefresh').imageLazyload({
+				autoDestroy: false,
+				placeholder: '../images/60x60.gif'
+			});
+
+			$.app.url = api_domain + "community/list";
+			//document.addEventListener('initLoad', function() {
+			$.app.request($.app.url, function(data) {
+				$.app.initItemListVm(0, data, lazyLoadApi);
+				$.app.pageNo++;
+
+				//setTimeout(function(){
+					//lazyLoadApi.refresh(true);
+				//}, 300);
+
+				$('.community-talk').on('tap', "a", function() {
+					var id = this.getAttribute("id");
+					$.app.openCommuntityList(id);
+				});
+
+				$('.forum').on('tap', ".userInfo", function(e) {
+					e.stopPropagation();
+					var id = this.getAttribute("id");
+					$.app.openUserDetail(id);
+				},false);
+
+				$('.forum').on('tap', ".textInfo", function() {
+					var id = this.getAttribute("id");
+					$.app.openDetail(id);
+				});
+			});
+			//});
+
+			var createFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				for(var i = 0; i < data["result"].length; i++) {
+					li = document.createElement('li');
+					var item = data["result"][i];
+					var html = '<div id="' + item["authorId"] + '" class="userInfo">' +							
+									'<div class="imgWarp">';
+					if(item["avatar"] == '') {
+						var img = '<img src="../images/user-img.png" alt="">';
+					} else {
+						var img = '<img src="' + item["avatar"] + '" alt="">';
+					}
+					html = html + img +'</div><span>' + item["authorName"] + '</span>' +
+									'</div>' +
+									'<div id="' + item["id"] + '" class="textInfo">' +
+									'<h2>' + item["title"] + '</h2>' +
+									'<p>' + entitiestoUtf16(item["abstractContent"]) + '</p>';
+									
+					if (item.communityImages.length > 0) {
+						html = html + '<div class="imgs">';
+						for(var j = 0; j < item.communityImages.length; j++){
+							var image = item.communityImages[j];
+							html = html + '<img src="' + image.src + '" alt="">';
+						}
+						html = html + '</div>';
+					}
+					
+					html = html  + '<div class="timeInfo"><p>' +
+									'<span class="time">' + item["createTime"] + '</span><span class="like"><i class="i-like"></i><span>' + item["likeCount"] + '</span></span>' +
+									'<span class="comment"><i class="i-comment"></i><span>' + item["arguedCount"] + '</span></span>' +
+									'</p></div></div>';	
+					li.innerHTML = html;
+					li.setAttribute("id", item["id"]); 
+					li.setAttribute("class", "textInfo"); 
+					// 刷新出来的li内容
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					var url = $.app.url;
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.innerHTML = "";
+						ul.appendChild(createFragment(ul, index, data));
+						//lazyLoadApi.refresh(true);
+						self.endPullDownToRefresh();
+						$.app.pageNo = 2;
+					})
+				},
+				function(self, index) { // up
+					var url = $.app.url + "?pageNo=" + $.app.pageNo;
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo++;
+						//lazyLoadApi.refresh(true);
+						self.endPullUpToRefresh();
+					})
+				}
+			);
+		})(mui);
+	</script>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="resources/css/mui.min.css" rel="stylesheet" />
+	<link href="resources/css/main.css" rel="stylesheet" />
+	<title></title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title"></h1>
+	</header>
+	
+	<div class="main mui-content">
+		
+	</div>
+</body>
+
+<script src="resources/js/mui.min.js"></script>
+<script src="resources/js/conf.js"></script>
+
+<script>
+	(function($){
+		
+		var url,id;
+		
+		var txt = $.app.getName(document.URL, 'title');
+		document.title = $("#header")[0].getElementsByTagName("h1")[0].innerHTML = decodeURI(txt);
+		
+		var url = $.app.getName(document.URL, 'url');
+		if (url.indexOf('comment') >= 0) {
+			var type = $.app.getName(document.URL, 'type');
+			var itemId = $.app.getId(document.URL);
+			id = url;
+			url = url + '.html?id=' + itemId + '&type=' + type;
+		} else {
+			id = url;
+			url = url  + '.html';
+		}
+		mui.init({
+			subpages:[{
+				url: url ,
+				id: id,
+				styles:{
+					top: '45px',
+					bottom: '0px',
+				}
+			}]
+		});
+		
+	})(mui)
+</script>
+
+</html>

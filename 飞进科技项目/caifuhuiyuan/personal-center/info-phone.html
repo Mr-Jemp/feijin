@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/plugin.js"></script>
+	<title>个人中心-手机号</title>
+</head>
+<body id="phone">	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+		<h1 class="mui-title">完善个人资料</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="from-list">
+			<p>
+				<span>手机号：</span>
+				<input id="mobile" type="text" class="input_text" maxlength="11" value="{{mobile}}">
+			</p>
+			<p>
+				<span>手机验证码：</span>
+				<input id="captcha" type="text" class="input_text">
+				<em id="gainCode" class="gainCode">获取验证码</em>
+			</p>			
+			<input id="submit" type="submit" class="input_submit" value="确定">
+		</div>
+	</div>
+</body>
+
+
+	<script>
+		(function($, doc){
+			$.ajax({
+				type: "GET",
+				url: api_domain + "personal/me",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					if (data["result"] != 1) {
+						return;
+					}
+
+					var vm = new Vue({
+						el: '#phone',
+						data: data["data"]
+					});
+					
+					vm.$nextTick(function() {});
+				}
+			});
+			
+			var gainCode = document.getElementById("gainCode");
+			gainCode.addEventListener('tap', function(event) {
+				var phone = document.getElementById("mobile").value;
+				if (phone.trim() == "") {
+					mui.toast("手机号不能为空.");
+					return;
+				}
+				
+				plus.MobMsm.getVerificationCode(phone, function( result ) {time();mui.toast("验证码已发送");},function(result){mui.toast("请重试...");});
+			});
+			
+			mui("body").on('tap', '#submit', function() {
+				var mobile = document.getElementById("mobile").value;
+				var captcha = document.getElementById("captcha").value;
+				if (mobile.trim() == "") {
+					mui.toast("手机号不能为空.");
+					return;
+				}
+				if (captcha.trim() == "") {
+					mui.toast("验证码不能为空.");
+					return;
+				}
+				
+				$.ajax({
+					type: "post",
+					url: api_domain + "personal/mobile",
+					dataType: "json",
+					contentType:"application/json", 
+					async: false,
+					data: {
+						"mobile": mobile,
+						"captcha": captcha
+					},
+					success: function(data){
+						mui.toast("绑定手机号码成功.");
+						$.app.openWindow("personal-info.html");
+					},
+					error: function(data){
+						mui.toast(data.msg);
+					}
+				});
+			});			
+		})(mui, document)
+	</script>
+</html>

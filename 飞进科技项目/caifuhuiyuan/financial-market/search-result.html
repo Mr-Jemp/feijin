@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/conf.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/mui.pullToRefresh.js"></script>
+    <script src="../js/mui.pullToRefresh.material.js"></script>
+    <title>搜索结果页</title>
+    <style>
+        .mui-pull-bottom-tips {
+            display: none;
+        }
+    </style>
+</head>
+<body id="searchWarp">
+    <header id="header" class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+
+        <h1 class="search mui-title mui-input-row">
+            <p class="search-Box">
+                <em></em>
+                <input type="text" id="search-text" class="input_search mui-input-clear" placeholder="搜寻“公司名称”或“股票编号”">
+            </p>
+        </h1>
+        <a id="search-btn" class="mui-btn mui-btn-link mui-pull-right text">搜索</a>
+    </header>
+    <div class="mui-content mui-fullscreen" style="background: white;">
+        <div id="slider" class="mui-slider mui-fullscreen">
+            <div id="finacial-list" class="mui-slider-group">
+                <div id="item4" class="mui-slider-item mui-control-content mui-active">
+                    <div class="mui-scroll-wrapper mui-content">
+                        <div class="mui-scroll bond">
+                            <div class="bondList">
+                                    <template v-if="datas.totalCount == 0">
+                                        <ul class="mui-table-view">
+                                            <div class="result-num">
+                                                <p><em></em><span>暂无搜索结果</span><em></em></p>
+                                            </div>
+                                        </ul>
+                                    </template>
+
+                                    <template v-if="datas.totalCount > 0">
+                                        <div class="result-num">
+                                            <p><em></em><span><strong>{{datas.totalCount}}</strong>个搜索结果</span><em></em>
+                                            </p>
+                                        </div>
+                                        <ul class="mui-table-view">
+                                            <template v-for="(index,item) in datas.result">
+                                                <li id="{{item.id}}" >
+                                                    <div class="name">
+                                                        <h4>{{item.name}}（{{item.stockNo}}）</h4>
+                                                        <span class="money">{{item.middlePrice}}</span><!--
+                                                            --><span v-if="item.expireMethod == 2" class="year">{{item.expireTime}}</span><!--
+                                                            --><span v-if="item.expireMethod == 1" class="year">永续</span>
+                                                    </div>
+                                                    <div class="fright">
+                                                        <div class="rate">
+                                                            <p>孳息率</p>
+                                                            <span>{{item.extraIncomeRate}}%</span>
+                                                        </div>
+                                                        <div class="fright">
+                                                            <em class="more"></em>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    (function ($, doc) {
+        var input = document.getElementById("search-text");
+        setTimeout(function () {
+            mui.trigger(input, 'tap');
+            input.focus();
+        }, 300);
+
+        var search = document.getElementById("search-btn");
+        var vm = null;
+        var isHasNext = false;
+        var txt;
+        var waiting = null;
+        mui.plusReady(function() {
+            search.addEventListener('tap', function () {
+                waiting = plus.nativeUI.showWaiting();
+                $.app.pageNo = 1;
+                txt = document.getElementById("search-text").value;
+                if (txt != '') {
+                    $.ajax({
+                        type: "POST",
+                        url: api_domain + "financial/securities/query",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: {
+                            "name": txt
+                        },
+                        async: false,
+                        success: function (data) {
+                            waiting.close();
+
+                            if (data["result"] != 1) {
+                                mui.toast(data["msg"]);
+                                return;
+                            }
+
+                            isHasNext = data["isHasNext"];
+                            if (vm != null) {
+                                vm.datas = data["data"];
+                                vm.$nextTick(function () {});
+                                return;
+                            }
+
+                            $.app.pageNo++;
+
+                            vm = new Vue({
+                                el: '#searchWarp',
+                                data: {
+                                    datas: data["data"]
+                                }
+                            });
+                        },
+                        error: function (data) {
+                            mui.toast(data.msg);
+                        }
+                    });
+                } else {
+                    mui.toast("请输入搜索关键词");
+                }
+            });
+            setTimeout(function() {
+                waiting.close();
+            }, 1000);
+
+            $('.bondList').on('tap', "li", function() {
+                var id = this.getAttribute("id");
+                $.app.openBondDetail(id);
+            })
+        });
+
+        $.app.pullToRefresh(
+                function(self, index) { // down
+                    $.ajax({
+                        type: "POST",
+                        url: api_domain + "financial/securities/query",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: {
+                            "name": txt
+                        },
+                        async: false,
+                        success: function (data) {
+                            if (data["result"] != 1) {
+                                mui.toast(data["msg"]);
+                                return;
+                            }
+                            vm.datas = data["data"];
+                            vm.$nextTick(function () {});
+                        }
+                    });
+                },
+                function(self, index) { // up
+                    if (!isHasNext) {
+                        return;
+                    }
+
+                    var url = api_domain + "financial/securities/query?pageNo=" + $.app.pageNo;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: {
+                            "name": txt
+                        },
+                        async: false,
+                        success: function (data) {
+                            if (data["result"] != 1) {
+                                mui.toast(data["msg"]);
+                                return;
+                            }
+                            vm.datas = data["data"];
+                            vm.$nextTick(function () {});
+                        }
+                    });
+                }
+        )
+    })(mui, document)
+</script>
+</html>

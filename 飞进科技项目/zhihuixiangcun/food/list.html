@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/swiper.min.css" rel="stylesheet">
+	<title>美食列表</title>
+	<style>
+		.banner-warp{
+			min-height: 215px;
+		}
+	</style>
+</head>
+<body>
+	<div class="index-header">
+		<!-- 搜索框 -->
+		<div class="index-top">
+			<div id="gps" class="address">
+				<i class="i-address"></i>
+				<span id="address">未定位</span>
+			</div>
+			<div class="search-warp">
+				<i class="i-search"></i>
+				<span>请输入关键字</span>
+			</div>
+		</div>
+		<!-- banner -->
+		<div id="banners" class="banner-warp">
+			<div class="swiper-container swiper-banner">
+				<div class="swiper-wrapper">
+					<template v-for="item in banners">
+						<div :id="item.id" :type-id="item.adType" class="swiper-slide">
+							<a :data-id="item.url">
+								<img :src="item.imgName" :alt="item.title" class="banner-img">
+							</a>
+						</div>
+					</template>
+				</div>
+				<div class="swiper-pagination swiper-pagination-white swiper-pagination-banner"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main mui-content attractions-warp">
+		<div class="wineshop-list1">
+			<a id="city" class="sort">菜系</a>
+			<a id="screen" class="sort last">筛选</a>
+			<a id="recommend" class="sort">排序</a>
+		</div>
+
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="list" class="wineshop-list2">
+					<div class="personal-comment2 notdata" :class="{'hide' : list.length > 0}">
+						<img src="../resources/images/nodata.png" alt="" />
+					</div>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<template v-for="item in list">
+							<li :id="item.id">
+								<div class="img">
+									<img :src="item.foodImg" alt="">
+								</div>
+								<div class="info">
+									<h1>{{item.foodName}}</h1>
+									<h6>￥{{item.price}}/人</h6>
+								</div>
+							</li>
+						</template>
+					</ul>
+				</div>
+			</div>
+		</div>	
+		
+		<!-- 弹出框 -->
+		<div id="citySelectBox" class="sortBox hide">
+			<div class="sortContent">
+				<ul class="list">
+					<li>不限</li>
+					<li type-id="1">粤菜</li>
+					<li type-id="2">快餐</li>
+					<li type-id="3">小吃</li>
+					<li type-id="4">甜点</li>
+					<li type-id="5">火锅</li>
+					<li type-id="6">烧烤</li>
+					<li type-id="7">自助餐</li>
+				</ul>
+			</div>
+		</div>
+		<div id="screenSelectBox" class="sortBox hide">
+			<div id="sortContent" class="sortContent">
+				<div class="option-warp">
+					<h1 class="tit">价格</h1>
+					<div type-id="3" class="options">
+						<span type-id="0" class="active">不限</span>
+						<span type-id="1">100以下</span>
+						<span type-id="2">100-200</span>
+						<span type-id="3">200-300</span>
+					</div>
+					<div class="buttons">
+						<button id="clear" class="button disabled">清除</button>
+						<button id="screenSubmit" class="button">确定</button>
+					</div>
+				</div>					
+			</div>
+		</div>
+		<div id="recommendSelectBox" class="sortBox hide">
+			<div class="sortContent">
+				<ul class="list">
+					<li type-id="1">评价最好</li>
+					<li type-id="2">人气最高</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/mui.pullToRefresh.js"></script>
+<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+<script src="../resources/js/swiper.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+
+	(function($) {
+
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					auto: false,
+					callback: pulldownRefresh
+				},
+				up: {
+					auto: false,
+					contentrefresh: '正在加载...',
+					contentnomore:'暂无更多数据',
+					callback: pullupRefresh
+				}
+			}
+		});	
+		
+		if (window.plus) {
+			plusReady();
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
+	
+		function plusReady() {
+			new Swiper('.swiper-banner', {
+				loop: true,
+				pagination: '.swiper-pagination-banner',
+				paginationClickable: true,
+				preloadImages: false,
+				speed: 300,
+				autoplay: 5000
+			});
+			plus.navigator.closeSplashscreen();
+		}
+		
+		$("#address")[0].innerHTML = localStorage.getItem('$address');
+
+		var vm = null,page = 1;
+		var type = playModel = scenicLevel = sorting = '',price = 0;
+		var listUrl = 'food/list?pageNo=' + page;
+		$.app.get(listUrl, function(data){
+			var vm0 = new Vue({
+				el: "#banners",
+				data: {
+					banners: data.banner
+				}
+			})
+			vm = new Vue({
+				el: "#list",
+				data: {					
+					list: data.result
+				}
+			})
+			page++;
+
+			onevent();
+		})
+
+		//上拉刷新、下拉加载
+		function pulldownRefresh() {
+			page = 1;
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(false);
+			listUrl = 'food/list?pageNo=' + page;
+			$.app.get(listUrl, function(data){
+				vm.list = data.result;
+			})
+		}
+
+		function pullupRefresh() {
+			console.log("a");
+			listUrl = 'food/list?pageNo=' + page;
+			$.app.get(listUrl, function(data){
+				if (data.result.length != 0) {
+					setTimeout(function(){
+						vm.list = vm.list.concat(data.result);
+					},200);
+					page++;
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+				} else {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
+			})
+		}
+
+		function onevent() {
+			$("#gps")[0].addEventListener('tap', function(){
+				$.app.openWindow("../home/address.html");
+			})
+			
+			mui(".mui-table-view").on('tap', 'li', function(){
+				$.app.openDetail(this.id);
+			})
+			
+			//弹出筛选框
+			$(".wineshop-list1").on('tap', '.sort', function(){
+				mui(".sortBox").each(function(){
+					addClass(this, 'hide');
+				})
+				if (!hasClass(this, 'active')) {
+					if (this.id == 'city') {
+						removeClass(mui("#citySelectBox")[0], 'hide');
+					}
+					if (this.id == 'recommend') {
+						removeClass(mui("#recommendSelectBox")[0], 'hide');
+					}
+					if (this.id == 'screen') {
+						removeClass(mui("#screenSelectBox")[0], 'hide');
+					}
+					mui(".sort").each(function(){
+						removeClass(this, 'active');
+					})
+					addClass(this, 'active');
+				} else {
+					removeClass(this, 'active');
+				}
+			});			
+
+			$(".options").on('tap', 'span', function(){
+				var elemChild = this.parentNode.getElementsByTagName('span');
+				Array.prototype.forEach.call(elemChild, function(span){
+					span.classList.remove('active');
+				})
+				addClass(this, 'active');
+			})
+			
+			$(".list").on('tap', 'li', function(){
+				var parent = this.parentNode.parentNode.parentNode;
+				var type_id = this.getAttribute('type-id');
+				if (parent.id == 'citySelectBox') {
+					$("#city")[0].innerHTML = this.innerHTML;
+					if (type_id) {
+						type = type_id;
+					}					
+				}
+				if (parent.id == 'recommendSelectBox') {
+					$("#recommend")[0].innerHTML = this.innerHTML;
+					if (type_id) {
+						sorting = type_id;
+					}
+				}
+				addClass(parent, 'hide');
+				$(".sort").each(function(){
+					if (hasClass(this, 'active')) {
+						removeClass(this, 'active');
+					}
+				})
+				sortPost();
+			})
+			
+			//清除选中状态
+			$("#clear")[0].addEventListener('tap', function(){
+				mui(".options span").each(function(){
+					removeClass(this, 'active');
+				})
+			})		
+
+			//提交筛选条件
+			$("#screenSubmit")[0].addEventListener('tap', function(){			
+				var parent = this.parentNode.parentNode.getElementsByClassName("options");
+				Array.prototype.forEach.call(parent, function(self){
+					var options = self.getAttribute('type-id');
+					if (options == 1) {
+						var child = self.getElementsByTagName("span");
+						Array.prototype.forEach.call(child, function(child){
+							if (hasClass(child, 'active')) playModel = child.getAttribute('type-id');
+						})
+					}
+					if (options == 2) {
+						var child = self.getElementsByTagName("span");
+						Array.prototype.forEach.call(child, function(child){
+							if (hasClass(child, 'active')) scenicLevel = child.getAttribute('type-id');
+						})
+					}
+					if (options == 3) {
+						var child = self.getElementsByTagName("span");
+						Array.prototype.forEach.call(child, function(child){
+							if (hasClass(child, 'active')) price = child.getAttribute('type-id');
+						})
+					}
+				})
+				sortPost();
+				
+				addClass(mui("#screenSelectBox")[0], 'hide');
+				removeClass($("#screen")[0], 'active');
+			})
+		}		
+		
+		//筛选请求
+		function sortPost(){
+			page = 1;
+			var sortUrl = 'food/list?pageNo=' + page + '&type=' + type + '&playModel=' + playModel + '&scenicLevel=' + scenicLevel + '&price=' + price + '&sorting=' + sorting;
+			$.app.get(sortUrl, function(data){
+				if (data.result.length == 0) {
+					mui.toast("暂无满足此条件的美食！");
+				}
+				vm.list = data.result;
+				if (data.result.length <= 0) {
+					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+				} else {
+					page++;
+				}
+			})
+		}
+
+	})(mui);		
+</script>
+
+</html>

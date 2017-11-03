@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>	
+	<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+	<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+	<style>
+		.text-text{
+			padding: 0 45px;
+		}
+	</style>
+	<title>个人中心-理财规划书</title>
+</head>
+<body id="pie-label">
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back"></a>
+		<h1 class="mui-title">我的定制理财规划书</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="preferenceBox mypreferenceBox">
+			<h2>您的风险偏好为：</h2>
+			<div class="levelWarp">
+				<h3><span>{{assessment}}</span>分</h3>
+				<!-- 取得分数值就OK 下方的指示条我做了取值 -->
+				<div class="levelBox">
+					<em class="anchor"></em>
+					<div class="level">
+						<em class="levelImg"></em>
+					</div>
+				</div>
+				<div class="text">
+					<span>保守</span>
+					<span>谨慎</span>
+					<span>稳健</span>
+					<span>积极</span>
+					<span>进取</span>
+				</div>
+			</div>
+			<div class="level-pie-detail">
+				<h4>财富顾问根据您的测评结果，发现您是一名<span class="cheng">
+					<tamplate v-if="financialPortfolios.type === 1">
+						保守型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 2">
+						谨慎型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 3">
+						稳健型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 4">
+						积极型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 5">
+						激进型
+					</tamplate>
+					投资者</span>，结合本月最新市场行情，我们为您配置的智能理财组名如下：</h4>
+				<div class="pieWarp">
+					<div class="pie preference-pie">
+						<div id="myChart1"></div>
+					</div>	
+					<div class="label" style="right:10%">
+						<templata v-for="(item,data) in financialPortfolios.financialPortfolioItems">
+							<p class="pie-p{{item}}"><em></em><span>{{data.title}}</span></strong></p>
+						</templata>
+					</div>
+				</div>								
+			</div>
+			<div class="level-line-detail">
+				<h4>预期未来收益率如下：综合年化收益率</h4>
+				<p class="proceeds">{{averageRates}}%</p>
+				<div class="lineWarp">
+					<div id="myChart2"></div>
+				</div>
+			</div>
+			<br />
+			<h6 class="text-text">{{financialPortfolios.remarks}}</h6>
+			<br />
+			<div class="buttons">
+				<a id="send-email">发送至邮箱</a>
+			</div>
+			<p class="tips" style="text-align: center;">将详细报告发送至您的邮箱。</p>
+		</div>
+	</div>
+</body>x
+	<script type="text/javascript">
+		function chart1(array){
+		    $('#myChart1').highcharts({
+		        chart: {
+		        	height: "140",
+		            backgroundColor: '#f2f2f2',
+		            plotBorderWidth: null,
+		            plotShadow: false
+		        },
+		        credits: {
+		        	enabled: false
+		        },
+		        colors:[
+		        	"#EA883B",
+	                "#52B394",
+	                "#3688A1",
+	                "#E2B647",
+	                "#E24A47"
+		        ],
+		        title: {
+		        	text: false
+		        },
+		        tooltip: false,
+		        plotOptions: {
+		            pie: {
+		                allowPointSelect: true,
+		                cursor: 'pointer',
+		                dataLabels: {
+		                    enabled: false
+		                },
+		                showInLegend: false
+		            }
+		        },
+		        series: [{
+		            type: 'pie',
+		            name: 'Browser share',
+		            data: [
+		                ['一级风险资产', array[0]],
+		                ['二级风险资产', array[1]],
+		                {
+		                    name: '三级风险资产',
+		                    y:  array[2],
+		                    sliced: true,
+		                    selected: true
+		                },
+		                ['四级风险资产', array[3]],
+		                ['五级风险资产', array[4]]
+		            ]
+		        }]
+		    });
+		}
+		function chart2(array){
+		    $('#myChart2').highcharts({
+				credits: {
+					enabled: false
+				},
+		        chart: {
+		        	height: "250",
+		        	backgroundColor: '#f2f2f2',
+		            type: 'line'
+		        },
+		        title: {
+		            text: "单位:%",
+					align:"right",
+					style:{ "fontSize": "10px",color:"#E2B647" }
+		        },
+		        subtitle: {
+		            text: false
+		        },
+		        xAxis: {
+		            categories: ['2年','4年','6年','8年','10年']
+		        },
+		        yAxis: {
+		            title: {
+		                text: false
+		            }
+		        },
+		        plotOptions: {
+		            line: {
+		                dataLabels: {
+		                    enabled: true
+		                },
+		                enableMouseTracking: false
+		            }
+		        },
+		        series: [{
+		            name: '收益率',
+		            data: array,
+		            color: "#ff4e00"
+		        }]
+		    });
+		}
+
+		(function($, doc){	
+			var score;
+			var url = api_domain + "personal/planning/details";
+			//window.location.href = api_domain + "personal/planning/details";
+			$.ajax({
+				type: "get",
+				url: api_domain + "personal/planning/details",
+				dataType: "json",
+				contentType:"application/json",
+				async: false,
+				success: function(data) {
+					if (data["result"] != 1) {
+						mui.toast(data.msg);
+						return;
+					}
+					
+					//console.log(data.data.financialPortfolios.remarks);
+					
+					score = data.data.assessment;
+					document.getElementsByClassName("anchor")[0].style.left = score + "%";
+					document.getElementsByClassName("level")[0].style.width = score + "%";
+					
+					var pie_array = [];
+					var line_array = [data.data.yieldRates['2'],data.data.yieldRates['4'],data.data.yieldRates['6'],data.data.yieldRates['8'],data.data.yieldRates['10']];
+					for (var i=0;i < data.data.financialPortfolios.financialPortfolioItems.length;i++){
+						pie_array[i] = data.data.financialPortfolios.financialPortfolioItems[i].weight;
+					}
+					chart1(pie_array);
+					chart2(line_array);
+					
+					var vm = new Vue({
+						el: '#pie-label',
+						data: data["data"]
+					});
+				}
+			});
+			
+			var email_ok;
+			$.ajax({
+				type: "GET",
+				url: api_domain + "personal/me",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					if (data["result"] != 1) {
+						return;
+					}
+					
+					email_ok = data["email"];
+				}
+			});
+			
+			var email = document.getElementById("send-email");
+			email.addEventListener('tap', function(){
+				var url = api_domain + 'personal/risk/send';
+				var data = {
+					"assessment": score
+				};
+				if(email_ok == '') {
+					$.app.openWindow("info-mail.html");
+				} else {
+					addClass(email, "disabled");
+					$.app.post(url, data, function(data){
+						mui.toast("发送成功");
+						email.innerHTML = "已发送至邮箱";
+					});
+				}
+			})
+		})(mui, document)
+	</script>
+</html>

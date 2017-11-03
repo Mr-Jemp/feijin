@@ -1,0 +1,92 @@
+{
+	"personal-center/index.html": {
+		"resources": [
+			"images/back.png",
+			"images/more1.png",
+			"images/user-img.png",
+			"images/self-list.png",
+			"images/self-info-bg.png",
+			"images/setup.png"
+		],
+		"refer": [
+			"personal-center/personal-info.html",
+			"personal-center/info-questionnaire.html",
+			"personal-center/info-preference.html"
+		]
+	},
+	"home.html": {
+		"resources": [
+			"images/self.png",
+			"js/mui.pullToRefresh.js",
+			"js/js.js",
+			"images/financial2.png",
+			"js/mui.pullToRefresh.material.js",
+			"fonts/mui.ttf",
+			"images/financial5.png",
+			"images/up.png",
+			"js/swiper.min.js",
+			"js/vue.min.js",
+			"images/financial4.png",
+			"images/like.png",
+			"images/financial3.png",
+			"images/search.png",
+			"images/down.png",
+			"images/comment.png",
+			"images/info.png",
+			"images/img_risk.jpg",
+			"css/swiper.min.css",
+			"images/financial1.png",
+			"images/more.png"
+		],
+		"refer": [
+			"personal-center/index.html"
+		]
+	},
+	"index.html": {
+		"resources": [
+			"home.html",
+			"images/nav-market.png",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"images/nav-classroom.png",
+			"images/nav-community.png",
+			"images/nav-info.png",
+			"images/nav-index-on.png",
+			"js/conf.js"
+		],
+		"refer": [
+			"home.html"
+		]
+	},
+	"personal-center/info-questionnaire.html": {
+		"resources": [
+			"images/back.png",
+			"js/js.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue.min.js",
+			"js/conf.js",
+			"images/close.png",
+			"images/level.png",
+			"images/anchor.png"
+		],
+		"refer": [
+			"personal-center/index.html"
+		]
+	},
+	"personal-center/info-preference.html": {
+		"resources": [
+			"images/back.png",
+			"js/js.js",
+			"js/mui.min.js",
+			"images/level.png",
+			"css/mui.min.css",
+			"css/style.css",
+			"images/anchor.png",
+			"js/vue.min.js",
+			"js/conf.js"
+		]
+	}
+}

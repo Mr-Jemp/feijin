@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/><script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>	
+	<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+	<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+	<style>
+		.text-text{
+			padding: 0 45px;
+		}
+	</style>
+	<title>个人中心-风险偏好</title>
+</head>
+<body id="pie-label">
+	<div id="risk" class="risk-preference hide">
+		<div class="preferenceBox">
+			<em id="close" class="close"></em>
+			<h2>您的风险偏好为：</h2>
+			<div class="levelWarp">
+				<h3><span id="score"></span>分</h3>
+				<div class="levelBox">
+					<em class="anchor"></em>
+					<div class="level">
+						<em class="levelImg"></em>
+					</div>
+				</div>
+				<div class="text">
+					<span>保守</span>
+					<span>谨慎</span>
+					<span>稳健</span>
+					<span>积极</span>
+					<span>进取</span>
+				</div>
+			</div>
+			<div class="level-pie-detail">
+				<h4>财富顾问根据您的测评结果，发现您是一名<span class="cheng">
+					<tamplate v-if="financialPortfolios.type === 1">
+						保守型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 2">
+						谨慎型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 3">
+						稳健型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 4">
+						积极型
+					</tamplate>
+					<tamplate v-if="financialPortfolios.type === 5">
+						激进型
+					</tamplate>
+					投资者</span>，结合本月最新市场行情，我们为您配置的智能理财组名如下：</h4>
+				<div class="pieWarp">
+					<div class="pie">
+						<div id="myChart1"></div>
+					</div>	
+					<div class="label">
+						<templata v-for="(item,data) in financialPortfolios.financialPortfolioItems">
+							<p class="pie-p{{item}}"><em></em><span>{{data.title}}</span></p>
+						</templata>							
+					</div>
+				</div>								
+			</div>
+			<div class="level-line-detail">
+				<h4>预期未来收益率如下：综合年化收益率</h4>
+				<p class="proceeds">{{averageRates}}%</p>
+				<div class="lineWarp">
+					<div id="myChart2"></div>
+				</div>
+			</div>			
+			<br />
+			<h6 class="text-text">{{financialPortfolios.remarks}}</h6>
+			<br />
+			<div class="buttons">
+				<a id="send-email" >发送至邮箱</a>
+			</div>
+			<p class="tips">您可以在个人中心我的定制理财规划书中查看报告，也可以将详细报告发送至您的邮箱。</p>
+		</div>
+	</div>	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+		<h1 class="mui-title">我的风险偏好</h1>
+	</header>
+	<div class="main mui-content">		
+		<div class="questionnaire">
+			<!--1-->
+			<div id="question1" class="question cur_show">
+				<h2>1. 请问您的年龄处于？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio1" id="radio11" class="input_radio" onclick="selQustion(this)" value="1">
+						<label for="radio11" class="radio_label">60岁以上</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio1" id="radio12" class="input_radio" onclick="selQustion(this)" value="3">
+						<label for="radio12" class="radio_label">46-60</label>
+					</div>	
+					<div class="radioCustom">
+						<input type="radio" name="radio1" id="radio13" class="input_radio" onclick="selQustion(this)" value="6">
+						<label for="radio13" class="radio_label">36-45</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio1" id="radio14" class="input_radio" onclick="selQustion(this)" value="8">
+						<label for="radio14" class="radio_label">26-35</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio1" id="radio15" class="input_radio" onclick="selQustion(this)" value="10">
+						<label for="radio15" class="radio_label">25岁以下</label>
+					</div>
+				</div>
+			</div>
+			<!--2-->
+			<div id="question2" class="question">
+				<h2>2. 您有过几年的投资经验？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio2" id="radio21" onclick="selQustion(this)" class="input_radio">
+						<label for="radio21" class="radio_label">1年以下</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio2" id="radio22" onclick="selQustion(this)" class="input_radio">
+						<label for="radio22" class="radio_label">1-2年</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio2" id="radio23" onclick="selQustion(this)" class="input_radio">
+						<label for="radio23" class="radio_label">3-5年</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio2" id="radio24" onclick="selQustion(this)" class="input_radio">
+						<label for="radio24" class="radio_label">6-10年</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio2" id="radio25" onclick="selQustion(this)" class="input_radio">
+						<label for="radio25" class="radio_label">10年以上</label>
+					</div>
+				</div>
+			</div>
+			<!--3-->
+			<div id="question3" class="question">
+				<h2>3. 您的投资经验可以被概括为？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio3" id="radio31" onclick="selQustion(this)" class="input_radio">
+						<label for="radio31" class="radio_label">无:除银行活期和定期储蓄存款外，基本没有其他投资经验</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio3" id="radio32" onclick="selQustion(this)" class="input_radio">
+						<label for="radio32" class="radio_label">有限：有过购买国债，货币型基金等保本型金融产品投资经验</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio3" id="radio33" onclick="selQustion(this)" class="input_radio">
+						<label for="radio33" class="radio_label">一般：具有简单的证券投资经验，购买过债券、混合型基金等</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio3" id="radio34" onclick="selQustion(this)" class="input_radio">
+						<label for="radio34" class="radio_label">丰富：我是一位有经验的投资者，参与过股票、基金等产品的交易，并倾向于自己做出投资决策</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio3" id="radio35" onclick="selQustion(this)" class="input_radio">
+						<label class="radio_label">非常丰富：我是一位非常有经验的投资者，参与过权证、期货或创业板等高风险产品的交易</label>
+					</div>
+				</div>
+			</div>
+			<!--4-->
+			<div id="question4" class="question">
+				<h2>4. 您家庭预计进行证券投资的资金占家庭现有总资产(不含自住、自用房产及汽车等固定资产)的比例是？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio4" id="radio41" onclick="selQustion(this)" class="input_radio">
+						<label for="radio41" class="radio_label">低于10%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio4" id="radio42" onclick="selQustion(this)" class="input_radio">
+						<label for="radio42" class="radio_label">10%-25%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio4" id="radio43" onclick="selQustion(this)" class="input_radio">
+						<label for="radio43" class="radio_label">25%-40%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio4" id="radio44" onclick="selQustion(this)" class="input_radio">
+						<label for="radio44" class="radio_label">40%-55%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio4" id="radio45" onclick="selQustion(this)" class="input_radio">
+						<label for="radio45" class="radio_label">55%以上</label>
+					</div>
+				</div>
+			</div>
+			<!--5-->
+			<div id="question5" class="question">
+				<h2>5. 您目前投资的主要目的是？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio5" id="radio51" onclick="selQustion(this)" class="input_radio">
+						<label for="radio51" class="radio_label">资产保值，我不愿意承担任何投资风险</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio5" id="radio52" onclick="selQustion(this)" class="input_radio">
+						<label for="radio52" class="radio_label">首要保证本金安全，同业追求较低的收益率</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio5" id="radio53" onclick="selQustion(this)" class="input_radio">
+						<label for="radio53" class="radio_label">产生一定的收益，可承担一定的投资风险，但要求波动小</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio5" id="radio54" onclick="selQustion(this)" class="input_radio">
+						<label for="radio54" class="radio_label">产生较大的收益，可承担较高的投资风险，要求波动适度</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio5" id="radio55" onclick="selQustion(this)" class="input_radio">
+						<label for="radio55" class="radio_label">实现资产大幅增长，愿意承担很大的投资风险与波动</label>
+					</div>
+				</div>
+			</div>
+			<!--6-->
+			<div id="question6" class="question">
+				<h2>6．您预期的投资期限是？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio6" id="radio61" onclick="selQustion(this)" class="input_radio">
+						<label for="radio61" class="radio_label">少于1年</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio6" id="radio62" onclick="selQustion(this)" class="input_radio">
+						<label for="radio62" class="radio_label">1—3年</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio6" id="radio63" onclick="selQustion(this)" class="input_radio">
+						<label for="radio63" class="radio_label">3—5年</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio6" id="radio64" onclick="selQustion(this)" class="input_radio">
+						<label for="radio64" class="radio_label">5—10年</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio6" id="radio65" onclick="selQustion(this)" class="input_radio">
+						<label for="radio65" class="radio_label">10年以上</label>
+					</div>
+				</div>
+			</div>
+			<!--7-->
+			<div id="question7" class="question">
+				<h2>7. 一下5种投资模式，您更偏好哪一种？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio7" id="radio71" onclick="selQustion(this)" class="input_radio">
+						<label for="radio71" class="radio_label">本金无任何亏损，最高收益4%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio7" id="radio72" onclick="selQustion(this)" class="input_radio">
+						<label for="radio72" class="radio_label">本金最多亏损5%，最高收益10%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio7" id="radio73" onclick="selQustion(this)" class="input_radio">
+						<label for="radio73" class="radio_label">本金最多亏损15%，最高收益30%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio7" id="radio74" onclick="selQustion(this)" class="input_radio">
+						<label for="radio74" class="radio_label">本金最多亏损25%，最高收益收益50%</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio7" id="radio75" onclick="selQustion(this)" class="input_radio">
+						<label for="radio75" class="radio_label">本金最多亏损25%以上，最高收益50%以上</label>
+					</div>
+				</div>
+			</div>
+			<!--8-->
+			<div id="question8" class="question">
+				<h2>8. 如果您拥有50万用来建立资产组合，您会选择下面哪一个组合？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio8" id="radio81" onclick="selQustion(this)" class="input_radio">
+						<label for="radio81" class="radio_label">低风险、一般风险、高风险投资的比重分别为 80 ：15 ：5</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio8" id="radio82" onclick="selQustion(this)" class="input_radio">
+						<label for="radio82" class="radio_label">低风险、一般风险、高风险投资的比重分别为 60 ：30 ：10</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio8" id="radio83" onclick="selQustion(this)" class="input_radio">
+						<label for="radio83" class="radio_label">低风险、一般风险、高风险投资的比重分别为 30 ：40 ：30</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio8" id="radio84" onclick="selQustion(this)" class="input_radio">
+						<label for="radio84" class="radio_label">低风险、一般风险、高风险投资的比重分别为 10 ：30 ：60</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio8" id="radio85" onclick="selQustion(this)" class="input_radio">
+						<label class="radio_label">低风险、一般风险、高风险投资的比重分别为 5  ：15 ：80</label>
+					</div>
+				</div>
+			</div>
+			<!--9-->
+			<div id="question9" class="question">
+				<h2>9. 假设有两种不同的投资：投资A预期获得5%的收益，有可能承担非常小的损失；投资B预期获得20%的收益，但有可能面临25%甚至更高的亏损。您将您的投资资产分配为？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio9" id="radio91" onclick="selQustion(this)" class="input_radio">
+						<label for="radio91" class="radio_label">全部投资于A</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio9" id="radio92" onclick="selQustion(this)" class="input_radio">
+						<label for="radio92" class="radio_label">大部分投资于A</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio9" id="radio93" onclick="selQustion(this)" class="input_radio">
+						<label for="radio93" class="radio_label">两种投资各一半</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio9" id="radio94" onclick="selQustion(this)" class="input_radio">
+						<label for="radio94" class="radio_label">大部分投资于B</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio9" id="radio95" onclick="selQustion(this)" class="input_radio">
+						<label for="radio95" class="radio_label">全部投资于B</label>
+					</div>
+				</div>
+			</div>
+			<!--10-->
+			<div id="question10" class="question">
+				<h2>10. 您刚刚有足够的储蓄实践你自己一直梦寐以求的旅行，但是出发前三个星期，您忽然被解雇。您会？</h2>
+				<div class="radios">
+					<div class="radioCustom">
+						<input type="radio" name="radio10" id="radio101" onclick="selQustion(this)" class="input_radio">
+						<label for="radio101" class="radio_label">取消旅行</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio10" id="radio102" onclick="selQustion(this)" class="input_radio">
+						<label for="radio102" class="radio_label">选择另外一个比较普通的旅行</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio10" id="radio103" onclick="selQustion(this)" class="input_radio">
+						<label for="radio103" class="radio_label">将原计划延期，先找到新的工作再继续旅行</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio10" id="radio104" onclick="selQustion(this)" class="input_radio">
+						<label for="radio104" class="radio_label">依照原定的计划，因为我需要充足的休息来准备寻找新的工作</label>
+					</div>
+					<div class="radioCustom">
+						<input type="radio" name="radio10" id="radio105" onclick="selQustion(this)" class="input_radio">
+						<label for="radio105" class="radio_label">延长路程，因为这次旅行可能成为我最后一次豪华旅行</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="question_fot">
+			<p class="number">
+				<span id="cur-question">1</span>
+				<small>/10</small>
+			</p>
+			<input type="button" id="next_question" class="input_submit disabled" value="下一题" disabled="true">
+			<input type="button" id="submit" class="input_submit hide" value="提交">
+		</div>
+	</div>
+</body>
+	<script type="text/javascript">
+		function chart1(array){
+		    $('#myChart1').highcharts({
+		        chart: {
+		        	height: "130",
+		            plotBorderWidth: null,
+		            plotShadow: false
+		        },
+		        credits: {
+		        	enabled: false
+		        },
+		        colors:[
+		        	"#EA883B",
+	                "#52B394",
+	                "#3688A1",
+	                "#E2B647",
+	                "#E24A47"
+		        ],
+		        title: {
+		        	text: false
+		        },
+		        tooltip: false,
+		        plotOptions: {
+		            pie: {
+		                allowPointSelect: true,
+		                cursor: 'pointer',
+		                dataLabels: {
+		                    enabled: false
+		                },
+		                showInLegend: false
+		            }
+		        },
+		        series: [{
+		            type: 'pie',
+		            name: 'Browser share',
+		            data: [
+		                ['一级风险资产', array[0]],
+		                ['二级风险资产', array[1]],
+		                {
+		                    name: '三级风险资产',
+		                    y:  array[2],
+		                    sliced: true,
+		                    selected: true
+		                },
+		                ['四级风险资产', array[3]],
+		                ['五级风险资产', array[4]]
+		            ]
+		        }]
+		    });
+		}
+		function chart2(array){
+		    $('#myChart2').highcharts({
+				credits: {
+					enabled: false
+				},
+		        chart: {
+		        	height: "250",
+		            type: 'line'
+		        },
+		        title: {
+					text: "单位:%",
+					align:"right",
+					style:{ "fontSize": "10px",color:"#E2B647" }
+		        },
+		        subtitle: {
+		            text: false
+		        },
+		        xAxis: {
+		            categories: ['2年','4年','6年','8年','10年']
+		        },
+		        yAxis: {
+		            title: {
+		                text: false
+		            }
+		        },
+		        plotOptions: {
+		            line: {
+		                dataLabels: {
+		                    enabled: true
+		                },
+		                enableMouseTracking: false
+		            }
+		        },
+		        series: [{
+		            name: '收益率',
+		            data: array,
+		            color: "#ff4e00"
+		        }]
+		    });
+		}
+	
+		mui.init({
+			swipeBack: false
+		});
+
+		var next = document.getElementById("next_question");
+		var updata = document.getElementById("submit");
+		var curVal = 0;
+		function selQustion(obj) {
+			if (hasClass(next, "hide") == null) {
+				removeClass(next, "disabled");
+				next.disabled = "";
+			} else {
+				removeClass(updata, "disabled");
+				updata.disabled = "";
+			}
+			var id = obj.id.replace(obj.name,"");
+			curVal = document.getElementById("radio1"+id).value;
+		}
+
+		document.addEventListener('DOMContentLoaded', function () {
+			(function ($, doc) {
+				var score = 0;
+
+				next.addEventListener('tap', function () {
+					addClass(next, "disabled");
+					next.disabled = true;
+
+					score = parseInt(score) + parseInt(curVal);
+					var prev_class = document.getElementsByClassName("cur_show")[0];
+					var id = prev_class.getAttribute("id");
+					var prev_id = document.getElementById(id);
+					var num = id.substring(8,9);
+					num = parseInt(num) + 1;
+					var newquestion = "question" + num;
+					var new_id = document.getElementById(newquestion);
+					document.getElementById("cur-question").innerHTML = num;
+
+					if (num == 10) {
+						addClass(next,"hide");
+						removeClass(updata,"hide");
+						addClass(updata,"disabled");
+						updata.disabled = true;
+						removeClass(prev_id,"cur_show");
+						addClass(new_id,"cur_show");
+						return;
+					} else {
+						removeClass(prev_id,"cur_show");
+						addClass(new_id,"cur_show");
+					}
+				});
+
+				updata.addEventListener('tap', function(){
+					score = parseInt(score) + parseInt(curVal);
+					document.getElementById("score").innerHTML = score;
+					document.getElementsByClassName("anchor")[0].style.left = score + "%";
+					document.getElementsByClassName("level")[0].style.width = score + "%";
+
+					$.ajax({
+						type: "post",
+						url: api_domain + "risk/evaluation",
+						dataType: "json",
+						contentType:"application/json",
+						async: false,
+						data: {
+							assessment: score
+						},
+						success: function(data) {
+							if (data["result"] != 1) {
+								mui.toast(data.msg);
+								return;
+							}
+							var risk = document.getElementById("risk");
+							removeClass(risk,"hide");
+
+							var pie_array = [];
+							var line_array = [data.data.yieldRates['2'],data.data.yieldRates['4'],data.data.yieldRates['6'],data.data.yieldRates['8'],data.data.yieldRates['10']];
+							for (var i=0;i < data.data.financialPortfolios.financialPortfolioItems.length;i++){
+								pie_array[i] = data.data.financialPortfolios.financialPortfolioItems[i].weight;
+							}
+
+							chart1(pie_array);
+							chart2(line_array);
+
+							var vm = new Vue({
+								el: '#pie-label',
+								data: data["data"]
+							});
+						}
+					});
+				})
+				
+				var email_ok;
+				$.ajax({
+					type: "GET",
+					url: api_domain + "personal/me",
+					dataType: "json",
+					async: false,
+					success: function(data) {
+						if (data["result"] != 1) {
+							return;
+						}
+						
+						email_ok = data["email"];
+					}
+				});
+
+				var email = document.getElementById("send-email");
+				email.addEventListener('tap', function(){
+					if (!$.app.isLogin(app.getState())) {
+						$.app.openWindow("../login/login.html");
+						return;
+					}
+
+					var url = api_domain + 'personal/risk/send';
+					var data = {
+						"assessment": score
+					};
+					if(email_ok == '') {
+						$.app.openWindow("info-mail.html");
+					} else {
+						addClass(email, "disabled");
+						$.app.post(url, data, function(data){
+							mui.toast("发送成功");
+							email.innerHTML = "已发送至邮箱";
+						});
+					}
+				})
+
+				var close = document.getElementById("close");
+				close.addEventListener('tap', function(){
+					addClass(document.getElementById("risk"), "hide");
+					addClass(document.getElementById("question1"), "cur_show");
+					removeClass(document.getElementById("question10"), "cur_show");
+
+					if (!$.app.isLogin(app.getState())) {
+						$.app.openWindow("../login/login.html");
+						return;
+					}
+
+					$.app.openWindow("index.html");
+				})
+			})(mui, document)
+		});
+	</script>
+</html>

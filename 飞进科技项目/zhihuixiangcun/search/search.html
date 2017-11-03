@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>搜索</title>
+	<style>
+		.mui-bar .mui-input-row .mui-input-clear~.mui-icon-clear{
+			top: 5px;
+			right: 5px;
+		}
+		.mui-input-row .mui-input-clear~.mui-icon-clear{
+			color: white;
+		}
+		.wineshop-list2{
+			margin-top: 0;
+		}
+	</style>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back"></a>
+		<h1 class="mui-title search-warp">
+			<p class="mui-input-row">
+				<i class="i-search"></i>
+				<input id="textBody" type="text" class="input-text mui-input-clear" placeholder="请输入关键词">
+			</p>
+		</h1>
+		<a id="searchBtn" class="mui-pull-right txt">搜索</a>
+	</header>
+
+	<div class="main mui-content">
+		<div class="search1 hide">
+			<h1 class="tit">热门搜索</h1>
+			<div id="history" class="hot-search">
+				<template v-for="item in list">
+					<span>{{item.name}}</span>
+				</template>				
+			</div>
+			<h1 class="tit">历史搜索</h1>
+			<div class="his-search">
+				<ul>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="search2 personal-list-warp">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="search-nav mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item0">攻略</a>
+						<a class="mui-control-item" href="#item1">酒店</a>
+						<a class="mui-control-item" href="#item2">景点</a>
+						<a class="mui-control-item" href="#item3">美食</a>
+						<a class="mui-control-item" href="#item4">农家乐</a>
+						<a class="mui-control-item" href="#item5">特产</a>
+						<a class="mui-control-item" href="#item6">本地特色</a>
+					</div>
+				</div>
+				<div id="searchList" class="mui-slider-group search-list">
+					<div id="item0" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll raiders-item">
+								<div class="personal-comment2 notdata" :class="{'hide' : datas.raidersList.result.length > 0}">
+									<img src="../resources/images/nodata.png" alt="" />
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="item in datas.raidersList.result">
+										<li :id="item.id">
+											<div class="title">
+												<h1>{{item.title}}</h1>
+											</div>
+											<div class="content">
+												<img :src="item.coverImage" alt="">
+												<div class="txt">
+													<p>{{item.summary}}...</p>
+												</div>
+											</div>
+											<div class="statistics">
+												<span class="time">{{item.createTime}}</span>
+												<span class="info">
+													<label>
+														<i class="i-view"></i>
+														<b>{{item.readAmount}}</b>
+													</label>
+													<label class="comment">
+														<i class="i-reply"></i>
+													</label>
+													<label>
+														<i class="i-download"></i>
+													</label>
+												</span>
+											</div>
+										</li>
+									</template>										
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item1" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll wineshop-list2">
+								<div class="personal-comment2 notdata" :class="{'hide' : datas.hotelsList.result.length > 0}">
+									<img src="../resources/images/nodata.png" alt="" />
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="item in datas.hotelsList.result">
+										<li :id="item.id">
+											<div class="img">
+												<img :src="item.coverImage" alt="">
+											</div>
+											<div class="info">
+												<h1>{{item.name}}</h1>
+												<p>{{item.content}}</p>
+												<h6>￥{{item.averageSpend}}起</h6>
+											</div>
+										</li>
+									</template>										
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll wineshop-list2">
+								<div class="personal-comment2 notdata" :class="{'hide' : datas.attractionsList.result.length > 0}">
+									<img src="../resources/images/nodata.png" alt="" />
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="item in datas.attractionsList.result">
+										<li :id="item.id">
+											<div class="img">
+												<img :src="item.coverImage" alt="">
+											</div>
+											<div class="info">
+												<h1>{{item.title}}</h1>
+												<h6>￥{{item.averageSpend}}/人</h6>
+											</div>
+										</li>
+									</template>										
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll wineshop-list2">
+								<div class="personal-comment2 notdata" :class="{'hide' : datas.foodList.result.length > 0}">
+									<img src="../resources/images/nodata.png" alt="" />
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="item in datas.foodList.result">
+										<li :id="item.id">
+											<div class="img">
+												<img :src="item.foodImg" alt="">
+											</div>
+											<div class="info">
+												<h1>{{item.foodName}}</h1>
+												<h6>￥{{item.price}}/人</h6>
+											</div>
+										</li>
+									</template>										
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item4" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll wineshop-list2">
+								<div class="personal-comment2 notdata" :class="{'hide' : datas.farmhouseList.result.length > 0}">
+									<img src="../resources/images/nodata.png" alt="" />
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="item in datas.farmhouseList.result">
+										<li :id="item.id">
+											<div class="img">
+												<img :src="item.coverImage" alt="">
+											</div>
+											<div class="info">
+												<h1>{{item.title}}</h1>
+												<h6>￥{{item.averageSpend}}/人</h6>
+											</div>
+										</li>
+									</template>										
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item5" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper specialty-warp">
+							<div class="mui-scroll wineshop-list2">
+								<div class="personal-comment2 notdata" :class="{'hide' : datas.specialtyList.result.length > 0}">
+									<img src="../resources/images/nodata.png" alt="" />
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="item in datas.specialtyList.result">
+										<li :id="item.id">
+											<div class="img">
+												<img :src="item.coverImage" alt="">
+											</div>
+											<div class="info2">
+												<h1>{{item.title}}</h1>
+												<p>{{item.summary}}</p>
+											</div>
+										</li>
+									</template>										
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item6" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll features-list" style="padding-top: 8px;">
+								<div class="personal-comment2 notdata" :class="{'hide' : datas.featuresList.result.length > 0}">
+									<img src="../resources/images/nodata.png" alt="" />
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="item in datas.featuresList.result">
+										<li v-if="item.status == 0" :id="item.id">
+											<img :src="item.coverImage" alt="" />
+											<p>{{item.title}}</p>
+										</li>
+									</template>										
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/mui.pullToRefresh.js"></script>
+<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+
+	(function($) {
+		
+		var type = $.app.getName(document.URL, "type");
+		
+		var vm = vm2 = null;
+		var url = 'search/list';
+		$.app.post(url, {"modules": type}, function(data){
+			vm = new Vue({
+				el: "#history",
+				data: {
+					list: data.searchParamsDTOList,
+				}
+			})
+		})
+		
+		$.plusReady(function(){
+			$("#searchBtn")[0].addEventListener('tap', function(){
+				var textBody = $("#textBody")[0].value;
+				if (textBody != '') {
+					var param = {
+						"modules": type,
+						"keyWord": textBody
+					}
+					$.app.post('search/list', param, function(data){
+						vm2 = new Vue({
+							el: "#searchList",
+							data: {
+								datas: data
+							}
+						})
+						console.log("ok");
+						console.log(data);
+					})
+				} else {
+					mui.toast("请输入搜索内容");
+				}					
+			})
+		})
+		
+	})(mui);
+	
+</script>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="resources/css/mui.min.css" rel="stylesheet" />
+	<link href="resources/css/main.css" rel="stylesheet" />
+	<title>地图</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 id="title" class="mui-title title"></h1>
+	</header>
+	
+	<div class="main mui-content h100 bgWhite" style="height: 100vh;padding-top: -44px;">
+		<div id="allmap" style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;">
+			<div class="mui-loading">
+				<div class="mui-spinner">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="resources/js/mui.min.js"></script>
+<script src="resources/js/vue.min.js"></script>
+<script src="resources/js/conf.js"></script>
+<script src="resources/js/main.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Mmh0FAXLs52H961BQuixBYQsUVc7FG7p"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+
+
+<script>
+	(function($){	
+		
+		var currentLon,currentLat,star,end;
+		var adress = $.app.getName(document.URL, "title");
+		$("#title")[0].innerHTML = decodeURI(adress);
+		var url = 'http://api.map.baidu.com/geocoder/v2/?address=' + adress + '&output=json&ak=Mmh0FAXLs52H961BQuixBYQsUVc7FG7p&mcode=BA:AD:09:3A:82:82:9F:B4:32:A7:B2:8C:B4:CC:F0:E9:F3:7D:AE:58;io.dcloud.ruralTourism';
+				
+		mui.plusReady(function(){
+			$.ajax({
+				type: "GET",
+				url: url,
+				dataType: "json",
+				async: true,
+				success: function(data) {
+					if (data.status != 0) {
+						mui.toast("无法找到该地址");
+						return;
+					}
+					currentLon = data.result.location.lng;
+					currentLat = data.result.location.lat;
+					plus.geolocation.getCurrentPosition(translatePoint,function(e){
+				        mui.toast("异常:" + e.message);
+				    });
+				}
+			});	    
+		});
+		
+		function translatePoint(position){
+		    //var currentLon = position.coords.longitude;
+		    //var currentLat = position.coords.latitude;
+		    end = new BMap.Point(currentLon, currentLat);
+			star = new BMap.Point(position.coords.longitude, position.coords.latitude);
+		    var gpsPoint = new BMap.Point(currentLon,currentLat);
+		    BMap.Convertor.translate(gpsPoint,4,initMap);
+		}
+		function initMap(point){
+		    map = new BMap.Map("allmap");
+		    map.addControl(new BMap.NavigationControl());
+		    map.addControl(new BMap.ScaleControl());
+		    map.addControl(new BMap.OverviewMapControl());
+		    map.centerAndZoom(point,18);
+		    map.addOverlay(new BMap.Marker(point));
+		 	var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+			driving.search(star, end);
+		}
+		
+	})(mui)
+</script>
+
+</html>

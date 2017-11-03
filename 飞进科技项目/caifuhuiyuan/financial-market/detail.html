@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<title>金融超市-详情</title>
+</head>
+<body v-cloak id="market-detail">
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">{{name}}</h1>
+		<a class="mui-icon mui-pull-right share shareBtn" id="shareBtn" onclick="openShareWindow(this)"></a>
+	</header>
+	<div class="main mui-content">
+		<div class="market-detail">
+			<div class="market-detail-panel market-detail-panel1">
+				<div class="tit">
+					<div class="img">
+						<img src="{{thumbnailPath}}" alt="">
+					</div>
+					<div class="txt">
+						
+					</div>
+				</div>
+				<div class="profitNum">
+					<h4 class="cheng">{{annualInterestRate}}%</h4>
+					<p>参考年收益</p>
+				</div>
+				<div class="profitInfo">
+					<h4>{{name}}</h4>
+					<p>（{{label}}）</p>
+					<div class="profitInfo-1">
+						<div class="fleft">
+							<h4>起购金额（元）</h4>
+							<p>{{investmentAmount}}</p>
+						</div>
+						<div class="fright">
+							<h4>认购周期</h4>
+							<p>{{salesStartDate}} 到 {{salesEndDate}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="market-detail-panel">
+				<div class="market-detail-panel-group">
+					<div class="title">
+						<h2>基本信息</h2>
+					</div>
+					<div class="text">
+						<div class="txt">
+							<p>收益起始日期：<span>{{profitStartDate}}</span></p>
+							<p>收益结束日期：<span>{{profitEndDate}}</span></p>
+						</div>
+						<div class="txt">
+							<p>起购金额：<span>{{investmentAmount}}元</span></p>
+							<p>递增金额：<span>{{increasingAmount}}元</span></p>
+						</div>
+						
+						<template v-if="type==1">
+							<div class="txt">
+								<p>银行是否有提前终止权：<span v-if="terminatedRight">是</span><span v-else>否</span></p>
+								<p>账单查询方式：<span>{{billQueryType}}</span></p>
+							</div>
+						</template>
+						<template v-if="type==2">
+							<div class="txt">
+								<p>是否有担保：<span v-if="guarantee">是</span><span v-else>否</span></p>
+								<p>企业背景：<span>{{businessBackground}}</span></p>
+							</div>
+							<div class="txt">
+								<p>机构是否有提前终止权：<span v-if="terminatedRight">是</span><span v-else>否</span></p>
+								<p>账单查询方式：<span>{{billQueryType}}</span></p>
+							</div>
+						</template>							
+						<template v-if="type==1 || type==2">
+							<div class="txt">
+								<p>投资者是否有提赎回权：<span v-if="redemptionRight">是</span><span v-else>否</span></p>
+								<p>购买渠道：<span>{{purchasingChannels}}</span></p>
+							</div>
+						</template>
+						<template v-if="type==3">
+							<div class="txt">
+								<p>机构是否有提前终止权：<span v-if="terminatedRight">是</span><span v-else>否</span></p>
+								<p>是否有担保：<span v-if="guarantee">是</span><span v-else>否</span></p>
+							</div>
+							<div class="txt">
+								<p>账单查询方式：<span v-if="billQueryType">是</span><span v-else>否</span></p>
+								<p>购买渠道：<span>{{purchasingChannels}}</span></p>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+			<div class="market-detail-panel">
+				<div class="market-detail-panel-group">
+					<div class="title">
+						<h2>财富评级</h2>
+					</div>
+					<div class="text">
+						<div class="txt">
+							<p class="score">
+								<label>收益率</label>
+								<template v-if="profitGrade > 0 && profitGrade <= 1">
+									<span class="half"></span><span></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="profitGrade > 1 && profitGrade <= 2">
+									<span class="total"></span><span></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="profitGrade > 2 && profitGrade <= 3">
+									<span class="total"></span><span class="half"></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="profitGrade > 3 && profitGrade <= 4">
+									<span class="total"></span><span class="total"></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="profitGrade > 4 && profitGrade <= 5">
+									<span class="total"></span><span class="total"></span><span class="half"></span><span></span><span></span>
+								</template>
+								<template v-if="profitGrade > 5 && profitGrade <= 6">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span></span><span></span>
+								</template>
+								<template v-if="profitGrade > 6 && profitGrade <= 7">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="half"></span><span></span>
+								</template>
+								<template v-if="profitGrade > 7 && profitGrade <= 8">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span></span>
+								</template>
+								<template v-if="profitGrade > 8 && profitGrade <= 9">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span class="half"></span>
+								</template>
+								<template v-if="profitGrade > 9 && profitGrade <= 10">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span>
+								</template>
+								<em>{{profitGrade}}分</em>
+							</p>
+							<p class="score">
+								<label>安全性</label>
+								<template v-if="safeGrade > 0 && safeGrade <= 1">
+									<span class="half"></span><span></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="safeGrade > 1 && safeGrade <= 2">
+									<span class="total"></span><span></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="safeGrade > 2 && safeGrade <= 3">
+									<span class="total"></span><span class="half"></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="safeGrade > 3 && safeGrade <= 4">
+									<span class="total"></span><span class="total"></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="safeGrade > 4 && safeGrade <= 5">
+									<span class="total"></span><span class="total"></span><span class="half"></span><span></span><span></span>
+								</template>
+								<template v-if="safeGrade > 5 && safeGrade <= 6">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span></span><span></span>
+								</template>
+								<template v-if="safeGrade > 6 && safeGrade <= 7">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="half"></span><span></span>
+								</template>
+								<template v-if="safeGrade > 7 && safeGrade <= 8">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span></span>
+								</template>
+								<template v-if="safeGrade > 8 && safeGrade <= 9">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span class="half"></span>
+								</template>
+								<template v-if="safeGrade > 9 && safeGrade <= 10">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span>
+								</template>
+								<em>{{safeGrade}}分</em>
+							</p>
+							<p class="score">
+								<label>流动性</label>
+								<template v-if="flowGrade > 0 && flowGrade <= 1">
+									<span class="half"></span><span></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="flowGrade > 1 && flowGrade <= 2">
+									<span class="total"></span><span></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="flowGrade > 2 && flowGrade <= 3">
+									<span class="total"></span><span class="half"></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="flowGrade > 3 && flowGrade <= 4">
+									<span class="total"></span><span class="total"></span><span></span><span></span><span></span>
+								</template>
+								<template v-if="flowGrade > 4 && flowGrade <= 5">
+									<span class="total"></span><span class="total"></span><span class="half"></span><span></span><span></span>
+								</template>
+								<template v-if="flowGrade > 5 && flowGrade <= 6">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span></span><span></span>
+								</template>
+								<template v-if="flowGrade > 6 && flowGrade <= 7">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="half"></span><span></span>
+								</template>
+								<template v-if="flowGrade > 7 && flowGrade <= 8">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span></span>
+								</template>
+								<template v-if="flowGrade > 8 && flowGrade <= 9">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span class="half"></span>
+								</template>
+								<template v-if="flowGrade > 9 && flowGrade <= 10">
+									<span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span><span class="total"></span>
+								</template>
+								<em>{{flowGrade}}分</em>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="market-detail-panel">
+				<div class="market-detail-panel-group">
+					<div class="title">
+						<h2>收益说明</h2>
+					</div>
+					<div class="text">
+						<div class="txt">
+							<p id="incomeDescription" class="indent">{{incomeDescription}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="market-detail-panel">
+				<div class="market-detail-panel-group">
+					<div class="title">
+						<h2>投资范围</h2>
+					</div>
+					<div class="text">
+						<div class="txt">
+							<p id="investmentScope" class="indent">{{investmentScope}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		(function($) {
+			var id = $.app.getId(document.URL); //获取页面传递的数据
+			var url = api_domain + "financial/details";
+			$.app.post(url, {id: id}, function(data) {
+				new Vue({
+					el: '#market-detail',
+					data: data
+				});
+
+				var shareMessage = {};
+				shareMessage.href = data["shareLink"];
+				shareMessage.title = data["name"];
+				shareMessage.content = data["name"];
+				shareMessage.thumbs = data["thumbnailPath"];
+				window.shareMessage = shareMessage;
+				document.getElementById("incomeDescription").innerHTML = data["incomeDescription"];
+				document.getElementById("investmentScope").innerHTML = data["investmentScope"];
+			});
+
+			mui.plusReady(function() {
+				$.app.getShareSerivces();
+				//$.app.openShareWindow();
+			});
+		})(mui)
+	</script>
+</html>

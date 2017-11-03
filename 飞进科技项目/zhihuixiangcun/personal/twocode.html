@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>二维码分享</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">二维码分享</h1>
+		<a id="shareBtn" class="mui-icon mui-pull-right share" onclick="openShareWindow(this)"></a>
+	</header>
+	
+	<div class="main mui-content">
+		<div class="personal-twoCode">
+			<div class="transparentBg"></div>
+			<img class="two-code" src="../resources/images/wineshop-banner.jpg" alt="" />
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var shareMessage = {};
+		$.app.get('security/getUserInfo', function(data){
+			shareMessage.href = data["shareLink"];			
+		})	
+		shareMessage.title = "智慧乡村旅游";
+		shareMessage.content = "智慧乡村旅游";
+		shareMessage.thumbs = "../resources/images/logo.png";
+		window.shareMessage = shareMessage;
+		
+		mui.plusReady(function() {
+			$.app.getShareSerivces();
+		});
+		
+	})(mui)
+</script>
+
+</html>

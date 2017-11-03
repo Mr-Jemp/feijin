@@ -1,0 +1,112 @@
+.header {
+  height: 160px;
+}
+.header .header_logo {
+  display: block;
+  text-indent: -9999px;
+  width: 120px;
+  height: 160px;
+  background: url(../../resources/img/web/header_logo.png) 0 56px no-repeat;
+  -webkit-background-size: 100% 78px;
+  background-size: 100% 78px;
+  margin-left: 20px;
+}
+.header .welcome_reg {
+  display: block;
+  font-size: 30px;
+  padding-left: 30px;
+  border-left: 1px solid #000000;
+  margin-left: 30px;
+  margin-top: 70px;
+}
+.header .fr {
+  font-size: 18px;
+  color: #999999;
+  margin-top: 80px;
+}
+.header .fr a {
+  color: #42afec;
+}
+.main {
+  width: 100%;
+  height: 920px;
+  background: url(../../resources/img/web/login_bg.png) center 0 no-repeat;
+  position: relative;
+}
+.main .light_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 700px;
+  padding-top: 220px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.main .light_layer .register_form {
+  background-color: rgba(6, 7, 7, 0.8);
+  width: 220px;
+  height: 350px;
+  margin: 0 auto;
+  padding: 40px 50px;
+}
+.main .light_layer .register_form h2 {
+  font-size: 18px;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 0 26px;
+}
+.main .light_layer .register_form .input_row {
+  position: relative;
+}
+.main .light_layer .register_form .input_row .input_cell label {
+  float: left;
+  width: 40px;
+  height: 40px;
+  background: #959ea1 no-repeat center center;
+}
+.main .light_layer .register_form .input_row .input_cell input {
+  float: left;
+  font-size: 12px;
+  padding: 0 10px;
+  width: 160px;
+  height: 40px;
+  line-height: 40px;
+  border: none;
+}
+.main .light_layer .register_form .input_row .input_cell.input_cell_code {
+  position: relative;
+}
+.main .light_layer .register_form .input_row .input_cell.input_cell_code input {
+  width: 76px;
+}
+.main .light_layer .register_form .input_row .input_cell.input_cell_code .get_code_btn {
+  width: 84px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #ffffff;
+  background-color: #00a1e9;
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 0;
+}
+.main .light_layer .register_form .input_row p {
+  font-size: 12px;
+  color: #FE6060;
+  margin: 6px 0;
+  height: 13px;
+}
+.main .light_layer .register_form .register_btn {
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #00a1e9;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}

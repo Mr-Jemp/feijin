@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/js.js"></script>
+	<title>个人中心-积分兑换</title>
+</head>
+<body id="exchange">	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back"></a>
+			<h1 class="mui-title">积分兑换VIP</h1>
+	</header>
+	<div class="main mui-content">
+		<div class="exchange">
+			<h2>
+				<p id="integral" class="integral">我的积分：<span>{{integral}}</span></p>
+				<br />
+				<template v-if="grade != 0">
+					<p id="expireTime">VIP有效时间截止至 {{expireTime}}</p>
+				</template>	
+				<template v-else>
+					<p>非VIP用户，请兑换！</p>
+				</template>
+			</h2>
+			<div class="exchange-list">
+				<p id="confirmBtn1" class="one-month"><span>120积分兑换1个月VIP</span><em></em></p>
+				<p id="confirmBtn2" class="sex-month"><span>600积分兑换6个月VIP</span><em></em></p>
+			</div>
+			<div class="exchange-info">
+				<h4>使用说明</h4>
+				<p>1个月VIP：120分</p>
+				<p>6个月VIP：600分</p>
+				<p>成功邀请12位好友注册可成为永久VIP</p>
+			</div>
+			<div class="exchange-tip">
+				<h4>规则</h4>
+				<p>1.邀请好友注册：120分</p>
+				<p>2.被好友邀请并注册：70分</p>
+				<p>3.帖子被赞：2分</p>
+				<p>4.帖子被评论：3分（自己对自己帖子的评论或回复不能获得积分）</p>
+				<p>5.赞别人的帖子：1分（可以多赞，但每天通过点赞获得的积分累计不超过5分）</p>
+				<p>6.评论别人的帖子：1分（可以多评论，但每天通过评论获得积分累计不超过5分）</p>
+				<p>7.被别人关注：15分</p>
+				<p>8.分享产品、文章或贴子：5分(可以多分享，但每天通过分享获得积分累计不超过20分）</p>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<script>			
+		(function($, doc){		
+			$.ajax({
+				type: "GET",
+				url: api_domain + "personal/me",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					if (data["result"] != 1) {
+						return;
+					}
+					
+					var vm = new Vue({
+						el: '#exchange',
+						data: data["data"]
+					});
+					
+					vm.$nextTick(function() {});
+				}
+			});
+			document.getElementById("confirmBtn1").addEventListener('tap', function() {
+				var btnArray = ['取消', '确定'];
+				mui.confirm('确定用120积分兑换1个月VIP吗？', '提示', btnArray, function(e) {
+					if (e.index == 1) {
+						$.app.post(api_domain + "personal/integral/onemonth","",function(data) {
+							mui.toast('恭喜你,兑换成功', '提示');
+							$.app.openWindow("index.html");
+						});
+					} else {
+						mui.toast('取消兑换');
+					}
+				})
+			});
+			document.getElementById("confirmBtn2").addEventListener('tap', function() {
+				var btnArray = ['取消', '确定'];
+				mui.confirm('确定用600积分兑换6个月VIP吗？', '提示', btnArray, function(e) {
+					if (e.index == 1) {
+						$.app.post(api_domain + "personal/integral/halfyear","",function(data) {
+							mui.toast('恭喜你,兑换成功', '提示');
+							$.app.openWindow("index.html");
+						});
+					} else {
+						mui.toast('取消兑换');
+					}
+				})
+			});				
+		})(mui, document)
+	</script>
+</html>

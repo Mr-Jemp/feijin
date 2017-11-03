@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/mui.pullToRefresh.js"></script>
+	<script src="../js/mui.pullToRefresh.material.js"></script>
+	<title>个人中心-我的帖子</title>
+	<style>
+		.mui-pull-bottom-tips{
+			display: none;
+		}
+	</style>
+</head>
+<body id="speech">	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back"></a>
+		<h1 class="mui-title">我的帖子</h1>
+		<a id="subject" class="mui-icon mui-pull-right edit"></a>
+		<a id="modify" class="mui-btn mui-btn-link mui-pull-right text hide">编辑</a>
+	</header>
+	<div class="main mui-content mui-fullscreen">
+		<div id="slider" class="mui-slider mui-fullscreen myspeech">
+			<div id="sliderSegmentedControl" class="speech-nav mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item" href="#item0">发帖</a>
+				<a class="mui-control-item" href="#item1">我的回复</a>
+				<a class="mui-control-item" href="#item2">回复我的</a>
+				<a class="mui-control-item" href="#item3">收藏</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+			<div id="speech" class="mui-slider-group">
+				<div id="item0" class="mui-slider-item mui-control-content mui-active">
+					<div  class="mui-scroll-wrapper mui-content">
+						<div class="mui-scroll speech-list forum">
+							<ul class="mui-table-view">
+								<template v-if="datas == '' || datas.length <= 0">
+									<br />
+									<p class="textcenter">暂无发帖</p>
+								</template>
+								<template v-for="(index,item) in datas">
+									<style>
+										#item0 .mui-pull-bottom-tips{
+											display: block;
+										}
+									</style>
+									<li id="{{item.id}}">
+										<div class="textInfo">
+											<h2 class="txt"> {{item.title}} </h2>
+											<p class="txt">{{item.abstractContent}}</p>
+											<template v-if="item.communityImages.length > 0">
+												<div class="imgs">
+													<template v-for="(index,image) in item.communityImages">
+														<img src="{{image.src}}" alt="">
+													</template>	
+												</div>
+											</template>												
+											<div class="timeInfo">
+												<span class="time">{{item.createTime}}</span>
+											</div>
+										</div>
+									</li>
+								</template>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item1" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper mui-content">
+						<div class="mui-scroll replytome-list myreply forum">
+							<ul class="mui-table-view">
+								<template v-if="datas == '' || datas.length <= 0">
+									<br />
+									<p class="textcenter">暂无我的回复</p>
+								</template>
+								<template v-for="(index,item) in datas">
+									<style>
+										#item1 .mui-pull-bottom-tips{
+											display: block;
+										}
+									</style>
+									<li id="{{item.id}}">
+										<div class="textInfo">
+											<h2>我在原贴</h2><p> {{item.questionTitle}}</p><h2> 中评论: <span>{{item.replyContent}}</span></h2>
+											<div class="timeInfo">
+												<span class="time">{{item.createTime}}</span>
+												<span class="comment"><i class="i-comment"></i></span>
+											</div>
+										</div>
+									</li>
+								</template>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item2" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper mui-content">
+						<div class="mui-scroll replytome-list forum">
+							<ul class="mui-table-view">
+								<template v-if="datas == '' || datas.length <= 0">
+									<br />
+									<p class="textcenter">暂无我的回复</p>
+								</template>
+								<template v-for="(index,item) in datas">
+									<style>
+										#item2 .mui-pull-bottom-tips{
+											display: block;
+										}
+									</style>
+									<li id="{{item.id}}">
+										<div class="userInfo">
+											<div class="imgWarp">
+												<img src="{{item.responderAvatar}}" alt="">
+											</div>											
+											<span>{{item.responderName}}</span>
+										</div>
+										<div class="textInfo">
+											<h2>在原贴</h2> <p>{{item.questionTitle}}</p> <h2> 中评论我: <span>{{item.replyContent}}</span></h2>
+											<div class="timeInfo">
+												<span class="time">{{item.createTime}}</span>
+												<span class="comment"><i class="i-comment"></i></span>
+											</div>
+										</div>
+									</li>
+								</template>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item3" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper mui-content">
+						<div class="mui-scroll speech-list forum collect">
+							<ul id="collect" class="mui-table-view">
+								<template v-if="datas == '' || datas.length <= 0">
+									<br />
+									<p class="textcenter">暂无我收藏</p>
+								</template>
+								<template v-for="(index,item) in datas">
+									<style>
+										#item3 .mui-pull-bottom-tips{
+											display: block;
+										}
+									</style>
+									<li id="{{item.communityId}}" data-id="{{item.id}}">
+										<div class="textInfo">
+											<h2 class="txt">{{item.communityTitle}}</h2>											
+											<div class="timeInfo">
+												<span class="time">{{item.createTime}}</span>
+											</div>
+										</div>
+									</li>
+								</template>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+	<script>
+		(function($, doc){	
+			$('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			}); 
+			
+			var urls = {0:api_domain+"personal/community/list",
+						1:api_domain+"personal/community/replyFromMe",
+						2:api_domain+"personal/community/replyToMe",
+						3:api_domain+"personal/community/collection/list"};
+			
+			$.app.url = urls[0];
+			$.app.request($.app.url, function(data) {
+				$.app.initItemListVm(0, data);
+				$.app.pageNo++;
+			});
+			
+			document.getElementById('slider').addEventListener('slide', function(e) {
+				$.app.pageNo = 1;
+				$.app.url = urls[e.detail.slideNumber];
+				$.app.request($.app.url, function(data) {
+					console.log(JSON.stringify(data));
+					$.app.initItemListVm(e.detail.slideNumber, data);
+					$.app.pageNo++;
+				});
+				if (e.detail.slideNumber == '3'){
+					addClass(document.getElementById("subject"), "hide");
+					removeClass(document.getElementById("modify"), "hide");
+				} else {
+					removeClass(document.getElementById("subject"), "hide");
+					addClass(document.getElementById("modify"), "hide");
+				}
+			});
+			
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					var url = $.app.url;
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.innerHTML = "";
+						ul.appendChild(createFragment(ul, index, data));
+					})
+				},
+				function(self, index) { // up
+					var url = $.app.url + "?pageNo=" + $.app.pageNo;
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo++;
+					})
+				}
+			)
+			
+			var createFragment = function(ul, index, data) {
+				console.log(JSON.stringify(data));
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				console.log(index);
+				for (var i = 0; i < data["result"].length; i++) {
+					var item = data["result"][i];
+					li = document.createElement('li');
+					li.setAttribute("id", item["id"]);
+					var html = "";
+					if (index == 0) {
+						html = create0Html(item);
+					} else if (index == 1) {
+						html = create1Html(item);
+					} else if (index == 2) {
+						html = create2Html(item);
+					} else {
+						html = create3Html(item);
+					}
+					li.innerHTML = html;
+					fragment.appendChild(li);
+				}
+				
+				return fragment;
+			};
+			
+			function create0Html(item) {
+				var html = '<div class="textInfo">'
+								  +'<h2 class="txt"> '+item["title"]+'</h2>'
+								  +'<p class="txt">'+item["abstractContent"]+'</p>'
+								  +'<div class="imgs">';
+							for (var i = 0; i < item["communityImages"].length;i++) {
+								var image = item["communityImages"][i];
+								html += '<img src="'+image["src"]+'" alt="">';
+							}
+					        html  +='</div>'
+								  +'<div class="timeInfo">'
+								  +'<span class="time">' + item["createTime"] + '</span>'
+								  +'</div>'
+								  +'</div>';
+				return html;
+			}
+			
+			function create1Html(item) {
+				var html = '<div class="textInfo">'
+						 +' <h2>我在原贴</h2><p>'+item["questionTitle"]+'</p><h2> 中评论: <span>'+item["replyContent"]+'</span></h2>'
+						 +'	  <div class="timeInfo">'
+						 +'	     <span class="time">'+item["createTime"]+'</span>'
+						 +'		 <span class="comment"><i class="i-comment"></i></span>'
+						 +'	 </div>'
+						 +'</div>';
+				return html;
+			}
+			
+			function create2Html(item) {
+				var html = '<div class="userInfo">'
+						 +' 	 <div class="imgWarp"><img src="'+item["responderAvatar"]+'" alt=""></div>'
+						 +' 	 <span>'+item["responderName"]+'</span>'
+						 +' 	</div>'
+						 +' 	<div class="textInfo">'
+						 +' 	 <h2>在原贴</h2> <p>'+item["questionTitle"]+'</p> <h2> 中评论我: <span>'+item["replyContent"]+'</span></h2>'
+						 +' 	 <div class="timeInfo">'
+						 +' 	    <span class="time">'+item["createTime"]+'</span>'
+						 +' 		<span class="comment"><i class="i-comment"></i></span>'
+						 +' 	 </div>'
+						 +'</div>';
+				return html;
+			}
+			
+			function create3Html(item) {
+				var html = '<div class="textInfo">'
+							+' 	<h2 class="txt">'+item["communityTitle"]+'</h2>'
+							+' 	<div class="timeInfo">'
+							+' 	  <span class="time">'+item["createTime"]+'</span>'
+							+' 	</div>'
+							+'</div>';
+				return html;
+			}
+			
+			var loser = 0;
+			var modify = document.getElementById("modify");
+			modify.addEventListener('tap', function(){
+				var li = document.getElementById("collect").getElementsByTagName("li");
+				var ok = hasClass(this, "modify-ok");
+				if (ok) {
+					this.innerHTML = "编辑";
+					removeClass(this, "modify-ok");
+					for (var i=0;i<li.length;i++) {
+						var has = hasClass(li[i], "modify-speech");
+						if (has) {
+							removeClass(li[i], "modify-speech");
+						}
+					}
+				} else {
+					this.innerHTML = "完成";
+					addClass(this, "modify-ok");					
+					for (var i=0;i<li.length;i++) {
+						li[i].setAttribute("class","modify-speech");
+					}
+					mui("#collect").on('tap', '.modify-speech', function(){
+						var id = this.getAttribute("data-id");
+						var communityId = this.getAttribute("id");
+						$.ajax({
+							type: "delete",
+							url: api_domain + "personal/community/action/remove",
+							dataType: "json",
+							contentType:"application/json",
+							async: false,
+							data: {
+								"id": id
+							},
+							success: function(data) {
+								if (data["result"] != 1) {
+									mui.toast(data.msg, '提示');
+									return;
+								}
+								document.getElementById("collect").removeChild(document.getElementById(communityId));
+							},
+							error: function(data) {
+								mui.toast(data["msg"]);
+							}
+						});
+					});
+				}
+			});
+
+			$.plusReady(function() {
+				document.getElementById("subject").addEventListener('tap', function(){
+					$.app.openWindow("../community/select-region.html");
+				})
+				$('#speech').on('tap', "li", function() {
+					console.log("aaaaa");
+					var id = this.getAttribute("id");
+					if(id == null || id == undefined) return;
+					var url = "../community/detail.html?id=" + id;
+					$.app.openWindow(url);
+				})
+			});
+			
+		})(mui, document)
+	</script>
+</html>

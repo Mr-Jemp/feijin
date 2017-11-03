@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <link rel="stylesheet" href="resources/css/my-main.css">
+    <link rel="stylesheet" href="resources/css/swiper.min.css">
+    <title>易起问</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header-title">易起问</h1>
+        <a class="hearder-icon">
+
+        </a>
+    </header>
+
+    <div class="nav" id="nav">
+        <ul>
+            <li>
+                <a href="" class="active">首页</a>
+            </li>
+            <template v-for="item in data">
+                <li>
+                    <a v-bind:href="'question/classification.html?id='+item.id">{{item.name}}</a>
+                </li>
+            </template>
+        </ul>
+    </div>
+
+    <div class="swiper-container " id="bannerList">
+        <div class="swiper-wrapper">
+            <template v-for="item in data">
+                <div class="swiper-slide">
+                    <a v-bind:href="item.link" class="item">
+                        <img v-bind:src="item.banner" v-bind:alt="item.desc">
+                    </a>
+
+                </div>
+            </template>
+
+
+
+        </div>
+        <div class="swiper-pagination swiper-pagination-white swiper-pagination-banner"></div>
+    </div>
+
+    <div class="notice-list" id="noticeList">
+        <i class="i-broadcast"></i>
+        <em></em>
+        <div class="content-list">
+            <ul id="notice-auto-scoll">
+                <template v-for="item in data">
+                    <li v-if="item.notice_href!=''">
+                        <a v-bind:href="item.notice_href">{{item.content}}</a>
+
+                    </li>
+                    <li v-else>{{item.content}}</li>
+                </template>
+
+
+            </ul>
+        </div>
+    </div>
+    <div id="answerList">
+
+        <div class="limit-free index-show">
+            <div class="head">
+                <div class="head-left">
+                    <i class="head-icon"></i>
+                    <span>限时免费</span>
+                </div>
+                <div class="head-right">
+                    <a href="question/time-free.html">
+                        <span>查看全部</span>
+                        <i class="i-more"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="list">
+                <div v-if="limits.length==0" class="empty-data">暂无数据</div>
+                <template v-for="item in limits">
+                    <div class="item">
+                        <a v-bind:href="'answer/detail.html?id=' + item.id">
+                            <p class="text">{{item.ask}}
+                            </p>
+                        </a>
+                        <template v-html="item.image">
+
+                        </template>
+
+                        <!-- <div class="imgs">
+                            <img src="/resources/images/personal-bg.png" alt="">
+                            <img src="/resources/images/personal-bg.png" alt="">
+                            <img src="/resources/images/personal-bg.png" alt="">
+                        </div> -->
+                        <div class="answer">
+                            <a v-bind:href="'teacher/detail.html?id='+item.id" class="portrait">
+                                <img v-if="item.avatar!=''||item.avatar.length>0" v-bind:src="item.avatar" />
+                                <img v-else src="/resources/images/portrait.png" />
+                                <i></i>
+                            </a>
+                            <div class="audioBtn">
+                                <audio v-bind:src="item.answer"></audio>
+                                <span>限时免费</span>
+                            </div>
+                            <span>{{item.limit_time}}</span>
+                        </div>
+                        <div class="name">
+                            <span>{{item.nickname}} </span>
+                            <span>|</span>
+                            <span> {{item.job_title}}</span>
+                        </div>
+                        <div class="foot">
+                            <div class="date">
+                                <span>{{item.answer_time}} </span>
+
+                            </div>
+                            <div class="listener">
+                                <span>{{item.touting}}人已偷听 </span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+
+            </div>
+        </div>
+        <div class="hot-question index-show">
+            <div class="head">
+                <div class="head-left">
+                    <i class="head-icon"></i>
+                    <span>热门问题</span>
+                </div>
+                <div class="head-right">
+                    <a href="question/hot-question.html">
+                        <span>查看全部</span>
+                        <i class="i-more"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="list">
+
+                <div v-if="hots.length==0" class="empty-data">暂无数据</div>
+                <template v-for="item in hots">
+
+                    <div class="item">
+                        <a v-bind:href="'answer/detail.html?id=' + item.id">
+                            <p class="text">{{item.ask}}
+                            </p>
+                        </a>
+                        <template v-html="item.image">
+
+                        </template>
+
+                        <!-- <div class="imgs">
+                                <img src="/resources/images/personal-bg.png" alt="">
+                                <img src="/resources/images/personal-bg.png" alt="">
+                                <img src="/resources/images/personal-bg.png" alt="">
+                            </div> -->
+                        <div class="answer">
+                            <a v-bind:href="'teacher/detail.html?id='+item.answer_uid" class="portrait">
+                                <img v-if="item.avatar!=''||item.avatar.length>0" v-bind:src="item.avatar" />
+                                <img v-else src="/resources/images/portrait.png" />
+                                <i></i>
+                            </a>
+                            <div v-if="item.has_read==false&&item.is_limit != 1" class="audioBtn">
+                                <audio v-bind:src="item.answer"></audio>
+                                <span v-bind:data-id="item.id">{{item.jiage}}元宝偷听</span>
+                            </div>
+                            <div v-if="item.has_read==true" class="audioBtn">
+                                <audio v-bind:src="item.answer"></audio>
+                                <span>点击播放</span>
+                            </div>
+                            <span>{{item.limit_time}}</span>
+                        </div>
+                        <div class="name">
+                            <span>{{item.nickname}} </span>
+                            <span>|</span>
+                            <span> {{item.job_title}}</span>
+                        </div>
+                        <div class="foot">
+                            <div class="date">
+                                <span>{{item.answer_time}} </span>
+
+                            </div>
+                            <div class="listener">
+                                <span>{{item.touting}}人已偷听 </span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="foot-menu">
+        <div class="active">
+            <a href="javascript:void(0)">
+                <i class="i-home"></i>
+                <span>首页</span>
+            </a>
+        </div>
+        <div>
+            <a href="teacher/list.html">
+                <i class="i-question"></i>
+
+            </a>
+        </div>
+        <div>
+            <a href="personal/personal-index.html">
+                <i class="i-personal"></i>
+                <span>我的</span>
+            </a>
+        </div>
+    </div>
+</body>
+<script src="resources/js/flexible.js"></script>
+<script src="resources/js/flexible_css.js"></script>
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/swiper.min.js"></script>
+<script src="resources/js/vue.min.js"></script>
+<script src="resources/js/conf.js"></script>
+<script src="resources/my-pages-js/index.js" type="text/javascript"></script>
+
+
+</html>

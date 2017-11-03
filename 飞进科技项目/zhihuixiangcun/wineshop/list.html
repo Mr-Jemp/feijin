@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>酒店列表</title>
+</head>
+<body>
+	<div id="main">	
+		
+		<div class="wineshop-list1">
+			<a id="city" class="sort">全城</a>
+			<a id="recommend" class="sort">推荐排序</a>
+			<a id="screen" class="sort last">筛选</a>
+		</div>
+
+		<div class="main mui-content">		
+
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div v-clock id="wineshopList" class="wineshop-list2">
+						<div class="personal-comment2 notdata" :class="{'hide' : list.length > 0}">
+							<img src="../resources/images/nodata.png" alt="" />
+						</div>
+						<ul class="mui-table-view mui-table-view-chevron">
+							<template v-for="item in list">
+								<li :id="item.id">
+									<div class="img">
+										<img :src="item.coverImage" alt="">
+									</div>
+									<div class="info">
+										<h1>{{item.name}}</h1>
+										<p>{{item.content}}</p>
+										<h6>￥{{item.averageSpend}}起</h6>
+									</div>
+								</li>
+							</template>
+						</ul>
+					</div>
+				</div>
+			</div>			
+		</div>
+		
+		<!-- 弹出框 -->
+		<div id="citySelectBox" class="sortBox hide">
+			<div class="sortContent">
+				<ul id="cityList" class="list">
+					<li>全城</li>
+				</ul>
+			</div>
+		</div>
+		<div id="recommendSelectBox" class="sortBox hide">
+			<div class="sortContent">
+				<ul class="list">
+					<li type-id="1">距离优先</li>
+					<li type-id="2">好评优先</li>
+					<li type-id="3">低价优先</li>
+					<li type-id="4">高价优先</li>
+				</ul>
+			</div>
+		</div>
+		<div id="screenSelectBox" class="sortBox hide">
+			<div id="sortContent" class="sortContent">
+				<div class="option-warp">
+					<h1 class="tit">酒店类型</h1>
+					<div type-id="1" class="options">
+						<span type-id="1" class="active">经济型</span>
+						<span type-id="2">快捷连锁</span>
+						<span type-id="3">主题酒店</span>
+						<span type-id="4">商务酒店</span>
+						<span type-id="5">公寓</span>
+						<span type-id="6">客栈</span>
+					</div>
+					<h1 class="tit">房型</h1>
+					<div type-id="2" class="options">
+						<span type-id="1" class="active">单人房</span>
+						<span type-id="2">大床房</span>
+						<span type-id="3">双人房</span>
+						<span type-id="4">三人房</span>
+						<span type-id="5">床位</span>
+					</div>
+					<!-- <h1 class="tit">价格</h1>
+					<div class="options">
+						<p class="date"></p>
+						<label class="txt">至</label>
+						<p class="date"></p>
+					</div> -->
+					<h1 class="tit">设施服务</h1>
+					<div type-id="3" class="options">
+						<span type-id="1" class="active">淋浴</span>
+						<span type-id="2">空调</span>
+						<span type-id="3">网络</span>
+						<span type-id="4">暖气</span>
+						<span type-id="5">电视</span>
+						<span type-id="6">独卫</span>
+					</div>
+					<div class="buttons">
+						<button id="clear" class="button disabled">清除</button>
+						<button id="screenSubmit" class="button">确定</button>
+					</div>
+				</div>					
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/mui.pullToRefresh.js"></script>
+<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+<script src="../resources/js/area.js"></script>
+
+<script>
+
+	(function($) {
+
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					auto: false,
+					callback: pulldownRefresh
+				},
+				up: {
+					auto: false,
+					contentrefresh: '正在加载...',
+					contentnomore:'暂无更多数据',
+					callback: pullupRefresh
+				}
+			}
+		});
+
+		var vm = null,page = 1;
+		var facilityService = type = roomType = counties = sorting = city = cityName = '';
+		var listUrl = 'hotels/list?pageNo=' + page;
+		$.app.get(listUrl, function(data){
+			vm = new Vue({
+				el: "#wineshopList",
+				data: {
+					list: data.result
+				}
+			})
+			page++;
+
+			mui(".mui-table-view").on('tap', 'li', function(){		
+				var comeTime = $.app.getName(document.URL, 'comeTime');
+				var liveTime = $.app.getName(document.URL, 'liveTime');
+				if (comeTime != '' && liveTime != '') {
+					$.app.openWindow('detail.html?id=' + this.id + '&comeTime=' + comeTime + '&liveTime=' + liveTime);
+				} else {
+					$.app.openDetail(this.id);
+				}				
+			})
+		})
+
+		//上拉刷新、下拉加载
+		function pulldownRefresh() {
+			page = 1;
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(false);
+			listUrl = 'hotels/list?pageNo=' + page;
+			$.app.get(listUrl, function(data){
+				vm.list = data.result;
+			})
+		}
+
+		function pullupRefresh() {
+			listUrl = 'hotels/list?pageNo=' + page;
+			$.app.get(listUrl, function(data){
+				if (data.result.length != 0) {
+					setTimeout(function(){
+						vm.list = vm.list.concat(data.result);
+					},200);
+					page++;
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+				} else {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
+			})
+		}
+		
+		$.plusReady(function() {
+		
+			cityName = decodeURI($.app.getName(document.URL, 'city'));
+			for (var i in chinaJSON) {
+				for (var j in chinaJSON[i]) {
+					if (j == cityName) {
+						for (var k in chinaJSON[i][j]) {
+							var li = document.createElement('li');
+							li.innerHTML = k;
+							$("#cityList")[0].appendChild(li);
+						}
+					}
+				}
+			}			
+		})
+	
+		$(".wineshop-list1").on('tap', '.sort', function(){
+			mui(".sortBox").each(function(){
+				addClass(this, 'hide');
+			})
+			if (!hasClass(this, 'active')) {
+				if (this.id == 'city') {
+					removeClass(mui("#citySelectBox")[0], 'hide');
+				}
+				if (this.id == 'recommend') {
+					removeClass(mui("#recommendSelectBox")[0], 'hide');
+				}
+				if (this.id == 'screen') {
+					removeClass(mui("#screenSelectBox")[0], 'hide');
+				}
+				mui(".sort").each(function(){
+					removeClass(this, 'active');
+				})
+				addClass(this, 'active');
+				mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+				plus.webview.currentWebview().setStyle({scrollIndicator:'none'});
+			} else {
+				removeClass(this, 'active');
+				mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+				plus.webview.currentWebview().setStyle({scrollIndicator:'block'});
+			}
+		});
+
+		$(".options").on('tap', 'span', function(){
+			var elemChild = this.parentNode.getElementsByTagName('span');
+			Array.prototype.forEach.call(elemChild, function(span){
+				span.classList.remove('active');
+			})
+			addClass(this, 'active');
+		})
+
+		//清除选中状态
+		$("#clear")[0].addEventListener('tap', function(){
+			mui(".options span").each(function(){
+				removeClass(this, 'active');
+			})
+		})
+
+		//提交筛选条件
+		$("#screenSubmit")[0].addEventListener('tap', function(){			
+			var parent = this.parentNode.parentNode.getElementsByClassName("options");
+			Array.prototype.forEach.call(parent, function(self){
+				var options = self.getAttribute('type-id');
+				if (options == 1) {
+					var child = self.getElementsByTagName("span");
+					Array.prototype.forEach.call(child, function(child){
+						if (hasClass(child, 'active')) type = child.getAttribute('type-id');
+					})
+				}
+				if (options == 2) {
+					var child = self.getElementsByTagName("span");
+					Array.prototype.forEach.call(child, function(child){
+						if (hasClass(child, 'active')) roomType = child.getAttribute('type-id');
+					})
+				}
+				if (options == 3) {
+					var child = self.getElementsByTagName("span");
+					Array.prototype.forEach.call(child, function(child){
+						if (hasClass(child, 'active')) facilityService = child.getAttribute('type-id');
+					})
+				}
+			})
+			sortPost();
+			
+			addClass(mui("#screenSelectBox")[0], 'hide');
+			removeClass($("#screen")[0], 'active');
+		})
+		
+		$(".list").on('tap', 'li', function(e){
+			//e.stopPropagation();
+			var parent = this.parentNode.parentNode.parentNode;
+			if (parent.id == 'citySelectBox') {
+				$("#city")[0].innerHTML = this.innerHTML;
+				if (this.innerHTML == '全城') {
+					city = cityName;
+					counties = '';
+				} else {
+					counties = this.innerHTML;
+					city = '';
+				}
+			}
+			if (parent.id == 'recommendSelectBox') {
+				$("#recommend")[0].innerHTML = this.innerHTML;
+				sorting = this.getAttribute('type-id');
+			}
+			addClass(parent, 'hide');
+			$(".sort").each(function(){
+				if (hasClass(this, 'active')) {
+					removeClass(this, 'active');
+				}
+			})
+			sortPost();
+		})
+		
+		function sortPost(){
+			page = 1;
+			var sortUrl = 'hotels/list?pageNo=' + page + '&facilityService=' + facilityService + '&type=' + type + '&roomType=' + roomType + '&counties=' + counties + '&city=' + city + '&sorting=' + sorting;
+			$.app.get(sortUrl, function(data){
+				if (data.result.length == 0) {
+					mui.toast("暂无满足此条件的酒店！");
+				}
+				vm.list = data.result;
+				if (data.result.length <= 0) {
+					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+				} else {
+					page++;
+				}
+			})
+		}
+	})(mui);		
+</script>
+
+</html>

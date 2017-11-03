@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../resources/css/mui.picker.min.css" />
+	<link rel="stylesheet" type="text/css" href="../resources/css/mui.picker.min.css" />
+	<title>景点详情</title>
+	<style>
+		#header .title{right: 100px;}
+	</style>
+</head>
+<body>
+	<div v-cloak id="main" class="main mui-content attractions-warp">
+		<div class="wineshop-detail-1 pos-header">
+			<header id="header" class="mui-bar mui-bar-nav header transparent">
+				<a class="mui-action-back mui-icon mui-pull-left back"></a>
+				<h1 class="mui-title title">{{title}}</h1>
+				<a class="mui-pull-right">
+					<i id="call" :data-id="telephone" class="mui-icon phone"></i>
+					<i id="collect" :type-id="collectionStatus" class="mui-icon collect marginR" :class="{'collected': collectionStatus == true}"></i>
+					<i class="mui-icon share marginR" onclick="openShareWindow(this)"></i>
+				</a>
+			</header>
+			<a class="cover-img">
+				<div class="banner-warp">
+					<div class="swiper-container swiper-banner" :class="{'isslide' : attractionsImageList.length > 1}">
+						<div class="swiper-wrapper">
+							<template v-for="item in attractionsImageList">
+								<div class="swiper-slide">
+									<img :src="item.name" :alt="item.title" class="banner-img">
+								</div>
+							</template>
+						</div>
+					</div>
+				</div>
+			</a>
+			<em class="price">{{averageSpend}}元 /人</em>
+			<em class="img-total">
+				<i class="i-img"></i>
+				<span>{{attractionsImageList.length}}张</span>
+			</em>
+		</div>
+		
+		<div class="wineshop-detail-2 attractions-detail-1">
+			<div class="info-group">
+				<a id="map" class="left address-info">
+					<i class="i-address"></i>
+					<p>{{address}}</p>
+				</a>
+				<a id="comment" class="right">{{commentCount}}评论</a>
+			</div>
+		</div>
+		
+		<div class="wineshop-detail-2 marginT10 attractions-detail-1">
+			<div id="showBox" class="info-group attractions-detail-2">
+				<label>选择：</label>
+				<span>日期 <strong id="date"></strong>/数量 <strong id="num"></strong></span>
+				<em class="more"></em>
+			</div>
+		</div>
+		
+		<div class="attractions-detail-3 marginT10">
+			<div class="tab">
+				<a type-id="1" class="active">产品介绍</a>
+				<a type-id="2">费用说明</a>
+			</div>
+			<div class="text" id="textContent"></div>
+		</div>
+		
+		<div class="attractions-detail-4">
+			<button id="submit2" class="button">预定</button>
+		</div>
+		
+		<div id="reserveBox" class="alertBox hide">
+			<div class="transparentBg"></div>
+			<div class="reserveBox">
+				<em id="close" class="close"></em>
+				<div class="tit">
+					<img :src="coverImage" alt="" />
+					<h1>{{title}}</h1>
+				</div>
+				<div id='timeSelect' data-options='{"type":"date"}' class="item-group">
+					<label>选择日期</label>
+					<p id="timeResult"></p>
+					<em class="more"></em>
+				</div>
+				<div class="item-group padr">
+					<label>成人（￥{{averageSpend}}）</label>
+					<div class="mui-numbox number" data-numbox-min='1' data-numbox-max='9'>
+						<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+						<input id="number1" class="mui-input-numbox" type="number" value="1" />
+						<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+					</div>
+				</div>
+				<div class="item-group padr">
+					<label>儿童（￥{{averageSpend/2}}）</label>
+					<span>(1.2m以下)</span>
+					<div class="mui-numbox number" data-numbox-min='0' data-numbox-max='9'>
+						<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+						<input id="number2" class="mui-input-numbox" type="number" value="0" />
+						<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+					</div>
+				</div>
+				<div class="item-group buttons">
+					<p>金额：￥<span id="price">{{averageSpend * 1}}</span></p>
+					<button id="submit" class="button">预定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/swiper.min.js"></script>
+<script src="../resources/js/mui.picker.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+
+	(function($) {
+
+		var vm = null,name,address,img,zongjia,productDescription,costDescription,price,price_parent,price_child,quantity,consumeDate,childQuantity = 1;
+		var id = $.app.getId(document.URL);
+		
+		var url = 'attractions/details';
+		$.app.post(url, {"id": id}, function(data){
+			vm = new Vue({
+				el: "#main",
+				data: data
+			})
+			
+			address = data.province + data.city + data.address;	
+			name = data.title;
+			img = data.coverImage;
+			price = data.averageSpend;
+			price_parent = data.averageSpend;
+			price_child = 0;
+			productDescription = data.productDescription;
+			costDescription = data.costDescription;
+			$("#textContent")[0].innerHTML = productDescription;
+			
+			var shareMessage = {};
+			shareMessage.href = data["shareLink"];
+			shareMessage.title = data["title"];
+			if (data.summary != null) {
+				shareMessage.content = data["summary"];
+			} else {
+				shareMessage.content = data["title"];
+			}
+			shareMessage.thumbs = data["coverImage"];
+			window.shareMessage = shareMessage;
+			
+			onevent();
+		})
+		
+		function onevent() {
+			$(".tab").on('tap', 'a',  function(){
+				var status = this.getAttribute("type-id");
+				if (status == 1) $("#textContent")[0].innerHTML = productDescription;
+				if (status == 2) $("#textContent")[0].innerHTML = costDescription;
+				$(".tab a").each(function(){
+					removeClass(this, 'active');
+				})	
+				addClass(this, 'active');			
+			})
+		
+			$("#comment")[0].addEventListener('tap', function(){
+				$.app.openWindow('../page.html?id=' + id + '&type=3&title=评论&url=comment/list');
+			})
+			
+		}
+		
+		mui.plusReady(function() {
+			$.app.getShareSerivces();
+			
+			new Swiper('.isslide', {
+				loop: true,
+				pagination: false,
+				paginationClickable: true,
+				preloadImages: false,
+				speed: 300,
+				autoplay: 5000
+			});
+			plus.navigator.closeSplashscreen();
+			
+			$("#collect")[0].addEventListener('tap', function(){
+				if (this.getAttribute('type-id')) {
+					var param = {
+						"goodId": id
+					}
+					$.app.delete('collection/remove', param, function(data){
+						mui.toast("取消成功！");
+						vm.$data.collectionStatus = false;
+					})
+				} else {
+					var param = {
+						"goodId": id,
+						"type": 1
+					}
+					$.app.post('collection/create', param, function(data){
+						mui.toast("收藏成功！");
+						vm.$data.collectionStatus = true;
+					})
+				}					
+			})
+			
+			$("#map")[0].addEventListener('tap', function(){
+				$.app.openWindow('../map.html?title=' + address);
+			})
+			
+			$("#showBox")[0].addEventListener('tap', function(){
+				removeClass($("#reserveBox")[0], 'hide');
+			})
+			
+			$("#close")[0].addEventListener('tap', function(){
+				addClass($("#reserveBox")[0], 'hide');
+			})
+			
+			$('.mui-numbox').numbox();
+			$("#number1")[0].addEventListener('change',function(){
+				price_parent = price * parseInt($("#number1")[0].value);
+				$("#price")[0].innerHTML = price_parent + price_child;
+				$("#num")[0].innerHTML = parseInt($("#number1")[0].value) + parseInt($("#number2")[0].value);
+			});
+			
+			$("#number2")[0].addEventListener('change',function(){
+				price_child = price / 2 * parseInt($("#number2")[0].value);
+				$("#price")[0].innerHTML = price_parent + price_child;
+				$("#num")[0].innerHTML = parseInt($("#number1")[0].value) + parseInt($("#number2")[0].value);
+			});
+		
+			document.getElementById("timeSelect").addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					$("#timeResult")[0].innerHTML = $("#date")[0].innerHTML = consumeDate = rs.text;
+					picker.dispose();
+				});
+			}, false);
+			
+			$("#submit")[0].addEventListener('tap', function(){
+				submit();	
+			})
+			
+			$("#submit2")[0].addEventListener('tap', function(){
+				submit();
+			})
+			
+			$("#call")[0].addEventListener('tap', function(){
+				var phoneNumber = this.getAttribute('data-id');
+				plus.device.dial(phoneNumber, true);
+			})	
+		});		
+		
+		function submit(){
+			if (!consumeDate) {
+				mui.toast("请选择日期");
+				return;
+			}
+			addClass($("#reserveBox")[0], 'hide');
+			quantity = parseInt($("#number1")[0].value) + parseInt($("#number2")[0].value);
+			zongjia = price_parent + price_child;
+			childQuantity = parseInt($("#number2")[0].value);
+			$.app.openWindow("from.html?id=" + id + "&name=" + name + "&img=" + img + "&price=" + zongjia + "&quantity=" + quantity + "&childQuantity=" + childQuantity + "&consumeDate=" + consumeDate);
+		}
+		
+		window.onscroll = function () {  
+            var top = document.documentElement.scrollTop || document.body.scrollTop;  
+            if (top > 10) {
+            	removeClass($("#header")[0], 'transparent');
+            } else {
+            	addClass($("#header")[0], 'transparent');
+            }
+        };
+	})(mui);		
+</script>
+
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/swiper.min.css" rel="stylesheet">
+	<title>酒店详情</title>
+</head>
+<body>
+	<div v-cloak id="main" class="main mui-content">
+		<div class="wineshop-detail-1 pos-header">
+			<header id="header" class="mui-bar mui-bar-nav header transparent">
+				<a class="mui-action-back mui-icon mui-pull-left back"></a>
+				<h1 class="mui-title title">{{hotail.name}}</h1>
+				<a class="mui-pull-right">
+					<i id="collect" :type-id="hotail.id" :class="{'collected': hotail.collectionStatus == true}" class="mui-icon collect marginR"></i>
+					<i id="share" class="mui-icon share" onclick="openShareWindow(this)"></i>
+				</a>
+			</header>
+			<a class="cover-img">
+				<div class="banner-warp">
+					<div class="swiper-container swiper-banner">
+						<div class="swiper-wrapper">	
+							<template v-for="item in hotail.hotelsImages">
+								<div class="swiper-slide">
+									<img :src="item.name" :alt="item.title" class="banner-img">
+								</div>
+							</template>
+						</div>
+					</div>
+				</div>
+			</a>
+			<em class="img-total">
+				<i class="i-img"></i>
+				<span>{{hotail.hotelsImages.length}}张</span>
+			</em>
+		</div>
+		
+		<div class="wineshop-detail-2">
+			<div class="info-group">
+				<a id="map" class="left address-info">
+					<i class="i-address"></i>
+					<p>{{hotail.address}}</p>
+				</a>
+				<a id="comment" class="right">{{hotail.commentCount}}评论</a>
+			</div>
+			<div id="introduce" class="info-group">
+				<a class="left introduce tags">
+					<p v-html='hotail.tags'></p>
+				</a>
+				<a class="right introduce">电话/详情</a>
+			</div>
+		</div>
+		
+		<div class="wineshop-detail-3">
+			<h1 class="tit">预定[ {{hotail.hotelsRooms.length}} ]</h1>
+			<div class="room-list">
+				<ul>
+					<template v-for="item in hotail.hotelsRooms">
+						<li :id="item.id">
+							<div class="img">
+								<img :src="item.coverImage" alt="">
+							</div>
+							<div class="info">
+								<h1>{{item.type}}</h1>
+								<p v-if="item.breakfast == 1">含早</p>
+								<p v-else>不含早</p>
+								<p>23:00前可退</p>
+								<h6>￥{{item.price}}</h6>
+							</div>
+							<button v-if="item.status != 2" class="button" :type-id="item.price" :data-id="item.id">预订</button>
+						</li>
+					</template>						
+				</ul>
+			</div>
+		</div>
+
+		<div class="wineshop-detail-3">
+			<h1 class="tit">相关推荐</h1>
+			<div class="room-list hotail-list">
+				<ul>
+					<template v-for="item in hotail.hotelsList">
+						<li :data-id="item.id">
+							<div class="img">
+								<img :src="item.coverImage" alt="">
+							</div>
+							<div class="info">
+								<h1>{{item.name}}</h1>
+								<p>{{item.commentCount}}人消费</p>
+								<p>{{item.address}}</p>
+								<h6>￥{{item.averageSpend}}</h6>
+							</div>
+						</li>
+					</template>						
+				</ul>
+			</div>
+		</div>
+
+		<div class="wineshop-detail-4">
+			<h1 class="tit">附近玩乐</h1>
+			<div class="happy-list">
+				<div class="notdata">
+					<p v-show="hotail.foodList.length == 0">附近什么也没有哦</p>
+				</div>				
+				<ul>
+					<template v-for="item in hotail.foodList">
+						<li :id="item.id">
+							<div class="img">
+								<img :src="item.foodImg" alt="">
+							</div>
+							<p>{{item.foodName}}</p>
+						</li>
+					</template>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/swiper.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+
+	(function($) {
+
+		var vm = null,name,img,address;
+		var id = $.app.getId(document.URL);
+		
+		var url = 'hotels/detail?id=' + id;
+		$.app.get(url, function(data){
+			vm = new Vue({
+				el: "#main",
+				data: {
+					hotail: data
+				}
+			})
+			
+			address = data.province + data.city + data.counties + data.address;			
+			name = data.name;
+			img = data.hotelsImages[0].name;
+			Vue.set(data, 'tags', peitao(data));
+			
+			var shareMessage = {};
+			shareMessage.href = data["shareLink"];
+			shareMessage.title = data["name"];
+			if (data.summary != null) {
+				shareMessage.content = data["summary"];
+			} else {
+				shareMessage.content = data["name"];
+			}
+			shareMessage.thumbs = data["coverImage"];
+			window.shareMessage = shareMessage;
+		})
+		
+		mui.plusReady(function() {
+			new Swiper('.swiper-banner', {
+				loop: true,
+				pagination: false,
+				paginationClickable: true,
+				preloadImages: false,
+				speed: 300,
+				autoplay: 5000
+			});
+			
+			$("#introduce").on('tap', '.introduce',  function(){
+				$.app.openIntroduce(id);
+			})	
+			
+			$(".room-list").on('tap', '.button', function(){
+				var id = this.getAttribute("data-id");
+				var price = this.getAttribute("type-id");
+				//name = encodeURI(name);
+				var comeTime = $.app.getName(document.URL, 'comeTime');
+				var liveTime = $.app.getName(document.URL, 'liveTime');
+				var fromUrl = "from.html?id=" + id + "&name=" + name + "&img=" + img + "&price=" + price;
+				if (comeTime != '' && liveTime != '') {
+					fromUrl = fromUrl + '&comeTime=' + comeTime + '&liveTime=' + liveTime;
+				}
+				$.app.openWindow(fromUrl);
+			})
+			
+			$(".hotail-list").on('tap', 'li', function(){
+				var id = this.getAttribute("data-id");
+				url = 'hotels/detail?id=' + id;
+				var nwaiting = plus.nativeUI.showWaiting();
+				setTimeout(function(){
+					$.app.get(url, function(data){
+						vm.$data.hotail = data;
+						Vue.set(data, 'tags', peitao(data));
+						plus.nativeUI.closeWaiting();
+						document.body.scrollTop = document.documentElement.scrollTop = 0;
+					})
+				}, 200)
+										
+			})
+			
+			$("#map")[0].addEventListener('tap', function(){
+				$.app.openWindow('../map.html?title=' + address);
+			})
+		
+			$("#comment")[0].addEventListener('tap', function(){
+				$.app.openWindow('../page.html?id=' + id + '&type=2&title=评论&url=comment/list');
+			})
+			
+			$("#collect")[0].addEventListener('tap', function(){
+				if (hasClass(this, 'collected')) {
+					var param = {
+						"goodId": id
+					}
+					$.app.delete('collection/remove', param, function(data){
+						mui.toast("已取消收藏！");
+						vm.$data.hotail.collectionStatus = false;
+					})
+				} else {
+					var param = {
+						"goodId": id,
+						"type": 1
+					}
+					$.app.post('collection/create', param, function(data){
+						mui.toast("收藏成功！");
+						vm.$data.hotail.collectionStatus = true;
+					})
+				}					
+			})
+		})
+
+		function peitao(data) {
+			var html = '';
+			if (data.singleRoom) html+='<span>单人房</span>';
+			if (data.doubleRoom) html+='<span>双床房</span>';
+			if (data.bigRoom) html+='<span>大床房</span>';
+			if (data.superRoom) html+='<span>三人房</span>';
+			if (data.littleRoom) html+='<span>床位</span>';
+			if (data.serviceShower) html+='<span>淋浴</span>';
+			if (data.serviceAir) html+='<span>空调</span>';
+			if (data.serviceNetwork) html+='<span>网络</span>';
+			if (data.serviceHeating) html+='<span>暖气</span>';
+			if (data.serviceTv) html+='<span>电视</span>';
+			if (data.serviceToilet) html+='<span>独立卫生间</span>';
+			if (data.serviceBreakfast) html+='<span>餐厅</span>';
+			if (data.servicePark) html+='<span>停车场</span>';
+			return html;
+		}
+		
+		window.onscroll = function () {  
+            var top = document.documentElement.scrollTop || document.body.scrollTop;  
+            if (top > 10) {
+            	removeClass($("#header")[0], 'transparent');
+            } else {
+            	addClass($("#header")[0], 'transparent');
+            }
+        };
+		
+	})(mui);		
+</script>
+
+</html>

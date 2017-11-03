@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/swiper.min.css" rel="stylesheet">
+	<title>首页</title>
+</head>
+
+<body>
+	<div id="main" class="main mui-content">
+		<div class="index-header">
+			<!-- 搜索框 -->
+			<div class="index-top">
+				<div id="gps" class="address">
+					<i class="i-address"></i>
+					<span id="address">未定位</span>
+				</div>
+				<div id="search" class="search-warp">
+					<i class="i-search"></i>
+					<span>请输入关键字</span>
+				</div>
+			</div>
+			<!-- banner -->
+			<div class="banner-warp">
+				<div class="swiper-container swiper-banner">
+					<div class="swiper-wrapper">	
+						<template v-for="item in banners">
+							<div :id="item.id" :type-id="item.adType" class="swiper-slide">
+								<a :data-id="item.url">
+									<img :src="item.imgName" :alt="item.title" class="banner-img">
+								</a>
+							</div>	
+						</template>
+					</div>
+					<div class="swiper-pagination swiper-pagination-white swiper-pagination-banner"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="index-1">
+			<ol>
+				<li id="towineshop">
+					<i class="menu-1"></i>
+					<span>酒店</span>
+				</li>
+				<li id="toattractions">
+					<i class="menu-2"></i>
+					<span>景点</span>
+				</li>
+				<li id="tofood">
+					<i class="menu-3"></i>
+					<span>美食</span>
+				</li>
+				<li id="tospecialty">
+					<i class="menu-4"></i>
+					<span>特产</span>
+				</li>
+				<li id="tofarmhouse">
+					<i class="menu-5"></i>
+					<span>农家乐</span>
+				</li>
+			</ol>
+		</div>
+
+		<div class="index-title">
+			<i class="i-titLeft"></i>
+			<span>本地特色</span>
+			<i class="i-titRight"></i>
+		</div>
+
+		<div class="index-2">
+			<div class="characteristic-left">
+				<div :id="featuresList[0].id" class="item-group characteristic-1">
+					<img :src="featuresList[0].coverImage" alt="">
+				</div>
+				<div id="tofeatures" class="characteristic-4">
+					<p>查看更多</p>
+				</div>
+			</div>
+			<div class="characteristic-right">
+				<div :id="featuresList[1].id" class="item-group characteristic-2">
+					<img :src="featuresList[1].coverImage" alt="">
+				</div>
+				<div :id="featuresList[2].id" class="item-group characteristic-3">
+					<img :src="featuresList[2].coverImage" alt="">
+				</div>
+			</div>				
+		</div>
+
+		<div class="index-title">
+			<i class="i-titLeft"></i>
+			<span>推荐攻略</span>
+			<i class="i-titRight"></i>
+		</div>
+
+		<div class="index-3 raiders-item">
+			<ul>
+				<template v-for="item in raidersList">
+					<li :id="item.id">
+						<div class="title">
+							<h1>{{item.title}}</h1>
+						</div>					
+						<div class="content">
+							<img :src="item.coverImage" alt="">
+							<div class="txt">
+								<p>{{item.summary}}</p>
+							</div>						
+						</div>
+						<div class="statistics">
+							<span class="time">{{item.createTime}}</span>
+							<span class="info">
+								<label>
+									<i class="i-view"></i>
+									<b>{{item.readAmount}}</b>
+								</label>
+								<label class="comment">
+									<i class="i-reply"></i>
+								</label>
+								<label>
+									<i class="i-download"></i>
+								</label>
+							</span>
+						</div>
+					</li>
+				</template>					
+			</ul>
+		</div>
+
+		<div class="index-title" style="border-bottom:none">
+			<a id="toraiders" class="more">查看更多</a>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/swiper.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+<script>
+	/*if (window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener('plusready', plusReady, false);
+	}
+
+	function plusReady() {
+		new Swiper('.swiper-banner', {
+			loop: true,
+			pagination: '.swiper-pagination-banner',
+			paginationClickable: true,
+			preloadImages: false,
+			speed: 300,
+			autoplay: 5000
+		});
+		plus.navigator.closeSplashscreen();
+	}*/
+	
+	mui.init();
+
+	(function($, doc) {
+
+		var vm = null;
+		$.app.get('home', function(data){
+			vm = new Vue({
+				el: "#main",
+				data: {
+					banners: data.banner,
+					raidersList: data.raidersList,
+					featuresList: data.featuresList
+				}
+			})
+		})
+		$("#address")[0].innerHTML = localStorage.getItem('$address');
+		
+		$.plusReady(function() {
+			
+			new Swiper('.swiper-banner', {
+				loop: true,
+				pagination: '.swiper-pagination-banner',
+				paginationClickable: true,
+				preloadImages: false,
+				speed: 300,
+				autoplay: 5000
+			});
+			
+			plus.navigator.closeSplashscreen();
+			
+			$("#search")[0].addEventListener('tap', function(){
+				$.app.openWindow("../search/search.html?type=0");
+			})
+			
+			$("#towineshop")[0].addEventListener('tap', function(){
+				$.app.openWindow('../wineshop/index.html');
+			})
+			
+			$("#toattractions")[0].addEventListener('tap', function(){
+				$.app.openWindow("../attractions/list.html");
+			})
+			
+			$("#tofood")[0].addEventListener('tap', function(){
+				$.app.openWindow("../food/list.html");
+			})
+			
+			$("#tospecialty")[0].addEventListener('tap', function(){
+				$.app.openWindow("../specialty/list.html");
+			})
+			
+			$("#tofarmhouse")[0].addEventListener('tap', function(){
+				$.app.openWindow("../farmhouse/list.html");
+			})
+			
+			$(".info").on('tap', '.comment', function(e){
+				e.stopPropagation();
+				var id = this.parentNode.parentNode.parentNode.id;
+				$.app.openWindow('../page.html?id=' + id + '&type=1&title=评论&url=comment/list');
+			})
+			
+			$(".raiders-item").on('tap', 'li', function(){
+				$.app.openWindow("../raiders/detail.html?id=" + this.id);
+			})
+			
+			$("#toraiders")[0].addEventListener('tap', function(){
+				var btn = document.getElementById("raiders");
+				mui.trigger(btn,'tap');
+			})
+			
+			$("#tofeatures")[0].addEventListener('tap', function(){
+				$.app.openWindow("../page.html?title=本地特色&url=home/features-list");
+			})
+			
+			$(".index-2").on('tap', '.item-group', function(){
+				$.app.openWindow("features-detail.html?id=" + this.id);
+			})
+			
+			$(".swiper-wrapper").on('tap', '.swiper-slide', function(){
+				var status = this.getAttribute('type-id');
+				var href = this.getElementsByTagName("a")[0].getAttribute('data-id');
+				if (status == 1) {
+					var state = window.app.getState();
+					state.extlink = href;
+					window.app.setState(state);
+					mui.app.openWindow("../extlink.html");
+				}
+				if (status == 2) {
+					$.app.openWindow("banner-detail.html?id=" + this.id);
+				}
+			})
+			
+			$("#gps")[0].addEventListener('tap', function(){
+				$.app.openWindow("address.html");
+			})
+		})
+		
+	})(mui, document);
+</script>
+</html>

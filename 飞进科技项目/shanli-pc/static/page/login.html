@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="renderer" content="webkit">
+	<title>登录</title>
+	<link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.css" rel="stylesheet">
+	<link rel="stylesheet" href="../resources/css/comment.css">
+	<link rel="stylesheet" href="../resources/css/login.css">
+</head>
+
+<body>
+
+<!--<div class="toast">
+	世界你好
+</div>-->
+
+<div class="header">
+	<div class="wrap_1200 clearfix">
+		<a href="../index.html" class="header_logo fl"></a>
+		<span class="welcome_login fl">欢迎登录</span>
+	</div>
+</div>
+
+<div class="main">
+	<div class="buttons clearfix">
+		<a class="to_login business">我是商家</a>
+		<a class="to_login personal">个人用户</a>
+	</div>
+
+	<div class="login_layer">
+		<div class="login_form">
+			<i class="close_login_btn"></i>
+			<h2>登录闪力</h2>
+			<div class="input_row">
+				<div class="input_cell clearfix">
+					<label for="user_name" style="background-image: url(../resources/img/web/reg_username.png);"></label>
+					<input type="text" id="user_name" placeholder="请输入11位数手机号码">
+				</div>
+			</div>
+			<div class="input_row" style="margin-bottom: 26px;">
+				<div class="input_cell clearfix">
+					<label for="pwd" style="background:#959ea1 url(../resources/img/web/reg_password.png) center no-repeat;"></label>
+					<input type="password" id="pwd" placeholder="请输入6~16位的密码">
+				</div>
+				<p class="forget_pwd">
+					<a href="#">忘记登录密码?</a>
+				</p>
+			</div>
+			<div class="login_btn">登录</div>
+			<div class="to_reg">
+				还没有帐号?
+				<a href="register.html">立即注册</a>
+			</div>
+			<div style="text-align: center; color: #ffffff; font-size: 12px; margin-top: 40px;">
+				<i class="fl" style="width: 50px; height: 1px; background-color: #fff; margin-top: 6px;"></i> 其他登录方式
+				<i class="fr" style="width: 50px; height: 1px; background-color: #fff; margin-top: 6px;"></i>
+			</div>
+			<div style="text-align: center; margin-top: 22px;">
+				<a href="#" class="qq_login" style="margin-right: 20px;">
+					<img src="../resources/img/web/icon_qq.png" alt="qq登录">
+				</a>
+				<a href="#" class="wechat_login">
+					<img src="../resources/img/web/icon_wechat.png" alt="微信登录">
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="../resources/js/md5.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script>
+	var loginLayer = $(".login_layer");
+
+	//关闭登录弹框
+	$(".close_login_btn").click(function() {
+		loginLayer.hide();
+	});
+
+	//显示登录弹框
+	$(".personal").click(function() {
+		loginLayer.show();
+	});
+
+	//登录
+	$(".login_btn").click(function() {
+		var user = $('#user_name').val().trim();
+
+		if(!(/^1[3578]\d{9}$/.test(user))) {
+			toast("手机号码格式不正确");
+			return;
+		}
+
+		var pwd = $("#pwd").val().trim();
+		if(pwd.length < 6 || pwd.length > 16) {
+			toast("密码格式不正确");
+			return;
+		}
+
+		post(loginApi, {
+			"username": user,
+			"password": pwd.MD5(32)
+		}, function(resp) {
+			if(resp.result === 1) {
+				toast("登录成功，即将跳转到首页...");
+				setTimeout(function() {
+					location.replace("../index.html");
+				}, 2000);
+			} else {
+				toast(resp.msg);
+			}
+		});
+	});
+</script>
+</body>
+
+</html>

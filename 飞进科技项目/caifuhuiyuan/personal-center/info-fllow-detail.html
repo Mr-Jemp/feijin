@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/js.js"></script>
+	<title>个人中心-我的关注-详情</title>
+</head>
+<body v-cloak id="fllow-detail">
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">{{nickname}}</h1>
+		<template v-if="attention">
+			<a id="followBtn" class="mui-btn mui-btn-link mui-pull-right text">取消关注</a>
+		</template>
+		<template v-if="!attention">
+			<a id="followBtn" class="mui-btn mui-btn-link mui-pull-right text">关注</a>
+		</template>
+	</header>
+	<div class="main mui-content">
+		<div class="fllowDetail-list myspeech">
+			<div class="self-info-warp">
+				<div class="portrait">
+					<img v-if="headerImg == null || headerImg == undefined || headerImg =='' " src="../images/user-img.png" alt="" />
+					<img v-else src={{headerImg}} alt="">
+				</div>
+				<div class="name">
+					<h2><span>{{nickname}}</span></h2>
+					<h6><div>关注领域：</div>
+						<span v-if="concerns == null">暂无</span>
+						<span v-else>{{concerns}}</span>
+					</h6>
+					<p v-if="talk == null">未设置个性签名。</p>
+					<p v-else>{{talk}}</p>
+				</div>
+			</div>
+			<div id="fllow-list" class="forum speech-list">
+				<ul>
+					<template v-for="item in communitys.result">
+						<li id="{{item.id}}">
+							<div class="textInfo">
+								<h2>{{item.title}}</h2>
+								<p>{{item.abstractContent}}</p>
+								<template v-if="item.communityImages.length > 0">
+									<div class="imgs">
+										<ol>
+											<template v-for="img in item.communityImages">
+												<img src="{{img.src}}" alt="">
+											</template>
+										</ol>
+									</div>
+								</template>									
+								<div class="timeInfo">
+									<p>
+										<span class="time">{{item.createTime}}</span>
+										<span class="like"><i class="i-like"></i><span>{{item.likeCount}}</span></span>
+										<span class="comment"><i class="i-comment"></i><span>{{item.arguedCount}}</span></span>
+									</p>
+								</div>
+							</div>
+						</li>
+					</template>						
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<script>
+		(function($, doc){	
+			var id = $.app.getId(document.URL); //获取页面传递的数据
+			var url = api_domain + "home/userDetails";
+			var attention = false;
+			$.app.post(url, {
+				id: id
+			}, function(data) {
+				new Vue({
+					el: '#fllow-detail',
+					data: data
+				});
+				attention = data["attention"];
+				
+				var followBtn = document.getElementById("followBtn");
+				followBtn.addEventListener('tap', function(){
+					if (attention) {
+						var url = api_domain + "personal/concern/cancel";
+						var params = {
+							"id": id
+						};
+						var btnArray = ['取消', '确定'];
+						mui.confirm('确认取消关注该用户？', '提示', btnArray, function(e) {
+							if (e.index == 1) {
+								$.app.post(url, params, function(data) {
+									$.app.openWindow("info-fllow.html");
+									followBtn.innerText = "关注";
+									attention = false;
+								});
+							} else {
+								return false;
+							}
+						});
+	
+					} else {
+						var url = api_domain + "personal/concern/posted";
+						var params = {
+							"id": id
+						};
+						$.app.post(url, params, function(data) {
+							followBtn.innerText = "取消关注";
+							attention = true;
+							$.app.openWindow("info-fllow.html");
+						});
+					}
+				});
+			});				
+
+			$.plusReady(function() {
+				$('#fllow-list').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					if(id == null || id == undefined) return;
+					var url = "../community/detail.html?id=" + id;
+					$.app.openWindow(url);
+				})
+			});
+		})(mui, document)
+	</script>
+</html>

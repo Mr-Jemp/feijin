@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>我的订单</title>
+	<style>
+		.mui-loading{
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">我的订单</h1>
+	</header>
+	
+	<div class="main mui-content personal-list-warp">
+		<div id="slider" class="mui-slider mui-fullscreen">
+			<div id="sliderSegmentedControl" class="personal-orderList1 mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#item0">全部订单</a>
+				<a class="mui-control-item" href="#item1">待付款</a>
+				<a class="mui-control-item" href="#item2">已支付</a>
+				<a class="mui-control-item" href="#item3">已完成</a>
+				<a class="mui-control-item" href="#item4">退款</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-5g"></div>
+			<div id="orderList" class="mui-slider-group">
+				<div id="item0" class="mui-slider-item mui-control-content mui-active">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll personal-orderList2">
+							<ul id="list0" class="mui-table-view">
+								<template v-for="item in datas">
+									<li :id="item.id" :type-id="item.type">
+										<div class="img">
+											<img :src="item.coverImage" alt="" />
+										</div>
+										<div class="text-info">
+											<div class="tit">
+												<h1>{{item.productName}}</h1>
+												<span v-if="item.payStatus == 0">待付款</span>
+												<span v-if="item.payStatus == 1">已支付</span>
+												<span v-if="item.payStatus == 2">退款中</span>
+												<span v-if="item.payStatus == 3">已退款</span>
+												<span v-if="item.payStatus == 4">已完成</span>
+												<span v-if="item.payStatus == 5">已取消</span>
+												<span v-if="item.payStatus == 6">已评价</span>
+												<span v-if="item.payStatus == 7">拒绝退款申请</span>
+											</div>
+											<div class="txt">
+												<p>预定时间：{{item.createTime}}</p>
+												<p>总价：￥{{item.price}}</p>
+											</div>
+										</div>
+										<div v-if="item.payStatus == 0" class="buttons">
+											<button type-id="cancelOrder" class="mini-button disabled">取消订单</button>
+											<button type-id="paymentOrder" class="mini-button">去付款</button>
+										</div>
+										<div v-if="item.payStatus == 1" class="buttons">
+											<button type-id="refundOrder" class="mini-button">申请退款</button>
+										</div>
+										<div v-if="item.payStatus == 3 || item.payStatus == 5 || item.payStatus == 6 || item.payStatus == 7" class="buttons">
+											<button type-id="deleteOrder" class="mini-button">删除订单</button>
+										</div>
+										<div v-if="item.payStatus == 4" class="buttons">
+											<button type-id="deleteOrder" class="mini-button">删除订单</button>
+											<button type-id="talkOrder" class="mini-button">评价</button>
+										</div>
+									</li>
+								</template>										
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item1" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll personal-orderList2">
+							<div class="mui-loading">
+								<div class="mui-spinner">
+								</div>
+							</div>
+							<ul id="list1" class="mui-table-view">
+								<template v-for="item in datas">
+									<li :id="item.id" :type-id="item.type">
+										<div class="img">
+											<img :src="item.coverImage" alt="" />
+										</div>
+										<div class="text-info">
+											<div class="tit">
+												<h1>{{item.productName}}</h1>
+												<span>待付款</span>
+											</div>
+											<div class="txt">
+												<p>预定时间：{{item.createTime}}</p>
+												<p>总价：￥{{item.price}}</p>
+											</div>
+										</div>
+										<div class="buttons">
+											<button type-id="cancelOrder" class="mini-button disabled">取消订单</button>
+											<button type-id="paymentOrder" class="mini-button">去付款</button>
+										</div>
+									</li>
+								</template>	
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item2" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll personal-orderList2">
+							<div class="mui-loading">
+								<div class="mui-spinner">
+								</div>
+							</div>
+							<ul id="list2" class="mui-table-view">
+								<template v-for="item in datas">
+									<li :id="item.id" :type-id="item.type">
+										<div class="img">
+											<img :src="item.coverImage" alt="" />
+										</div>
+										<div class="text-info">
+											<div class="tit">
+												<h1>{{item.productName}}</h1>
+												<span>已支付</span>
+											</div>
+											<div class="txt">
+												<p>预定时间：{{item.createTime}}</p>
+												<p>总价：￥{{item.price}}</p>
+											</div>
+										</div>
+										<div class="buttons">
+											<button type-id="refundOrder" class="mini-button">申请退款</button>
+										</div>
+									</li>
+								</template>	
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item3" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll personal-orderList2">
+							<div class="mui-loading">
+								<div class="mui-spinner">
+								</div>
+							</div>
+							<ul id="list3" class="mui-table-view">
+								<template v-for="item in datas">
+									<li :id="item.id" :type-id="item.type">
+										<div class="img">
+											<img :src="item.coverImage" alt="" />
+										</div>
+										<div class="text-info">
+											<div class="tit">
+												<h1>{{item.productName}}</h1>
+												<span v-if="item.payStatus == 4">已完成</span>
+												<span v-if="item.payStatus == 6">已评价</span>
+											</div>
+											<div class="txt">
+												<p>预定时间：{{item.createTime}}</p>
+												<p>总价：￥{{item.price}}</p>
+											</div>
+										</div>
+										<div class="buttons">
+											<button type-id="deteleOrder" class="mini-button">删除订单</button>
+											<button v-if="item.payStatus == 4" type-id="talkOrder" class="mini-button">评价</button>
+										</div>
+									</li>
+								</template>	
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item4" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll personal-orderList2">
+							<div class="mui-loading">
+								<div class="mui-spinner">
+								</div>
+							</div>
+							<ul id="list4" class="mui-table-view">
+								<template v-for="item in datas">
+									<li :id="item.id" :type-id="item.type">
+										<div class="img">
+											<img :src="item.coverImage" alt="" />
+										</div>
+										<div class="text-info">
+											<div class="tit">
+												<h1>{{item.productName}}</h1>
+												<span v-if="item.payStatus == 2">退款中</span>
+												<span v-if="item.payStatus == 3">已退款</span>
+												<span v-if="item.payStatus == 7">拒绝退款申请</span>
+											</div>
+											<div class="txt">
+												<p>预定时间：{{item.createTime}}</p>
+												<p>总价：￥{{item.price}}</p>
+											</div>
+										</div>
+										<div v-if="item.payStatus == 3 || item.payStatus == 7" class="buttons">
+											<button type-id="deteleOrder" class="mini-button">删除订单</button>
+										</div>
+									</li>
+								</template>	
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/mui.pullToRefresh.js"></script>
+<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	mui.init();
+	(function($){
+		
+		var vm = null;
+		var orderUrl,num,page = 1;
+		
+		$.plusReady(function() {
+			orderUrl = 'myorder/list?pageNo=' + page;
+			$.app.get(orderUrl, function(data){
+				//$.app.initItemListVm(0, data);
+				vm = new Vue({
+					el: "#list0",
+					data: {
+						datas: data.result
+					}
+				})
+				
+				page++;
+			});
+		})
+		
+		//阻尼系数
+		var deceleration = mui.os.ios?0.003:0.0009;
+		$('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: true, //是否显示滚动条
+			deceleration: deceleration
+		});
+		
+		$.ready(function() {
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					page = 1;
+					if (num == 0) orderUrl = 'myorder/list?pageNo=' + page;
+					if (num == 1) orderUrl = 'myorder/list?payStatus=0&pageNo=' + page;
+					if (num == 2) orderUrl = 'myorder/list?payStatus=1&pageNo=' + page;
+					if (num == 3) orderUrl = 'myorder/list?payStatus=4&pageNo=' + page;
+					if (num == 4) orderUrl = 'myorder/list?payStatus=2&pageNo=' + page;
+					$.app.get(orderUrl, function(data){
+						Vue.nextTick(function() {
+							vm.datas = data.result;
+						})
+						console.log(data.result.length);
+						page++;
+					})
+				},
+				function(self, index) { // up
+					if (num == 0) orderUrl = 'myorder/list?pageNo=' + page;
+					if (num == 1) orderUrl = 'myorder/list?payStatus=0&pageNo=' + page;
+					if (num == 2) orderUrl = 'myorder/list?payStatus=1&pageNo=' + page;
+					if (num == 3) orderUrl = 'myorder/list?payStatus=4&pageNo=' + page;
+					if (num == 4) orderUrl = 'myorder/list?payStatus=2&pageNo=' + page;
+					$.app.get(orderUrl, function(data){
+						if (data.result.length > 0) {
+							setTimeout(function(){
+								vm.$data.datas = vm.$data.datas.concat(data.result);
+								self.endPullUpToRefresh(false);
+							})
+						} else {
+							self.endPullUpToRefresh(true);
+						}
+						page++;
+					})
+				}
+			)
+		})
+		
+		document.addEventListener('DOMContentLoaded', function () {
+			document.getElementById('slider').addEventListener('slide', function(e) {
+				page = 1;
+				num = e.detail.slideNumber;
+				if (num == 0) orderUrl = 'myorder/list?pageNo=' + page;
+				if (num == 1) orderUrl = 'myorder/list?payStatus=0&pageNo=' + page;
+				if (num == 2) orderUrl = 'myorder/list?payStatus=1&pageNo=' + page;
+				if (num == 3) orderUrl = 'myorder/list?payStatus=4&pageNo=' + page;
+				if (num == 4) orderUrl = 'myorder/list?payStatus=2&pageNo=' + page;
+				
+				$.app.get(orderUrl, function(data){
+					$.app.initItemListVm(num, data);
+					page++;
+				});
+			});
+
+			$('#orderList').on('tap', "li", function() {
+				var id = this.getAttribute("id");
+				$.app.openWindow("orderDetail.html?id=" + id);
+			})
+			
+			$("#orderList").on('tap', '.mini-button', function(e) {
+				e.stopPropagation();
+				var self = this;
+				var id = self.parentNode.parentNode.getAttribute("id");
+				var type = self.getAttribute("type-id");
+				var url;
+				var img = self.parentNode.parentNode.getElementsByTagName("img")[0].src;
+				var name = self.parentNode.parentNode.getElementsByTagName("h1")[0].innerHTML;
+				var date = self.parentNode.parentNode.getElementsByClassName('txt')[0].firstChild.innerHTML;
+				var price = self.parentNode.parentNode.getElementsByClassName('txt')[0].lastChild.innerHTML;
+				if (type == 'cancelOrder') {
+					url = 'myorder/cancel';
+					var btnArray = ['取消', '确定'];
+					mui.confirm('确认删除？', '提示', btnArray, function(e) {
+						if (e.index == 1) {
+							$.app.post(url, {"id": id}, function(data){
+								self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
+							})
+						} else {
+							return false;
+						}
+					});
+					return;
+				}
+				if (type == 'paymentOrder') {
+					var t = this.parentNode.parentNode.getAttribute('type-id');
+					$.app.openWindow("../pay/payment.html?id=" + id + "&type=" + t);
+					return;
+				}
+				if (type == 'refundOrder') {
+					$.app.openWindow("refund.html?id=" + id + '&img=' + img + '&name=' + name + '&date=' + date + '&price=' + price);
+					return;
+				}
+				if (type == 'talkOrder') {
+					$.app.openWindow("evaluate.html?id=" + id);
+					return;
+				}
+				if (type == 'deleteOrder') {
+					url = 'myorder/cancel';
+					var btnArray = ['取消', '确定'];
+					mui.confirm('确认删除？', '提示', btnArray, function(e) {
+						if (e.index == 1) {
+							$.app.post(url, {"id": id}, function(data){
+								self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
+							})
+						} else {
+							return false;
+						}
+					});
+					return;
+				}
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

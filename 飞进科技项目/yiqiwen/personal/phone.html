@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<title>手机绑定</title>
+</head>
+<body>
+	<header class="header">
+		<a href="info.html" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">手机绑定</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div class="bind-phone1">
+		<div class="form-item">
+			<input type="number" id="phone" class="input-text" placeholder="手机号" oninput="if(value.length > 11)value = value.slice(0,11)">
+		</div>
+		<div class="form-item">
+			<input type="number" id="vailcode" class="input-text" placeholder="验证码" oninput="if(value.length > 6)value = value.slice(0,6)">
+			<em id="gainCode" class="get-code">获取验证码</em>
+		</div>
+	</div>
+
+	<div class="bind-phone2 submit-warp">
+		<button id="submit" class="submit disabled">验证后绑定新手机</button>
+	</div>
+
+	<div class="bind-phone3">
+		<p>当前号码已不用/丢失，或无法收到验证码？</p>
+		<p>请联系易起问客服：<span>233333333</span></p>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/phone.js" type="text/javascript" charset="utf-8"></script>
+</html>

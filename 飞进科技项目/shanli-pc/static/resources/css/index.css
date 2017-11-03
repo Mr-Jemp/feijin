@@ -1,0 +1,119 @@
+body {
+  background-color: #f5f5f5;
+}
+.top {
+  height: 378px;
+  margin-bottom: 30px;
+}
+.top .type {
+  width: 200px;
+  height: 378px;
+  margin-right: 10px;
+  background-color: #00a5ef;
+  color: #f5f5f5;
+}
+.top .type h2 {
+  height: 55px;
+  line-height: 55px;
+  font-size: 16px;
+  padding-left: 10px;
+}
+.top .type ul li {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 32px;
+  cursor: pointer;
+}
+.top .type ul li:hover {
+  background-color: #3ebdf6;
+}
+.top .type ul li a {
+  font-size: 14px;
+  color: #ffffff;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(../../resources/img/web/icon_arrow.png) 143px center no-repeat;
+}
+.top .banner {
+  width: 670px;
+  height: 378px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.top .banner .swiper-container {
+  width: 100%;
+}
+.top .banner .swiper-container img {
+  width: 670px;
+}
+.top .login_msg {
+  width: 300px;
+  height: 378px;
+}
+.top .login_msg .user_msg {
+  background-color: #f1fbff;
+  height: 228px;
+  margin-bottom: 10px;
+  border: 1px solid #e5e5e5;
+}
+.top .login_msg .user_msg > div {
+  width: 100%;
+  height: 209px;
+  padding-top: 19px;
+}
+.top .login_msg .user_msg .unlogin p {
+  text-align: center;
+}
+.top .login_msg .user_msg .login p {
+  text-align: center;
+}
+.top .login_msg .user_msg .login ul {
+  padding: 0 20px;
+}
+.top .login_msg .user_msg .login ul li {
+  width: 64px;
+  height: 50px;
+  float: left;
+  text-align: center;
+  margin-right: 33px;
+  margin-bottom: 6px;
+}
+.top .login_msg .user_msg .login ul li p {
+  font-size: 12px;
+}
+.top .login_msg .code_icon {
+  background-color: #f1fbff;
+  height: 136px;
+  border: 1px solid #e5e5e5;
+}
+.top .login_msg .code_icon img {
+  margin: 20px 0 0 77px;
+}
+.main {
+  -webkit-border-radius: 8px 8px 0 0;
+  -moz-border-radius: 8px 8px 0 0;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+.main h2 {
+  background-color: #02a2ea;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  padding-left: 20px;
+  color: #ffffff;
+}
+.main .load_more {
+  display: none;
+  padding: 10px 20px;
+  margin: 20px auto;
+  width: 100px;
+  text-align: center;
+  background-color: #02a2ea;
+  color: #FFFFFF;
+  cursor: pointer;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}

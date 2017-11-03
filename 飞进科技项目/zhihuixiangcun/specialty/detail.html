@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>特产详情</title>
+	<style>
+		#header{
+			background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="main" class="main mui-content">
+		<div class="wineshop-detail-1 pos-header">
+			<header id="header" class="mui-bar mui-bar-nav header">
+				<a class="mui-action-back mui-icon mui-pull-left back"></a>
+				<h1 class="mui-title title">{{title}}</h1>
+				<a class="mui-pull-right">
+					<i id="collect" :type-id="collectionStatus" class="mui-icon collect marginR" :class="{'collected': collectionStatus == true}"></i>
+					<i class="mui-icon share marginR" onclick="openShareWindow(this)"></i>
+				</a>
+			</header>
+			<a class="cover-img">
+				<img :src="specialtyImageList[0].name" alt="">
+			</a>
+		</div>
+		
+		<div class="specialty-detail1">
+			<h1 class="tit">产品介绍</h1>
+			<div class="content" v-html="productDescription"></div>
+		</div>
+		
+		<div class="wineshop-detail-4">
+			<h1 class="tit">推荐商家</h1>
+			<div class="happy-list">
+				<ul>
+					<template v-for="item in farmhouseList">
+						<li :id="item.id">
+							<div class="img">
+								<img :src="item.coverImage" alt="">
+							</div>							
+							<p>{{item.title}}</p>
+						</li>
+					</template>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var vm = null;
+		var id = $.app.getId(document.URL);
+		
+		var url = 'specialty/details';
+		$.app.post(url, {"id": id}, function(data){
+			vm = new Vue({
+				el: "#main",
+				data: data
+			})
+			
+			var shareMessage = {};
+			shareMessage.href = data["shareLink"];
+			shareMessage.title = data["title"];
+			if (data.summary != null) {
+				shareMessage.content = data["summary"];
+			} else {
+				shareMessage.content = data["title"];
+			}
+			shareMessage.thumbs = data["coverImage"];
+			window.shareMessage = shareMessage;
+			
+		})
+		
+		mui.plusReady(function() {
+			$.app.getShareSerivces();
+			
+			$("#collect")[0].addEventListener('tap', function(){
+				if (this.getAttribute('type-id')) {
+					var param = {
+						"goodId": id
+					}
+					$.app.delete('collection/remove', param, function(data){
+						mui.toast("取消成功！");
+						vm.$data.collectionStatus = false;
+					})
+				} else {
+					var param = {
+						"goodId": id,
+						"type": 1
+					}
+					$.app.post('collection/create', param, function(data){
+						mui.toast("收藏成功！");
+						vm.$data.collectionStatus = true;
+					})
+				}					
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/js.js"></script>
+		<script src="../js/conf.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<title>金融超市</title>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<li id="messageInfo" class="mui-icon mui-pull-left messageInfo" onclick="listMessageCenter()"></li>
+			<h1 class="mui-title">金融超市</h1>
+			<li id="selfCenter" class="mui-icon mui-pull-right selfCenter" onclick="listPersonCenter()"></li>
+		</header>
+		<div class="mui-content mui-fullscreen" style="background: white;">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a id="tab0" class="mui-control-item mui-active" href="#item0">全部</a>
+					<a id="tab1" class="mui-control-item" href="#item1">银行</a>
+					<a id="tab2" class="mui-control-item" href="#item2">P2P</a>
+					<a id="tab3" class="mui-control-item" href="#item3">信托</a>
+					<a id="tab4" class="mui-control-item" href="#item4">海外证券</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-5g"></div>
+				<div id="finacial-list" class="mui-slider-group">
+					<div id="item0" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}" type="{{item.type}}">
+											<div class="img">
+												<i class="market-i{{item.type}}"></i>
+												<img src="{{item.thumbnailPath}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.name}}</h4>
+												<p>
+													<span class="fleft first">理财周期：<label class="black">{{item.deadline}}
+													<template v-if="item.deadlineMethod == 1">
+														个月
+													</template>
+													<template v-if="item.deadlineMethod == 2">
+														天
+													</template>
+													</label></span>
+													<span class="fleft last">参考年收益：<label class="cheng">{{item.annualInterestRate}}%</label></span>
+												</p>
+												<p>
+													<span>起投金额：<label class="black">{{item.investmentAmount}}起投</label></span>
+												</p>
+												<p>
+													<template v-if="item.type == 1">
+														<span>销售起/止日期：<label class="black">{{item.salesStartDate}} 到 {{item.salesEndDate}}</label></span>
+													</template>
+													<template v-if="item.type != 1">
+														<span>成立日期：<label class="black">{{item.establishTime}}</label></span>
+													</template>
+												</p>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item1" class="mui-slider-item mui-control-content ">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}" type="{{item.type}}">
+											<div class="img">
+												<i class="market-i1"></i>
+												<img src="{{item.thumbnailPath}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.name}}</h4>
+												<p>
+													<span class="fleft first">理财周期：<label class="black">{{item.deadline}}
+													<template v-if="item.deadlineMethod == 1">
+														个月
+													</template>
+													<template v-if="item.deadlineMethod == 2">
+														天
+													</template>
+													</label></span>
+													<span class="fleft last">参考年收益：<label class="cheng">{{item.annualInterestRate}}%</label></span>
+												</p>
+												<p>
+													<span>起投金额：<label class="black">{{item.investmentAmount}}起投</label></span>
+												</p>
+												<p>
+													<span>销售起/止日期：<label class="black">{{item.salesStartDate}} 到 {{item.salesEndDate}}</label></span>
+												</p>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2" class="mui-slider-item mui-control-content ">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}" type="{{item.type}}">
+											<div class="img">
+												<i class="market-i2"></i>
+												<img src="{{item.thumbnailPath}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.name}}</h4>
+												<p>
+													<span class="fleft first">理财周期：<label class="black">{{item.deadline}}
+													<template v-if="item.deadlineMethod == 1">
+														个月
+													</template>
+													<template v-if="item.deadlineMethod == 2">
+														天
+													</template>
+													</label></span>
+													<span class="fleft last">参考年收益：<label class="cheng">{{item.annualInterestRate}}%</label></span>
+												</p>
+												<p>
+													<span>起投金额：<label class="black">{{item.investmentAmount}}起投</label></span>
+												</p>
+												<p>
+													<span>成立日期：<label class="black">{{item.establishTime}}</label></span>
+												</p>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item3" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList">
+								<ul class="mui-table-view">
+									<div class="mui-loading">
+										<div class="mui-spinner">
+										</div>
+									</div>
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}" >
+											<div class="img">
+												<i class="market-i3"></i>
+												<img src="{{item.thumbnailPath}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.name}}</h4>
+												<p>
+													<span class="fleft first">理财周期：<label class="black">{{item.deadline}}
+													<template v-if="item.deadlineMethod == 1">
+														个月
+													</template>
+													<template v-if="item.deadlineMethod == 2">
+														天
+													</template>
+													</label></span>
+													<span class="fleft last">参考年收益：<label class="cheng">{{item.annualInterestRate}}%</label></span>
+												</p>
+												<p>
+													<span>起购金额：<label class="black">{{item.investmentAmount}}起投</label></span>
+												</p>
+												<p>
+													<span>成立日期：<label class="black">{{item.establishTime}}</label></span>
+												</p>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item4" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll bond">
+								<div id="search" class="search">
+									<i class="i-search"></i>
+									<input type="text" readonly class="input_search" placeholder="搜寻“公司名称”或“股票编号”">
+								</div>
+								<div class="bondList">
+									<div class="mui-loading">
+										<div class="mui-spinner">
+										</div>
+									</div>
+									<ul class="mui-table-view">
+										<template v-for="(index,item) in datas">
+											<li id="{{item.id}}" >
+												<div class="name">
+													<h4>{{item.name}}（{{item.stockNo}}）</h4>
+													<span class="money">{{item.middlePrice}}</span><!--
+													--><span v-if="item.expireMethod == 2" class="year">{{item.expireTime}}</span><!--
+													--><span v-if="item.expireMethod == 1" class="year">永续</span>
+												</div>
+												<div class="fright">
+													<div class="rate">
+														<p>孳息率</p>
+														<span>{{item.extraIncomeRate}}%</span>
+													</div>
+													<div class="fright">
+														<em class="more"></em>
+													</div>
+												</div>
+											</li>
+										</template>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script>
+		mui.init({
+			swipeBack: false
+		});
+
+		if (window.plus) {
+			plusReady();
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+			mui('.marketList').on('tap', "li", function() {
+				var id = this.getAttribute("id");
+				mui.app.plusOpenDetail(id);
+			})
+		}
+
+		(function($) {
+			var deceleration = mui.os.ios ? 0.001 : 0.0003;
+			$('.mui-scroll-wrapper').scroll({
+				bounce: false,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration
+			});
+
+			var url = api_domain + "financial/list?type=";
+			$.app.url = url;
+			var id = $.app.getId(document.URL);
+			if (id == "") {
+				url = url + 0;
+				initLoad(url,0);
+			} else {
+				addClass(document.getElementById('tab' + id), "mui-active");
+				removeClass(document.getElementById('item0'), "mui-active");
+				addClass(document.getElementById('item' + id), "mui-active");
+				if (id == 4) {
+					url = api_domain + "financial/securities/list";
+				} else {
+					url = url + id;
+				}
+				initLoad(url, id);
+			}
+
+			function initLoad(url, typeId) {
+				$.app.request(url, function(data) {
+					$.app.initItemListVm(typeId, data);
+					$.app.pageNo++;
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', function () {
+				var search = document.getElementById("search");
+				search.addEventListener('tap', function(){
+					$.openWindow({
+						url: "search-result.html",
+						show: {
+							autoShow: true,
+							aniShow: 'none',
+							duration: 0
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				});
+
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					$.app.pageNo = 1;
+					var url = "";
+					if (e.detail.slideNumber === 4) {
+						$.app.url = api_domain + "financial/securities/list";
+						url = $.app.url;
+					} else {
+						$.app.url = api_domain + "financial/list?type=";
+						url = $.app.url + e.detail.slideNumber + "&pageNo=" + $.app.pageNo;
+					}
+
+					$.app.request(url, function(data) {
+						$.app.initItemListVm(e.detail.slideNumber, data);
+						$.app.pageNo++;
+					});
+				});
+
+				$('.bondList').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					$.app.openBondDetail(id);
+				})
+			});
+
+			var createFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				for (var i = 0; i < data["result"].length; i++) {
+					var item = data["result"][i];
+					li = document.createElement('li');
+					li.setAttribute("id", item["id"]);
+					var html = '<div class="img">' +
+						'<i class="market-i'+ item["type"] +'"></i>' +
+						'	<img src="' + item["thumbnailPath"] + '" alt="">' +
+						'	</div>' +
+						'	<div class="txt">' +
+						'	<h4>' + item["name"] + '</h4>' +
+						'	<p>' +
+						'	<span class="fleft first">理财周期：<label class="black">' + item["deadline"];
+						if (item["deadlineMethod"] == 1) {
+							html += " 个月";
+						} else {
+							html += " 天";
+						}
+						html += '	</label></span>' +
+						'	<span class="fleft last">参考年收益：<label class="cheng">' + item["annualInterestRate"] + '%</label></span>' +
+						'	</p>' +
+						'	<p>' +
+						'	<span>起购金额：<label class="black">' + item["investmentAmount"] + '元起投</label></span>' +
+						'	</p>' +
+						'	<p>';
+						if (item["type"] == 1) {
+							html +='<span>销售起/止日期：<label class="black">' + item["salesStartDate"] + ' 到 ' + item["salesEndDate"] + '</label></span>';
+						} else {
+							html +='<span>成立日期：<label class="black">' + item["establishTime"] + '</label></span>';
+						}
+						html +='	</p></div>';
+					li.innerHTML = html;
+					// 刷新出来的li内容
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+
+			var createCecuritiesFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				for(var i = 0; i < data["result"].length; i++) {
+					var item = data["result"][i];
+					li = document.createElement('li');
+					li.setAttribute("id", item["id"]);
+					var html = '<div class="name">' +
+						'<h4>' + item["name"] + '（' + item["stockNo"] + '）</h4>' +
+						'<span class="money">'+item["middlePrice"]+'</span>' +
+						'<span class="year">';
+						if (item["expireMethod"] == 2) {
+							var txt = item["expireTime"];
+						} else {
+							var txt = "永续";
+						}
+					html = html + txt + '</span>' +
+						'</div>' +
+						'<div class="fright">' +
+						'<div class="rate">' +
+						'<p>孳息率</p>' +
+						'<span>' + item["extraIncomeRate"] + '%</span>' +
+						'</div>' +
+						'<div class="fright">' +
+						'<em class="more"></em>' +
+						'</div>' +
+						'</div>';
+					// 刷新出来的li内容
+					li.innerHTML = html;
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					if (index === 4) {
+						var url = api_domain + "financial/securities/list";
+					} else {
+						var url = $.app.url + index;
+					}
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.innerHTML = "";
+						if (index === 4) {
+							ul.appendChild(createCecuritiesFragment(ul, index, data));
+						} else {
+							ul.appendChild(createFragment(ul, index, data));
+						}
+						$.app.pageNo = 1;
+					})
+				},
+				function(self, index) { // up
+					if (index === 4) {
+						var url = api_domain + "financial/securities/list?pageNo=" + $.app.pageNo;
+					} else {
+						var url = $.app.url + index + "&pageNo=" + $.app.pageNo;
+					}
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						if (index === 4) {
+							ul.appendChild(createCecuritiesFragment(ul, index, data));
+						} else {
+							ul.appendChild(createFragment(ul, index, data));
+						}
+						$.app.pageNo++;
+					})
+				}
+			);
+		})(mui);
+	</script>
+
+</html>

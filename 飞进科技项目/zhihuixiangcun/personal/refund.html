@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>申请退款</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">申请退款</h1>
+	</header>
+	
+	<div class="main mui-content">
+		<div id="detail" class="personal-refund1">
+			<div class="img">
+				<img id="img" src="" alt="" />
+			</div>
+			<div class="text-info">
+				<h1 id="tit" class="tit"></h1>
+				<p id="date"></p>
+				<p id="price"></p>
+			</div>
+		</div>
+		
+		<div class="personal-refund2">退款原因</div>
+		
+		<div id="break" class="personal-refund3 group-warp">
+			<p class="item-group">
+				<label>订单有误</label>
+				<em class="check"></em>
+			</p>
+			<p class="item-group">
+				<label>价格贵</label>
+				<em class="check"></em>
+			</p>
+			<p class="item-group">
+				<label>假期变动</label>
+				<em class="check"></em>
+			</p>
+			<p class="item-group last">
+				<label>其他原因</label>
+				<em class="check"></em>
+			</p>
+		</div>
+		
+		<div class="personal-refund4">
+			<button id="submit" class="button">确定</button>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		$.plusReady(function() {
+			var url = document.URL;
+			var id = $.app.getId(url);
+			$("#img")[0].src = $.app.getName(url, 'img');
+			$("#tit")[0].innerHTML = decodeURI($.app.getName(url, 'name'));
+			$("#date")[0].innerHTML = decodeURI($.app.getName(url, 'date'));
+			$("#price")[0].innerHTML = decodeURI($.app.getName(url, 'price'));
+			
+			$("#break").on('tap', '.item-group', function(){
+				var self = this.getElementsByTagName("em")[0]
+				if (!hasClass(self, 'checked')) {
+					addClass(self, 'checked');
+				} else{
+					removeClass(self, 'checked');
+				}				
+			})
+			
+			$("#submit")[0].addEventListener('tap', function(){
+				var str = '';
+				$("#break .checked").each(function(){
+					str += this.parentNode.getElementsByTagName("label")[0].innerHTML + ',';
+				})
+				str = str.substr(0, str.length-1);
+				var refundUrl = 'myorder/refund';
+				var refundData = {
+					"id": id,
+					"note": str
+				}
+				$.app.post(refundUrl, refundData, function(data){
+					mui.toast("申请成功，等待审核！");
+					$.app.openWindow('index.html');
+				})
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

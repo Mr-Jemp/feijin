@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>评论</title>
+</head>
+<body>
+	<div id="main">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-pull-left mui-icon back"></a>
+			<h1 v-if="status == 1" class="mui-title title">评论</h1>
+			<h1 v-if="status == 2" class="mui-title title">回复</h1>
+			<a id="submit" class="mui-pull-right txt">发表</a>
+		</header>
+		
+		<div class="main mui-content h100 bgWhite">
+			<div v-if="status == 1" class="personal-evaluate1">
+				<label>评分：</label>
+				<p id="star">
+					<span data-id="1"></span>
+					<span data-id="2"></span>
+					<span data-id="3"></span>
+					<span data-id="4"></span>
+					<span data-id="5"></span>
+				</p>
+			</div>
+			
+			<div class="personal-evaluate2">
+				<textarea id="textBody" class="text" placeholder="写下你的评论..."></textarea>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		$.plusReady(function() {			
+		
+			var score;
+			
+			var id = $.app.getId(document.URL);
+			var type = $.app.getName(document.URL, 'type');
+			var status = $.app.getName(document.URL, 'status');
+			var vm = new Vue({
+				el: "#main",
+				data: {
+					status: status
+				}
+			})
+			if (status == 2) {
+				var name = decodeURI($.app.getName(document.URL, 'name'));
+				$("#textBody")[0].placeholder = '回复' + name;
+			}
+			
+			$("#star").on('tap', 'span', function(){
+				score = this.getAttribute('data-id');
+				$("#star span").each(function(){
+					var _num = this.getAttribute('data-id');
+					if (_num <= score) {
+						addClass(this, 'active');
+					} else {
+						removeClass(this, 'active');
+					}
+				})
+			})
+			
+			$("#submit")[0].addEventListener('tap', function(){
+				var textBody = document.getElementById("textBody").value;
+				var url;
+				var param;
+				if (status == 1) {
+					url = 'commentary/comment';
+					param = {
+						"itemId": id,
+						"score": score,
+						"textContent": textBody,
+						"type": type
+					}
+				}
+				if (status == 2) {
+					url = 'commentary/reply';
+					param = {
+						"id": id,
+						"textContent": textBody
+					}
+				}					
+				$.app.post(url, param, function(data){
+					mui.toast("评论成功！");
+					var list_obj = plus.webview.getWebviewById("comment/list");
+					if (list_obj) {
+						list_obj.reload(true);
+						mui.back();
+					} else {
+						mui.back();
+					}										
+				})
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

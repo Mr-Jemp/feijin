@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>优惠券</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">我的优惠券</h1>
+	</header>
+	
+	<div class="main mui-content">
+		<div id="navList" class="personal-coupon1">
+			<a id="isok" class="nav active">可用</a>
+			<a id="isno" class="nav">不可用</a>
+		</div>
+		
+		<div id="coupon">
+			<div class="personal-coupon2 notdata" :class="{'hide' : datas.length > 0}">
+				<img src="../resources/images/nodata.png" alt="" />
+			</div>
+			
+			<div class="personal-coupon3">
+				<ul>
+					<template v-for="item in datas">
+						<li :id="item.id" :data-id="item.title" :data-fullPrice="item.fullPrice" :data-salePrice="item.salePrice">
+							<div class="pic">
+								<div class="coupon" :class="{'disabled' : item.usedOrExpired == 'Used' || item.usedOrExpired == 'Expired'}">
+									<p>满{{item.fullPrice}}减{{item.salePrice}}元</p>
+								</div>
+							</div>
+							<div class="text-info">
+								<p class="date">
+									<span class="fleft">{{item.title}}</span>
+									<span class="fright">{{item.endTime}}</span>
+								</p>
+								<p class="txt">{{item.content}}</p>
+							</div>
+						</li>
+					</template>					
+				</ul>
+			</div>
+		</div>			
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var page = 1,vm = null,couponUrl;
+		couponUrl = 'mycoupon/list?pageNo=' + page;
+		$.app.get(couponUrl, function(data){
+			vm = new Vue({
+				el: "#coupon",
+				data: {
+					datas: data.result
+				}
+			})
+		})
+		
+		$.plusReady(function() {
+			
+			$("#navList").on('tap', '.nav', function(){
+				page = 1;
+				if (this.id == 'isno') {
+					couponUrl = 'mycoupon/list?used=1&pageNo=' + page;
+					removeClass($("#isok")[0], 'active');
+				}
+				if (this.id == 'isok') {
+					couponUrl = 'mycoupon/list?pageNo=' + page;
+					removeClass($("#isno")[0], 'active');
+				}
+				addClass(this, 'active');
+				$.app.get(couponUrl, function(data){
+					vm.$nextTick(function() {
+						vm.datas = data.result;
+					})
+				})
+			})
+			
+			var price = $.app.getName(document.URL, "price");
+			$(".personal-coupon3 li").each(function(){
+				if (this.getAttribute('data-fullPrice') > price) {
+					addClass(this.getElementsByClassName("coupon")[0], 'disabled');
+				}
+			})
+		
+			var type = $.app.getName(document.URL, "type");
+			if (type == 'online') {
+				$(".personal-coupon3").on('tap', 'li', function(){
+					if (this.getAttribute('data-fullPrice') <= price) {
+						var self = this.getElementsByClassName("coupon")[0];
+						if (!hasClass(self, 'disabled')) {
+							var home = plus.webview.currentWebview().opener();
+			                plus.webview.close(plus.webview.currentWebview());
+			                mui.fire(home,'send',{
+					            couponId: this.id,
+					            couponTit: this.getAttribute('data-id'),
+					            salePrice: this.getAttribute('data-salePrice')
+					        })
+			                home.show();
+						}
+					}
+				})
+			}
+		})
+		
+	})(mui)
+</script>
+
+</html>

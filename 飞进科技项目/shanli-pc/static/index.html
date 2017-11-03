@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="renderer" content="webkit">
+	<title>闪力招商</title>
+	<link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
+	<link rel="stylesheet" href="resources/css/comment.css">
+	<link rel="stylesheet" href="resources/css/index.css">
+</head>
+
+<body>
+
+	<div id="vue_content">
+
+		<!--头部开始-->
+		<div class="header">
+			<div class="wrap_1190 header_inner">
+				<h1 class="fl">闪力招商</h1>
+
+				<div class="search_box fl">
+					<div class="search_input">
+						<input class="fl" type="text" placeholder="搜索项目">
+						<span class="fl search_btn"></span>
+					</div>
+					<div class="hot_search">
+						<a href="">搜索关键字1</a>
+						<a href="">搜索关键字2</a>
+						<a href="">搜索关键字1</a>
+						<a href="">搜索关键字2</a>
+						<a href="">搜索关键字1</a>
+						<a href="">搜索关键字2</a>
+					</div>
+				</div>
+
+				<div class="guide_btn fl">
+					<!--新手引导页面-->
+					<a href="#"></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="top wrap_1190">
+			<div class="type fl">
+				<h2>全部分类</h2>
+				<ul>
+					<template v-for="item in channels">
+						<li class="">
+							<a>{{item.name}}</a>
+						</li>
+					</template>
+				</ul>
+			</div>
+			<div class="banner fl">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<template v-for="item in banners">
+							<div class="swiper-slide">
+								<a>
+									<img :src="item.path">
+								</a>
+							</div>
+						</template>
+					</div>
+					<!-- 分页器 -->
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+			<div class="login_msg fl">
+				<!--登录信息区域-->
+				<div class="user_msg">
+					<!--登录-->
+					<div class="login" v-if="isLogin == 'true'">
+						<p>
+							<a href="page/personal.html">
+								<img src="resources/img/web/index_unlogin_avater.png" />
+							</a>
+						</p>
+						<p style="font-size: 14px; margin-bottom: 10px; color: #333333;">喵喵喵</p>
+						<ul>
+							<li>
+								<a href="">
+									<img src="resources/img/web/index_login_icon1.png" />
+									<p>我的佣金</p>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<img src="resources/img/web/index_login_icon2.png" />
+									<p>我的客户</p>
+								</a>
+							</li>
+							<li style="margin-right: 0;">
+								<a href="">
+									<img src="resources/img/web/index_login_icon3.png" />
+									<p>我的关注</p>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<img src="resources/img/web/index_login_icon4.png" />
+									<p>我的邀请</p>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<img src="resources/img/web/index_login_icon5.png" />
+									<p>投诉建议</p>
+								</a>
+							</li>
+							<li style="margin-right: 0;">
+								<a onclick="logout();">
+									<img src="resources/img/web/index_login_icon6.png" />
+									<p>退出登录</p>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<!--未登录-->
+					<div v-else-if="isLogin == 'false'" class="unlogin">
+						<p style="margin-bottom: 16px;">
+							<img src="resources/img/web/index_unlogin_avater.png" />
+						</p>
+						<p style="font-size: 14px; margin-bottom: 16px; color: #333333;">欢迎来到闪力，请
+							<a href="page/login.html" style="color: #00a1e9;">登录</a>
+						</p>
+						<p style="font-size: 14px; margin-bottom: 15px; color: #666666;">没有账号怎么办</p>
+						<p>
+							<a href="page/register.html">
+								<img src="resources/img/web/index_register_btn.png" />
+							</a>
+						</p>
+					</div>
+
+				</div>
+				<!-- 关注二维码区域 -->
+				<div class="code_icon">
+					<img src="resources/img/web/code_img.png">
+				</div>
+			</div>
+		</div>
+
+		<div class="main wrap_1190">
+			<h2>推荐</h2>
+			<ul class="clearfix list">
+				<template v-for="item in projects.result">
+					<li>
+						<a :href="'page/detail.html?id=' + item.id" style="display: block;">
+							<div class="poster">
+								<img :src="item.coverImage">
+							</div>
+							<h3 class="tit text-ellipsis">{{item.name}}</h3>
+							<p class="belong text-ellipsis">所属公司：{{item.companyName}}</p>
+							<p class="earning">签约佣金
+								<span class="price">¥{{item.contractCommission}}</span>
+							</p>
+						</a>
+					</li>
+				</template>
+
+			</ul>
+			<div class="load_more">加载更多</div>
+		</div>
+
+		<div class="footer">
+			<div class="wrap_1190 clearfix footer_inner">
+				<div class="fl friend_link">
+					<a href="#">关于我们</a>
+					<a href="#">商务合作</a>
+					<a href="#">免责声明</a>
+					<a href="#">我要入驻</a>
+					<hr>
+					<p>地址：广东省广州市天河区员村四横路兴业创展</p>
+					<p>COPYRIGHT &COPY; 2017 闪力招商有限公司 All Rights Reserved</p>
+				</div>
+				<div class="connect_us fr">
+					<img class="fl footer_logo" src="resources/img/web/footer_logo.png">
+					<img class="fl footer_code" src="resources/img/web/footer_code.png">
+					<div class="fl">
+						<dl>
+							<dt>客服电话</dt>
+							<dd style="font-size: 26px; font-family: Impact,serif;">400-123-1233</dd>
+						</dl>
+						<dl>
+							<dt>邮箱</dt>
+							<dd>SERVICE@51FEIJIN.COM</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
+	<script src="resources/js/conf.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#vue_content",
+			data: {
+				banners: [],
+				channels: [],
+				isLogin: -1,
+				projects: {}
+
+			}
+		});
+
+		var mySwiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination'
+		});
+
+		//请求首页数据
+		get(homeApi, function (resp) {
+			if (resp.result === 1) {
+				var data = resp.data;
+				vm.banners = data.banners;
+				vm.channels = data.channels;
+				vm.isLogin = data.isLogin + "";
+				vm.projects = data.projects;
+
+				if (data.projects.isHasNext) {
+					$(".load_more").show();
+				} else {
+					$(".load_more").hide();
+				}
+
+				setTimeout(function () {
+					mySwiper.update();
+				}, 200);
+			} else {
+				toast(resp.msg);
+			}
+		});
+
+		/**
+		 * 退出登录
+		 */
+		function logout() {
+			post(logoutApi, {}, function (resp) {
+				if (resp.result === 1) {
+					setTimeout(function () {
+						location.reload(true);
+					}, 1000);
+				}
+				toast("退出登录成功");
+			});
+		}
+	</script>
+</body>
+
+</html>

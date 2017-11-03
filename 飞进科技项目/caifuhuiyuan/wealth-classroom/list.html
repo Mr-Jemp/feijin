@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/conf.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<title>理财课堂</title>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<li id="messageInfo" class="mui-icon mui-pull-left messageInfo" onclick="listMessageCenter()"></li>
+			<h1 class="mui-title">理财课堂</h1>
+			<li id="selfCenter" class="mui-icon mui-pull-right selfCenter" onclick="listPersonCenter()"></li>
+		</header>
+		<div id="classroom-list" class="main mui-content mui-fullscreen">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper classroom-nav mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item0">全部</a>
+						<a class="mui-control-item" href="#item4">综合理财</a>
+						<a class="mui-control-item" href="#item5">轻松买房</a>
+						<a class="mui-control-item" href="#item6">小白炒股</a>
+						<a class="mui-control-item" href="#item7">走进P2P</a>
+						<a class="mui-control-item" href="#item8">玩转基金</a>
+						<a class="mui-control-item" href="#item9">用好保险</a>
+						<a class="mui-control-item" href="#item10">尝试高风险</a>
+					</div>						
+				</div>
+				<div class="mui-slider-group">
+					<div id="item0" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<p class="last">
+													<span class="fleft">
+														<template v-if="item.type == 5">
+															轻松买房
+														</template>
+														<template v-if="item.type == 6">
+															小白炒股			
+														</template>
+														<template v-if="item.type == 7">
+															走进P2P
+														</template>
+														<template v-if="item.type == 8">
+															玩转基金
+														</template>
+														<template v-if="item.type == 9">
+															用好保险
+														</template>
+														<template v-if="item.type == 10">
+															尝试高风险
+														</template>
+														<template v-if="item.type == 4">
+															综合理财
+														</template>
+													</span>
+												</p>
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item4" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item5" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item6" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item7" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item8" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item9" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div id="item10" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper mui-content">
+							<div class="mui-scroll marketList inforList">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+								<ul class="mui-table-view">
+									<template v-for="(index,item) in datas">
+										<li id="{{item.id}}">
+											<div class="img">
+												<img src="{{item.thumbnail}}" alt="">
+											</div>
+											<div class="txt">
+												<h4>{{item.title}}</h4>
+												<p>{{item.abstractContent}}</p>
+												<!--<p class="last">
+													<span class="fleft">{{item.source}}</span>
+												</p>-->
+											</div>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack: false
+		});
+
+		if (window.plus) {
+			plusReady();
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+		}
+
+		(function($) {
+			var deceleration = mui.os.ios ? 0.001 : 0.0003;
+			$('.mui-scroll-wrapper').scroll({
+				bounce: false,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration
+			});
+
+			var url = api_domain + "class/list";
+			$.app.url = url + "?type=";
+			//document.addEventListener('initLoad', function() {
+			$.app.request(url, function(data) {
+				$.app.initItemListVm(0, data);
+				$.app.pageNo++;
+			});
+			//});
+
+			document.addEventListener('DOMContentLoaded', function () {
+				//$.app.listPersonCenter();
+
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					$.app.pageNo = 1;
+					var index = e.detail.slideNumber;
+					if(index > 0) {
+						index = e.detail.slideNumber + 3;
+					}
+
+					var url = $.app.url + index + "&pageNo=" + $.app.pageNo;
+					console.log(url);
+					$.app.request(url, function(data) {
+						$.app.initItemListVm(index, data);
+						$.app.pageNo++;
+					});
+				});
+
+				$('.mui-table-view').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					$.app.openDetail(id);
+				})
+			});
+
+			var createFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				var text_type;
+				for(var i = 0; i < data["result"].length; i++) {
+					var item = data["result"][i];
+					li = document.createElement('li');
+					li.setAttribute("id", item["id"]);
+					var html = '<div class="img">' +
+						'<img src="' + item["thumbnail"] + '" alt="">' +
+						'</div>' +
+						'<div class="txt">' +
+						'<h4>' + item["title"] + '</h4>' +
+						'<p>' + item["abstractContent"] + '</p>';						
+					if(index == 0) {
+						if(item["type"] == 4) {
+							text_type = "综合理财";
+						}
+						if(item["type"] == 5) {
+							text_type = "轻松买房";
+						}
+						if(item["type"] == 6) {
+							text_type = "小白炒股";
+						}
+						if(item["type"] == 7) {
+							text_type = "走进P2P";
+						}
+						if(item["type"] == 8) {
+							text_type = "玩转基金";
+						}
+						if(item["type"] == 9) {
+							text_type = "用好保险";
+						}
+						if(item["type"] == 10) {
+							text_type = "尝试高风险";
+						}
+						html += '<p class="last"><span class="fleft">' + text_type + '</span></p></div>';
+					} else {
+						html += '</div>';						
+					}					
+					// 刷新出来的li内容
+					li.innerHTML = html;
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					if (index == 0) {
+						var url = $.app.url + index;
+					} else {
+						var url = $.app.url + (index + 3);
+					}
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.innerHTML = "";
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo = 2;
+					})
+				},
+				function(self, index) { // up
+					if (index == 0){
+						var url = $.app.url + (index) + "&pageNo=" + $.app.pageNo;
+					} else {
+						var url = $.app.url + (index + 3) + "&pageNo=" + $.app.pageNo;
+					}
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo++;
+					})
+				}
+			)
+		})(mui);
+	</script>
+
+</html>

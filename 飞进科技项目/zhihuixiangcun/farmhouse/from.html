@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../resources/css/mui.poppicker.css" rel="stylesheet" />
+	<title>景点预定</title>
+	<style>
+		#header{
+			background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+	<div id="main" class="main mui-content attractions-from-warp">
+		<div class="pos-header wineshop-detail-from1">
+			<header id="header" class="mui-bar mui-bar-nav header">
+				<a class="mui-action-back mui-icon mui-pull-left back"></a>
+				<h1 id="name" class="mui-title title"></h1>
+			</header>
+			<a class="cover-img">
+				<img id="covimg" src="" alt="">
+			</a>
+			<div class="info">
+				<p>时间：<span id="reserveTime"></span> <span id="comeTime"></span></p>
+				<p>数量：<span id="number"></span>张</p>
+			</div>
+		</div>
+		
+		<div class="wineshop-detail-from2 group-warp">
+			<div id="orderName" class="item-group">
+				<label>联系人</label>
+				<p></p>
+				<em class="more"></em>
+			</div>
+			<div id="telephone" class="item-group">
+				<label>联系电话</label>
+				<p></p>
+				<em class="more"></em>
+			</div>
+			<div id="noteInfo" class="item-group last">
+				<label>备注</label>
+				<p></p>
+				<em class="more"></em>
+			</div>
+			<div id="selectCoupon" class="item-group coupon">
+				<label>优惠券</label>
+				<p id="coupon">选择优惠券</p>
+				<em class="more"></em>
+			</div>
+		</div>
+		
+		<div class="wineshop-detail-from3">
+			<div class="price">
+				<label>金额</label>
+				<p>￥<span id="price"></span></p>
+			</div>
+			<a id="submit" class="submit">提交订单</a>
+		</div>
+	</div>	
+	
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+<script src="../resources/js/mui.picker.min.js"></script>
+<script src="../resources/js/mui.poppicker.js"></script>
+<script src="../resources/js/city.data.js"></script>
+<script src="../resources/js/city.data-3.js"></script>
+
+<script>
+
+	(function($) {
+		
+		var price,comeTime,quantity,consumeDate,couponId;
+		var orderName,telephone,noteInfo;
+		
+		var id = $.app.getId(document.URL);
+		var name = $.app.getName(document.URL, 'name');	
+		$("#name")[0].innerHTML = decodeURI(name);
+		$("#covimg")[0].src = $.app.getName(document.URL, 'img');
+		price = $.app.getName(document.URL, 'price');
+		$("#price")[0].innerHTML = price;
+		$("#number")[0].innerHTML = quantity = $.app.getName(document.URL, 'quantity');
+		$("#reserveTime")[0].innerHTML = consumeDate = $.app.getName(document.URL, 'consumeDate');		
+		$("#comeTime")[0].innerHTML = comeTime = $.app.getName(document.URL, 'predictDate');
+		
+		$("#submit")[0].addEventListener('tap', function(){
+			if (!orderName) {
+				mui.toast("请输入联系人");
+				return;
+			}
+			if (!telephone) {
+				mui.toast("请输入联系电话");
+				return;
+			}
+			var orderUrl = 'order/commitFarmhouse';
+			var orderData = {
+				"quantity": quantity,
+				"consumeDate": consumeDate,
+				"phone": telephone,
+				"predictDate": comeTime,
+				"note": noteInfo,
+				"productId": id,
+				"linkMan": orderName,
+				"couponId": couponId
+			}
+			$.app.post(orderUrl, orderData, function(data){
+				$.app.openWindow('../pay/payment.html?id=' + data.id);
+			})
+		})
+		
+		$("#orderName")[0].addEventListener('tap', function(){
+			alertInput('联系人', 'text', function(val){
+				orderName = val;
+				$("#orderName p")[0].innerText = val;
+			});
+		});
+		$("#telephone")[0].addEventListener('tap', function(){
+			alertInput('联系电话', 'number', function(val){
+				telephone = val;
+				$("#telephone p")[0].innerText = val;
+			});
+		});
+		$("#noteInfo")[0].addEventListener('tap', function(){
+			alertInput('备注', 'text', function(val){
+				noteInfo = val;
+				$("#noteInfo p")[0].innerText = val;
+			});
+		});
+		$("#selectCoupon")[0].addEventListener('tap', function(){
+			$.app.openWindow('../personal/coupon.html?type=online&price=' + price);
+		})
+		
+		$.plusReady(function() {			
+			window.addEventListener('send',function(event){
+				couponId = event.detail.couponId;
+				$("#coupon")[0].innerHTML = event.detail.couponTit;
+				$("#price")[0].innerHTML = price = price - event.detail.salePrice;
+			});
+		})
+	})(mui);		
+</script>
+
+</html>

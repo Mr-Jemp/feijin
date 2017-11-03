@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<title>个人中心-关注领域</title>
+</head>
+<body id="concern">	
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">关注领域</h1>
+		<a id="save" class="mui-btn mui-btn-link mui-pull-right text">保存</a>
+	</header>
+	<div class="main mui-content">
+		<div class="fllowField-list">
+			<h2>请选择您要关注的领域</h2>
+			<div class="fllowField-list-field">
+				<span>银行</span>
+				<span>信托</span>
+				<span>基金</span>
+				<span>P2P</span>
+				<span>轻松买房</span>
+				<span>小白炒股</span>
+				<span>长期投资</span>
+				<span>股市</span>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<script>
+		var txt = '';
+		mui('body').on('tap','.fllowField-list-field span',function(){
+			this.classList.add('active');
+		})
+		mui('body').on('tap','.fllowField-list-field .active',function(){
+			this.classList.remove('active');
+		})
+	</script>
+	<script>
+		(function($, doc){
+			var title = '';
+			$.ajax({
+				type: "GET",
+				url: api_domain + "personal/me",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					if (data["result"] != 1) {
+						return;
+					}
+					title = data.data.concerns + '-';
+					var arr = '';
+					for(i=0;i<title.length;i++){
+						if(title[i] == "-"){
+							mui(".fllowField-list-field span").each(function(){								
+								if(arr == this.innerText){
+									this.classList.add('active');
+								}
+							});					
+							arr = '';
+						}
+						else{
+							arr = arr + title[i];
+						}
+					}
+					
+					var vm = new Vue({
+						el: '#concern',
+						data: data["data"]
+					});
+					
+					vm.$nextTick(function() {});
+				}
+			});
+			mui("#header").on("tap","#save",function(){
+				var txt = '';
+				mui(".fllowField-list-field .active").each(function(){
+					if(txt == ''){
+						txt = this.innerText;
+					}else{
+						txt = txt + '-' + this.innerText;
+					}				
+				})
+				$.ajax({
+					type: "post",
+					url: api_domain + "personal/concernField",
+					dataType: "json",
+					contentType:"application/json", 
+					async: false,
+					data: {
+						"concerns": txt
+					},
+					success: function(data){
+						mui.alert(data.msg, '提示', function(){
+							$.app.openWindow("personal-info.html");
+						});						
+					},
+					error: function(data){
+						mui.toast(data["msg"]);
+					}
+				});
+			})
+		})(mui, document)
+	</script>
+</html>

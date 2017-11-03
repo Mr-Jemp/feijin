@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<title>海外证券-详情</title>
+</head>
+<body v-cloak id="bond-detail">
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">{{name}}</h1>
+		<a class="mui-icon mui-pull-right share shareBtn" id="shareBtn" onclick="openShareWindow(this)"></a>
+	</header>
+	<div class="main mui-content">
+		<div class="bondDetail">
+			<p class="date">更新日期：{{shelvesTime}}</p>
+			<div class="bondDetail-panel">
+				<h4>债券资料</h4>
+				<p><span class="fleft">名称</span><span class="fright bigfont">{{name}}</span></p>
+				<p><span class="fleft">股票编号</span><span class="fright">{{stockNo}}</span></p>
+				<p><span class="fleft">票息</span><span class="fright">{{coupon}}%</span></p>
+				<p><span class="fleft">到期日</span><span class="fright">{{expireTime}}</span></p>
+				<p><span class="fleft">评级-穆迪投资</span><span class="fright">{{ratingMoodieInvestment}}</span></p>
+				<p><span class="fleft">评级-标准普尔</span><span class="fright">{{ratingSp}}</span></p>
+				<p><span class="fleft">孳息率</span><span class="fright red">{{extraIncomeRate}}%</span></p>
+			</div>
+			<div class="bondDetail-panel">
+				<h4>价格</h4>
+				<p><span class="fleft">中间价</span><span class="fright">{{middlePrice}}</span></p>
+				<p><span class="fleft">货币</span><span class="fright">{{currency}}</span></p>
+				<p><span class="fleft">最低交易面值</span><span class="fright">{{minTransactionValue}}</span></p>
+			</div>
+			<div class="bondDetail-panel">
+				<h4>其他消息</h4>
+				<p><span class="fleft">{{message}}</span></p>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		(function($) {
+			var id = $.app.getId(document.URL); //获取页面传递的数据
+			var url = api_domain + "financial/securities/details";
+			$.app.post(url, {id: id}, function(data) {
+				new Vue({
+					el: '#bond-detail',
+					data: data
+				});
+
+				var shareMessage = {};
+				shareMessage.href = data["shareLink"];
+				shareMessage.title = data["name"];
+				shareMessage.content = data["name"];
+				shareMessage.thumbs = data["thumbnailPath"];
+				window.shareMessage = shareMessage;
+			});
+
+			mui.plusReady(function() {
+				$.app.getShareSerivces();
+				//$.app.openShareWindow();
+			});
+		})(mui)
+	</script>
+</html>

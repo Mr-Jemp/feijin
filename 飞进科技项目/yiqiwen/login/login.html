@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<title>登录</title>
+	<style>
+		body{
+			-moz-box-sizing: border-box;
+		    -webkit-box-sizing: border-box;
+		    -o-box-sizing: border-box;
+		    -ms-box-sizing: border-box;
+			min-height: 100vh!important;
+			padding: 1.375rem 0 2rem 0!important;
+		}
+		.header,.fot-menu{
+			/* position: absolute; */
+		}
+	</style>
+</head>
+<body>
+	<header class="header">
+		<a href="../index.html" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">登录</h1>
+	</header>
+
+	<div class="login1">
+		<img src="../resources/images/logo.png">
+	</div>
+
+	<div id="loginForm" class="login2">
+		<div class="input-group">
+			<i class="i-phone"></i>
+			<input type="number" id="username1" class="input-text" placeholder="请输入注册手机号码" oninput="if(value.length > 11)value = value.slice(0,11)">
+		</div>
+		<div class="input-group last">
+			<i class="i-password"></i>
+			<input type="password" id="password1" class="input-text" placeholder="请输入密码">
+		</div>
+	</div>
+
+	<div id="registerForm" class="login2 hide">
+		<div class="input-group">
+			<i class="i-phone"></i>
+			<input type="number" id="username2" class="input-text" placeholder="请输入注册手机号码" oninput="if(value.length > 11)value = value.slice(0,11)">
+		</div>
+		<div class="input-group">
+			<i class="i-code"></i>
+			<input type="number" id="vailcode" class="input-text input-code" placeholder="请输入验证码">
+			<em id="gainCode" class="get-code">获取验证码</em>
+		</div>
+		<div class="input-group last">
+			<i class="i-password"></i>
+			<input type="password" id="password2" class="input-text" placeholder="请输入密码">
+		</div>
+	</div>
+
+	<div class="login5">
+		<div class="checkboxCustom">
+			<input type="checkbox" id="check" checked class="input_checkbox">
+			<label for="check" class="label_checkbox"></label>
+		</div>
+		<span>我已同意<a href="agreement.html">《易起问用户协议》</a></span>
+	</div>
+
+	<div class="login3">
+		<button id="login" class="submit active">登 录</button>
+		<button id="register" class="submit">注 册</button>
+	</div>
+
+	<div class="login4 padBot">
+		<a id="register-password" href="forget-password.html" class="fleft">忘记密码？</a>
+		<a id="tologin" class="fright hide">已有账号登录</a>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="../personal/personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/login.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

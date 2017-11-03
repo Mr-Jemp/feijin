@@ -1,0 +1,446 @@
+body {
+    background-color: #eaeaea;
+}
+
+@blue: #00a1e9;
+@blue1: #0094f2;
+@textColor: #333333;
+.main {
+    margin-top: 20px;
+    margin-bottom: 21px;
+    padding-bottom: 0;
+    overflow: hidden;
+    background-color: #eaeaea;
+    /* 导航 */
+    .nav {
+        float: left;
+        margin-right: 10px;
+        ul {
+            border-radius: 6px;
+            background-color: #fff;
+            li {
+                width: 225px;
+                padding: 14px 0 14px 25px;
+                font-size: 16px;
+                border-top: 1px solid #eee;
+                color: @textColor;
+                &.title {
+                    color: @blue;
+                    font-weight: 700;
+                }
+                &.active {
+                    background-color: @blue;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    /* 我的佣金 */
+    .my-balance {
+        overflow: hidden;
+        .top {
+            height: 260px;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            .money {
+                font-size: 36px;
+                font-weight: 900;
+                color: @blue1;
+                margin: 60px 0 40px 0;
+            }
+            button {
+                color: @blue1;
+                width: 180px;
+                height: 50px;
+                font-size: 18px;
+                color: #fff;
+                background-color: @blue1;
+                border: hidden;
+                border-radius: 5px;
+                margin-bottom: 40px;
+            }
+            .hint {
+                color: #666;
+                font-size: 14px;
+            }
+        }
+        .center,
+        .bottom {
+            margin-top: 10px;
+            .table {
+                width: 928px;
+                border-radius: 5px;
+                background-color: #fff;
+                .head {
+                    overflow: hidden;
+                    padding: 16px 24px 5px;
+                    h4 {
+                        float: left;
+                        font-size: 18px;
+                    }
+                    span {
+                        float: right;
+                        font-size: 12px;
+                        color: @blue;
+                    }
+                }
+                ul {
+                    overflow: hidden;
+                    border-top: 1px solid #ddd;
+                    li {
+                        float: left;
+                        width: 308px;
+                        text-align: center;
+                        padding: 12px 0;
+                    }
+                    &.title {
+                        li {
+                            font-weight: 700;
+                            background-color: @blue1;
+                            font-size: 14px;
+                            color: #fff;
+                            border-right: 1px solid #fff;
+                        }
+                    }
+                    &.item {
+                        li {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+        .bottom {
+            .table {
+                ul {
+                    li {
+                        width: 185px;
+                    }
+                    &.title {
+                        li {
+                            border-right: hidden;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /* 我的客户 */
+    .my-customer,
+    .my-attention {
+        border-radius: 8px;
+        overflow: hidden;
+        .head {
+            position: relative;
+            .tab {
+                background-color: #02a2ea;
+                height: 36px;
+                padding-top: 4px;
+                padding-left: 21px;
+                color: #feffff;
+                box-shadow: 0 0 5px 3px #dddddd;
+                -webkit-box-shadow: 0 0 5px 3px #dddddd;
+                li {
+                    float: left;
+                    line-height: 36px;
+                    height: 36px;
+                    padding: 0 28px;
+                    font-size: 14px;
+                    text-align: center;
+                    -webkit-border-radius: 5px 5px 0 0;
+                    -moz-border-radius: 5px 5px 0 0;
+                    border-radius: 5px 5px 0 0;
+                    color: #feffff;
+                    cursor: pointer;
+                    &.active {
+                        background-color: #fff;
+                        color: @blue;
+                    }
+                }
+            }
+            .search {
+                position: absolute;
+                bottom: 5px;
+                right: 10px;
+                .icon {
+                    background-color: #fff;
+                    height: 25px;
+                    display: inline-block;
+                    padding: 2px 6px 0;
+                    margin-right: -5px;
+                    border-radius: 8px 0 0 8px;
+                    img {
+                        margin: 2px 0 0 2px;
+                    }
+                }
+                input {
+                    height: 25px;
+                    border-radius: 0 5px 5px 0;
+                    border: hidden;
+                    outline: none;
+                }
+            }
+        }
+        .content {
+            background-color: #fff;
+            padding: 10px 20px 30px;
+            li {
+                float: left;
+                text-align: center;
+                padding: 10px 0;
+                font-size: 12px;
+                color: @textColor;
+                border-right: 1px solid #ddd;
+            }
+            li:last-child {
+                border-right: hidden;
+            }
+            .title {
+                overflow: hidden;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                background-color: #f5f5f5;
+                li {
+                    width: 125px;
+                }
+            }
+            .item {
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                .one {
+                    border-bottom: 1px solid #ddd;
+                    overflow: hidden;
+                    li {
+                        width: 125px;
+                    }
+                }
+                .two {
+                    overflow: hidden;
+                    li:first-child {
+                        width: 735px;
+                        text-align: start;
+                        padding-left: 20px;
+                    }
+                    li:last-child {
+                        width: 125px;
+                    }
+                }
+            }
+        }
+    } //我的关注 
+    .my-attention {
+        .content {
+            .title {
+                li {
+                    width: 293px;
+                }
+            }
+            .item {
+                .one {
+                    li {
+                        width: 293px;
+                    }
+                }
+                .two {
+                    li:last-child {
+                        width: 880px;
+                    }
+                }
+            }
+        }
+    }
+    /* 我的邀请 */
+    .my-invite {
+        overflow: hidden;
+        .top {
+            position: relative;
+            background-color: #fff;
+            padding: 24px;
+            margin-bottom: 20px;
+            .left {
+                span {
+                    font-size: 16px;
+                }
+                a {
+                    font-size: 18px;
+                }
+                button {
+                    font-size: 12px;
+                    padding: 12px 26px;
+                    border-radius: 5px;
+                    margin-left: 26px;
+                    border: hidden;
+                    background-color: #00abf8;
+                    color: #fff;
+                }
+            }
+            .right {
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                margin-top: -12px;
+                color: @textColor;
+                background-image: url(../img/web/rule.png);
+                background-repeat: no-repeat;
+                height: 22px;
+                background-size: 22px 22px;
+                background-position: 68px 0;
+                padding-right: 26px;
+            }
+        }
+        .bottom {
+            .head {
+                border-radius: 5px 5px 0 0;
+                .tab {
+                    background-color: #02a2ea;
+                    height: 36px;
+                    padding-top: 4px;
+                    padding-left: 21px;
+                    color: #feffff;
+                    border-radius: 5px 5px 0 0;
+                    li {
+                        float: left;
+                        line-height: 36px;
+                        height: 36px;
+                        padding: 0 28px;
+                        font-size: 14px;
+                        text-align: center;
+                        border-radius: 5px 5px 0 0;
+                        color: #feffff;
+                        cursor: pointer;
+                        &.active {
+                            background-color: #fff;
+                            color: @blue;
+                        }
+                    }
+                }
+            }
+            .content {
+                border-radius: 0 0 5px 5px;
+                background-color: #fff;
+                padding: 10px 20px 30px;
+                ul {
+                    overflow: hidden;
+                    li {
+                        float: left;
+                        width: 293px;
+                        text-align: center;
+                        font-size: 14px;
+                        border-bottom: 1px solid #eee;
+                        padding: 20px 0;
+                    }
+                }
+            }
+        }
+    }
+    /* 我的资料 */
+    .my-data {
+        overflow: hidden;
+        background-color: #fff;
+        border-radius: 5px;
+        .avatar {
+            width: 440px;
+            margin: 20px auto;
+            /* display: inline-block; */
+            text-align: center;
+            a {
+                display: inline-block;
+                width: 80px;
+                img {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 80px;
+                    display: block;
+                }
+                span {
+                    font-size: 12px;
+                    color: @blue;
+                }
+            }
+        }
+        .data {
+            width: 440px;
+            margin: 20px auto;
+            font-size: 16px;
+            label {
+                color: @textColor;
+                width: 15%;
+                margin-right: 16px;
+                text-align: right;
+                display: inline-block;
+            }
+            input[type="text"] {
+                width: 300-20px;
+                height: 50px;
+                border: 1px solid #eee;
+                border-radius: 5px;
+                padding: 0 10px;
+            }
+            button {
+                width: 300px;
+                height: 50px;
+                color: #fff;
+                border-radius: 5px;
+                border: hidden;
+                margin-left: 20%;
+                padding: 0 2px;
+                background-color: @blue;
+            }
+            .radioclass {
+                margin-left: 10px;
+                span {
+                    position: relative;
+                    top: 3px;
+                    width: 16px;
+                    height: 16px;
+                    display: inline-block;
+                    img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 16px;
+                    }
+                    input {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+    }
+    .my-complaints {
+        overflow: hidden;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 20px 90px;
+        .content {}
+        .image-upload {
+            position: relative;
+            .imgs {
+                display: none;
+            }
+            .add-button {
+                span {
+                    position: relative;
+                    background-image: url(../img/web/add.png);
+                    background-repeat: no-repeat;
+                    width: 80px;
+                    height: 80px;
+                    display: inline-block;
+                    input {
+                        position: absolute;
+                        opacity: 0;
+                        width: 80px;
+                        height: 80px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../resources/css/mui.poppicker.css" rel="stylesheet" />
+	<title>酒店</title>
+	<style>
+		.mui-bar .mui-input-row .mui-input-clear~.mui-icon-clear{
+			top: 5px;
+			right: 5px;
+		}
+		.mui-input-row .mui-input-clear~.mui-icon-clear{
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-pull-left back"></a>
+			<h1 class="mui-title search-warp">
+				<p class="mui-input-row">
+					<i class="i-search"></i>
+					<input type="text" class="input-text mui-input-clear" placeholder="请输入酒店名称/位置">
+				</p>
+			</h1>
+		</header>
+
+		<div class="main mui-content">
+			<div class="wineshop-index1">
+				<img src="../resources/images/wineshop-banner.jpg" alt="">
+			</div>
+			<div class="wineshop-index2">
+				<div class="wineshop-index-box">
+					<div id="showCityPicker" class="search-input">
+						<label>位置</label>
+						<div class="search-warp">
+							<span id="cityResult" class="search-text ui-alert">请选择位置</span>
+						</div>	
+						<em class="more"></em>				
+					</div>
+					<div id="showTimePicker" class="search-input" data-options='{"type":"date"}'>
+						<label>入住时间</label>
+						<div class="search-warp">
+							<span id='timeResult' class="search-text">请选择时间</span>
+						</div>	
+						<em class="more"></em>				
+					</div>
+					<div class="search-input">
+						<label>天数</label>
+						<div class="search-warp num">
+							<div class="days">
+								<span id="endTime" class="search-text"></span> 离店
+								<br />
+								住 <span id="num" class="search-text">1</span> 晚
+							</div>
+							<div class="mui-numbox number" data-numbox-min='1'>
+								<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+								<input id="number" class="mui-input-numbox" type="number" value="1" />
+								<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+							</div>
+						</div>									
+					</div>						
+					<div id="showPrice" class="search-input">
+						<label>星级/价格</label>
+						<div class="search-warp">
+							<span class="search-text">
+								<span id="star">不限</span>
+								/
+								<span id="price">不限</span>
+							</span>
+						</div>	
+						<em class="more"></em>				
+					</div>
+					<div id="showScore" class="search-input">
+						<label>评分</label>
+						<div class="search-warp">
+							<span id="score" class="search-text">不限</span>
+						</div>	
+						<em class="more"></em>
+					</div>
+					<div class="search-input last">
+						<button id="submit" class="button">查找酒店</button>
+					</div>
+				</div>				
+			</div>
+		</div>
+
+		<!-- 评分弹框 -->
+		<div id="scoreBox" class="selectBox hide">
+			<div class="transparentBg"></div>
+			<div class="selectContent">
+				<h1 class="tit">评分</h1>
+				<div id="option-score" class="options">
+					<span class="active">不限</span>
+					<span>一星</span>
+					<span>二星</span>
+					<span>三星</span>
+					<span>四星</span>
+					<span>五星</span>
+				</div>
+				<button id="scoreSubmit" class="button">确定</button>
+			</div>
+		</div>
+
+		<!-- 价格星级弹框 -->
+		<div id="priceBox" class="selectBox hide">
+			<div class="transparentBg"></div>
+			<div class="selectContent">
+				<h1 class="tit">星级</h1>
+				<div id="option-star" class="options options-pad">
+					<span class="active">不限</span>
+					<span type-id="1">快捷连锁</span>
+					<span type-id="2">二星及以下 | 经济</span>
+					<span type-id="3">三星 | 舒适</span>
+					<span type-id="4">四星 | 高档</span>
+					<span type-id="5">五星 | 豪华</span>
+				</div>
+				<h1 class="tit">价格</h1>
+				<div id="option-price" class="options width70">
+					<span class="active">不限</span>
+					<span data-begin="1" data-end="150">150以下</span>
+					<span data-begin="151" data-end="300">151-300</span>
+					<span data-begin="301" data-end="450">301-450</span>
+					<span data-begin="451" data-end="600">451-600</span>
+					<span data-begin="601" data-end="1000">601-1000</span>
+					<span data-begin="1001" data-end="2000">1000以上</span>
+				</div>
+				<button id="priceSubmit" class="button">确定</button>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+<script src="../resources/js/mui.picker.min.js"></script>
+<script src="../resources/js/mui.poppicker.js"></script>
+<script src=".../resources/js/city.data.js"></script>
+<script src="../resources/js/city.data-3.js"></script>
+
+<script>
+	(function($, doc) {
+		var scoreNum,starNum,priceNum,city,date,liveTime,starType,beginPrice,endPrice;
+
+		//弹出评分窗
+		var showScore = document.getElementById("showScore");
+		var scoreBox = document.getElementById("scoreBox");
+		showScore.addEventListener('tap', function(){
+			removeClass(scoreBox, 'hide');
+		})
+
+		//选择参数
+		$(".options").on('tap', 'span', function(){
+			var id = this.parentNode.id;
+			if (id == 'option-score') {
+				scoreNum = this.innerHTML;
+				mui("#option-score span").each(function() {
+					removeClass(this, 'active');
+				})
+			}
+			if (id == 'option-star') {
+				starNum = this.innerHTML;
+				mui("#option-star span").each(function() {
+					removeClass(this, 'active');
+				})
+			}
+			if (id == 'option-price') {
+				priceNum = this.innerHTML;
+				beginPrice = this.getAttribute("data-begin");
+				endPrice = this.getAttribute("data-end");
+				mui("#option-price span").each(function() {
+					removeClass(this, 'active');
+				})
+			}
+			addClass(this, 'active');			
+		})
+
+		//提交分数
+		var scoreSubmit = document.getElementById("scoreSubmit");
+		scoreSubmit.addEventListener('tap', function(){
+			addClass(scoreBox, 'hide');
+			if (scoreNum != null) {
+				document.getElementById("score").innerHTML = scoreNum;
+			}			
+		})
+
+		//弹出星级/价格窗
+		var showPrice = document.getElementById("showPrice");
+		var priceBox = document.getElementById("priceBox");
+		showPrice.addEventListener('tap', function(){
+			removeClass(priceBox, 'hide');
+		})
+
+		//提交价格/星级
+		var priceSubmit = document.getElementById("priceSubmit");
+		priceSubmit.addEventListener('tap', function(){
+			addClass(priceBox, 'hide');
+			if (starNum != null) {
+				document.getElementById("star").innerHTML = starNum;
+			}
+			if (priceNum != null) {
+				document.getElementById("price").innerHTML = priceNum;
+				
+			}
+		})
+		
+		$.ready(function() {
+			var cityPicker3 = new $.PopPicker({
+				layer: 2
+			});
+			cityPicker3.setData(cityData3);
+			var showCityPickerButton = doc.getElementById('showCityPicker');
+			var cityResult3 = doc.getElementById('cityResult');
+			showCityPickerButton.addEventListener('tap', function(event) {
+				cityPicker3.show(function(items) {
+					cityResult3.innerText = (items[0] || {}).text + " " + (items[1] || {}).text;
+					city = (items[1] || {}).text;
+				});
+			}, false);
+			
+			var result = $('#timeResult')[0];
+			var btn = $('#showTimePicker')[0];
+			btn.addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var id = this.getAttribute('id');
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					result.innerText = rs.text;
+					date = rs.text;
+					var d = Date.parse(date);
+					d += $("#number")[0].value * 86400000;
+					$("#endTime")[0].innerHTML = liveTime = getDate(d);
+					picker.dispose();
+				});
+			}, false);
+		});
+		
+		$.plusReady(function(){
+			$('.mui-numbox').numbox();
+			$("#number")[0].addEventListener('change',function(){
+				if (date != undefined) {
+					$("#num")[0].innerHTML = $("#number")[0].value;
+					var d = Date.parse(date);
+					d += $("#number")[0].value * 86400000;
+					$("#endTime")[0].innerHTML = getDate(d);
+				} else {
+					mui.toast("请选择入住时间！");
+					$("#number")[0].value = 1;
+					return;
+				}				
+			});
+			
+			$("#submit")[0].addEventListener('tap', function(){
+				starType = $("#option-star")[0].getElementsByClassName("active")[0].getAttribute('type-id');
+				if (!city) {
+					city = localStorage.getItem("$address");
+				}
+				var link = 'sub.html?city=' + city;
+				var nameArr = ['comeTime', 'liveTime', 'starType', 'beginPrice', 'endPrice'];
+				var dataArr = [date, liveTime, starType, beginPrice, endPrice];
+				for (var i = 0; i < dataArr.length; i++) {
+					if (dataArr[i]) {
+						link += '&' + nameArr[i] + '=' + dataArr[i];
+					}
+				}
+				$.app.openWindow(link);
+			})
+		})
+		
+	})(mui, document);
+		
+</script>
+
+</html>

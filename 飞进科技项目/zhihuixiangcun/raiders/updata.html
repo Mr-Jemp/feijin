@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<script src="../resources/js/mui.min.js"></script>
+	<script src="../resources/js/vue.min.js"></script>
+	<script src="../resources/js/conf.js"></script>
+	<script src="../resources/js/main.js"></script>
+	<title>发布攻略</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">发布攻略</h1>
+		<a id="updata" class="mui-pull-right txt">发布</a>
+	</header>
+
+	<div class="main mui-content">
+		<div class="updata-raiders1">
+			<div class="input-title">
+				<p id="place-txt" class="place-txt" contenteditable="true">标题（20个字以内）</p>
+			</div>
+		</div>	
+		<div id="inputBodyWarp" class="updata-raiders2">
+			<div id="body0" class="input-body">
+				<textarea class="input-body-txt" rows="5" placeholder="摘要..."></textarea>
+				<div class="img-warp">
+					<ul class="imgList"></ul>
+					<div class="add-img">
+						<i class="i-add"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="updata-raiders3 button-warp">
+			<button id="addRaidersBody" class="button">新增</button>
+		</div>					
+	</div>	
+</body>
+<script>
+	(function($){
+		var tit = document.getElementById("place-txt");
+		var addRaiderBodyBtn = document.getElementById("addRaidersBody");
+
+		var titFocus = function (){
+			tit.innerHTML = "";
+			tit.style.textAlign = "left";
+			tit.style.color = "#222";
+			tit.removeEventListener('tap', titFocus, false);
+		}	
+		
+		var img_arr = Array_2(20,0),n = 0,body = 1,coverImg = '';
+		mui(".updata-raiders2").on("tap", '.add-img', function(e) {
+			var addBtn = this;
+			var pid = addBtn.parentNode.parentNode.id;
+			var m = pid.substr(4, pid.length-4);
+			if (img_arr[m].length < 3) {
+				if (mui.os.plus) {
+					$.app.uploadPhoneImage("选择图片",function(image, picData) {
+						if (img_arr[m][0] == '') {
+							n = 0;
+						} else {
+							n = img_arr[m].length;
+						}						
+						setTimeout(function() {
+							$.app.post('upload/text/imagepath', {"data":picData}, function (data) {
+								img_arr[m][n] = data.src;
+							});
+						}, 0);
+	
+						setTimeout(function () {
+							plus.nativeUI.closeWaiting();
+							var li = document.createElement("li");
+							var imgList = addBtn.parentNode.getElementsByClassName('imgList')[0];
+							imgList.appendChild(li);
+							li.innerHTML = '<em class="close" data-id=' + n + '></em><img src="' + image + '" />';						
+						}, 1000);				
+					})
+				}
+			} else {
+				mui.toast("最多上传三张图片！");	
+			}
+		});
+
+		$.plusReady(function() {
+			//标题焦点
+			tit.addEventListener('tap', titFocus, false);
+
+			//删除图片
+			mui(".updata-raiders2").on('tap', '.close', function(){
+				var pid = this.parentNode.parentNode.parentNode.parentNode.id;
+				var m = pid.substr(4, pid.length-4);
+				var child_id = this.getAttribute('data-id');
+				img_arr[m].splice([child_id], 1);
+				var li = this.parentNode;
+				li.parentNode.removeChild(li);
+			});
+
+			//新增内容主体
+			addRaiderBodyBtn.addEventListener('tap', function(){
+				var div = document.createElement("div");
+				div.innerHTML = '<textarea class="input-body-txt" rows="5" placeholder="赶紧写下您的攻略吧..."></textarea><div class="img-warp"><ul class="imgList"></ul><div class="add-img"><i class="i-add"></i></div></div>';
+				div.id = 'body' + body;				
+				body++;
+				div.classList.add("input-body");
+				document.getElementById("inputBodyWarp").appendChild(div);
+			});
+			
+			$("#updata")[0].addEventListener('tap', function(){
+				var textContent = '';
+				$("#inputBodyWarp .input-body").each(function(){
+					var text = '<p>' + this.getElementsByTagName("textarea")[0].value + '</p>';
+					var this_id = this.id.substr(4, this.id.length-4);
+					var img = '';
+					for (var i = 0; i < img_arr[this_id].length; i++) {
+						if (img_arr[this_id][i] != undefined && img_arr[this_id][i] != '') {
+							if (coverImg == '') {
+								var l = img_arr[this_id][i];
+								coverImg = l.substr(l.length-17, 17);
+							}
+							img += '<img src="' + img_arr[this_id][i] + '" />';
+						}						
+					}
+					textContent = textContent + text + img;
+				})
+				if (tit.innerHTML == '' || tit.innerHTML == '标题（20个字以内）') {
+					mui.toast("标题不能为空！");
+					return;
+				}
+				if ($(".input-body-txt")[0].value == '') {
+					mui.toast("摘要不能为空！");
+					return;
+				}
+				var param = {
+					"coverImage": coverImg,
+    				"title": tit.innerHTML,
+    				"textContent": textContent
+				}
+				$.app.post('raiders/posted', param, function(data){
+					mui.toast("发表成功！");
+					var list_obj = plus.webview.getWebviewById("raiders/list");
+					if (list_obj) {
+						list_obj.reload(true);
+						mui.back();
+					} else {
+						mui.back();
+					}
+				})
+			})
+		});
+		
+		function Array_2(nRow,nColumn){
+	        var array1 = new Array();
+	        for(var i = 0; i < nRow; i++){
+	            array1[i] = new Array(); 
+				array1[i].push(new Array(nColumn));
+	　　　　}
+	        return array1;
+	    }
+	})(mui);
+</script>
+</html>

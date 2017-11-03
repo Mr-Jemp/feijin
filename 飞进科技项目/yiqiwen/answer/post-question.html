@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<title>提问</title>
+</head>
+<body>
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">提问</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div v-cloak id="teacherDetail">
+	<div class="post-question1 business-card">
+		<a v-bind:href="'../teacher/detail.html?id=' + id" class="portrait">
+			<img v-if="avatar != '' || avatar.length > 0" v-bind:src="avatar" class="pic" alt="">
+			<img v-else src="../resources/images/portrait.png" class="pic" alt="">
+			<i class="i-vip"></i>
+		</a>		
+		<a v-bind:href="'../teacher/detail.html?id=' + id" class="info-card">
+			<p class="name">{{nickname}}</p>
+			<div class="statistics">
+				<template v-if="star != null || star.length > 0">
+						<p class="score" v-html="star"></p>
+					</template>
+					<template v-else>
+						<p class="score">暂无评分</p>
+					</template>	
+				<p class="answer-num">
+					<i class="i-call"></i>
+					<span>{{answers}}个回答</span>
+				</p>
+			</div>
+		</a>
+		<a v-bind:href="'../teacher/detail.html?id=' + id" class="autograph">
+			<p>{{introduce}}</p>
+		</a>
+		<em class="view-more"></em>
+	</div>
+	
+	<p class="post-question2">请选择服务类型</p>
+
+	<div class="post-question3">
+		<div v-bind:id="ask_money" data-type="0" class="price active">
+			<h1>日常问题</h1>
+			<p><strong>{{ask_money}}</strong>元宝/次</p>
+		</div>
+		<div v-bind:id="ask_private_money" data-type="1" class="price last">
+			<h1>个人精算</h1>
+			<p><strong>{{ask_private_money}}</strong>元宝/次</p>
+		</div>
+		<p class="tip">温馨提示：提问超过48小时未回答，将按照支付路径全额退款。老师回答后，您可以免费向他追问两个问题。</p>
+	</div>
+	</div>
+
+	<div class="post-question4">
+		<textarea id="textBody" class="text-area" placeholder="请描述您的问题，如：我的2017财运。（描述不少于5个字。）"></textarea>
+		<div class="img-warp">
+			<ul id="preview" class="imgList">
+			</ul>
+			<div class="add-img">
+				<input type="file" name="file_head" id="file_head" value="" onchange="javascript:setImagePreview(this);" />
+				<i class="i-add"></i>
+			</div>
+		</div>
+		<p class="number">
+			<span id="rest">0</span>/200
+		</p>
+	</div>
+
+	<div v-cloak id="nav" class="post-question5">
+		<p class="tit">请选择问题标签：</p>
+		<div class="tag" v-bind:class="'width' + data.length">
+		<template v-for="(item, index) in data">
+			<span v-bind:data-id="item.id" class="color tag-item" v-bind:class="'color' + index">{{item.name}}</span>
+		</template>
+		</div>
+	</div>
+	
+	<div class="post-question6">
+		<span>是否公开</span>
+		<em class="switch">
+			<i></i>
+		</em>
+	</div>
+
+	<div class="post-question7">
+		<p>公开提问，答案每被偷听1次您获得<span>0.5</span>元宝</p>
+	</div>
+
+	<div class="post-question8 submit-warp">
+		<button id="submit" class="submit">新用户提问五折优惠只需<span id="jiage"></span>元宝</button>
+	</div>
+
+	<div class="alertBox post-question9">
+		<div class="transparentBg"></div>
+		<div class="tip-content">
+			<div class="body">
+				<i class="i-shibai"></i>
+				<h2>提问失败</h2>
+				<p>您目前的元宝不足，</p>
+				<p>是否前往充值？</p>
+				<div class="buttons">
+					<a class="cacheAlert">取消</a>
+					<a href="../personal/recharge.html">充值</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div id="loading" class="alertBox loading hide">
+		<div class="transparentBg"></div>
+		<div class="tip-content">
+			<img src="../resources/images/loading.gif" alt="">
+			<p>正在加载...</p>
+		</div>
+	</div> -->
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="../personal/personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/post-question.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/js.js"></script>
+	<title>个人中心-个性签名</title>
+</head>
+<body id="autograph">
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title">个性签名</h1>
+		<a id="save" class="mui-btn mui-btn-link mui-pull-right text">保存</a>
+	</header>
+	<div class="main mui-content">
+		<div class="autograph">			
+			<p id="talk-txt" class="text">{{talk}}</p>
+			<em id="rest" class="text-number">30</em>
+		</div>
+	</div>
+</body>
+
+	<script>
+		(function($, doc){
+			$.ajax({
+				type: "GET",
+				url: api_domain + "personal/me",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					if (data["result"] != 1) {
+						return;
+					}
+
+					var vm = new Vue({
+						el: '#autograph',
+						data: data["data"]
+					});
+					
+					vm.$nextTick(function() {});
+				}
+			});
+			var talk = document.getElementById("talk-txt");
+			talk.onkeydown = excute;
+			function excute(){
+			    var num1 = talk.innerText.length;
+			    if(num1 > 30){
+			        talk.innerHTML = talk.innerText.substring(0,30);
+			        po_Last_Div(talk);
+			        num1 = 30;
+			    }
+			    var rest1 = 30 - num1;
+			    document.getElementById("rest").innerHTML = rest1;
+			    if (rest1 == 0) {
+			    	mui.toast("标题最多30个字");
+			    }
+			}
+			function po_Last_Div(obj) {
+	            if (window.getSelection) {//ie11 10 9 ff safari
+	                obj.focus(); //解决ff不获取焦点无法定位问题
+	                var range = window.getSelection();//创建range
+	                range.selectAllChildren(obj);//range 选择obj下所有子内容
+	                range.collapseToEnd();//光标移至最后
+	            }
+	            else if (document.selection) {//ie10 9 8 7 6 5
+	                var range = document.selection.createRange();//创建选择对象
+	                //var range = document.body.createTextRange();
+	                range.moveToElementText(obj);//range定位到obj
+	                range.collapse(false);//光标移至最后
+	                range.select();
+	            }
+	        }
+			
+			mui("#header").on("tap","#save",function(){
+				var txt = document.getElementById("talk-txt").innerText;
+				if (txt.trim() == "") {
+					mui.toast("个性签名不能为空.");
+					return;
+				}
+				
+				$.ajax({
+					type: "post",
+					url: api_domain + "personal/talk",
+					dataType: "json",
+					contentType:"application/json", 
+					async: false,
+					data: {
+						"talk": txt
+					},
+					success: function(data){
+						mui.alert(data.msg, '提示', function(){
+							$.app.openWindow("personal-info.html");
+						});						
+					},
+					error: function(data){
+						mui.alert(data.msg, '提示');
+					}
+				});
+			})
+		})(mui, document)
+	</script>
+</html>

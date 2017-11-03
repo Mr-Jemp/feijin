@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>本地特色</title>
+</head>
+<body>	
+	<div class="main mui-content">
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div v-cloak id="main" class="features-list">
+					<div class="notdata" :class="{'hide' : datas.length > 0}">
+						<img src="../resources/images/nodata.png" alt="" />
+					</div>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<template v-for="item in datas">
+							<li v-if="item.status == 0" :id="item.id">
+								<img :src="item.coverImage" alt="" />
+								<p>{{item.title}}</p>
+							</li>
+						</template>					
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var vm = null,page = 1,featuresUrl;
+		
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					auto: false,
+					callback: pulldownRefresh
+				},
+				up: {
+					auto: false,
+					contentrefresh: '正在加载...',
+					contentnomore:'暂无更多数据',
+					callback: pullupRefresh
+				}
+			}
+		});
+		
+		//上拉刷新、下拉加载
+		function pulldownRefresh() {
+			page = 1;
+			featuresUrl = 'features/list?pageNo=' + page;
+			$.app.get(featuresUrl, function(data){
+				vm.datas = data.result;
+				page++;
+			})
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(false);
+			mui('#pullrefresh').pullRefresh().refresh(true);
+		}
+
+		function pullupRefresh() {
+			featuresUrl = 'features/list?pageNo=' + page;
+			$.app.get(featuresUrl, function(data){
+				if (data.result.length != 0) {
+					setTimeout(function(){
+						vm.datas = vm.datas.concat(data.result);
+					},200);
+					page++;
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+				} else {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
+			})
+		}
+		
+		featuresUrl = 'features/list?pageNo=' + page;
+		$.app.get(featuresUrl, function(data){
+			vm = new Vue({
+				el: "#main",
+				data: {
+					datas: data.result
+				}
+			})
+			page++;
+		})
+		
+		$.plusReady(function() {			
+			$(".features-list").on('tap', 'li', function(){
+				$.app.openWindow("features-detail.html?id=" + this.id);
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

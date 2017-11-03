@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="yes" name="apple-touch-fullscreen">
+	<meta content="telephone=no,email=no" name="format-detection">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<link rel="stylesheet" href="../resources/css/dropload.css">
+	<title>我的偷听</title>
+</head>
+<body>
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">我的偷听</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div v-cloak id="listenList" class="my-question1">
+		<template v-for="item in datas">
+		<div class="item">
+			<a href="../teacher/detail.html?id={{item.answer_uid}}" class="head">
+				<img v-if="item.avatar != '' || item.avatar.length > 0" v-bind:src="item.avatar" class="portrait">
+				<img v-else src="../resources/images/portrait.png" class="portrait">
+				<span class="name">{{item.nickname}}</span>
+				<div class="fright">
+					<em class="money">
+						<i class="i-money"></i>
+						<span>{{item.touting_money}}</span>
+					</em>
+				</div>				
+			</a>
+			<a href="../answer/detail.html?id={{item.ask_id}}" class="text">{{item.ask}}</a>
+			<p class="fot">
+				<span class="date">{{item.created_time}}</span>
+				<span class="num">{{item.touting}}人 听过</span>
+			</p>
+		</div>
+		</template>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/dropload.min.js"></script>
+<script src="../resources/pages-js/my-listen.js" type="text/javascript" charset="utf-8"></script>
+</html>

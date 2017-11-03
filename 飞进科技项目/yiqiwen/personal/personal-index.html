@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="yes" name="apple-touch-fullscreen">
+	<meta content="telephone=no,email=no" name="format-detection">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<title>个人中心</title>
+</head>
+<body>
+	
+	<div id="hide" class="hide">
+	<div class="personal-head">
+		<header class="header" style="z-index:20;background-color:transparent;">	
+			<a href="../index.html" class="header-icon header-left i-back"></a>
+			<a class="header-icon header-right i-personal-menu"></a>
+		</header>
+		<img src="../resources/images/personal-bg.png" class="personal-bg" alt="">
+		<div v-cloak id="info">
+			<a class="portrait" href="info.html">
+				<img v-if="avatar != '' || avatar.length > 0" v-bind:src="avatar" alt="">
+				<img v-else src="../resources/images/portrait.png" alt="">
+			</a>
+			<a class="login-btn" href="../login/login.html">登 录</a>
+			<p v-if="nickname != '' || nickname.length > 0" class="name hide">{{nickname}}</p>
+			<p v-else class="name hide">暂无昵称</p>
+		</div>
+			
+	</div>
+
+	<div class="personal-list">
+		<div id="transparent" class="transparent"></div>
+		<a href="apply-answer.html" class="first">
+			<i class="i-personal1"></i>
+			<p>答主申请</p>
+			<em></em>
+		</a>
+		<a href="my-money.html">
+			<i class="i-personal2"></i>
+			<p>我的账户</p>
+			<em></em>
+		</a>
+		<a href="my-question.html">
+			<i class="i-personal3"></i>
+			<p>我的提问</p>
+			<em></em>
+		</a>
+		<a href="my-listen.html">
+			<i class="i-personal4"></i>
+			<p class="last">我的偷听</p>
+			<em></em>
+		</a>
+		<!-- <a href="my-follow.html">
+			<i class="i-personal5"></i>
+			<p>我的关注</p>
+			<em></em>
+		</a> -->
+
+		<a id="logout" class="logout">退出登录</a>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span class="active">
+			<a>
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+	</div>
+	
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/personal-index.js" type="text/javascript" charset="utf-8"></script>
+</html>

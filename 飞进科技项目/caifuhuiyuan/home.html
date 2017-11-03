@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/swiper.min.css" rel="stylesheet">
+		<script src="js/mui.min.js"></script>
+		<script src="js/swiper.min.js"></script>
+		<script src="js/conf.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/js.js"></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+		<title>首页</title>
+		<style>
+			.m-ui-line {
+				height: 1px;
+				width: 100%;
+				background: #d6d6d6;
+			}
+			.home-banner-img {
+				max-width: 100%;
+				width: 100%;
+				background-size: 100% 100%;
+				display: block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+
+	<body id="home">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a id="messageInfo" class="mui-icon mui-pull-left messageInfo" onclick="homeMessageCenter()">&nbsp;</a>
+			<h1 class="search mui-title mui-input-row">
+				<p id="search-text" class="search-Box">
+					<em></em>
+					<span class="index-search">大家都在搜</span>
+				</p>
+			</h1>
+			<a id="selfCenter" class="mui-icon mui-pull-right selfCenter" onclick="homePersonCenter()">&nbsp;</a>
+		</header>
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper mui-fullscreen" style="display: none">
+			<div class="mui-scroll">
+				<ul class="mui-table-view mui-table-view-chevron">
+				</ul>
+			</div>
+		</div>
+		<div class="mui-content">
+			<div class="swiper-container swiper-banner">
+				<div class="swiper-wrapper">
+					<template v-for="(index,item) in datas.banners">
+						<div id="{{item.id}}" class="swiper-slide">
+							<a id="{{item.link}}" onclick="bannerClk(this)">
+								<img src="{{item.imagePath}}" class="home-banner-img" alt="{{item.title}}">
+							</a>
+						</div>
+					</template>
+				</div>
+				<div class="swiper-pagination swiper-pagination-white swiper-pagination-banner"></div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="m-ui-line-8"></div>
+			<div class="financial">
+				<div class="financialLeft">
+					<img src="images/financial1.png" alt="">
+				</div>
+				<div id="financal-btn" class="financialRight">
+					<ul>
+						<li typeId="1">
+							<img src="images/financial3.png" alt="">
+							<span>银行</span>
+						</li>
+						<li typeId="2">
+							<img src="images/financial2.png" alt="">
+							<span>P2P</span>
+						</li>
+						<li typeId="3">
+							<img src="images/financial5.png" alt="">
+							<span>信托</span>
+						</li>
+						<li typeId="4">
+							<img src="images/financial4.png" alt="">
+							<span>证券</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="m-ui-line-8"></div>
+			<div class="bg1">
+				<img id="img_risk" src="images/img_risk.jpg" alt="">
+			</div>
+			<div class="m-ui-line-8"></div>
+			<div class="norm panel">
+				<h1>
+					<span>大盘指数</span>
+				</h1>
+				<ul>
+					<template v-for="(index,item) in datas.market">
+						<template v-if="item.curprice > 0">
+							<li>
+								<h4>{{item.name}}</h4>
+								<h5 class="up"><span>{{item.curdot}}</span><i class="i-up"></i></h5>
+								<h6 class="up">{{item.curprice}}(+{{item.rate}}%)</h6>
+							</li>
+						</template>
+						<template v-if="item.curprice < 0">
+							<li>
+								<h4>{{item.name}}</h4>
+								<h5 class="down"><span>{{item.curdot}}</span><i class="i-down"></i></h5>
+								<h6 class="down">{{item.curprice}}({{item.rate}}%)</h6>
+							</li>
+						</template>
+					</template>
+				</ul>
+			</div>
+			<div class="m-ui-line-8"></div>
+			<div class="wealth panel">
+				<h1>
+					<span>即时要闻</span>
+					<a typeId="1" class="information">更多<i class="i-more"></i></a>
+				</h1>
+				<ul class="infomation-home">
+					<template v-for="(index,item) in datas.news">
+						<li id="{{item.id}}">							
+							<div class="imgWarp">
+								<img src="{{item.thumbnail}}" alt="">
+							</div>								
+							<div class="txt">
+								<h4>{{item.title}}</h4>
+								<p>{{item.abstractContent}}</p>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</div>
+			<div class="m-ui-line-8"></div>
+			<div class="wealth panel">
+				<h1>
+					<span>行情分析</span>
+					<a typeId="2" class="information">更多<i class="i-more"></i></a>
+				</h1>
+				<ul class="infomation-home">
+					<template v-for="(index,item) in datas.premiumMarkets">
+						<li id="{{item.id}}">							
+							<div class="imgWarp">
+								<img src="{{item.thumbnail}}" alt="">
+							</div>
+							<div class="txt">
+								<h4>{{item.title}}</h4>
+								<p>{{item.abstractContent}}</p>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</div>
+			<div class="m-ui-line-8"></div>
+			<div class="wealth panel">
+				<h1>
+					<span>策略选股</span>
+					<a typeId="3" class="information">更多<i class="i-more"></i></a>
+				</h1>
+				<ul class="infomation-home">
+					<template v-for="(index,item) in datas.screen">
+						<li id="{{item.id}}">
+							<div class="imgWarp">
+								<img src="{{item.thumbnail}}" alt="">
+							</div>
+							<div class="txt">
+								<h4>{{item.title}}</h4>
+								<p>{{item.abstractContent}}</p>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</div>
+			<div class="m-ui-line-8"></div>
+			<div class="forum panel index-community">
+				<h1>
+					<span>热门好贴</span>
+					<a id="community">更多<i class="i-more"></i></a>
+				</h1>
+				<ul class="community-home">
+					<template v-for="(index,item) in datas.communities">
+						<li id="{{item.id}}" class="textInfo">
+							<div id="{{item.authorId}}" class="userInfo">
+								<div class="imgWarp">
+									<img v-if="item.avatar == '' || item.avatar == undefined || item.avatar == null" src="images/user-img.png" alt="">
+									<img v-else src="{{item.avatar}}" alt="" />
+								</div>
+								<span>{{item.authorName}}</span>
+							</div>
+							<div id="{{item.id}}" class="textInfo">
+								<h2>{{item.title}}</h2>
+								<p>{{item.abstractContent}}</p>
+								<template v-if="item.communityImages.length > 0">
+									<div class="imgs">
+										<template v-for="(index,image) in item.communityImages">
+											<img src="{{image.src}}" alt="">
+										</template>
+									</div>
+								</template>									
+								<div class="timeInfo">
+									<p>
+										<span class="time">{{item.createTime}}</span>
+										<span class="like"><i class="i-like"></i><span>{{item.likeCount}}</span></span>
+										<span class="comment"><i class="i-comment"></i><span>{{item.arguedCount}}</span></span>
+									</p>
+								</div>
+							</div>
+						</li>
+						<div class="m-ui-line"></div>
+					</template>
+				</ul>
+			</div>
+			<div class="m-ui-line-8"></div>
+			<div class="wealth panel">
+				<h1>
+					<span>理财课堂</span>
+					<a id="classroom">更多<i class="i-more"></i></a>
+				</h1>
+				<ul class="classroom-home">
+					<template v-for="(index,item) in datas.financialClass">
+						<li id="{{item.id}}">
+							<div class="imgWarp">
+								<img src="{{item.thumbnail}}" alt="">
+							</div>
+							<div class="txt">
+								<h4>{{item.title}}</h4>
+								<p>{{item.abstractContent}}</p>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		function bannerClk(obj) {
+			var link = obj.id;
+			var state = window.app.getState();
+			state.extlink = link;
+			window.app.setState(state);
+			mui.app.openWindow("extlink.html");
+		}
+
+		var vm = null;
+		function initVm(data) {
+			if (vm == null) {
+				vm = new Vue({
+					el: '#home',
+					data: {
+						datas:{}
+					}
+				});
+			}
+			vm.datas = data;
+		}
+
+		function refresh() {
+			mui.ajax({
+				type: "GET",
+				url: api_domain + "home",
+				dataType: "json",
+				async: false,
+				success: function(data) {
+					if (data["result"] == -1) {
+						mui.toast(data["msg"]);
+						return;
+					}
+
+					initVm(data["data"]);
+					app.cache("$home", data["data"]);
+					mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+				}
+			});
+		}
+
+		mui.init({
+			pullRefresh : {
+				container:"#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+				down : {
+					height:50,//可选,默认50.触发下拉刷新拖动距离,
+					auto: false,//可选,默认false.自动下拉刷新一次
+					contentdown : "",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+					contentover : "",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+					contentrefresh : "正在刷新...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+					callback :refresh
+				}
+			}
+		});
+
+		if (window.plus) {
+			plusReady();
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+			new Swiper('.swiper-banner', {
+				loop: true,
+				pagination: '.swiper-pagination-banner',
+				paginationClickable: true,
+				preloadImages: false,
+				speed: 300,
+				autoplay: 5000
+			});
+			plus.navigator.closeSplashscreen();
+		}
+
+		(function($, doc) {
+			var deceleration = mui.os.ios ? 0.001 : 0.0003;
+			$('.mui-scroll-wrapper').scroll({
+				bounce: false,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration
+			});
+
+			var homeCacheData = app.getCache("$home");
+			if (null == homeCacheData) {
+				$.app.request(api_domain + "home", function(data) {
+					vm = new Vue({
+						el: '#home',
+						data: {
+							datas:data
+						}
+					});
+					app.cache("$home", data);
+				});
+			} else {
+				initVm(homeCacheData);
+			}
+
+			var input = document.getElementById("search-text");
+			input.addEventListener('tap', function(){
+				$.openWindow({
+					url: "search/result.html",
+					show: {
+						autoShow: true,
+						aniShow: 'none',
+						duration: 0
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			})
+
+			document.addEventListener('DOMContentLoaded', function () {
+				$('.infomation-home').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					$.app.openInfomationDetail(id);
+				})
+
+				$('.classroom-home').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					$.app.openClassroomDetail(id);
+				})
+
+				$('.community-home').on('tap', ".userInfo", function(e) {
+					e.stopPropagation();
+					var id = this.getAttribute("id");
+					$.app.openIndexUserDetail(id);
+				},false)
+
+				$('.community-home').on('tap', ".textInfo", function() {
+					var id = this.getAttribute("id");
+					$.app.openCommuntityDetail(id);
+				})
+
+				$('.main').on('tap', ".financialLeft", function() {
+					triggerTab("financialMarketId","financial-market/list.html",0);
+				})
+
+				$('#financal-btn').on('tap', "li", function() {
+					var typeId = this.getAttribute("typeId");
+					triggerTab("financialMarketId", "financial-market/list.html?id=" + typeId);
+				})
+
+				$('.main').on('tap', ".information", function() {
+					var typeId = this.getAttribute("typeId");
+					triggerTab("informationId","information/list.html", typeId);
+				})
+
+				document.getElementById("classroom").addEventListener('tap', function(){
+					triggerTab("classroomId","wealth-classroom/list.html", 0);
+				})
+
+				document.getElementById("community").addEventListener('tap', function() {
+					triggerTab("communityId","community/index.html", 0);
+				})
+
+				function triggerTab(tabId, tabPage, typeId) {
+					var top = plus.webview.getTopWebview();
+					var param = {tabId:tabId, tabPage:tabPage, typeId:typeId};
+					mui.fire(top, "goTab", param);
+				}
+
+				document.getElementById("img_risk").addEventListener('tap', function(){
+					$.app.openWindow("personal-center/info-questionnaire.html");
+				})
+			});
+		})(mui, document);
+	</script>
+</html>

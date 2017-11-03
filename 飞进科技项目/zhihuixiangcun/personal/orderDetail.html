@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>订单详情</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">订单详情</h1>
+	</header>
+	
+	<div v-cloak id="detail" class="main mui-content">
+		<div class="personal-orderDetail1">
+			<table>
+				<tr>
+					<td>订单编号：</td>
+					<td>{{outTradeNo}}</td>
+				</tr>
+				<tr>
+					<td>订单状态：</td>
+					<td>
+						<template v-if="payStatus == 0">未支付</template>
+						<template v-if="payStatus == 1">已支付</template>
+						<template v-if="payStatus == 2">申请退款</template>
+						<template v-if="payStatus == 3">已退款</template>
+						<template v-if="payStatus == 4">已完成</template>
+						<template v-if="payStatus == 5">已取消</template>
+						<template v-if="payStatus == 6">已评论</template>
+						<template v-if="payStatus == 7">拒绝退款申请</template>
+					</td>
+				</tr>
+				<tr v-if="payStatus == 2 || payStatus == 3 || payStatus == 7">
+					<td>申请退款原因：</td>
+					<td>{{refundReason}}</td>
+				</tr>
+				<tr v-if="payStatus == 7">
+					<td>审核退款描述：</td>
+					<td>{{reason}}</td>
+				</tr>
+				<tr>
+					<td>订单金额：</td>
+					<td>￥{{price}}</td>
+				</tr>
+				<tr>
+					<td>支付方式：</td>
+					<td v-if="payType == 1">支付宝支付</td>
+					<td v-if="payType == 2">微信支付</td>
+					<td v-if="payType == 3">银联支付</td>
+				</tr>
+				<tr>
+					<td>预订时间：</td>
+					<td>{{consumeDate}}</td>
+				</tr>
+				<tr>
+					<td>下单时间：</td>
+					<td>{{createTime}}</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="personal-orderDetail2">
+			<h1 class="tit">{{productName}}</h1>
+			<div v-if="type == 1" class="wineshop">
+				<div class="date">
+					<p class="fleft">{{roomName}}</p>
+					<p class="fright">{{quantity}}间</p>
+				</div>
+				<div class="date">
+					<p class="fleft">入住时间 {{consumeDate}} 至 {{liveDate}}</p>
+					<p class="fright">{{coverImage}}晚</p>
+				</div>
+				<span>{{breakfast}}</span>
+				<br />
+				<p v-html="hotelsExplainList"></p>
+			</div>
+			<div v-else class="info">
+				<p v-html="summary"></p>
+			</div>
+			<p class="address">
+				<i class="i-address"></i>
+				<span>{{address}}</span>
+			</p>
+		</div>
+		
+		<div class="personal-orderDetail3">
+			<p><span>联系人：</span>{{linkMan}}</p>
+			<p v-if="type == 1 || type == 3"><span>身份证：</span>{{idCard}}</p>
+			<p>联系电话： {{phone}}</p>
+			<p v-if="type == 1"><span>房间数：</span>{{quantity}}</p>
+		</div>
+		
+		<div class="personal-orderDetail4">
+			<button v-if="payStatus == 0" class="button disabled">取消订单</button>
+			<button v-if="payStatus == 0" class="button">去付款</button>
+			<button v-if="payStatus == 3 || payStatus == 4 || payStatus == 5 || payStatus == 6" class="button">删除订单</button>
+			<button v-if="payStatus == 1" class="button">申请退款</button>
+			<button v-if="payStatus == 4" class="button">评价</button>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var vm = null, page = 1;
+		var id = $.app.getId(document.URL);
+		console.log(id);
+		
+		$.plusReady(function() {
+			var detailUrl = 'myorder/details';
+			$.app.post(detailUrl, {"id": id}, function(data){
+				vm = new Vue({
+					el: "#detail",
+					data: data
+				})
+				if (data.hotelType != 0) {
+					Vue.set(data, "hotelType", hotelType(data.hotelType));
+				}
+				Vue.set(data, "coverImage", getday(data.consumeDate, data.liveDate));
+				Vue.set(data, "hotelsExplainList", hotelSever(data.hotelsExplainList));
+			})
+		})
+		
+		function hotelType(type) {
+			if (type == 1) return "经济型";
+			if (type == 2) return "快捷连锁";
+			if (type == 3) return "主题酒店";
+			if (type == 4) return "商务酒店";
+			if (type == 5) return "公寓";
+			if (type == 6) return "客栈";
+		}
+		
+		function hotelSever(list) {
+			var html = '';
+			for (i in list) {
+				html += '<span>' + list[i] + '</span>';
+			}
+			return html;
+		}
+		
+	})(mui)
+</script>
+
+</html>

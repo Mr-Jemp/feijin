@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/conf.js"></script>
+	<title>社区-发帖</title>
+</head>
+<body style="background:#f2f2f2">	
+	<div id="selectImg" class="community-replyBox" style="background:transparent;border:none;bottom:200px">
+		<a id="picture" class="select-img" style="top:3px;left:5px"></a>
+	</div>
+	<div id="footer-img" class="footer-img">
+		<ul id="imgs">
+			
+		</ul>
+	</div>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title" id="title">股市涨不停专题-发帖</h1>
+		<a id="save-btn" class="mui-btn mui-btn-link mui-pull-right text">发表</a>
+	</header>
+	<div class="main mui-content">
+		<div class="community-updata">
+			<div class="tit">
+				<span>标题：</span>
+				<p id="title1" contenteditable="true"></p>
+				<small>最多输入<i id="rest1">20</i>个字</small>
+			</div>
+			<div class="text">
+				<span>内容：</span>
+				<textarea id="content" maxlength="2000"></textarea>
+				<small>最多输入<i id="rest2">2000</i>个字</small>
+			</div>	
+		</div>
+	</div>
+</body>
+
+	<script>	
+		
+		(function($) {
+			var titles = ["","理财大家说","股票涨涨涨","基金机会多","保险抗风险","买房也轻松","资金全球配"];
+			var id = $.app.getId(document.URL);
+			document.getElementById("title").innerHTML = titles[id] + "-发帖";
+			
+			var num = 0;
+			var img_arr = [];
+			document.getElementById("picture").addEventListener("tap", function(e) {
+				if (mui.os.plus) {
+					$.app.uploadPhoneImage("选择图片",function(image, picData) {
+						setTimeout(function() {
+							$.app.post(api_domain + "personal/community/upload", {"data":picData}, function (data) {
+								img_arr[num] = '<img src="' + data.image + '" />';
+								num = num + 1;
+							});
+						}, 0);
+
+						setTimeout(function () {
+							plus.nativeUI.closeWaiting();
+
+							var li = document.createElement("li");
+							li.id = "liclose" + num;
+							var imgs = document.getElementById("imgs");
+							imgs.appendChild(li);
+							li.innerHTML = '<img src="' + image + '" /><em id="close' + num + '" class="close"></em>';
+						}, 1000);
+					})
+				}
+			});
+			
+			var title = document.getElementById("title1");
+			var content = document.getElementById("content");
+			title.onkeydown = excute1;
+			content.onkeydown = excute2;
+			title.onkeyup = excute1;
+			content.onkeyup = excute2;
+
+			function excute1(){
+			    var num1 = title.innerText.length;
+			    if(num1 > 20){
+			        title.innerHTML = title.innerText.substring(0,20);
+			        po_Last_Div(title);
+			        num1 = 20;
+			    }
+
+			    var rest1 = 20 - num1;
+			    document.getElementById("rest1").innerHTML = rest1;
+			    if (rest1 <= 0) {
+			    	mui.toast("标题最多20个字");
+			    }
+			}
+
+			function excute2(){
+				var num2 = content.value.length;
+				if (num2 > 2000) {
+					content.innerHTML = content.innerText.substring(0,2000);
+					po_Last_Div(content);
+					num2 = 2000;
+				}
+				var rest2 = 2000 - num2;
+				document.getElementById("rest2").innerHTML = rest2;
+				if (rest2 <= 0) {
+					mui.toast("内容最多2000个字");
+				}
+			}
+			
+			function po_Last_Div(obj) {
+	            if (window.getSelection) {//ie11 10 9 ff safari
+	                obj.focus(); //解决ff不获取焦点无法定位问题
+	                var range = window.getSelection();//创建range
+	                range.selectAllChildren(obj);//range 选择obj下所有子内容
+	                range.collapseToEnd();//光标移至最后
+	            }
+	            else if (document.selection) {//ie10 9 8 7 6 5
+	                var range = document.selection.createRange();//创建选择对象
+	                //var range = document.body.createTextRange();
+	                range.moveToElementText(obj);//range定位到obj
+	                range.collapse(false);//光标移至最后
+	                range.select();
+	            }
+	        }
+			
+			$("#imgs").on('tap', '.close', function(){
+				var li_id = "li" + this.id;
+				var obj = document.getElementById(li_id);
+				obj.parentNode.removeChild(obj);
+			})
+
+			$.plusReady(function() {
+				document.getElementById("save-btn").addEventListener("tap", function() {
+					var title = document.getElementById("title1").innerText;
+					var content = document.getElementById("content").value;
+					content = content.replace(/\n/g,'<br/>');
+					content = content.replace(/\s/g,'&nbsp;');
+					var flag = isUtf16Char(content);
+					var tFlag = isUtf16Char(title);
+					if (flag || tFlag) {
+						mui.toast("帖子内容暂不支持表情，请去掉表情后再发表");
+						return;
+					}
+
+					var imgtext = '';
+					for(var i=0;i<img_arr.length;i++){
+						imgtext = imgtext + img_arr[i];
+					}
+
+					var textContent = content + imgtext;
+					var param = {"theme":id,"title":title,"textContent":textContent};
+					if (title.trim() == "" || textContent.trim() == "") {
+						mui.toast("标题或内容不能为空");
+						return;
+					}
+
+					var btnArray = ['取消', '确定'];
+					mui.confirm('发帖后不能删除, 是否继续发帖', '提示', btnArray, function(e) {
+						if (e.index == 1) {
+							var url = api_domain + "personal/community/posted";
+							$.app.post(url, param, function(data) {
+								mui.toast("发帖成功");
+								$.app.openWindow("detail.html?id=" + data.id);
+							});
+						} else {
+							return false;
+						}
+					});
+				});
+
+				mui.back = function(event) {
+					var btnArray = ['取消', '退出'];
+					mui.confirm('退出本页，编辑的内容将丢失', '提示', btnArray, function(e) {
+						if (e.index == 1) {
+							plus.webview.hide(plus.webview.currentWebview());
+						} else {
+							return false;
+						}
+					});
+				};
+			})
+
+			var top = 0;
+			window.addEventListener("resize", function() {
+			    var height = document.body.scrollHeight;
+			    //fo.style.top = height + 'px';
+		    	if (top == 0) {
+		    		document.getElementById("selectImg").style.bottom = (0) + 'px';
+		    		document.getElementById("footer-img").style.top = (height) + 'px';
+		    		top = height; 
+		    	}
+		    	else if (top < height) {
+		    		document.getElementById("selectImg").style.bottom = (200) + 'px';
+		    		document.getElementById("footer-img").style.top = (height-200) + 'px';
+		    	}
+		    	else if (top >= height){
+		    		document.getElementById("selectImg").style.bottom = (0) + 'px';
+		    	}
+			})
+		})(mui);
+	</script>
+</html>

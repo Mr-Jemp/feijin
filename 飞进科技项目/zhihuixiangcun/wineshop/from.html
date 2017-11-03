@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../resources/css/mui.poppicker.css" rel="stylesheet" />
+	<title>酒店预定</title>
+	<style>
+		#header{
+			background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+	<div id="main" class="main mui-content">
+		<div class="pos-header wineshop-detail-from1">
+			<header id="header" class="mui-bar mui-bar-nav header">
+				<a class="mui-action-back mui-icon mui-pull-left back"></a>
+				<h1 id="name" class="mui-title title"></h1>
+			</header>
+			<a class="cover-img">
+				<img id="covimg" src="" alt="">
+			</a>
+		</div>
+		
+		<div class="wineshop-detail-from2 group-warp">
+			<div id='showComeTimePicker' class="item-group" data-options='{"type":"date"}'>
+				<label>入住时间</label>
+				<p id="comeTime"></p>
+				<em class="more"></em>
+			</div>
+			<div id='showLiveTimePicker' class="item-group" data-options='{"type":"date","value":"2017-01-01"}'>
+				<label>离开时间</label>
+				<p id="liveTime"></p>
+				<em class="more"></em>
+			</div>
+			<div id='showRoomsPicker' class="item-group">
+				<label>房间数</label>
+				<p id="rooms"></p>
+				<em class="more"></em>
+			</div>
+			<div id="orderName" class="item-group">
+				<label>联系人</label>
+				<p></p>
+				<em class="more"></em>
+			</div>
+			<div id="idCard" class="item-group">
+				<label>身份证</label>
+				<p></p>
+				<em class="more"></em>
+			</div>
+			<div id="telephone" class="item-group">
+				<label>联系电话</label>
+				<p></p>
+				<em class="more"></em>
+			</div>
+			<div id="showTimePicker" class="item-group">
+				<label>预计到店时间</label>
+				<p id="time"></p>
+				<em class="more"></em>
+			</div>
+			<div id="noteInfo" class="item-group last">
+				<label>备注</label>
+				<p></p>
+				<em class="more"></em>
+			</div>
+			<div id="selectCoupon" class="item-group coupon">
+				<label>优惠券</label>
+				<p id="coupon">选择优惠券</p>
+				<em class="more"></em>
+			</div>
+			<br /><br /><br />
+		</div>
+		
+		<div class="wineshop-detail-from3">
+			<div class="price">
+				<label>金额</label>
+				<p>￥<span id="price"></span></p>
+			</div>
+			<a id="submit" class="submit">提交订单</a>
+		</div>
+	</div>	
+	
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+<script src="../resources/js/mui.picker.min.js"></script>
+<script src="../resources/js/mui.poppicker.js"></script>
+<script src="../resources/js/city.data.js"></script>
+<script src="../resources/js/city.data-3.js"></script>
+
+<script>
+
+	(function($) {console.log(document.URL);
+		
+		var price,rooms,comeTime,consumeDate,liveDate,couponId;
+		
+		var id = $.app.getId(document.URL);
+		var name = $.app.getName(document.URL, 'name');	
+		$("#name")[0].innerHTML = decodeURI(name);
+		$("#covimg")[0].src = $.app.getName(document.URL, 'img');
+		price = $.app.getName(document.URL, 'price');
+		$("#price")[0].innerHTML = price;
+		
+		$.ready(function() {
+			var roomPicker = new $.PopPicker();
+			roomPicker.setData([
+				{value: '1',text: '1间'}, 
+				{value: '2',text: '2间'}, 
+				{value: '3',text: '3间'}, 
+				{value: '4',text: '4间'}, 
+				{value: '5',text: '5间'}, 
+				{value: '6',text: '6间'}, 
+				{value: '7',text: '7间'}, 
+				{value: '8',text: '8间'}, 
+				{value: '9',text: '9间'}, 
+				{value: '10', text: '10间'}
+			]);
+			$("#showRoomsPicker")[0].addEventListener('tap', function(event) {
+				roomPicker.show(function(items) {
+					$("#rooms")[0].innerText = items[0].text;
+					rooms = items[0].value;
+					price = items[0].value * price;
+					$("#price")[0].innerHTML = price;
+				});
+			}, false);
+			
+			var timePicker = new $.PopPicker();
+			timePicker.setData([
+				{value: '0:00',text: '00:00之前'}, 
+				{value: '1:00',text: '01:00之前'}, 
+				{value: '2:00',text: '02:00之前'}, 
+				{value: '3:00',text: '03:00之前'}, 
+				{value: '4:00',text: '04:00之前'}, 
+				{value: '5:00',text: '05:00之前'}, 
+				{value: '6:00',text: '06:00之前'}, 
+				{value: '7:00',text: '07:00之前'}, 
+				{value: '8:00',text: '08:00之前'}, 
+				{value: '9:00',text: '09:00之前'}, 
+				{value: '10:00', text: '10:00之前'}, 
+				{value: '11:00', text: '11:00之前'}, 
+				{value: '12:00', text: '12:00之前'}, 
+				{value: '13:00', text: '13:00之前'}, 
+				{value: '14:00', text: '14:00之前'}, 
+				{value: '15:00', text: '15:00之前'}, 
+				{value: '16:00', text: '16:00之前'}, 
+				{value: '17:00', text: '17:00之前'}, 
+				{value: '18:00', text: '18:00之前'}, 
+				{value: '19:00', text: '19:00之前'}, 
+				{value: '20:00', text: '20:00之前'}, 
+				{value: '21:00', text: '21:00之前'}, 
+				{value: '22:00', text: '22:00之前'}, 
+				{value: '23:00', text: '23:00之前'}
+			]);
+			$("#showTimePicker")[0].addEventListener('tap', function(event) {
+				timePicker.show(function(items) {
+					$("#time")[0].innerText = items[0].text;
+					comeTime = items[0].value;
+				});
+			}, false);
+			$('#showComeTimePicker')[0].addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					if (Date.parse(rs.text) <= Date.parse(new Date())) {
+						mui.toast("请选择正确的入住时间");
+						return;
+					}
+					$("#comeTime")[0].innerText = consumeDate = rs.text;					
+					picker.dispose();
+				});
+			}, false);
+			$('#showLiveTimePicker')[0].addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				options.value = consumeDate;
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					if (Date.parse(rs.text) <= Date.parse(consumeDate)) {
+						mui.toast("请选择正确的离开时间");
+						return;
+					}
+					$("#liveTime")[0].innerText = liveDate = rs.text;
+					var days = getday(consumeDate, rs.text);
+					$("#price")[0].innerHTML = price = price * days;
+					picker.dispose();
+				});
+			}, false);
+		})
+		
+		$("#submit")[0].addEventListener('tap', function(){
+			var idCardReg = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+			if (!consumeDate) {
+				mui.toast("请输入入住时间");
+				return;
+			}
+			if (!liveDate) {
+				mui.toast("请输入离开时间");
+				return;
+			}
+			if (!rooms) {
+				mui.toast("请输入房间数");
+				return;
+			}
+			if (!orderName) {
+				mui.toast("请输入联系人");
+				return;
+			}
+			if (!idCard) {
+				mui.toast("请输入身份证");
+				return;
+			}
+			if (!idCardReg.test(idCard)) {
+				mui.toast("请输入正确的身份证号码");
+				return;
+			}
+			if (!telephone) {
+				mui.toast("请输入联系电话");
+				return;
+			}
+			if (telephone.length != 11) {
+				mui.toast("请输入正确的联系电话");
+				return;
+			}
+			if (!comeTime) {
+				mui.toast("请输入预计到店时间");
+				return;
+			}		
+			consumeDate = consumeDate.substring(5);
+			liveDate = liveDate.substring(5);
+			var orderUrl = 'order/commitHotels';
+			var orderData = {
+				"consumeDate": consumeDate,
+				"liveDate": liveDate,
+				"quantity": rooms,
+				"idCard": idCard,
+				"phone": telephone,
+				"predictDate": comeTime,
+				"note": noteInfo,
+				"productId": id,
+				"linkMan": orderName,
+				"couponId": couponId
+			}
+			console.log(couponId);
+			$.app.post(orderUrl, orderData, function(data){
+				localStorage.removeItem("$coupon");
+				$.app.openWindow('../pay/payment.html?id=' + data.id + "&type=1");
+			})
+		})
+		
+		var orderName,idCard,telephone,noteInfo;
+		$("#orderName")[0].addEventListener('tap', function(){
+			alertInput('联系人', 'text', function(val){
+				orderName = val;
+				$("#orderName p")[0].innerText = val;
+			});
+		});
+		$("#idCard")[0].addEventListener('tap', function(){
+			alertInput('身份证', 'text', function(val){
+				idCard = val;
+				$("#idCard p")[0].innerText = val;
+			});
+		});
+		$("#telephone")[0].addEventListener('tap', function(){
+			alertInput('联系电话', 'number', function(val){
+				telephone = val;
+				$("#telephone p")[0].innerText = val;
+			});
+		});
+		$("#noteInfo")[0].addEventListener('tap', function(){
+			alertInput('备注', 'text', function(val){
+				noteInfo = val;
+				$("#noteInfo p")[0].innerText = val;
+			});
+		});
+		$("#selectCoupon")[0].addEventListener('tap', function(){
+			$.app.openWindow('../personal/coupon.html?type=online&price=' + price);
+		})
+		
+		$.plusReady(function() {			
+			window.addEventListener('send',function(event){
+				couponId = event.detail.couponId;
+				$("#coupon")[0].innerHTML = event.detail.couponTit;
+				$("#price")[0].innerHTML = price = price - event.detail.salePrice;
+			});
+		})
+	})(mui);		
+</script>
+
+</html>

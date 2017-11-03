@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../resources/css/main.css">
+	<link rel="stylesheet" href="../resources/css/dropload.css">
+	<title>我的关注</title>
+</head>
+<body>
+	<header class="header">
+		<a href="javascript:history.back()" class="header-icon header-left i-back"></a>
+		<h1 class="header-title">我的关注</h1>
+		<a class="header-icon header-right i-menu"></a>
+	</header>
+
+	<div v-cloak id="followList" class="follow1">
+	<template v-for="item in data">
+		<a href="../teacher/detail.html?{{item.id}}" class="item">
+			<img v-if="item.avatar != '' || item.avatar.length > 0" v-bind:src="item.avatar" class="portrait" alt="">
+			<img v-else src="../resources/portrait.png" class="portrait" alt="">
+			<div class="info">
+				<h1>{{item.nickname}}</h1>
+				<p>{{item.introduce}}</p>
+			</div>
+		</a>
+	</template>
+	</div>
+
+	<div class="fot-menu">
+		<span>
+			<a href="../index.html">
+				<i class="i-home"></i>
+				<span>首页</span>
+			</a>
+		</span>		
+		<em class="updata-question">
+			<a href="../teacher/list.html"></a>
+		</em>
+		<span>
+			<a href="personal-index.html">
+				<i class="i-personal"></i>
+				<span>我的</span>
+			</a>
+		</span>			
+	</div>
+</body>
+<script src="../resources/js/flexible.js"></script>
+<script src="../resources/js/flexible_css.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/dropload.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/pages-js/my-follow.js" type="text/javascript" charset="utf-8"></script>
+</html>

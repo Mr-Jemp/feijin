@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>banner详情</title>
+</head>
+<body>
+	<div v-cloak id="main">
+		<header id="header" class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-pull-left mui-icon back"></a>
+			<h1 class="mui-title title">title</h1>
+		</header>
+		
+		<div class="main mui-content bg-white" style="padding-bottom: 10px;">
+			<div class="raiders-detail4">
+				<h1>{{title}}</h1>
+			</div>
+			<div class="raiders-detail3">
+				<p class="date">{{createTime}}</p>
+			</div>
+			<div class="raiders-detail1">
+				<img :src="imgName" class="raiders-banner" alt="">
+			</div>
+			<div class="raiders-detail2" v-html="textContent"></div>
+		</div>
+	</div>		
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		var id = $.app.getId(document.URL);
+		$.app.get('banner/detail?id=' + id, function(data){
+			new Vue({
+				el: "#main",
+				data: data
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

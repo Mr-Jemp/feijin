@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#dd6d0b">
+	<meta name="theme-color" content="#DD6D0B">
+	<link href="../resources/css/mui.min.css" rel="stylesheet" />
+	<link href="../resources/css/main.css" rel="stylesheet" />
+	<title>支付</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-pull-left mui-icon back"></a>
+		<h1 class="mui-title title">支付方式</h1>
+	</header>
+	
+	<div class="main mui-content">
+		<div v-cloak id="main" class="payment1">
+			<h1>{{productName}}</h1>
+			<p>
+				预定时间：{{consumeDate}}&nbsp;&nbsp;&nbsp;&nbsp;
+				<span id="wineshop" class="hide">入住{{coverImage}}晚</span>
+			</p>
+			<p>应付：￥{{price}}</p>
+		</div>
+		
+		<div class="payment2">
+			<p id="bankPay" class="item-group">
+				<i class="i-bank"></i>
+				<span>银行卡支付</span>
+			</p>
+			<p id="wechatPay" class="item-group">
+				<i class="i-weixin"></i>
+				<span>微信支付</span>
+			</p>
+			<p id="zhifubaoPay" class="item-group last">
+				<i class="i-zhifubao"></i>
+				<span>支付宝支付</span>
+			</p>
+		</div>
+	</div>
+</body>
+
+<script src="../resources/js/mui.min.js"></script>
+<script src="../resources/js/vue.min.js"></script>
+<script src="../resources/js/conf.js"></script>
+<script src="../resources/js/main.js"></script>
+
+<script>
+	(function($){
+		
+		$.plusReady(function() {
+			var url = document.URL;
+			var id = $.app.getId(url);
+			if ($.app.getName(url, "type") == '1') {
+				removeClass($("#wineshop")[0], 'hide');
+			}
+			
+			var detailUrl = 'myorder/details';
+			$.app.post(detailUrl, {"id": id}, function(data){
+				vm = new Vue({
+					el: "#main",
+					data: data
+				})
+				Vue.set(data, "coverImage", getday(data.consumeDate, data.liveDate));
+			})
+			
+			$("#bankPay")[0].addEventListener('tap', function(){
+				mui.toast("暂不支持！");
+			})
+			$("#zhifubaoPay")[0].addEventListener('tap', function(){
+				var pub_url = api_domain.substr(0, api_domain.length-4);
+				var payUrl = pub_url + 'admin/alipay/pay?id=' + id;
+				//$.app.openWindow(payUrl);
+				
+				var state = window.app.getState();
+				state.extlink = payUrl;
+				window.app.setState(state);
+				mui.app.openWindow("../extlink.html");
+			})
+			$("#wechatPay")[0].addEventListener('tap', function(){
+				mui.toast("暂不支持！");
+			})
+		})
+		
+	})(mui)
+</script>
+
+</html>

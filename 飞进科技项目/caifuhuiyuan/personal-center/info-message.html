@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script src="../js/conf.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/mui.pullToRefresh.js"></script>
+	<script src="../js/mui.pullToRefresh.material.js"></script>
+	<title>个人中心-消息中心</title>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-pull-left back" onclick="mui.back()"></a>
+			<h1 class="mui-title" id="header-title">消息中心</h1>
+	</header>
+	<div class="main mui-content mui-fullscreen">
+		<div id="slider" class="mui-slider mui-fullscreen inves">
+			<div id="sliderSegmentedControl" class="inves-nav mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a id="invest" class="mui-control-item mui-active" href="#item0">投资报告</a>
+				<a id="message" class="mui-control-item" href="#item1">系统消息</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+			<div class="mui-slider-group">
+				<div id="item0" class="mui-slider-item mui-control-content mui-active">
+					<div  class="mui-scroll-wrapper mui-content">
+						<div class="mui-scroll speech-list0 forum">
+							<ul class="mui-table-view">
+								<template v-for="(index,item) in datas">
+									<li id="{{item.id}}">
+										<h4>{{item.title}}</h4>
+										<p>{{item.abstractContent}}</p>
+										<h6><span>{{item.shelvesTime}}</span></h6>					
+									</li>
+								</template>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item1" class="mui-slider-item mui-control-content">
+					<div  class="mui-scroll-wrapper mui-content">
+						<div class="mui-scroll speech-list1 forum">
+							<ul class="mui-table-view">
+								<template v-for="(index,item) in datas">
+									<li id="{{item.id}}">
+										<h4>{{item.title}}</h4>
+										<p>{{item.abstractContent}}</p>
+										<h6><span>{{item.shelvesTime}}</span></h6>					
+									</li>
+								</template>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<script>
+		(function($) {
+			$('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			
+			var invest_url = api_domain + "personal/message/ordinaryInvestment";
+			$.app.url = invest_url + "?type=";
+			$.app.request(invest_url, function(data) {
+				$.app.initItemListVm(0, data);
+				$.app.pageNo++;
+			});
+
+			var message_url = api_domain + "personal/message/system";
+			$.app.url = message_url + "?type=";
+			$.app.request(message_url, function(data) {
+				$.app.initItemListVm(1, data);
+				$.app.pageNo++;
+			});
+
+			document.getElementById('slider').addEventListener('slide', function(e) {
+				$.app.pageNo = 1;
+				var url = "";
+				if (e.detail.slideNumber === 1) {
+					$.app.url = api_domain + "personal/message/system";
+					url = $.app.url;
+				} else {
+					$.app.url = api_domain + "personal/message/ordinaryInvestment";
+					//var url = $.app.url + e.detail.slideNumber + "&pageNo=" + $.app.pageNo;
+					url = $.app.url;
+				}
+				
+				$.app.request(url, function(data) {
+					$.app.initItemListVm(e.detail.slideNumber, data);
+					$.app.pageNo++;
+				});
+			});
+			
+			var createFragment = function(ul, index, data) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				for(var i = 0; i < data["result"].length; i++) {
+					li = document.createElement('li');
+					var item = data["result"][i];
+					li.setAttribute("id", item["id"]);
+					li.innerHTML = 	'<a>' +
+									'<h4>' + item["title"] + '</h4>' +
+									'<p>' + item["abstractContent"] + '</p>' +
+									'<h6><span>' + item["shelvesTime"] + '</span></h6>' +
+									'</a>';
+					// 刷新出来的li内容
+					fragment.appendChild(li);
+				}
+				return fragment;
+			};
+			
+			$.app.pullToRefresh(
+				function(self, index) { // down
+					if (index === 0){
+						var url = api_domain + "personal/message/ordinaryInvestment";
+					}else{
+						var url = api_domain + "personal/message/system";
+					}					
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.innerHTML = "";
+						ul.appendChild(createFragment(ul, index, data));
+					})
+				},
+				function(self, index) { // up
+					if (index === 0){
+						var url = api_domain + "personal/message/ordinaryInvestment" + "?pageNo=" + $.app.pageNo;
+					}else{
+						var url = api_domain + "personal/message/system" + "?pageNo=" + $.app.pageNo;
+					}
+					var ul = self.element.querySelector('.mui-table-view');
+					$.app.request(url, function(data) {
+						ul.appendChild(createFragment(ul, index, data));
+						$.app.pageNo++;
+					})
+				}
+			)
+			
+			$.plusReady(function() {
+				$('.speech-list0').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					if (id == null || id == undefined){
+						return;
+					}
+					var url = "info-message-detail.html?type=0&id=" + id;
+					$.app.openWindow(url);
+				});
+				$('.speech-list1').on('tap', "li", function() {
+					var id = this.getAttribute("id");
+					if (id == null || id == undefined){
+						return;
+					}
+					var url = "info-message-detail.html?type=1&id=" + id;
+					$.app.openWindow(url);
+				})
+			});
+		})(mui);
+	</script>
+</html>
