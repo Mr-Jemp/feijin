@@ -1,0 +1,265 @@
+@blueColor:#1d97d6;
+@textColor:#5f5e5e;
+.me-banner{
+    width: 100%;
+    height: 771px;
+    position: relative;
+    letter-spacing: 2px;
+    
+    img{
+        width: 100%;
+        display: block;
+        height: 100%;
+    }
+    .banner-title1{
+        position: absolute;
+        top: 380px;
+        left: 615px;
+        font-size: 41px;
+        color: #fff;
+    }
+    .english-title{
+        display: block;
+        font-size: 25px;
+        padding: 20px 0;
+        font-weight: 400;
+        opacity: .8;
+    }
+    
+    .banner-list{
+        width: 435px;
+        height: 530px;
+        position: absolute;
+        top: 165px;
+        left: 1245px;
+        background: #eff1ed;
+        
+        .list-title{
+            width: 260px;
+            height: 100px;
+            line-height: 100px;
+            background: @blueColor;
+            font-size: 36px;
+            color: #fff;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: -25px;
+        }
+        .list-box{
+            padding: 143px 50px 0 70px;
+            
+            li{
+                color: @textColor;
+                font-size: 23px;
+                margin-bottom: 50px;
+            }
+            .list-one{
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.me-content{
+    width: 100%;
+    min-height: 1000px;
+    
+    .content1{
+        width: 100%;
+        position: relative;
+        min-height: 1098px;
+        background: url(../img/opacity_bj.png) no-repeat;
+        background-position: center 320px;
+    }
+    .content1-inner,.content3{
+        width: 1440px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .content1-inner{
+        padding-top: 195px;
+        padding-bottom: 173px;
+        .center{
+            width: 750px;
+            height: 725px;
+            border: 5px solid @blueColor;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        .left,.right{
+            width: 692px;
+            height: 587px;
+            position: absolute;
+            top: 263px;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .left{
+            left: 20px;
+            
+            .big-text{
+                font-size: 38px;
+                color: @blueColor;
+                border-left: 5px solid @blueColor;
+                padding-left: 10px;
+                margin: 25px 0;
+                background: #fff;
+            }
+            .small-text{
+                font-size: 25px;
+                color: @textColor;
+                letter-spacing: 3px;
+                margin-left: 10px;
+            }
+            .text-content{
+                font-size: 24px;
+                color: @textColor;
+                padding-top: 25px;
+                background: #fff;
+                
+                li{
+                    margin-bottom: 20px;
+                    line-height: 35px;
+                }
+            }
+        }
+        .right{
+            right: 0;
+        }
+    }
+    
+    //公用标题样式
+    .public-title{
+        
+        .h3{
+            display: inline-block;
+            text-align: center;
+            font-size: 38px;
+            color: @blueColor;
+            letter-spacing: 5px;
+            padding: 0px 40px;
+            position: relative;
+            
+            .english{
+                display: block;
+                font-size: 50px;
+                padding: 20px 0;
+                color: #dadada;
+            }
+            
+            &:after{
+                content: "";
+                display: block;
+                width: 80px;
+                height: 3px;
+                background: @blueColor;
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+        }
+        .left-line,.right-line{
+            display: inline-block;
+            width: 195px;
+            height: 1px;
+            background: #626262;
+            vertical-align: 80%;
+        }
+    }
+    
+    .content2{
+        width: 100%;
+        min-height: 1044px;
+        position: relative;
+        text-align: center;
+        
+        .content2-text{
+            width: 350px;
+            height: 137px;
+            background: url(../img/yinhao.png) no-repeat;
+            position: absolute;
+            top: 197px;
+            left: 984px;
+            font-size: 20px;
+            line-height: 30px;
+            color: @textColor;
+            text-align: left;
+            padding: 20px 0px 20px 20px;
+        }
+        
+        .content2-bottom{
+            width: 100%;
+            height: 358px;
+            background: url(../img/me-content2.png) center center;
+            position: absolute;
+            top: 530px;
+            
+            img{
+                position: absolute;
+            }
+            img:nth-of-type(1){
+                left: 450px;
+                bottom: 0px;
+            }
+            img:nth-of-type(2){
+                left: 984px;
+                bottom: -280px;
+            }
+        }
+    }
+    
+    .content3{
+        min-height: 1090px;
+        text-align: center;
+        
+        img{
+            margin-top: 60px;
+        }
+    }
+    
+    .content4{
+        width: 100%;
+        min-height: 975px;
+        position: relative;
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        
+        .contact{
+            width: 100%;
+            height: 748px;
+            margin-top: 100px;
+            background: url(../img/big-map.png) no-repeat center center;
+            position: relative;
+            
+            .contact-list,.two-code{
+                width: 500px;
+                text-align: left;
+                position: absolute;
+                top: 125px;
+                left: 1112px;
+                .padding-left{
+                    padding-left: 70px;
+                }
+                li{
+                    margin-bottom: 20px;
+                }
+            }
+            
+            .two-code{
+                top: 440px;
+            }
+        }
+    }
+    
+    
+}
