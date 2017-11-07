@@ -9,14 +9,17 @@ $("#nav-ul").on("hover", "li", function () {
         $resolve.hide();
         $product.show();
         $news.hide();
+        $(this).css("border-bottom","none");
     } else if (name == "resolve") {
         $product.hide();
         $resolve.show();
         $news.hide();
+        $(this).css("border-bottom","none");
     }else if(name == "news"){
         $product.hide();
         $resolve.hide();
         $news.show();
+        $(this).css("border-bottom","none");
         $(".news").css("margin-top","0");//修复新闻资讯下拉在index页出现margin-top多出50px问题
     } else {
         $product.hide();
@@ -24,8 +27,11 @@ $("#nav-ul").on("hover", "li", function () {
         $news.hide();
     }
 
-    
 });
+//接收传过来的下标给当前下标的li设置选中状态
+var index = window.location.href.split("=")[1];
+$("#nav-ul li").eq(index).addClass("active").siblings("li").removeClass("active");
+
 
 //弹窗显示和隐藏
 var pop_switchover = function (obj) {
