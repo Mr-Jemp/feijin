@@ -29,8 +29,20 @@ $("#nav-ul").on("hover", "li", function () {
 
 });
 //接收传过来的下标给当前下标的li设置选中状态
-var index = window.location.href.split("=")[1];
-$("#nav-ul li").eq(index).addClass("active").siblings("li").removeClass("active");
+function getIndex(){
+  var href = window.location.href;
+  var index = href.split("=")[1];
+  if(index > 10){
+    index = 0;
+  }
+  return index;
+}
+$(function(){
+  $("#nav-ul li").eq(getIndex()).addClass("active").siblings("li").removeClass("active");
+  if($("#nav-ul li").eq(getIndex()).find("a")){
+    $("#nav-ul li").eq(getIndex()).find("a").css("color","#2199d7");
+  }
+});
 
 
 //弹窗显示和隐藏
