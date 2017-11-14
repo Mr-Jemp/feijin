@@ -24,6 +24,9 @@
   position: relative;
   padding-bottom: 73px;
 }
+.resolve1-content .show {
+  display: block;
+}
 .resolve1-content .resolve1-content1,
 .resolve1-content .resolve1-content3,
 .resolve1-content .resolve1-content4,
@@ -54,6 +57,9 @@
   font-size: 30px;
   color: #cbcbcb;
   margin-left: 20px;
+}
+.resolve1-content .resolve1-content1 .tab-change {
+  display: none;
 }
 .resolve1-content .resolve1-content1 img {
   margin-left: 70px;
@@ -268,6 +274,9 @@
   padding-right: 35px;
   color: #e0f2f9;
 }
+.resolve1-content .resolve1-content5 .content5-left .left-ul {
+  display: none;
+}
 .resolve1-content .resolve1-content5 .content5-left .left-ul li {
   margin-bottom: 10px;
   font-size: 15px;
@@ -288,6 +297,7 @@
   position: absolute;
   right: 0;
   top: 355px;
+  display: none;
 }
 .resolve1-content .resolve1-content5 .content5-right .right-ul1 li {
   float: left;

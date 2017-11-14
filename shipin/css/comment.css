@@ -23,7 +23,6 @@ pre,
 blockquote,
 figure {
   margin: 0;
-  padding: 0;
 }
 th,
 td {
@@ -487,7 +486,7 @@ input[type=checkbox]:focus {
   margin-left: 1070px;
 }
 .header .drop-down .news {
-  margin-left: 1145px;
+  margin-left: 1147px;
 }
 /** 底部 **/
 .public-footer-layout {
