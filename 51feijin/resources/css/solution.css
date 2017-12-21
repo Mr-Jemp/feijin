@@ -78,27 +78,27 @@ body .public-header .header-nav {
 }
 .solution-2 .solution2-list li > i {
   display: inline-block;
-  background: url(../img/css_sprites.png) 0 0 no-repeat;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
 .solution-2 .solution2-list li:nth-of-type(1) i {
   width: 98px;
   height: 98px;
-  background-position: -128px -128px;
+  background-position: -138px -138px;
 }
 .solution-2 .solution2-list li:nth-of-type(2) i {
   width: 99px;
   height: 98px;
-  background-position: -10px -10px;
+  background-position: -20px -20px;
 }
 .solution-2 .solution2-list li:nth-of-type(3) i {
   width: 62px;
   height: 98px;
-  background-position: -210px -246px;
+  background-position: -220px -256px;
 }
 .solution-2 .solution2-list li:nth-of-type(4) i {
   width: 103px;
   height: 92px;
-  background-position: -248px -10px;
+  background-position: -258px -20px;
 }
 .solution-2 .solution2-list li:nth-of-type(4) span {
   padding-top: 71px;
@@ -113,16 +113,16 @@ body .public-header .header-nav {
   color: #fff;
 }
 .solution-2 .solution2-list li:nth-of-type(1):hover i {
-  background-position: -10px -128px;
+  background-position: -20px -138px;
 }
 .solution-2 .solution2-list li:nth-of-type(2):hover i {
-  background-position: -128px -10px;
+  background-position: -138px -20px;
 }
 .solution-2 .solution2-list li:nth-of-type(3):hover i {
-  background-position: -290px -246px;
+  background-position: -300px -256px;
 }
 .solution-2 .solution2-list li:nth-of-type(4):hover i {
-  background-position: -248px -121px;
+  background-position: -258px -131px;
 }
 .solution-2 .solution2-list li .solution2-item-text {
   display: block;

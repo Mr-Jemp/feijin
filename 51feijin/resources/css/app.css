@@ -53,8 +53,8 @@ body .public-header {
   display: inline-block;
   width: 44px;
   height: 46px;
-  background: url(../img/css_sprites.png) 0 0 no-repeat;
-  background-position: -371px -250px;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
+  background-position: -381px -260px;
   margin-left: 58px;
   margin-top: 24px;
   margin-right: 24px;
@@ -100,13 +100,13 @@ body .public-header {
   display: inline-block;
   width: 80px;
   height: 96px;
-  background: url(../img/css_sprites.png) 0 0 no-repeat;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
 .app-3 .phone-type li:nth-of-type(1) i {
-  background-position: -111px -246px;
+  background-position: -121px -256px;
 }
 .app-3 .phone-type li:nth-of-type(2) i {
-  background-position: -10px -246px;
+  background-position: -20px -256px;
 }
 .app-3 .phone-type li .phone-text {
   display: block;
@@ -268,7 +268,7 @@ body .public-header {
   top: 0;
   bottom: 0;
   margin: auto;
-  background: url(../img/css_sprites.png) 0 0 no-repeat;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
 .app-5 .app5-nav .app5-item .circle-text {
   font-size: 18px;
@@ -289,7 +289,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(1) .circle i {
   width: 41px;
   height: 36px;
-  background-position: -191px -362px;
+  background-position: -201px -372px;
 }
 .app-5 .app5-nav .app5-item:nth-of-type(2) {
   width: 180px;
@@ -304,7 +304,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(2) .circle i {
   width: 56px;
   height: 63px;
-  background-position: -371px -86px;
+  background-position: -381px -96px;
 }
 .app-5 .app5-nav .app5-item:nth-of-type(3) {
   width: 140px;
@@ -319,7 +319,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(3) .circle i {
   width: 40px;
   height: 39px;
-  background-position: -131px -362px;
+  background-position: -141px -372px;
 }
 .app-5 .app5-nav .app5-item:nth-of-type(4) {
   width: 150px;
@@ -334,7 +334,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(4) .circle i {
   width: 51px;
   height: 61px;
-  background-position: -371px -169px;
+  background-position: -381px -179px;
 }
 .app-5 .app5-nav .app5-item:nth-of-type(5) {
   width: 110px;
@@ -349,7 +349,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(5) .circle i {
   width: 40px;
   height: 42px;
-  background-position: -71px -362px;
+  background-position: -81px -372px;
 }
 .app-5 .app5-nav .app5-item:nth-of-type(6) {
   width: 110px;
@@ -364,7 +364,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(6) .circle i {
   width: 32px;
   height: 43px;
-  background-position: -465px -10px;
+  background-position: -475px -20px;
 }
 .app-5 .app5-nav .app5-item:nth-of-type(7) {
   width: 140px;
@@ -379,7 +379,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(7) .circle i {
   width: 41px;
   height: 47px;
-  background-position: -10px -362px;
+  background-position: -20px -372px;
 }
 .app-5 .app5-nav .app5-item:nth-of-type(8) {
   width: 180px;
@@ -394,7 +394,7 @@ body .public-header {
 .app-5 .app5-nav .app5-item:nth-of-type(8) .circle i {
   width: 74px;
   height: 56px;
-  background-position: -371px -10px;
+  background-position: -381px -20px;
 }
 .app-6 {
   width: 100%;
@@ -521,17 +521,17 @@ body .public-header {
   width: 24px;
   height: 24px;
   vertical-align: middle;
-  background: url(../img/css_sprites.png) 0 0 no-repeat;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
 .app-7 .app7-wrap .right-list li:nth-of-type(1) i {
-  background-position: -465px -117px;
+  background-position: -475px -127px;
 }
 .app-7 .app7-wrap .right-list li:nth-of-type(2) i {
   height: 18px;
-  background-position: -465px -161px;
+  background-position: -475px -171px;
 }
 .app-7 .app7-wrap .right-list li:nth-of-type(3) i {
-  background-position: -465px -73px;
+  background-position: -475px -83px;
 }
 .app-7 .app7-wrap .right-list li .right-item-text {
   padding-left: 25px;

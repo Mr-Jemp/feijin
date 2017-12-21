@@ -58,27 +58,27 @@ body .public-header {
   top: 0;
   bottom: 0;
   margin: auto;
-  background: url(../img/css_sprites_2.png) 0 0 no-repeat;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
 .wechat-2 .wechat2-list li:nth-of-type(1) div i {
   width: 88px;
   height: 78px;
-  background-position: -126px -116px;
+  background-position: -663px -126px;
 }
 .wechat-2 .wechat2-list li:nth-of-type(2) div i {
   width: 97px;
   height: 86px;
-  background-position: -10px -10px;
+  background-position: -547px -126px;
 }
 .wechat-2 .wechat2-list li:nth-of-type(3) div i {
   width: 92px;
   height: 82px;
-  background-position: -10px -116px;
+  background-position: -547px -20px;
 }
 .wechat-2 .wechat2-list li:nth-of-type(4) div i {
   width: 100px;
   height: 82px;
-  background-position: -126px -10px;
+  background-position: -663px -20px;
 }
 .wechat-2 .wechat2-list li .item-title,
 .wechat-2 .wechat2-list li .item-text {
@@ -154,47 +154,47 @@ body .public-header {
 .wechat-3 .wechat3-center .center-wrap li .item-img-box i {
   margin-top: 60px;
   display: inline-block;
-  background: url(../img/css_sprites_2.png) 0 0 no-repeat;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(1) .item-img-box i {
   width: 70px;
   height: 67px;
-  background-position: -248px -10px;
+  background-position: -784px -20px;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(2) .item-img-box i {
   width: 63px;
   height: 52px;
-  background-position: -168px -218px;
+  background-position: -705px -227px;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(3) .item-img-box i {
   width: 53px;
   height: 53px;
-  background-position: -337px -86px;
+  background-position: -874px -96px;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(4) .item-img-box i {
   width: 62px;
   height: 52px;
-  background-position: -251px -218px;
+  background-position: -788px -228px;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(5) .item-img-box i {
   width: 58px;
   height: 60px;
-  background-position: -90px -218px;
+  background-position: -628px -228px;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(6) .item-img-box i {
   width: 65px;
   height: 63px;
-  background-position: -248px -97px;
+  background-position: -784px -107px;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(7) .item-img-box i {
   width: 56px;
   height: 56px;
-  background-position: -337px -10px;
+  background-position: -874px -20px;
 }
 .wechat-3 .wechat3-center .center-wrap li:nth-of-type(8) .item-img-box i {
   width: 60px;
   height: 60px;
-  background-position: -10px -218px;
+  background-position: -547px -228px;
 }
 .wechat-3 .wechat3-center .center-wrap li .item-caption {
   font-size: 18px;

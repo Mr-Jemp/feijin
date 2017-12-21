@@ -75,32 +75,10 @@
   color: #fff;
   overflow: hidden;
 }
-.index-1 .container .index-1-2 .box-bottom li:nth-of-type(3) {
-  height: 436px;
-  background: url(../img/bg3_03.png) 0 0;
-  left: 480px;
-}
-.index-1 .container .index-1-2 .box-bottom li:nth-of-type(2),
-.index-1 .container .index-1-2 .box-bottom li:nth-of-type(4) {
-  height: 360px;
-}
-.index-1 .container .index-1-2 .box-bottom li:nth-of-type(1) {
-  background: url(../img/bg1_03.png) 0 0;
-  left: 0;
-  height: 295px;
-}
-.index-1 .container .index-1-2 .box-bottom li:nth-of-type(2) {
-  background: url(../img/bg2_03.png) 0 0;
-  left: 240px;
-}
-.index-1 .container .index-1-2 .box-bottom li:nth-of-type(4) {
-  background: url(../img/bg4_03.png) 0 0;
-  left: 720px;
-}
-.index-1 .container .index-1-2 .box-bottom li:nth-of-type(5) {
-  background: url(../img/bg5_03.png) 0 0;
-  left: 960px;
-  height: 318px;
+.index-1 .container .index-1-2 .box-bottom li a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .index-1 .container .index-1-2 .box-bottom li .icon-box {
   width: 100px;
@@ -113,13 +91,67 @@
   margin-top: 25px;
   position: relative;
 }
-.index-1 .container .index-1-2 .box-bottom li .icon-box img {
+.index-1 .container .index-1-2 .box-bottom li .icon-box i {
+  display: block;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   top: 0;
   margin: auto;
+  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(3) {
+  height: 436px;
+  background: url(../img/bg3_03.png) 0 0;
+  left: 480px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(3) .icon-box i {
+  width: 35px;
+  height: 62px;
+  background-position: -532px -550px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(2),
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(4) {
+  height: 360px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(1) {
+  background: url(../img/bg1_03.png) 0 0;
+  left: 0;
+  height: 295px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(1) .icon-box i {
+  width: 56px;
+  height: 50px;
+  background-position: -155px -449px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(2) {
+  background: url(../img/bg2_03.png) 0 0;
+  left: 240px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(2) .icon-box i {
+  width: 54px;
+  height: 44px;
+  background-position: -231px -449px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(4) {
+  background: url(../img/bg4_03.png) 0 0;
+  left: 720px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(4) .icon-box i {
+  width: 56px;
+  height: 50px;
+  background-position: -155px -449px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(5) {
+  background: url(../img/bg5_03.png) 0 0;
+  left: 960px;
+  height: 318px;
+}
+.index-1 .container .index-1-2 .box-bottom li:nth-of-type(5) .icon-box i {
+  width: 56px;
+  height: 50px;
+  background-position: -155px -449px;
 }
 .index-1 .container .index-1-2 .box-bottom li .caption {
   text-align: center;
@@ -182,8 +214,13 @@
 .index-2 .index-2-1 .list li:hover .item-btn {
   opacity: 1;
 }
-.index-2 .index-2-1 .list li .item-top img {
+.index-2 .index-2-1 .list li .item-top .index2-icon {
   margin: 20px 0;
+  display: inline-block;
+  width: 125px;
+  height: 80px;
+  background: url(../img/css_sprites_3.png) no-repeat;
+  background-position: -10px -449px;
 }
 .index-2 .index-2-1 .list li .item-top .item-caption {
   font-size: 16px;
@@ -268,8 +305,7 @@
   display: inline-block;
   width: 21px;
   height: 20px;
-  background: url(../img/line_icon.png) 0 0 no-repeat;
-  background-size: cover;
+  background: url(../img/css_sprites_3.png) -305px -449px no-repeat;
   vertical-align: text-bottom;
 }
 .index-3 .left-nav ul li {
