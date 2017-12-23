@@ -118,6 +118,11 @@ body .public-header .header-nav {
 }
 .team-3 .team3-photo-list {
   width: 100%;
+  position: absolute;
+  display: none;
+}
+.team-3 .team3-photo-list.show {
+  display: block;
 }
 .team-3 .team3-photo-list li {
   float: left;

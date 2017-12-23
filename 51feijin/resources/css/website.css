@@ -1,0 +1,199 @@
+body .public-header {
+  background: #fff;
+}
+body .public-header .header-nav {
+  color: #000;
+}
+.website-1 {
+  width: 100%;
+  height: 460px;
+  background: url(../img/website_bg1.png) center 100px no-repeat;
+  background-size: 100% 460px;
+  padding-top: 100px;
+}
+.website-1 .text-box {
+  width: 600px;
+  margin: 0 auto;
+  padding-top: 140px;
+  text-align: center;
+  color: #fff;
+}
+.website-1 .text-box .website1-caption {
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 600;
+  padding: 15px 0;
+}
+.website-1 .text-box .website1-text {
+  font-size: 18px;
+  line-height: 30px;
+}
+.website-2 {
+  width: 100%;
+  min-height: 628px;
+}
+.website-2 p {
+  font-size: 16px;
+  color: #666;
+  line-height: 28px;
+  text-align: center;
+  margin-bottom: 35px;
+}
+.website-2 .website2-list {
+  width: 1095px;
+  padding-bottom: 30px;
+  margin: 0 auto;
+}
+.website-2 .website2-list li {
+  float: left;
+  width: 293px;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  font-size: 16px;
+  color: #5a6af5;
+  border: 1px solid #3874F4;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  margin: 30px 35px;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -ms-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+.website-2 .website2-list li:hover {
+  background-color: #3874F4;
+  color: #fff;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -ms-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+.website-3 {
+  width: 100%;
+  min-height: 650px;
+  background: url(../img/website_bg2.png) center center no-repeat;
+  background-size: cover;
+}
+.website-3 .public-title .public-title-top {
+  color: #fff;
+}
+.website-3 .public-title .public-title-bottom {
+  color: #fff;
+  padding-bottom: 0;
+}
+.website-3 .website3-list {
+  padding-bottom: 100px;
+}
+.website-3 .website3-list li {
+  float: left;
+  width: 280px;
+  height: 403px;
+  overflow: hidden;
+  background: #fff;
+  margin-right: 26px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+}
+.website-3 .website3-list li:last-of-type {
+  margin-right: 0;
+}
+.website-3 .website3-list li .item-img-box {
+  width: 260px;
+  height: 152px;
+  background: #5462e1;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.website-3 .website3-list li .item-img-box img {
+  display: block;
+  width: 100%;
+}
+.website-3 .website3-list li .item-caption {
+  font-size: 18px;
+  color: #5a69f5;
+  padding: 20px 0;
+}
+.website-3 .website3-list li .item-text {
+  font-size: 14px;
+  color: #666;
+  height: 90px;
+}
+.website-3 .website3-list li .item-btn {
+  display: block;
+  width: 245px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  font-size: 16px;
+  color: #5a6af5;
+  border: 1px solid #3874F4;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  margin: 7px auto 0;
+}
+.website-3 .website3-list li .item-btn:hover {
+  text-decoration: underline;
+}
+.website-4 {
+  width: 100%;
+  height: 580px;
+  background: url(../img/wechat_bg3.png) center center no-repeat;
+  background-size: cover;
+}
+.website-5 {
+  width: 100%;
+  min-height: 800px;
+}
+.website-5 .website5-list li {
+  float: left;
+  width: 390px;
+  height: 280px;
+  overflow: hidden;
+  background: #3874F4;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.website-5 .website5-list li:nth-of-type(3n-3) {
+  margin-right: 0;
+}
+.website-5 .website5-list li img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+}
+.website-5 .website5-list li:hover .item-shade {
+  bottom: 0;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.website-5 .website5-list li .item-shade {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 370px;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  font-size: 16px;
+  padding-left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}

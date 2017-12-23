@@ -79,6 +79,11 @@ body{
             box-sizing: border-box;
             padding-top: 115px;
             overflow: hidden;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+            transition: .5s;
             >i{
                 display: inline-block;
                 background: url(../img/css_sprites_3.png) 0 0 no-repeat;
@@ -119,7 +124,15 @@ body{
                 margin-right: 0;
             }
             &:hover{
+                -webkit-transition: .5s;
+                -moz-transition: .5s;
+                -ms-transition: .5s;
+                -o-transition: .5s;
+                transition: .5s;
                 background-color: #3874f4;
+                -webkit-box-shadow: 0 0 15px #3874F4;
+                -moz-box-shadow: 0 0 15px #3874F4;
+                box-shadow: 0 0 15px #3874F4;
                 span{
                     color: #fff;
                 }

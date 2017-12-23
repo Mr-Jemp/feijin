@@ -1,4 +1,5 @@
-;(function() {
+/********************案例***********************/ ;
+(function() {
   let oIndexBox = $(".index-3");
 
   let oLeftLi = $(".index-3 .left-nav li");
@@ -19,9 +20,22 @@
   let index;
   oLeftLi.click(function() {
     index = $(this).index();
-    oIndexBox.css("background", "url(" + obj.imgArr[index] + ")");
+    oIndexBox.css({
+      "opacity": "0",
+      "transition": ".5s"
+    });
+    setTimeout(() => {
+      oIndexBox.css({
+        "opacity": "1",
+        "background": "url(" + obj.imgArr[index] + ")",
+        "transition": ".5s"
+      });
+    }, 30)
     for(let i = 0; i < obj.colorArr.length; i++) {
-      oLeftLi.eq(i).css("background-color", "#fff");
+      oLeftLi.eq(i).css({
+        "background-color": "#fff",
+        "transition": ".5s"
+      });
       oLeftLi.eq(i).find("i").css("background-position", obj.bgBlue[i]);
     }
     $(this).css("background", obj.colorArr[index]).addClass("active").siblings("li").removeClass("active");
@@ -103,3 +117,15 @@
   })
 
 })();
+
+/**********************最新资讯***********************/
+(function() {
+  let $li = $(".index-5 .nav>li");
+  let $tab = $(".index-5 .list");
+  let index;
+  $li.click(function() {
+    index = $(this).index();
+    $(this).addClass("active").siblings("li").removeClass("active");
+    $tab.stop(true,true).fadeOut().eq(index).stop(true,true).fadeIn();
+  })
+})()

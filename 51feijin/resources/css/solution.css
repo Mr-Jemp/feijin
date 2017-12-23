@@ -75,6 +75,11 @@ body .public-header .header-nav {
   box-sizing: border-box;
   padding-top: 115px;
   overflow: hidden;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
 }
 .solution-2 .solution2-list li > i {
   display: inline-block;
@@ -107,7 +112,15 @@ body .public-header .header-nav {
   margin-right: 0;
 }
 .solution-2 .solution2-list li:hover {
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
   background-color: #3874f4;
+  -webkit-box-shadow: 0 0 15px #3874F4;
+  -moz-box-shadow: 0 0 15px #3874F4;
+  box-shadow: 0 0 15px #3874F4;
 }
 .solution-2 .solution2-list li:hover span {
   color: #fff;

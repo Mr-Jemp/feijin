@@ -1,0 +1,18 @@
+说明文件
+
+
+index.html          首页
+kernel.html         核心业务
+solution.html       解决方案
+case.html           成功案例
+case_detail         案例详情
+info.html           新闻中心
+info_detail.html    资讯详情页面
+about.html          关于飞进
+app.html            app开发
+weChat.html         微信开发
+team.html           团队文化
+recruit.html        人才招聘
+software.html       软件开发
+website.html        网站开发
+contact.html        联系我们

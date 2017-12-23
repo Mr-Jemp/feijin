@@ -293,6 +293,11 @@
     min-height: 660px;
     background: url(../img/index_bg1.png) 0 0 no-repeat;
     background-size: cover;
+    -webkit-transition: .5;
+    -moz-transition: .5;
+    -ms-transition: .5;
+    -o-transition: .5;
+    transition: .5;
     .left-nav {
         width: 294px;
         height: 525px;
@@ -513,6 +518,11 @@
         width: 100%;
         min-height: 460px;
         padding-top: 40px;
+        display: none;
+        position: absolute;
+        &.show{
+            display: block;
+        }
         li {
             float: left;
             width: 280px;
@@ -523,7 +533,7 @@
                 overflow: hidden;
                 img{
                     display: block;
-                    width: 280px;
+                    width: 100%;
                 }
             }
             .item-time {
