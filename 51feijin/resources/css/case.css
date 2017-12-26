@@ -57,6 +57,10 @@ body .public-header {
   width: 100%;
   min-height: 1275px;
   padding-top: 47px;
+  display: none;
+}
+.case-2 .case2-list.show {
+  display: block;
 }
 .case-2 .case2-list li {
   float: left;
@@ -141,6 +145,9 @@ body .public-header {
   cursor: pointer;
   font-size: 14px;
   color: #626262;
+}
+.case-2 .page-wrap li:hover {
+  color: #fff;
 }
 .case-2 .page-wrap li:last-child {
   margin-right: 0;

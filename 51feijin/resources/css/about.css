@@ -159,7 +159,7 @@ body .public-header .header-nav {
 .about-5 .about5-text {
   display: -webkit-box;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   width: 1090px;

@@ -36,8 +36,9 @@ body .public-header .header-nav {
   font-size: 16px;
   color: #666;
   line-height: 28px;
-  text-align: center;
+  text-align: left;
   margin-bottom: 35px;
+  text-indent: 30px;
 }
 .website-2 .website2-list {
   width: 1095px;

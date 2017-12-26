@@ -46,7 +46,7 @@ body .public-header {
 }
 .info-2 .info2-nav-wrap .info2-nav li {
   float: left;
-  padding: 0 45px;
+  padding: 0 40px;
   height: 50px;
   line-height: 50px;
   cursor: pointer;
@@ -65,6 +65,10 @@ body .public-header {
 }
 .info-2 .list-wrap .left-list .list-1 {
   width: 100%;
+  display: none;
+}
+.info-2 .list-wrap .left-list .list-1.show {
+  display: block;
 }
 .info-2 .list-wrap .left-list .list-1 li {
   width: 100%;
@@ -164,6 +168,9 @@ body .public-header {
   font-size: 14px;
   color: #626262;
 }
+.info-2 .list-wrap .left-list .page-wrap li:hover {
+  color: #fff;
+}
 .info-2 .list-wrap .left-list .page-wrap li:last-child {
   margin-right: 0;
 }
@@ -232,10 +239,8 @@ body .public-header {
   font-size: 14px;
   color: #4d4d4e;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
 }
 .info-2 .list-wrap .right-list-wrap .box .right-list li .item-text a:hover {
   color: #3874F4;

@@ -62,6 +62,10 @@ body{
         width: 100%;
         min-height: 1275px;
         padding-top: 47px;
+        display: none;
+        &.show{
+            display: block;
+        }
         li{
             float: left;
             width: 285px;
@@ -147,6 +151,9 @@ body{
             cursor: pointer;
             font-size: 14px;
             color: #626262; 
+            &:hover{
+                color: #fff;
+            }
             &:last-child{
                 margin-right: 0;
             }

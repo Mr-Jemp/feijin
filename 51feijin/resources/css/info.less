@@ -50,7 +50,7 @@ body{
             
             li{
                 float: left;
-                padding: 0 45px;
+                padding: 0 40px;
                 height: 50px;
                 line-height: 50px;
                 cursor: pointer;
@@ -69,6 +69,10 @@ body{
             background-color: #fff;
             .list-1{
                 width: 100%;
+                display: none;
+                &.show{
+                    display: block;
+                }
                 li{
                     width: 100%;
                     -webkit-box-sizing: border-box;
@@ -171,6 +175,9 @@ body{
                     cursor: pointer;
                     font-size: 14px;
                     color: #626262; 
+                    &:hover{
+                        color: #fff;
+                    }
                     &:last-child{
                         margin-right: 0;
                     }
@@ -242,10 +249,8 @@ body{
                             font-size: 14px;
                             color: #4d4d4e;
                             overflow: hidden;
+                            white-space: nowrap;
                             text-overflow: ellipsis;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 1;
-                            -webkit-box-orient: vertical;
                             a:hover{
                                 color: #3874F4;
                             }
