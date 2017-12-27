@@ -12,10 +12,9 @@ body .public-header .header-nav {
   padding-top: 100px;
 }
 .website-1 .text-box {
-  width: 600px;
+  width: 705px;
   margin: 0 auto;
   padding-top: 140px;
-  text-align: center;
   color: #fff;
 }
 .website-1 .text-box .website1-caption {
@@ -23,6 +22,7 @@ body .public-header .header-nav {
   font-style: normal;
   font-weight: 600;
   padding: 15px 0;
+  text-align: center;
 }
 .website-1 .text-box .website1-text {
   font-size: 18px;
