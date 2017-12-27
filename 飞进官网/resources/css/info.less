@@ -155,14 +155,20 @@ body{
                 }
             }
             .page-wrap{
-                width: 375px;
+                width: 380px;
                 margin: 20px auto 0;
                 .active{
                     background-color: #3874f4;
                     color: #fff;
                 }
-                span{
+                a{
+                    margin-right: 10px;
                     float: left;
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                }
+                span{
                     width: 33px;
                     height: 33px;
                     text-align: center;
@@ -171,15 +177,11 @@ body{
                     -webkit-border-radius: 3px;
                     -moz-border-radius: 3px;
                     border-radius: 3px;
-                    margin-right: 10px;
                     cursor: pointer;
                     font-size: 14px;
                     color: #626262; 
                     &:hover{
                         color: #fff;
-                    }
-                    &:last-child{
-                        margin-right: 0;
                     }
                     &.omit{
                         border: none;

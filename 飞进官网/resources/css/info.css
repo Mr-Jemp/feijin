@@ -146,15 +146,21 @@ body .public-header {
   background-position: -475px -249px;
 }
 .info-2 .list-wrap .left-list .page-wrap {
-  width: 375px;
+  width: 380px;
   margin: 20px auto 0;
 }
 .info-2 .list-wrap .left-list .page-wrap .active {
   background-color: #3874f4;
   color: #fff;
 }
-.info-2 .list-wrap .left-list .page-wrap span {
+.info-2 .list-wrap .left-list .page-wrap a {
+  margin-right: 10px;
   float: left;
+}
+.info-2 .list-wrap .left-list .page-wrap a:last-child {
+  margin-right: 0;
+}
+.info-2 .list-wrap .left-list .page-wrap span {
   width: 33px;
   height: 33px;
   text-align: center;
@@ -163,16 +169,12 @@ body .public-header {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  margin-right: 10px;
   cursor: pointer;
   font-size: 14px;
   color: #626262;
 }
 .info-2 .list-wrap .left-list .page-wrap span:hover {
   color: #fff;
-}
-.info-2 .list-wrap .left-list .page-wrap span:last-child {
-  margin-right: 0;
 }
 .info-2 .list-wrap .left-list .page-wrap span.omit {
   border: none;

@@ -124,15 +124,21 @@ body .public-header {
   background-position: -475px -209px;
 }
 .case-2 .page-wrap {
-  width: 375px;
+  width: 380px;
   margin: 0 auto;
 }
 .case-2 .page-wrap .active {
   background-color: #3874f4;
   color: #fff;
 }
-.case-2 .page-wrap span {
+.case-2 .page-wrap a {
+  margin-right: 10px;
   float: left;
+}
+.case-2 .page-wrap a:last-child {
+  margin-right: 0;
+}
+.case-2 .page-wrap span {
   width: 33px;
   height: 33px;
   text-align: center;
@@ -141,7 +147,6 @@ body .public-header {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  margin-right: 10px;
   cursor: pointer;
   font-size: 14px;
   color: #626262;
