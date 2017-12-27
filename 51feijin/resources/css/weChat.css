@@ -10,7 +10,7 @@ body .public-header {
   background-size: 100% 460px;
 }
 .wechat-1 .banner-text {
-  width: 600px;
+  width: 700px;
   position: absolute;
   top: 160px;
   left: 40px;
@@ -34,17 +34,20 @@ body .public-header {
   width: 100%;
 }
 .wechat-2 .wechat2-list li {
-  margin: 0 65px;
+  margin: 0 50px;
   float: left;
-  width: 160px;
+  width: 200px;
+  position: relative;
 }
 .wechat-2 .wechat2-list li > div {
+  background: #fff;
   width: 160px;
   height: 160px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   margin-bottom: 10px;
+  margin-left: 10%;
   position: relative;
   -webkit-box-shadow: 0 0 15px rgba(178, 186, 203, 0.25);
   -moz-box-shadow: 0 0 15px rgba(178, 186, 203, 0.25);

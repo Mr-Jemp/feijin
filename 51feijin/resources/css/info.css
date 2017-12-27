@@ -153,7 +153,7 @@ body .public-header {
   background-color: #3874f4;
   color: #fff;
 }
-.info-2 .list-wrap .left-list .page-wrap li {
+.info-2 .list-wrap .left-list .page-wrap span {
   float: left;
   width: 33px;
   height: 33px;
@@ -168,13 +168,13 @@ body .public-header {
   font-size: 14px;
   color: #626262;
 }
-.info-2 .list-wrap .left-list .page-wrap li:hover {
+.info-2 .list-wrap .left-list .page-wrap span:hover {
   color: #fff;
 }
-.info-2 .list-wrap .left-list .page-wrap li:last-child {
+.info-2 .list-wrap .left-list .page-wrap span:last-child {
   margin-right: 0;
 }
-.info-2 .list-wrap .left-list .page-wrap li.omit {
+.info-2 .list-wrap .left-list .page-wrap span.omit {
   border: none;
   color: #000;
   font-size: 18px;

@@ -131,7 +131,7 @@ body .public-header {
   background-color: #3874f4;
   color: #fff;
 }
-.case-2 .page-wrap li {
+.case-2 .page-wrap span {
   float: left;
   width: 33px;
   height: 33px;
@@ -146,13 +146,13 @@ body .public-header {
   font-size: 14px;
   color: #626262;
 }
-.case-2 .page-wrap li:hover {
+.case-2 .page-wrap span:hover {
   color: #fff;
 }
-.case-2 .page-wrap li:last-child {
+.case-2 .page-wrap span:last-child {
   margin-right: 0;
 }
-.case-2 .page-wrap li.omit {
+.case-2 .page-wrap span.omit {
   border: none;
   color: #000;
   font-size: 18px;

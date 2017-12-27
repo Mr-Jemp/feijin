@@ -50,9 +50,6 @@ body .public-header .header-nav {
   line-height: 25px;
   letter-spacing: 1px;
 }
-.solution-1 .solution1-box .solution1-text:last-child {
-  padding-top: 30px;
-}
 .solution-2 {
   width: 100%;
   min-height: 545px;
