@@ -75,57 +75,57 @@ body .public-header {
   top: 0;
   bottom: 0;
   margin: auto;
-  background: url(../img/css_sprites-4.png) 0 0 no-repeat;
+  background: url(../img/css_sprites.png) 0 0 no-repeat;
 }
 .kernel-1 .list li:nth-of-type(1) .icon-box i {
   width: 40px;
   height: 40px;
-  background-position: -10px -67px;
+  background-position: -212px -68px;
 }
 .kernel-1 .list li:nth-of-type(2) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(3) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(4) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(5) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(6) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(7) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(8) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(9) .icon-box i {
-  width: 40px;
-  height: 40px;
-  background-position: -10px -67px;
-}
-.kernel-1 .list li:nth-of-type(10) .icon-box i {
   width: 45px;
   height: 37px;
+  background-position: -10px -147px;
+}
+.kernel-1 .list li:nth-of-type(3) .icon-box i {
+  width: 43px;
+  height: 38px;
+  background-position: -212px -10px;
+}
+.kernel-1 .list li:nth-of-type(4) .icon-box i {
+  width: 47px;
+  height: 39px;
+  background-position: -75px -82px;
+}
+.kernel-1 .list li:nth-of-type(5) .icon-box i {
+  width: 49px;
+  height: 46px;
+  background-position: -81px -10px;
+}
+.kernel-1 .list li:nth-of-type(6) .icon-box i {
+  width: 45px;
+  height: 45px;
+  background-position: -10px -82px;
+}
+.kernel-1 .list li:nth-of-type(7) .icon-box i {
+  width: 42px;
+  height: 42px;
+  background-position: -150px -72px;
+}
+.kernel-1 .list li:nth-of-type(8) .icon-box i {
+  width: 51px;
+  height: 52px;
   background-position: -10px -10px;
+}
+.kernel-1 .list li:nth-of-type(9) .icon-box i {
+  width: 42px;
+  height: 42px;
+  background-position: -150px -10px;
+}
+.kernel-1 .list li:nth-of-type(10) .icon-box i {
+  width: 40px;
+  height: 40px;
+  background-position: -212px -128px;
 }
 .kernel-1 .list li .item-caption {
   font-size: 24px;
