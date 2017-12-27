@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html style="margin: 0 auto;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <title>国开微课</title>
+  </head>
+  <body style="font-size: 16px;">
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+<script>
+  const htmlNode = document.querySelector("html");
+  if (document.body.clientWidth > 600) {
+    htmlNode.style.fontSize = "60px";
+    htmlNode.style.width = "600px";
+  } else {
+    htmlNode.style.fontSize = htmlNode.clientWidth / 10 + "px";
+  }
+</script>
