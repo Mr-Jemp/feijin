@@ -263,4 +263,17 @@
   map.setCurrentCity("广州"); // 设置地图显示的城市 此项是必须设置的
   map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
   
+  var marker = new BMap.Marker(point);  // 创建标注
+  map.addOverlay(marker);              // 将标注添加到地图中
+  var opts = {
+    width : 200,     // 信息窗口宽度
+    height: 100,     // 信息窗口高度
+    title : "广州飞进科技有限公司" , // 信息窗口标题
+    enableMessage:true,//设置允许信息窗发送短息
+    message:"亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~"
+  }
+  var infoWindow = new BMap.InfoWindow("地址：广州市天河区东圃宦溪西路11号FLY创意空间5楼501-506", opts);  // 创建信息窗口对象 
+  marker.addEventListener("click", function(){          
+    map.openInfoWindow(infoWindow,point); //开启信息窗口
+  });
 </script>
