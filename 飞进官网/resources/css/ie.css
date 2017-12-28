@@ -2,5 +2,5 @@
   background: ##5ea8f3 !important;
 }
 .public-header .header-nav .active .nav-hover {
-  background-color: lightsteelblue;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#BFeeeeee, ee, endColorstr=#BFeeeeee, ee);
 }

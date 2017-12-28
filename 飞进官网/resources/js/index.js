@@ -1,47 +1,41 @@
 (function() {
   /************操作头部导航区的样式************/
-  var oHeader = document.getElementsByClassName("public-header")[0];
-  var oLogo = oHeader.getElementsByClassName("logo")[0];
-  var oImg = oLogo.getElementsByTagName("img")[0];
+  var oHeader = $(".public-header");
+  var oLogo = $(".public-header img");
   var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-  if(scrollTop > 20) { //页面刷新保留header的样式操作
-    oHeader.style.backgroundColor = "#fff";
-    oHeader.style.color = "#000";
-    oImg.src = "./resources/img/logo_color.png";
+  if(scrollTop > 50) { //页面刷新保留header的样式操作
+    oHeader.css({"background-color":"#fff","color":"#000"});
+    oLogo.attr("src","./resources/img/logo_color.png");
   }
 
   function setHeadStyle() {
     //实时获取滚动条距离顶部的值
     scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-    if(scrollTop > 20) {
-      oHeader.style.backgroundColor = "#fff";
-      oHeader.style.color = "#000";
-      oImg.src = "./resources/img/logo_color.png";
+    if(scrollTop > 50) {
+      oHeader.css({"background-color":"#fff","color":"#000"});
+      oLogo.attr("src","./resources/img/logo_color.png");
     } else {
-      oHeader.style.backgroundColor = "transparent";
-      oHeader.style.color = "#fff";
-      oImg.src = "./resources/img/logo.png";
+      oHeader.css({"background-color":"transparent","color":"#fff"});
+      oLogo.attr("src","./resources/img/logo.png");
     }
   }
-  //firefox
-  if(document.addEventListener) {
-    document.addEventListener("DOMMouseScroll", setHeadStyle, false);
-  }
-  //IE、Opera、Chrome
-  window.onscroll = document.onscroll = setHeadStyle;
+  /*$(window).scroll(function(){
+    setHeadStyle();
+  })*/
+  $(window).on("scroll",setHeadStyle)
 })();
 
 /********************案例***********************/
 (function() {
-  let oIndexBox = $(".index-3");
+  var oIndexBox = $(".index-3");
 
-  let oLeftLi = $(".index-3 .left-nav li");
-  let oLeftI = $(".index-3 .left-nav li i");
+  var oLeftLi = $(".index-3 .left-nav li");
+  var oLeftI = $(".index-3 .left-nav li i");
 
-  let oRightTitle = $(".index-3 .right-content .right-caption");
-  let oRightTxt = $(".index-3 .right-content .right-text");
+  var oRightTitle = $(".index-3 .right-content .right-caption");
+  var oRightTxt = $(".index-3 .right-content .right-text");
 
-  let obj = {
+  var obj = {
     imgArr: ["./resources/img/index_bg1.png", "./resources/img/index_bg2.png", "./resources/img/index_bg3.png", "./resources/img/index_bg4.png",
       "./resources/img/index_bg5.png", "./resources/img/index_bg6.png", "./resources/img/index_bg7.png", "./resources/img/index_bg8.png",
       "./resources/img/index_bg9.png", "./resources/img/index_bg10.png",
@@ -50,7 +44,7 @@
     bgBlue: ["-10px -216px", "-73px -10px", "-190px -62px", "-116px -111px", "-10px -59px", "-242px -10px", "-115px -164px", "-10px -164px", "-242px -118px", "-10px -111px"],
     bgWhite: ["-190px -114px", "-10px -10px", "-190px -10px", "-64px -111px", "-66px -59px", "-242px -64px", "-168px -164px", "-62px -164px", "-292px -10px", "-137px -10px"]
   };
-  let index;
+  var index;
   oLeftLi.click(function() {
     index = $(this).index();
     oIndexBox.css({
@@ -64,7 +58,7 @@
         "transition": ".5s"
       });
     }, 30)
-    for(let i = 0; i < obj.colorArr.length; i++) {
+    for(var i = 0; i < obj.colorArr.length; i++) {
       oLeftLi.eq(i).css({
         "background-color": "#fff",
         "transition": ".5s"
@@ -143,12 +137,12 @@
 
 /**********************最新资讯***********************/
 (function() {
-  let $li = $(".index-5 .nav>li");
-  let $tab = $(".index-5 .list");
-  let index;
-  $li.click(function() {
+  var $li = $(".index-5 .nav li");
+  var $tab = $(".index-5 .list");
+  var index;
+  $(".index-5 .nav").on("click", "li", function(){
     index = $(this).index();
     $(this).addClass("active").siblings("li").removeClass("active");
     $tab.stop(true, true).fadeOut().eq(index).stop(true, true).fadeIn();
-  })
+  });
 })()
