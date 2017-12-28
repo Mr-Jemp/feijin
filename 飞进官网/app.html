@@ -11,13 +11,16 @@
 		<link rel="stylesheet" type="text/css" href="./resources/css/common.css" />
 		<link rel="stylesheet" type="text/css" href="./resources/css/app.css" />
 		<link rel="stylesheet" type="text/css" href="./resources/css/hover-min.css"/>
+		<!--[if IE 8]>
+			<link rel="stylesheet" type="text/css" href="./resources/css/ie.css"/>
+		<![endif]-->
 	</head>
 
 	<body>
 		<div class="public-header">
 			<div class="container">
 
-				<div class="logo hvr-pulse-shrink">
+				<div class="logo">
 					<a href="index.html">
 						<img src="./resources/img/logo_color.png" />
 					</a>
@@ -108,27 +111,27 @@
 					</li>
 				</ul>
 				<ul class="app3-list clearFix">
-					<li class="hvr-float-shadow">
+					<li class="hvr-float-shadow odd">
 						<h4 class="app3-item-caption">IOS的操作流畅度高</h4>
 						<p class="app3-item-text">iPhone的硬件性能非常优秀， IOS对屏幕反应的优先级是最高的，这意味着用户只要碰了屏幕，系统最优先去处理屏幕显示。IOS无论是桌面滑动、App的内部操作，屏幕与指尖都似乎带有“粘性”一般，这就使得手指触控到哪里，屏幕就会马上指向哪里。</p>
 					</li>
-					<li class="hvr-float-shadow">
+					<li class="hvr-float-shadow even">
 						<h4 class="app3-item-caption">Android系统的开放性</h4>
 						<p class="app3-item-text">Android开发平台允许任何移动终端厂商的加入，而其明显的开放性可以坐拥更多的开发者。开发性有助于Android积累人气，吸引消费者和开发商，对于消费者来说，最大的受益是丰富的软件资源。而对于开发商来讲，最大的受益却是丰富的软件应用消费人群。</p>
 					</li>
-					<li class="hvr-float-shadow">
+					<li class="hvr-float-shadow odd">
 						<h4 class="app3-item-caption">IOS系统适配性高</h4>
 						<p class="app3-item-text">IOS的机型少，主要用于苹果发布的相关产品，所以其开发软APP的适配性也高。开发商在进行APP开发时就能有针对性地进行APP研发，较少出现机型不配的问题。</p>
 					</li>
-					<li class="hvr-float-shadow">
+					<li class="hvr-float-shadow even">
 						<h4 class="app3-item-caption">Android系统便于开发</h4>
 						<p class="app3-item-text">Android平台提供给第三方开发商一个十分宽泛、自由的环境，APP开发商在这里不会受到各种条件限制，这样一个自由的环境可以孕育很多各式各样新颖别致的APP。</p>
 					</li>
-					<li class="hvr-float-shadow">
+					<li class="hvr-float-shadow odd">
 						<h4 class="app3-item-caption">IOS更便于营业收入</h4>
 						<p class="app3-item-text">苹果用户愿意为喜欢的APP付费使用，这是因为苹果用户下载APP的支付方式较为便捷。对于同一款APP，用户更倾向于在苹果平台进行消费。</p>
 					</li>
-					<li class="hvr-float-shadow">
+					<li class="hvr-float-shadow even">
 						<h4 class="app3-item-caption">Android硬件条件丰富</h4>
 						<p class="app3-item-text">Android硬件条件丰富源于其开放性，众多的厂商会推出各式各样，功能各异的多种产品。功能上的差异和特色，却不会影响到数据同步、甚至软件的兼容。</p>
 					</li>
@@ -177,49 +180,49 @@
 					<p class="public-title-bottom"><span class="orange-text">数百种</span>开发方案，精挑<span class="orange-text">十大类型</span>展示</p>
 				</div>
 				<div class="app5-nav">
-					<div class="app5-item">
+					<div class="app5-item item-1">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
 						<p class="circle-text">电商类</p>
 					</div>
-					<div class="app5-item">
+					<div class="app5-item item-2">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
 						<p class="circle-text">餐饮类</p>
 					</div>
-					<div class="app5-item">
+					<div class="app5-item item-3">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
 						<p class="circle-text">金融类</p>
 					</div>
-					<div class="app5-item">
+					<div class="app5-item item-4">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
 						<p class="circle-text">医疗类</p>
 					</div>
-					<div class="app5-item">
+					<div class="app5-item item-5">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
 						<p class="circle-text">旅游类</p>
 					</div>
-					<div class="app5-item">
+					<div class="app5-item item-6">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
 						<p class="circle-text">家政类</p>
 					</div>
-					<div class="app5-item">
+					<div class="app5-item item-7">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
 						<p class="circle-text">地产类</p>
 					</div>
-					<div class="app5-item">
+					<div class="app5-item item-8">
 						<div class="circle hvr-float-shadow">
 							<i></i>
 						</div>
@@ -289,16 +292,16 @@
           <li>
             <input type="text" placeholder="您的姓名" />
           </li>
-          <li>
+          <li class="no-margin-right">
             <input type="text" placeholder="公司名称" />
           </li>
           <li>
             <input type="text" placeholder="您的手机号码" />
           </li>
-          <li>
+          <li class="no-margin-right">
             <input type="text" placeholder="您的邮箱" />
           </li>
-          <li>
+          <li class="no-margin-right textarea">
             <textarea name="" placeholder="请描述您的需求"></textarea>
           </li>
           <li>
@@ -307,22 +310,22 @@
               <span class="code">D5F5D1</span>
             </div>
           </li>
-          <li class="hvr-glow">
+          <li class="hvr-glow no-margin-right item7">
             <input class="sumbit-btn" type="button" value="提交需求" />
           </li>
         </ul>
         <div class="contact">
           <h3 class="contact-caption">联系方式</h3>
           <ul>
-            <li>
+            <li class="item-1">
               <i></i>
               <span class="contact-text">020-82553229</span>
             </li>
-            <li>
+            <li class="item-2">
               <i></i>
               <span class="contact-text">hr@51feijin.com</span>
             </li>
-            <li>
+            <li class="item-3">
               <i></i>
               <span class="contact-text">中国广东省广州市天河区东圃镇宦溪西路11号FLY创意空间5楼</span>
             </li>
@@ -330,119 +333,118 @@
         </div>
       </div>
     </div>
-		
+    
+    <div class="public-footer">
+      <div class="footer-wrap-1">
+        <div class="container">
+          <div class="left-nav clearFix">
+            <ul class="first-child list1">
+              <li>核心业务</li>
+              <li>
+                <a href="">互联网+行业平台</a>
+              </li>
+              <li>
+                <a href="">互联网+教育平台</a>
+              </li>
+              <li>
+                <a href="">APP定制开发</a>
+              </li>
+              <li>
+                <a href="">软性系统开发</a>
+              </li>
+            </ul>
+            <ul class="list2">
+              <li>解决方案</li>
+              <li>
+                <a href="">教育行业</a>
+              </li>
+              <li>
+                <a href="">金融行业</a>
+              </li>
+              <li>
+                <a href="">医疗行业</a>
+              </li>
+              <li>
+                <a href="">电商行业</a>
+              </li>
+              <li>
+                <a href="">大数据</a>
+              </li>
+            </ul>
+            <ul class="list3">
+              <li>新闻中心</li>
+              <li>
+                <a href="">行业资讯</a>
+              </li>
+              <li>
+                <a href="">公司资讯</a>
+              </li>
+              <li>
+                <a href="">开发须知</a>
+              </li>
+            </ul>
+            <ul class="last-child list4">
+              <li>关于飞进</li>
+              <li>
+                <a href="">行业资讯</a>
+              </li>
+              <li>
+                <a href="">公司资讯</a>
+              </li>
+              <li>
+                <a href="">开发须知</a>
+              </li>
+            </ul>
+          </div>
 
-		<div class="public-footer">
-			<div class="footer-wrap-1">
-				<div class="container">
-					<div class="left-nav clearFix">
-						<ul>
-							<li>核心业务</li>
-							<li>
-								<a href="">互联网+行业平台</a>
-							</li>
-							<li>
-								<a href="">互联网+教育平台</a>
-							</li>
-							<li>
-								<a href="">APP定制开发</a>
-							</li>
-							<li>
-								<a href="">软性系统开发</a>
-							</li>
-						</ul>
-						<ul>
-							<li>解决方案</li>
-							<li>
-								<a href="">教育行业</a>
-							</li>
-							<li>
-								<a href="">金融行业</a>
-							</li>
-							<li>
-								<a href="">医疗行业</a>
-							</li>
-							<li>
-								<a href="">电商行业</a>
-							</li>
-							<li>
-								<a href="">大数据</a>
-							</li>
-						</ul>
-						<ul>
-							<li>新闻中心</li>
-							<li>
-								<a href="">行业资讯</a>
-							</li>
-							<li>
-								<a href="">公司资讯</a>
-							</li>
-							<li>
-								<a href="">开发须知</a>
-							</li>
-						</ul>
-						<ul>
-							<li>关于飞进</li>
-							<li>
-								<a href="">行业资讯</a>
-							</li>
-							<li>
-								<a href="">公司资讯</a>
-							</li>
-							<li>
-								<a href="">开发须知</a>
-							</li>
-						</ul>
-					</div>
-
-					<img class="footer-logo hvr-wobble-top" src="./resources/img/logo.png" />
-          <img class="qrcode hvr-bounce-in" src="./resources/img/qrcode.png" />
-				</div>
-			</div>
-			<div class="footer-wrap-2">
-				<div class="container">
-					<ul class="blogroll clearFix">
-						<li>友情链接：
-							<a href="">广州网站建设</a>
-						</li>
-						<li>
-							<a href="">深圳网站建设</a>
-						</li>
-						<li>
-							<a href="">广州网站建设 </a>
-						</li>
-						<li>
-							<a href="">自助建站</a>
-						</li>
-						<li>
-							<a href="">网站制作</a>
-						</li>
-						<li>
-							<a href="">400电话</a>
-						</li>
-						<li>
-							<a href="">网页设计</a>
-						</li>
-						<li>
-							<a href="">合肥APP开发</a>
-						</li>
-						<li>
-							<a href="">上海APP开发</a>
-						</li>
-						<li>
-							<a href="">深圳网站建设</a>
-						</li>
-						<li>
-							<a href="">商城系统</a>
-						</li>
-						<li>
-							<a href="">深圳app开发</a>
-						</li>
-					</ul>
-					<p class="copyright">广州飞进信息科技有限公司 Feijin Co,Ltd Copyright © http://www.51feijin.com/ All Rights Reserved， 粤ICP备16075130号-1</p>
-				</div>
-			</div>
-		</div>
+          <img class="footer-logo" src="./resources/img/logo.png" />
+          <img class="qrcode" src="./resources/img/qrcode.png" />
+        </div>
+      </div>
+      <div class="footer-wrap-2">
+        <div class="container">
+          <ul class="blogroll clearFix">
+            <li class="first-child">友情链接：
+              <a href="">广州网站建设</a>
+            </li>
+            <li>
+              <a href="">深圳网站建设</a>
+            </li>
+            <li>
+              <a href="">广州网站建设 </a>
+            </li>
+            <li>
+              <a href="">自助建站</a>
+            </li>
+            <li>
+              <a href="">网站制作</a>
+            </li>
+            <li>
+              <a href="">400电话</a>
+            </li>
+            <li>
+              <a href="">网页设计</a>
+            </li>
+            <li>
+              <a href="">合肥APP开发</a>
+            </li>
+            <li>
+              <a href="">上海APP开发</a>
+            </li>
+            <li>
+              <a href="">深圳网站建设</a>
+            </li>
+            <li>
+              <a href="">商城系统</a>
+            </li>
+            <li class="last-child">
+              <a href="">深圳app开发</a>
+            </li>
+          </ul>
+          <p class="copyright">广州飞进信息科技有限公司 Feijin Co,Ltd Copyright © http://www.51feijin.com/ All Rights Reserved， 粤ICP备16075130号-1</p>
+        </div>
+      </div>
+    </div>
 	</body>
 
 </html>

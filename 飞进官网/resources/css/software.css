@@ -61,32 +61,32 @@ body .public-header {
   font-size: 16px;
   color: #666;
 }
-.software-2 .software2-list li:nth-of-type(1) i {
+.software-2 .software2-list li.item-1 i {
   width: 80px;
   height: 104px;
   background-position: -10px -776px;
 }
-.software-2 .software2-list li:nth-of-type(2) i {
+.software-2 .software2-list li.item-2 i {
   width: 114px;
   height: 102px;
   background-position: -537px -318px;
 }
-.software-2 .software2-list li:nth-of-type(3) i {
+.software-2 .software2-list li.item-3 i {
   width: 90px;
   height: 96px;
   background-position: -10px -661px;
 }
-.software-2 .software2-list li:nth-of-type(4) i {
+.software-2 .software2-list li.item-4 i {
   width: 94px;
   height: 92px;
   background-position: -10px -549px;
 }
-.software-2 .software2-list li:nth-of-type(5) i {
+.software-2 .software2-list li.item-5 i {
   width: 104px;
   height: 100px;
   background-position: -672px -318px;
 }
-.software-2 .software2-list li:nth-of-type(6) i {
+.software-2 .software2-list li.item-6 i {
   width: 122px;
   height: 84px;
   background-position: -795px -318px;
@@ -163,16 +163,16 @@ body .public-header {
   margin-bottom: 25px;
   background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
-.software-3 .software-3-1 .list li:nth-of-type(1) i {
+.software-3 .software-3-1 .list li.item-1 i {
   background-position: -226px -547px;
 }
-.software-3 .software-3-1 .list li:nth-of-type(2) i {
+.software-3 .software-3-1 .list li.item-2 i {
   background-position: -328px -547px;
 }
-.software-3 .software-3-1 .list li:nth-of-type(3) i {
+.software-3 .software-3-1 .list li.item-3 i {
   background-position: -430px -547px;
 }
-.software-3 .software-3-1 .list li:nth-of-type(4) i {
+.software-3 .software-3-1 .list li.item-4 i {
   background-position: -124px -547px;
 }
 .software-3 .software-3-1 .list li .item-text {

@@ -98,9 +98,7 @@ body .public-header {
   color: #4d4d4e;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  white-space: nowrap;
 }
 .info-detail-1 .right-box .box .right-list li .item-text a:hover {
   color: #3874F4;

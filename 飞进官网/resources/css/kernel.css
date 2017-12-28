@@ -27,7 +27,7 @@ body .public-header {
   -o-transition: .5s;
   transition: .5s;
 }
-.kernel-1 .list li:nth-of-type(4n-4) {
+.kernel-1 .list li.no-margin-right {
   margin-right: 0;
 }
 .kernel-1 .list li:hover {
@@ -62,10 +62,10 @@ body .public-header {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background-color: #fff;
   -webkit-box-shadow: 0 0 10px rgba(180, 180, 180, 0.35);
   -moz-box-shadow: 0 0 10px rgba(180, 180, 180, 0.35);
   box-shadow: 0 0 10px rgba(180, 180, 180, 0.35);
+  background-color: #fff;
 }
 .kernel-1 .list li .icon-box i {
   display: block;
@@ -77,52 +77,52 @@ body .public-header {
   margin: auto;
   background: url(../img/css_sprites.png) 0 0 no-repeat;
 }
-.kernel-1 .list li:nth-of-type(1) .icon-box i {
+.kernel-1 .list li.item-1 .icon-box i {
   width: 40px;
   height: 40px;
   background-position: -212px -68px;
 }
-.kernel-1 .list li:nth-of-type(2) .icon-box i {
+.kernel-1 .list li.item-2 .icon-box i {
   width: 45px;
   height: 37px;
   background-position: -10px -147px;
 }
-.kernel-1 .list li:nth-of-type(3) .icon-box i {
+.kernel-1 .list li.item-3 .icon-box i {
   width: 43px;
   height: 38px;
   background-position: -212px -10px;
 }
-.kernel-1 .list li:nth-of-type(4) .icon-box i {
+.kernel-1 .list li.item-4 .icon-box i {
   width: 47px;
   height: 39px;
   background-position: -75px -82px;
 }
-.kernel-1 .list li:nth-of-type(5) .icon-box i {
+.kernel-1 .list li.item-5 .icon-box i {
   width: 49px;
   height: 46px;
   background-position: -81px -10px;
 }
-.kernel-1 .list li:nth-of-type(6) .icon-box i {
+.kernel-1 .list li.item-6 .icon-box i {
   width: 45px;
   height: 45px;
   background-position: -10px -82px;
 }
-.kernel-1 .list li:nth-of-type(7) .icon-box i {
+.kernel-1 .list li.item-7 .icon-box i {
   width: 42px;
   height: 42px;
   background-position: -150px -72px;
 }
-.kernel-1 .list li:nth-of-type(8) .icon-box i {
+.kernel-1 .list li.item-8 .icon-box i {
   width: 51px;
   height: 52px;
   background-position: -10px -10px;
 }
-.kernel-1 .list li:nth-of-type(9) .icon-box i {
+.kernel-1 .list li.item-9 .icon-box i {
   width: 42px;
   height: 42px;
   background-position: -150px -10px;
 }
-.kernel-1 .list li:nth-of-type(10) .icon-box i {
+.kernel-1 .list li.item-10 .icon-box i {
   width: 40px;
   height: 40px;
   background-position: -212px -128px;

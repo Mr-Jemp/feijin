@@ -68,11 +68,6 @@ body .public-header .header-nav {
 .website-2 .website2-list li:hover {
   background-color: #3874F4;
   color: #fff;
-  -webkit-transition: .3s;
-  -moz-transition: .3s;
-  -ms-transition: .3s;
-  -o-transition: .3s;
-  transition: .3s;
 }
 .website-3 {
   width: 100%;
@@ -103,7 +98,7 @@ body .public-header .header-nav {
   box-sizing: border-box;
   text-align: center;
 }
-.website-3 .website3-list li:last-of-type {
+.website-3 .website3-list li.last-child {
   margin-right: 0;
 }
 .website-3 .website3-list li .item-img-box {
@@ -164,7 +159,7 @@ body .public-header .header-nav {
   margin-bottom: 15px;
   position: relative;
 }
-.website-5 .website5-list li:nth-of-type(3n-3) {
+.website-5 .website5-list li.no-margin-right {
   margin-right: 0;
 }
 .website-5 .website5-list li img {

@@ -1,26 +1,27 @@
-body{
-    .public-header{
+body {
+    .public-header {
         background: #fff;
         color: #000;
     }
 }
-.app-1{
+
+.app-1 {
     width: 100%;
     min-height: 560px;
     padding-top: 100px;
     background: url(../img/app_bg.png) center center no-repeat;
     background-size: 100% 460px;
-    .banner-text{
+    .banner-text {
         width: 680px;
         position: absolute;
         top: 160px;
         left: 40px;
-        h1{
+        h1 {
             font-size: 50px;
             color: #fff;
             font-weight: 600;
         }
-        p{
+        p {
             font-size: 18px;
             color: #fff;
             padding: 20px 0;
@@ -28,15 +29,16 @@ body{
         }
     }
 }
-.app-2{
+
+.app-2 {
     width: 100%;
     min-height: 140px;
     background: #fff;
-    .app2-list{
+    .app2-list {
         width: 100%;
         position: absolute;
         top: -135px;
-        li{
+        li {
             float: left;
             width: 510px;
             height: 92px;
@@ -48,7 +50,7 @@ body{
             -webkit-border-radius: 3px;
             -moz-border-radius: 3px;
             border-radius: 3px;
-            .app2-item-icon{
+            .app2-item-icon {
                 display: inline-block;
                 width: 44px;
                 height: 46px;
@@ -59,18 +61,18 @@ body{
                 margin-right: 24px;
                 vertical-align: middle;
             }
-            .app2-item-text{
+            .app2-item-text {
                 padding-top: 23px;
                 display: inline-block;
                 vertical-align: middle;
                 font-size: 18px;
                 color: #333;
-                em{
+                em {
                     font-style: normal;
                     color: #3874f4;
                 }
             }
-            .app2-item-big-text{
+            .app2-item-big-text {
                 display: inline-block;
                 vertical-align: middle;
                 padding-top: 25px;
@@ -82,38 +84,33 @@ body{
         }
     }
 }
-.app-3{
+
+.app-3 {
     width: 100%;
     min-height: 813px;
-    background: url(../img/app_bj2.png)  center center no-repeat;
+    background: url(../img/app_bj2.png) center center no-repeat;
     background-size: cover;
     margin-bottom: 50px;
-    .phone-type{
+    .phone-type {
         width: 1200px;
         text-align: center;
-        li{
+        li {
             float: left;
             width: 533px;
             margin: 0 30px;
-            i{
+            i {
                 display: inline-block;
                 width: 80px;
                 height: 96px;
                 background: url(../img/css_sprites_3.png) 0 0 no-repeat;
-                
             }
-            &:nth-of-type(1){
-                i{
-                    background-position: -121px -256px;
-                }
+            i.ios-icon {
+                background-position: -121px -256px;
             }
-            &:nth-of-type(2){
-                i{
-                    background-position: -20px -256px;
-                }
+            i.android-icon {
+                background-position: -20px -256px;
             }
-            
-            .phone-text{
+            .phone-text {
                 display: block;
                 font-size: 24px;
                 color: #3874f4;
@@ -121,9 +118,9 @@ body{
             }
         }
     }
-    .app3-list{
+    .app3-list {
         padding-top: 50px;
-        li{
+        li {
             width: 533px;
             min-height: 135px;
             float: left;
@@ -137,28 +134,33 @@ body{
             -moz-box-sizing: border-box;
             box-sizing: border-box;
             position: relative;
-            &:nth-of-type(even){
+            
+            &.even {
                 -webkit-box-shadow: 1px 0 10px rgba(39, 119, 253, 0.35);
                 -moz-box-shadow: 1px 0 10px rgba(39, 119, 253, 0.35);
                 box-shadow: 1px 0 10px rgba(39, 119, 253, 0.35);
-                .app3-item-caption{
-                    background: -webkit-linear-gradient(left,#5ea8f3,#89bff7);
+                .app3-item-caption {
+                    background: -webkit-linear-gradient(left, #5ea8f3, #89bff7);
                     background: -o-linear-gradient(right, #5ea8f3, #89bff7);
-                    background: -moz-linear-gradient(right, #5ea8f3, #89bff7); /* Firefox 3.6 - 15 */
-                    background: linear-gradient(to right, #5ea8f3 , #89bff7); 
-                    filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#89bff7,endColorStr=#5ea8f3); /*IE 6 7 8*/
+                    background: -moz-linear-gradient(right, #5ea8f3, #89bff7);
+                    /* Firefox 3.6 - 15 */
+                    background: linear-gradient(to right, #5ea8f3, #89bff7);
+                    filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=1, startColorStr=#89bff7, endColorStr=#5ea8f3);
+                    /*IE 6 7 8*/
                 }
             }
-            &:nth-of-type(odd){
-                .app3-item-caption{
-                    background: -webkit-linear-gradient(left,#5a69f5,#5e8ef3);
+            &.odd {
+                .app3-item-caption {
+                    background: -webkit-linear-gradient(left, #5a69f5, #5e8ef3);
                     background: -o-linear-gradient(right, #5a69f5, #5e8ef3);
-                    background: -moz-linear-gradient(right, #5a69f5, #5e8ef3); /* Firefox 3.6 - 15 */
-                    background: linear-gradient(to right, #5a69f5 , #5e8ef3); 
-                    filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#5e8ef3,endColorStr=#5a69f5); /*IE 6 7 8*/
+                    background: -moz-linear-gradient(right, #5a69f5, #5e8ef3);
+                    /* Firefox 3.6 - 15 */
+                    background: linear-gradient(to right, #5a69f5, #5e8ef3);
+                    filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#5e8ef3, endColorStr=#5a69f5);
+                    /*IE 6 7 8*/
                 }
             }
-            .app3-item-caption{
+            .app3-item-caption {
                 width: 188px;
                 height: 40px;
                 -webkit-border-radius: 30px;
@@ -174,7 +176,7 @@ body{
                 font-size: 18px;
                 color: #fff;
             }
-            .app3-item-text{
+            .app3-item-text {
                 font-size: 14px;
                 color: #666;
                 line-height: 25px;
@@ -182,30 +184,30 @@ body{
         }
     }
 }
-.app-4{
+
+.app-4 {
     width: 100%;
     min-height: 660px;
     background: url(../img/app_bg3.png) center center no-repeat;
     background-size: cover;
-    .public-title{
-        .public-title-top{
+    .public-title {
+        .public-title-top {
             color: #fff;
-            .public-small-title{
+            .public-small-title {
                 color: #afc7fb;
             }
         }
-        .public-title-bottom{
+        .public-title-bottom {
             color: #fff;
         }
     }
-    .container{
+    .container {
         text-align: center;
     }
-    
-    .app4-list-1{
+    .app4-list-1 {
         width: 100%;
         padding-top: 60px;
-        li{
+        li {
             float: left;
             width: 150px;
             height: 100px;
@@ -216,21 +218,22 @@ body{
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
-            &:nth-of-type(3),&:nth-of-type(4){
+            &:nth-of-type(3),
+            &:nth-of-type(4) {
                 line-height: 60px;
-                span{
+                span {
                     display: block;
                     font-weight: 600;
                 }
             }
         }
     }
-    .app4-line{
+    .app4-line {
         margin: 20px 0 10px;
     }
-    .app4-list-2{
+    .app4-list-2 {
         width: 100%;
-        li{
+        li {
             float: left;
             width: 150px;
             color: #fff;
@@ -238,34 +241,38 @@ body{
         }
     }
 }
-.app-5{
+
+.app-5 {
     width: 100%;
     min-height: 765px;
     background: #f3f7fd;
-    .public-title{
-        .public-title-bottom{
+    .public-title {
+        .public-title-bottom {
             color: #999;
-            .orange-text{
+            .orange-text {
                 color: #ff5825;
             }
         }
     }
-    .app5-nav{
+    .app5-nav {
         width: 100%;
         height: 546px;
         position: relative;
-        .app5-item{
+        .app5-item {
             position: absolute;
-            .circle{
+            .circle {
                 -webkit-border-radius: 50%;
                 -moz-border-radius: 50%;
                 border-radius: 50%;
                 background: #fff;
-                -webkit-box-shadow: 0 0 10px rgba(188,203,234,0.35);
-                -moz-box-shadow: 0 0 10px rgba(188,203,234,0.35);
-                box-shadow: 0 0 10px rgba(188,203,234,0.35);
+                -webkit-box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
+                -moz-box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
+                -ms-box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
+                box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
                 position: relative;
-                i{
+                overflow: hidden;
+                behavior: url(PIE.htc);
+                i {
                     display: block;
                     position: absolute;
                     left: 0;
@@ -276,126 +283,126 @@ body{
                     background: url(../img/css_sprites_3.png) 0 0 no-repeat;
                 }
             }
-            .circle-text{
+            .circle-text {
                 font-size: 18px;
                 color: #2362a5;
                 text-align: center;
                 padding: 10px 0;
             }
-            &:nth-of-type(1){
+            &.item-1 {
                 width: 140px;
                 min-height: 180px;
                 left: 35px;
                 top: 30px;
-                .circle{
+                .circle {
                     width: 140px;
                     height: 140px;
-                    i{
+                    i {
                         width: 41px;
                         height: 36px;
                         background-position: -201px -372px;
                     }
                 }
             }
-            &:nth-of-type(2){
+            &.item-2 {
                 width: 180px;
                 min-height: 220px;
                 left: 295px;
                 top: 0px;
-                .circle{
+                .circle {
                     width: 180px;
                     height: 180px;
-                    i{
+                    i {
                         width: 56px;
                         height: 63px;
                         background-position: -381px -96px;
                     }
                 }
             }
-            &:nth-of-type(3){
+            &.item-3 {
                 width: 140px;
                 min-height: 180px;
                 left: 568px;
                 top: 117px;
-                .circle{
+                .circle {
                     width: 140px;
                     height: 140px;
-                    i{
+                    i {
                         width: 40px;
                         height: 39px;
                         background-position: -141px -372px;
                     }
                 }
             }
-            &:nth-of-type(4){
+            &.item-4 {
                 width: 150px;
                 min-height: 190px;
                 left: 765px;
                 top: 0px;
-                .circle{
+                .circle {
                     width: 150px;
                     height: 150px;
-                    i{
+                    i {
                         width: 51px;
                         height: 61px;
                         background-position: -381px -179px;
                     }
                 }
             }
-            &:nth-of-type(5){
+            &.item-5 {
                 width: 110px;
                 min-height: 150px;
                 left: 987px;
                 top: 30px;
-                .circle{
+                .circle {
                     width: 110px;
                     height: 110px;
-                    i{
+                    i {
                         width: 40px;
                         height: 42px;
                         background-position: -81px -372px;
                     }
                 }
             }
-            &:nth-of-type(6){
+            &.item-6 {
                 width: 110px;
                 min-height: 150px;
                 left: 125px;
                 top: 247px;
-                .circle{
+                .circle {
                     width: 110px;
                     height: 110px;
-                    i{
+                    i {
                         width: 32px;
                         height: 43px;
                         background-position: -475px -20px;
                     }
                 }
             }
-            &:nth-of-type(7){
+            &.item-7 {
                 width: 140px;
                 min-height: 180px;
                 left: 397px;
                 top: 278px;
-                .circle{
+                .circle {
                     width: 140px;
                     height: 140px;
-                    i{
+                    i {
                         width: 41px;
                         height: 47px;
                         background-position: -20px -372px;
                     }
                 }
             }
-            &:nth-of-type(8){
+            &.item-8 {
                 width: 180px;
                 min-height: 220px;
                 left: 828px;
                 top: 210px;
-                .circle{
+                .circle {
                     width: 180px;
                     height: 180px;
-                    i{
+                    i {
                         width: 74px;
                         height: 56px;
                         background-position: -381px -20px;
@@ -405,6 +412,7 @@ body{
         }
     }
 }
-.app-6{
+
+.app-6 {
     width: 100%;
 }

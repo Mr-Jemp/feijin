@@ -46,7 +46,7 @@ body .public-header .header-nav {
   width: 100%;
   height: 100%;
 }
-.team-1 .container .team1-nav li:first-child {
+.team-1 .container .team1-nav li.first-child {
   -webkit-border-top-left-radius: 5px;
   -moz-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -54,7 +54,7 @@ body .public-header .header-nav {
   -moz-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-.team-1 .container .team1-nav li:last-child {
+.team-1 .container .team1-nav li.last-child {
   border-right: none;
   -webkit-border-top-right-radius: 5px;
   -moz-border-top-right-radius: 5px;
@@ -113,7 +113,7 @@ body .public-header .header-nav {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.team-3 .team3-nav li:last-child {
+.team-3 .team3-nav li.last-child {
   margin-right: 0;
 }
 .team-3 .team3-photo-list {
@@ -131,7 +131,7 @@ body .public-header .header-nav {
   margin-right: 5px;
   overflow: hidden;
 }
-.team-3 .team3-photo-list li:last-child {
+.team-3 .team3-photo-list li.last-child {
   margin-right: 0;
 }
 .team-3 .team3-photo-list li img {
@@ -166,7 +166,7 @@ body .public-header .header-nav {
   background-color: #626262;
   overflow: hidden;
 }
-.team-4 .team4-photo-list li:last-child {
+.team-4 .team4-photo-list li.last-child {
   margin-right: 0;
 }
 .team-4 .team4-photo-list li > img {

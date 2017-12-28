@@ -72,19 +72,19 @@ body .public-header {
   -webkit-box-shadow: 0 0 10px rgba(146, 177, 242, 0.35);
   -moz-box-shadow: 0 0 10px rgba(146, 177, 242, 0.35);
   box-shadow: 0 0 10px rgba(146, 177, 242, 0.35);
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
 }
-.case-2 .case2-list li:nth-of-type(4n-4) {
+.case-2 .case2-list li.no-margin-right {
   margin-right: 0;
 }
 .case-2 .case2-list li:hover {
   -webkit-box-shadow: 0 0 20px #92b1f2;
   -moz-box-shadow: 0 0 20px #92b1f2;
   box-shadow: 0 0 20px #92b1f2;
-  -webkit-transition: .5s;
-  -moz-transition: .5s;
-  -ms-transition: .5s;
-  -o-transition: .5s;
-  transition: .5s;
 }
 .case-2 .case2-list li > a {
   display: block;
@@ -135,7 +135,7 @@ body .public-header {
   margin-right: 10px;
   float: left;
 }
-.case-2 .page-wrap a:last-child {
+.case-2 .page-wrap a.no-margin-right {
   margin-right: 0;
 }
 .case-2 .page-wrap span {
@@ -153,9 +153,6 @@ body .public-header {
 }
 .case-2 .page-wrap span:hover {
   color: #fff;
-}
-.case-2 .page-wrap span:last-child {
-  margin-right: 0;
 }
 .case-2 .page-wrap span.omit {
   border: none;

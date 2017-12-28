@@ -87,8 +87,9 @@ body .public-header .header-nav {
   -moz-box-shadow: 0 0 10px rgba(168, 170, 174, 0.35);
   box-shadow: 0 0 10px rgba(168, 170, 174, 0.35);
   cursor: pointer;
+  behavior: url(pie.htc);
 }
-.case-detail-1 .container .case-detail-left .btn-list li:last-child {
+.case-detail-1 .container .case-detail-left .btn-list li.last-child {
   margin-right: 0;
 }
 .case-detail-1 .container .case-detail-right {

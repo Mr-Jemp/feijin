@@ -68,11 +68,6 @@ body{
             &:hover{
                 background-color: #3874F4;
                 color: #fff;
-                -webkit-transition: .3s;
-                -moz-transition: .3s;
-                -ms-transition: .3s;
-                -o-transition: .3s;
-                transition: .3s;
             }
         }
     }
@@ -106,7 +101,7 @@ body{
             -moz-box-sizing: border-box;
             box-sizing: border-box;
             text-align: center;
-            &:last-of-type{
+            &.last-child{
                 margin-right: 0;
             }
             .item-img-box{
@@ -170,7 +165,7 @@ body{
             margin-right: 15px;
             margin-bottom: 15px;
             position: relative;
-            &:nth-of-type(3n-3){
+            &.no-margin-right{
                 margin-right: 0;
             }
             img{

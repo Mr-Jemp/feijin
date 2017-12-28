@@ -102,10 +102,10 @@ body .public-header {
   height: 96px;
   background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
-.app-3 .phone-type li:nth-of-type(1) i {
+.app-3 .phone-type li i.ios-icon {
   background-position: -121px -256px;
 }
-.app-3 .phone-type li:nth-of-type(2) i {
+.app-3 .phone-type li i.android-icon {
   background-position: -20px -256px;
 }
 .app-3 .phone-type li .phone-text {
@@ -132,21 +132,21 @@ body .public-header {
   box-sizing: border-box;
   position: relative;
 }
-.app-3 .app3-list li:nth-of-type(even) {
+.app-3 .app3-list li.even {
   -webkit-box-shadow: 1px 0 10px rgba(39, 119, 253, 0.35);
   -moz-box-shadow: 1px 0 10px rgba(39, 119, 253, 0.35);
   box-shadow: 1px 0 10px rgba(39, 119, 253, 0.35);
 }
-.app-3 .app3-list li:nth-of-type(even) .app3-item-caption {
+.app-3 .app3-list li.even .app3-item-caption {
   background: -webkit-linear-gradient(left, #5ea8f3, #89bff7);
   background: -o-linear-gradient(right, #5ea8f3, #89bff7);
   background: -moz-linear-gradient(right, #5ea8f3, #89bff7);
   /* Firefox 3.6 - 15 */
   background: linear-gradient(to right, #5ea8f3, #89bff7);
-  filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#89bff7, endColorStr=#5ea8f3);
+  filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=1, startColorStr=#89bff7, endColorStr=#5ea8f3);
   /*IE 6 7 8*/
 }
-.app-3 .app3-list li:nth-of-type(odd) .app3-item-caption {
+.app-3 .app3-list li.odd .app3-item-caption {
   background: -webkit-linear-gradient(left, #5a69f5, #5e8ef3);
   background: -o-linear-gradient(right, #5a69f5, #5e8ef3);
   background: -moz-linear-gradient(right, #5a69f5, #5e8ef3);
@@ -257,8 +257,11 @@ body .public-header {
   background: #fff;
   -webkit-box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
   -moz-box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
+  -ms-box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
   box-shadow: 0 0 10px rgba(188, 203, 234, 0.35);
   position: relative;
+  overflow: hidden;
+  behavior: url(PIE.htc);
 }
 .app-5 .app5-nav .app5-item .circle i {
   display: block;
@@ -276,122 +279,122 @@ body .public-header {
   text-align: center;
   padding: 10px 0;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(1) {
+.app-5 .app5-nav .app5-item.item-1 {
   width: 140px;
   min-height: 180px;
   left: 35px;
   top: 30px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(1) .circle {
+.app-5 .app5-nav .app5-item.item-1 .circle {
   width: 140px;
   height: 140px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(1) .circle i {
+.app-5 .app5-nav .app5-item.item-1 .circle i {
   width: 41px;
   height: 36px;
   background-position: -201px -372px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(2) {
+.app-5 .app5-nav .app5-item.item-2 {
   width: 180px;
   min-height: 220px;
   left: 295px;
   top: 0px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(2) .circle {
+.app-5 .app5-nav .app5-item.item-2 .circle {
   width: 180px;
   height: 180px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(2) .circle i {
+.app-5 .app5-nav .app5-item.item-2 .circle i {
   width: 56px;
   height: 63px;
   background-position: -381px -96px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(3) {
+.app-5 .app5-nav .app5-item.item-3 {
   width: 140px;
   min-height: 180px;
   left: 568px;
   top: 117px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(3) .circle {
+.app-5 .app5-nav .app5-item.item-3 .circle {
   width: 140px;
   height: 140px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(3) .circle i {
+.app-5 .app5-nav .app5-item.item-3 .circle i {
   width: 40px;
   height: 39px;
   background-position: -141px -372px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(4) {
+.app-5 .app5-nav .app5-item.item-4 {
   width: 150px;
   min-height: 190px;
   left: 765px;
   top: 0px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(4) .circle {
+.app-5 .app5-nav .app5-item.item-4 .circle {
   width: 150px;
   height: 150px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(4) .circle i {
+.app-5 .app5-nav .app5-item.item-4 .circle i {
   width: 51px;
   height: 61px;
   background-position: -381px -179px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(5) {
+.app-5 .app5-nav .app5-item.item-5 {
   width: 110px;
   min-height: 150px;
   left: 987px;
   top: 30px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(5) .circle {
+.app-5 .app5-nav .app5-item.item-5 .circle {
   width: 110px;
   height: 110px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(5) .circle i {
+.app-5 .app5-nav .app5-item.item-5 .circle i {
   width: 40px;
   height: 42px;
   background-position: -81px -372px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(6) {
+.app-5 .app5-nav .app5-item.item-6 {
   width: 110px;
   min-height: 150px;
   left: 125px;
   top: 247px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(6) .circle {
+.app-5 .app5-nav .app5-item.item-6 .circle {
   width: 110px;
   height: 110px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(6) .circle i {
+.app-5 .app5-nav .app5-item.item-6 .circle i {
   width: 32px;
   height: 43px;
   background-position: -475px -20px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(7) {
+.app-5 .app5-nav .app5-item.item-7 {
   width: 140px;
   min-height: 180px;
   left: 397px;
   top: 278px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(7) .circle {
+.app-5 .app5-nav .app5-item.item-7 .circle {
   width: 140px;
   height: 140px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(7) .circle i {
+.app-5 .app5-nav .app5-item.item-7 .circle i {
   width: 41px;
   height: 47px;
   background-position: -20px -372px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(8) {
+.app-5 .app5-nav .app5-item.item-8 {
   width: 180px;
   min-height: 220px;
   left: 828px;
   top: 210px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(8) .circle {
+.app-5 .app5-nav .app5-item.item-8 .circle {
   width: 180px;
   height: 180px;
 }
-.app-5 .app5-nav .app5-item:nth-of-type(8) .circle i {
+.app-5 .app5-nav .app5-item.item-8 .circle i {
   width: 74px;
   height: 56px;
   background-position: -381px -20px;

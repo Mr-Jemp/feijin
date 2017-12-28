@@ -85,30 +85,30 @@ body .public-header .header-nav {
   display: inline-block;
   background: url(../img/css_sprites_3.png) 0 0 no-repeat;
 }
-.solution-2 .solution2-list li:nth-of-type(1) i {
+.solution-2 .solution2-list li.item-1 i {
   width: 98px;
   height: 98px;
   background-position: -138px -138px;
 }
-.solution-2 .solution2-list li:nth-of-type(2) i {
+.solution-2 .solution2-list li.item-2 i {
   width: 99px;
   height: 98px;
   background-position: -20px -20px;
 }
-.solution-2 .solution2-list li:nth-of-type(3) i {
+.solution-2 .solution2-list li.item-3 i {
   width: 62px;
   height: 98px;
   background-position: -220px -256px;
 }
-.solution-2 .solution2-list li:nth-of-type(4) i {
+.solution-2 .solution2-list li.item-4 i {
   width: 103px;
   height: 92px;
   background-position: -258px -20px;
 }
-.solution-2 .solution2-list li:nth-of-type(4) span {
+.solution-2 .solution2-list li.item-4 span {
   padding-top: 71px;
 }
-.solution-2 .solution2-list li:last-child {
+.solution-2 .solution2-list li.no-margin-right {
   margin-right: 0;
 }
 .solution-2 .solution2-list li:hover {
@@ -125,16 +125,16 @@ body .public-header .header-nav {
 .solution-2 .solution2-list li:hover span {
   color: #fff;
 }
-.solution-2 .solution2-list li:nth-of-type(1):hover i {
+.solution-2 .solution2-list li.item-1:hover i {
   background-position: -20px -138px;
 }
-.solution-2 .solution2-list li:nth-of-type(2):hover i {
+.solution-2 .solution2-list li.item-2:hover i {
   background-position: -138px -20px;
 }
-.solution-2 .solution2-list li:nth-of-type(3):hover i {
+.solution-2 .solution2-list li.item-3:hover i {
   background-position: -300px -256px;
 }
-.solution-2 .solution2-list li:nth-of-type(4):hover i {
+.solution-2 .solution2-list li.item-4:hover i {
   background-position: -258px -131px;
 }
 .solution-2 .solution2-list li .solution2-item-text {
@@ -195,7 +195,7 @@ body .public-header .header-nav {
   margin-bottom: 13px;
   overflow: hidden;
 }
-.solution-5 .container .solution5-box li:nth-of-type(3n-0) {
+.solution-5 .container .solution5-box li.no-margin-right {
   margin-right: 0;
 }
 .solution-5 .container .solution5-box li > img {

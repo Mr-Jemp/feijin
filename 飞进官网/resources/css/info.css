@@ -157,7 +157,7 @@ body .public-header {
   margin-right: 10px;
   float: left;
 }
-.info-2 .list-wrap .left-list .page-wrap a:last-child {
+.info-2 .list-wrap .left-list .page-wrap a.no-margin-right {
   margin-right: 0;
 }
 .info-2 .list-wrap .left-list .page-wrap span {
