@@ -4,25 +4,31 @@
   var oLogo = $(".public-header img");
   var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
   if(scrollTop > 50) { //页面刷新保留header的样式操作
-    oHeader.css({"background-color":"#fff","color":"#000"});
-    oLogo.attr("src","./resources/img/logo_color.png");
+    oHeader.css({
+      "background-color": "#fff",
+      "color": "#000"
+    });
+    oLogo.attr("src", "./resources/img/logo_color.png");
   }
 
   function setHeadStyle() {
     //实时获取滚动条距离顶部的值
     scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
     if(scrollTop > 50) {
-      oHeader.css({"background-color":"#fff","color":"#000"});
-      oLogo.attr("src","./resources/img/logo_color.png");
+      oHeader.css({
+        "background-color": "#fff",
+        "color": "#000"
+      });
+      oLogo.attr("src", "./resources/img/logo_color.png");
     } else {
-      oHeader.css({"background-color":"transparent","color":"#fff"});
-      oLogo.attr("src","./resources/img/logo.png");
+      oHeader.css({
+        "background-color": "transparent",
+        "color": "#fff"
+      });
+      oLogo.attr("src", "./resources/img/logo.png");
     }
   }
-  /*$(window).scroll(function(){
-    setHeadStyle();
-  })*/
-  $(window).on("scroll",setHeadStyle)
+  $(window).on("scroll", setHeadStyle)
 })();
 
 /********************案例***********************/
@@ -76,59 +82,59 @@
         "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 1) {
       oRightTitle.text("金融类");
-      oRightTxt.html("适用于P2P、 网贷、 众筹、 金融超市等 < br / > " +
+      oRightTxt.html("适用于P2P、 网贷、 众筹、 金融超市等 <br /> " +
         "定制APP开发、支持IOS/安卓双系统<br />" +
         "支持商家端/客户端 双端开发<br />" +
         "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 2) {
       oRightTitle.text("旅游类");
-      oRightTxt.html("适用于酒店预订、景点门票购买、旅行游记<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持商家端/客户端 双端开发<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("适用于酒店预订、景点门票购买、旅行游记<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持商家端/客户端 双端开发<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 3) {
       oRightTitle.text("医疗类");
-      oRightTxt.html("功能：在线咨询、寻找医生、个人档案、<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持医生端/用户端/后台端 三端开发<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("功能：在线咨询、寻找医生、个人档案、<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持医生端/用户端/后台端 三端开发<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 4) {
       oRightTitle.text("租赁类");
-      oRightTxt.html("适用于房地产中介、租赁平台等<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持商家端/客户端 双端开发<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("适用于房地产中介、租赁平台等<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持商家端/客户端 双端开发<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 5) {
       oRightTitle.text("餐饮类");
-      oRightTxt.html("适用于在线点餐、外卖送餐、食堂点餐<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持商家端/客户端 双端开发<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("适用于在线点餐、外卖送餐、食堂点餐<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持商家端/客户端 双端开发<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 6) {
       oRightTitle.text("社交类");
-      oRightTxt.html("功能：查看个人信息、IM功能、GPS附近的人、社区；<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持商家端/客户端 双端开发<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("功能：查看个人信息、IM功能、GPS附近的人、社区；<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持商家端/客户端 双端开发<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 7) {
       oRightTitle.text("家政类");
-      oRightTxt.html("功能：线上线下结合、O2O服务；<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持商家端/客户端 双端开发<br />"+
-                    "支持对接各大ERP系统和物流系统<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("功能：线上线下结合、O2O服务；<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持商家端/客户端 双端开发<br />" +
+        "支持对接各大ERP系统和物流系统<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 8) {
       oRightTitle.text("资讯类");
-      oRightTxt.html("适用于新闻资讯、娱乐资讯等<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持商家端/客户端 双端开发<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("适用于新闻资讯、娱乐资讯等<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持商家端/客户端 双端开发<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     } else if(index == 9) {
       oRightTitle.text("智能类");
-      oRightTxt.html("适用于物联网、软硬件对接；<br />"+
-                    "定制APP开发、支持IOS/安卓双系统<br />"+
-                    "支持商家端/客户端 双端开发<br />"+
-                    "支持APP+PC+web+微信四合一全网开发")
+      oRightTxt.html("适用于物联网、软硬件对接；<br />" +
+        "定制APP开发、支持IOS/安卓双系统<br />" +
+        "支持商家端/客户端 双端开发<br />" +
+        "支持APP+PC+web+微信四合一全网开发")
     }
 
   })
@@ -140,7 +146,7 @@
   var $li = $(".index-5 .nav li");
   var $tab = $(".index-5 .list");
   var index;
-  $(".index-5 .nav").on("click", "li", function(){
+  $(".index-5 .nav").on("click", "li", function() {
     index = $(this).index();
     $(this).addClass("active").siblings("li").removeClass("active");
     $tab.stop(true, true).fadeOut().eq(index).stop(true, true).fadeIn();
