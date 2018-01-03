@@ -454,11 +454,13 @@
   margin-bottom: 0;
 }
 .public-footer .footer-wrap-1 .footer-logo {
+  width: 169px;
   position: absolute;
   left: 700px;
   top: 130px;
 }
 .public-footer .footer-wrap-1 .qrcode {
+  width: 189px;
   position: absolute;
   left: 960px;
   top: 0;
