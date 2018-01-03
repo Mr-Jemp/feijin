@@ -5,6 +5,6 @@
   $nav.click(function(){
     index = $(this).index();
     $(this).addClass("active").siblings("li").removeClass("active");
-    $list.stop(true,true).fadeOut().eq(index).stop(true,true).fadeIn();
+    $list.stop(true,true).fadeOut(200).eq(index).stop(true,true).fadeIn(500);
   })
 })()
