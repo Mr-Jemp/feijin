@@ -1,0 +1,235 @@
+body .public-header {
+  background: #fff;
+  color: #000;
+}
+.title {
+  font-size: 30px;
+  color: #000;
+  font-weight: 600;
+  text-align: center;
+  padding-top: 55px;
+}
+.applet-1 {
+  width: 100%;
+  height: 460px;
+  background: url(../img/applet_bg1.png) center 100px no-repeat;
+  background-size: 100% 460px;
+  padding-top: 100px;
+  text-align: center;
+}
+.applet-1 .applet1-caption {
+  font-size: 50px;
+  color: #fff;
+  font-weight: 600;
+  padding-top: 125px;
+}
+.applet-1 .applet1-text {
+  font-size: 18px;
+  color: #fff;
+  padding: 37px 0;
+}
+.applet-1 .applet1-icon {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  background: url(../img/applet_icon1.png) 0 0 no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.applet-2 {
+  width: 100%;
+  min-height: 773px;
+}
+.applet-2 .applet2-wrap {
+  position: relative;
+  width: 100%;
+  height: 687px;
+}
+.applet-2 .applet2-wrap img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.applet-2 .applet2-wrap .box {
+  position: absolute;
+}
+.applet-2 .applet2-wrap .box .item-caption {
+  font-size: 25px;
+  color: #3b80e2;
+  font-weight: 600;
+}
+.applet-2 .applet2-wrap .box .item-text {
+  font-size: 14px;
+  color: #666;
+  line-height: 25px;
+}
+.applet-2 .applet2-wrap .box1 {
+  text-align: center;
+  width: 345px;
+  top: 70px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.applet-2 .applet2-wrap .box2 {
+  width: 300px;
+  text-align: right;
+  top: 295px;
+}
+.applet-2 .applet2-wrap .box3 {
+  width: 405px;
+  text-align: center;
+  top: 550px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.applet-2 .applet2-wrap .box4 {
+  width: 295px;
+  text-align: left;
+  top: 305px;
+  right: 0;
+}
+.applet-3 {
+  width: 100%;
+  height: 496px;
+  background: url(../img/applet_bg2.png) center no-repeat;
+  background-size: cover;
+}
+.applet-3 .applet3-wrap {
+  width: 100%;
+  height: 401px;
+  position: relative;
+}
+.applet-3 .applet3-wrap .left-box {
+  position: absolute;
+  left: 0;
+}
+.applet-3 .applet3-wrap .left-box .applet3-left-caption {
+  font-size: 18px;
+  color: #333;
+  padding: 70px 0 60px 0;
+}
+.applet-3 .applet3-wrap .left-box .applet3-left-caption span {
+  color: #3874F4;
+}
+.applet-3 .applet3-wrap .left-box .left-list li {
+  margin-bottom: 10px;
+}
+.applet-3 .applet3-wrap .left-box .left-list li .item-icon {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: url(../img/li_img.png) 0 0 no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  vertical-align: middle;
+}
+.applet-3 .applet3-wrap .left-box .left-list li span {
+  color: #666;
+  font-size: 16px;
+}
+.applet-3 .applet3-wrap .right-box {
+  position: absolute;
+  right: 60px;
+  top: 56px;
+}
+.applet-3 .applet3-wrap .right-box img {
+  width: 303px;
+}
+.applet-4 {
+  width: 100%;
+  min-height: 765px;
+}
+.applet-4 .title {
+  padding-top: 90px;
+  padding-bottom: 75px;
+}
+.applet-4 .applet4-list {
+  width: 100%;
+  min-height: 400px;
+}
+.applet-4 .applet4-list li {
+  float: left;
+  width: 222px;
+  height: 178px;
+  border: 1px solid #e5e5e5;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.applet-4 .applet4-list li:hover {
+  -webkit-box-shadow: 0 0 30px #ddd;
+  -moz-box-shadow: 0 0 30px #ddd;
+  box-shadow: 0 0 30px #ddd;
+}
+.applet-4 .applet4-list li.no-margin-right {
+  margin-right: 0;
+}
+.applet-4 .applet4-list li .item-icon {
+  display: inline-block;
+  margin-top: 30px;
+  width: 76px;
+  height: 76px;
+  background: url(../img/css_sprites5.png) 0 0 no-repeat;
+}
+.applet-4 .applet4-list li .item-text {
+  display: block;
+  font-size: 16px;
+  color: #333;
+  padding-top: 10px;
+}
+.applet-4 .applet4-list li.item1 .item-icon {
+  background-position: -202px -202px;
+}
+.applet-4 .applet4-list li.item2 .item-icon {
+  background-position: -298px -10px;
+}
+.applet-4 .applet4-list li.item3 .item-icon {
+  background-position: -106px -10px;
+}
+.applet-4 .applet4-list li.item4 .item-icon {
+  background-position: -202px -106px;
+}
+.applet-4 .applet4-list li.item5 .item-icon {
+  background-position: -10px -106px;
+}
+.applet-4 .applet4-list li.item6 .item-icon {
+  background-position: -106px -106px;
+}
+.applet-4 .applet4-list li.item7 .item-icon {
+  background-position: -202px -10px;
+}
+.applet-4 .applet4-list li.item8 .item-icon {
+  background-position: -10px -10px;
+}
+.applet-4 .applet4-list li.item9 .item-icon {
+  background-position: -10px -202px;
+}
+.applet-4 .applet4-list li.item10 .item-icon {
+  background-position: -106px -202px;
+}
+.applet-4 .applet4-btn {
+  display: block;
+  width: 150px;
+  height: 45px;
+  background-color: #3874F4;
+  text-align: center;
+  line-height: 45px;
+  color: #fff;
+  border: none;
+  outline: none;
+  margin: 40px auto 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}

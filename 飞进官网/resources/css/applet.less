@@ -1,0 +1,263 @@
+body {
+    .public-header {
+        background: #fff;
+        color: #000;
+    }
+}
+
+.title {
+    font-size: 30px;
+    color: #000;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 55px;
+}
+
+.applet-1 {
+    width: 100%;
+    height: 460px;
+    background: url(../img/applet_bg1.png) center 100px no-repeat;
+    background-size: 100% 460px;
+    padding-top: 100px;
+    text-align: center;
+    .applet1-caption {
+        font-size: 50px;
+        color: #fff;
+        font-weight: 600;
+        padding-top: 125px;
+    }
+    .applet1-text {
+        font-size: 18px;
+        color: #fff;
+        padding: 37px 0;
+    }
+    .applet1-icon {
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        background: url(../img/applet_icon1.png) 0 0 no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+}
+
+.applet-2 {
+    width: 100%;
+    min-height: 773px;
+    .applet2-wrap {
+        position: relative;
+        width: 100%;
+        height: 687px;
+        img {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+        .box {
+            position: absolute;
+            .item-caption {
+                font-size: 25px;
+                color: #3b80e2;
+                font-weight: 600;
+            }
+            .item-text {
+                font-size: 14px;
+                color: #666;
+                line-height: 25px;
+            }
+        }
+        .box1 {
+            text-align: center;
+            width: 345px;
+            top: 70px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        .box2 {
+            width: 300px;
+            text-align: right;
+            top: 295px;
+        }
+        .box3 {
+            width: 405px;
+            text-align: center;
+            top: 550px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        .box4 {
+            width: 295px;
+            text-align: left;
+            top: 305px;
+            right: 0;
+        }
+    }
+}
+
+.applet-3 {
+    width: 100%;
+    height: 496px;
+    background: url(../img/applet_bg2.png) center no-repeat;
+    background-size: cover;
+    .applet3-wrap {
+        width: 100%;
+        height: 401px;
+        position: relative;
+        .left-box {
+            position: absolute;
+            left: 0;
+            .applet3-left-caption {
+                font-size: 18px;
+                color: #333;
+                padding: 70px 0 60px 0;
+                span {
+                    color: #3874F4;
+                }
+            }
+            .left-list {
+                li {
+                    margin-bottom: 10px;
+                    .item-icon {
+                        display: inline-block;
+                        width: 28px;
+                        height: 28px;
+                        background: url(../img/li_img.png) 0 0 no-repeat;
+                        -webkit-background-size: cover;
+                        background-size: cover;
+                        vertical-align: middle;
+                    }
+                    span {
+                        color: #666;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        .right-box {
+            position: absolute;
+            right: 60px;
+            top: 56px;
+            img{
+                width: 303px;
+            }
+        }
+    }
+}
+.applet-4{
+    width: 100%;
+    min-height: 765px;
+    .title{
+        padding-top: 90px;
+        padding-bottom: 75px;
+    }
+    .applet4-list{
+        width: 100%;
+        min-height: 400px;
+        li{
+            float: left;
+            width: 222px;
+            height: 178px;
+            border: 1px solid #e5e5e5;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+            transition: .5s;
+            &:hover{
+                -webkit-box-shadow: 0 0 30px #ddd;
+                -moz-box-shadow: 0 0 30px #ddd;
+                box-shadow: 0 0 30px #ddd;
+            }
+            &.no-margin-right{
+                margin-right: 0;
+            }
+            .item-icon{
+                display: inline-block;
+                margin-top: 30px;
+                width: 76px;
+                height: 76px;
+                background: url(../img/css_sprites5.png) 0 0 no-repeat;
+            }
+            .item-text{
+                display: block;
+                font-size: 16px;
+                color: #333;
+                padding-top: 10px;
+            }
+            &.item1{
+                .item-icon{
+                    background-position: -202px -202px;
+                }
+            }
+            &.item2{
+                .item-icon{
+                    background-position: -298px -10px;
+                }
+            }
+            &.item3{
+                .item-icon{
+                    background-position: -106px -10px;
+                }
+            }
+            &.item4{
+                .item-icon{
+                    background-position: -202px -106px;
+                }
+            }
+            &.item5{
+                .item-icon{
+                    background-position: -10px -106px;
+                }
+            }
+            &.item6{
+                .item-icon{
+                    background-position: -106px -106px;
+                }
+            }
+            &.item7{
+                .item-icon{
+                    background-position: -202px -10px;
+                }
+            }
+            &.item8{
+                .item-icon{
+                    background-position: -10px -10px;
+                }
+            }
+            &.item9{
+                .item-icon{
+                    background-position: -10px -202px;
+                }
+            }
+            &.item10{
+                .item-icon{
+                    background-position: -106px -202px;
+                }
+            }
+        }
+    }
+    .applet4-btn{
+        display: block;
+        width: 150px;
+        height: 45px;
+        background-color: #3874F4;
+        text-align: center;
+        line-height: 45px;
+        color: #fff;
+        border: none;
+        outline: none;
+        margin: 40px auto 0;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}

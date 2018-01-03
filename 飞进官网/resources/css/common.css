@@ -456,8 +456,8 @@
 .public-footer .footer-wrap-1 .footer-logo {
   width: 169px;
   position: absolute;
-  left: 700px;
-  top: 130px;
+  left: 715px;
+  top: 65px;
 }
 .public-footer .footer-wrap-1 .qrcode {
   width: 189px;
@@ -466,6 +466,38 @@
   top: 0;
   bottom: 0;
   margin: auto;
+}
+.public-footer .footer-wrap-1 .footer-contact {
+  width: 220px;
+  position: absolute;
+  top: 150px;
+  left: 700px;
+}
+.public-footer .footer-wrap-1 .footer-contact .one {
+  width: 200px;
+  background-color: #434343;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 2px 5px;
+}
+.public-footer .footer-wrap-1 .footer-contact .two {
+  padding-top: 5px;
+}
+.public-footer .footer-wrap-1 .footer-contact .two .phone_icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url(../img/css_sprites5.png) -298px -106px no-repeat;
+  vertical-align: 2%;
+}
+.public-footer .footer-wrap-1 .footer-contact .two .phone-num {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 800;
 }
 .public-footer .footer-wrap-2 {
   width: 100%;
