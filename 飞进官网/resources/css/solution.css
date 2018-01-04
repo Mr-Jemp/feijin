@@ -1,204 +1,255 @@
-body .public-header {
-  background: #fff;
-}
-body .public-header .header-nav {
-  color: #000;
-}
-.content-caption {
-  padding: 20px 27px;
-}
-.content-caption span {
-  border-left: 5px solid #3874f4;
-  font-size: 24px;
-  padding-left: 10px;
-}
-.solution-1 {
+.solution2-banner {
+  position: relative;
   width: 100%;
-  min-height: 670px;
-  padding-top: 100px;
-  background: url(../img/solution_bg1_01.png) center 100px no-repeat;
-  background-size: 100% 450px;
+  height: 381px;
+  background: url(../img/solution2_bg.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
-.solution-1 .solution1-caption {
-  position: absolute;
-  top: 118px;
-  left: 0;
-  right: 0;
-  margin: auto;
-  font-size: 36px;
+.solution2-banner .public-title {
+  padding-top: 150px;
+}
+.solution2-banner .public-title .public-title-top {
+  font-size: 48px;
   color: #fff;
-  text-align: center;
   font-weight: 600;
 }
-.solution-1 .solution1-box {
+.solution2-banner .public-title .public-title-top .public-small-title {
+  font-size: 30px;
+  vertical-align: bottom;
+}
+.solution2-banner .public-title .public-title-top::after {
+  display: none;
+}
+.detail-btn {
+  width: 168px;
+  height: 48px;
+  border: 1px solid #3874F4;
+  text-align: center;
+  color: #3874F4;
+  line-height: 48px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-top: 40px;
+  cursor: pointer;
+}
+.detail-btn a {
+  display: block;
   width: 100%;
-  min-height: 370px;
-  position: absolute;
-  top: 245px;
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  -moz-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
+  height: 100%;
+  font-size: 16px;
 }
-.solution-1 .solution1-box .public-title {
-  padding: 10px;
+.detail-btn a i {
+  display: inline-block;
+  width: 19px;
+  height: 15px;
+  background: url(../img/css_sprites6.png) 0 0 no-repeat;
+  background-position: -143px -71px;
+  vertical-align: -5%;
+  margin-left: 5px;
 }
-.solution-1 .solution1-box .solution1-text {
-  padding: 0px 30px 0 30px;
-  text-indent: 30px;
-  font-size: 14px;
-  line-height: 25px;
-  letter-spacing: 1px;
+.public-left-box {
+  width: 590px;
+  margin-left: 39px;
+  padding-top: 110px;
 }
-.solution-2 {
-  width: 100%;
-  min-height: 545px;
-  background-color: #fafafc;
-  padding-top: 30px;
+.public-left-box .header {
+  padding-bottom: 50px;
 }
-.solution-2 .solution2-list {
-  width: 100%;
+.public-left-box .header div {
+  float: left;
+}
+.public-left-box .header div.left-icon {
+  width: 48px;
+  height: 41px;
+  background: url(../img/css_sprites6.png) 0 0 no-repeat;
+  background-position: -74px -10px;
+  margin-top: 15px;
+}
+.public-left-box .header div.right-caption {
+  margin-left: 10px;
+}
+.public-left-box .header div.right-caption .big-caption {
+  font-size: 30px;
+  color: #3874f4;
+  font-weight: 700;
+}
+.public-left-box .header div.right-caption .small-caption {
+  font-size: 16px;
+  color: #3874F4;
   padding-top: 10px;
 }
-.solution-2 .solution2-list li {
-  float: left;
-  width: 290px;
-  height: 410px;
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  -moz-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  margin-right: 12px;
-  text-align: center;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding-top: 115px;
-  overflow: hidden;
-  -webkit-transition: .5s;
-  -moz-transition: .5s;
-  -ms-transition: .5s;
-  -o-transition: .5s;
-  transition: .5s;
-}
-.solution-2 .solution2-list li > i {
+.public-left-box .header div.right-caption .small-caption i {
   display: inline-block;
-  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
+  width: 4px;
+  height: 12px;
+  background: #3874F4;
+  margin-right: 8px;
 }
-.solution-2 .solution2-list li.item-1 i {
-  width: 98px;
-  height: 98px;
-  background-position: -138px -138px;
+.public-left-box .text-info {
+  font-size: 16px;
+  color: #666;
+  line-height: 30px;
 }
-.solution-2 .solution2-list li.item-2 i {
-  width: 99px;
-  height: 98px;
-  background-position: -20px -20px;
+.public-right-box {
+  width: 610px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 30px;
 }
-.solution-2 .solution2-list li.item-3 i {
-  width: 62px;
-  height: 98px;
-  background-position: -220px -256px;
+.public-right-box .float-right {
+  float: right;
 }
-.solution-2 .solution2-list li.item-4 i {
-  width: 103px;
-  height: 92px;
-  background-position: -258px -20px;
+.public-right-box .header {
+  margin-top: 93px;
+  text-align: right;
 }
-.solution-2 .solution2-list li.item-4 span {
-  padding-top: 71px;
+.public-right-box .header div {
+  float: left;
 }
-.solution-2 .solution2-list li.no-margin-right {
-  margin-right: 0;
+.public-right-box .header div.left-caption {
+  margin-right: 10px;
 }
-.solution-2 .solution2-list li:hover {
-  -webkit-transition: .5s;
-  -moz-transition: .5s;
-  -ms-transition: .5s;
-  -o-transition: .5s;
-  transition: .5s;
-  background-color: #3874f4;
-  -webkit-box-shadow: 0 0 15px #3874F4;
-  -moz-box-shadow: 0 0 15px #3874F4;
-  box-shadow: 0 0 15px #3874F4;
+.public-right-box .header div.left-caption .big-caption {
+  font-size: 30px;
+  color: #fff;
+  font-weight: 700;
 }
-.solution-2 .solution2-list li:hover span {
+.public-right-box .header div.left-caption .small-caption {
+  font-size: 16px;
+  color: #fff;
+  padding-top: 10px;
+}
+.public-right-box .header div.left-caption .small-caption i {
+  display: inline-block;
+  width: 4px;
+  height: 12px;
+  background: #fff;
+  margin-left: 8px;
+}
+.public-right-box .header div.right-icon {
+  width: 42px;
+  height: 42px;
+  background: url(../img/css_sprites6.png) -10px -79px no-repeat;
+  margin-top: 15px;
+}
+.public-right-box .text-info {
+  text-align: right;
+  line-height: 30px;
+  color: #fff;
+  font-size: 16px;
+  padding: 50px 0;
+}
+.public-right-box .solution2-nav {
+  width: 100%;
+  height: 50px;
+}
+.public-right-box .solution2-nav li {
+  float: right;
+  width: 100px;
+  height: 45px;
+  background-color: #fff;
+  text-align: center;
+  color: #666;
+  line-height: 45px;
+  margin-left: 10px;
+  cursor: pointer;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.public-right-box .detail-btn {
+  margin-top: 20px;
+  border-color: #fff;
+}
+.public-right-box .detail-btn a {
   color: #fff;
 }
-.solution-2 .solution2-list li.item-1:hover i {
-  background-position: -20px -138px;
+.public-right-box .detail-btn a i {
+  background-position: -143px -106px;
 }
-.solution-2 .solution2-list li.item-2:hover i {
-  background-position: -138px -20px;
-}
-.solution-2 .solution2-list li.item-3:hover i {
-  background-position: -300px -256px;
-}
-.solution-2 .solution2-list li.item-4:hover i {
-  background-position: -258px -131px;
-}
-.solution-2 .solution2-list li .solution2-item-text {
-  display: block;
-  font-size: 18px;
-  color: #3874f4;
-  padding: 65px 0;
-}
-.solution-3 {
+.solution2-1 {
   width: 100%;
-  min-height: 725px;
+  height: 685px;
 }
-.solution-3 .container {
-  padding-top: 20px;
+.solution2-1 .container {
+  background: url(../img/solution2_bg1.png) no-repeat;
+  -webkit-background-size: 612px 270px;
+  background-size: 612px 270px;
+  background-position: 625px 280px;
 }
-.solution-3 .container .solution3-box {
-  height: 600px;
-  background: #fff;
-  -webkit-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  -moz-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  text-align: center;
-  overflow: hidden;
-}
-.solution-4 {
+.solution2-1 .container .bread-nav {
   width: 100%;
-  min-height: 745px;
-  background-color: #fafafc;
+  height: 50px;
+  line-height: 50px;
 }
-.solution-4 .container {
-  padding-top: 20px;
-}
-.solution-4 .container .solution4-box {
-  height: 600px;
-  background: #fff;
-  -webkit-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  -moz-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
-  text-align: center;
-  overflow: hidden;
-}
-.solution-5 {
-  width: 100%;
-  min-height: 770px;
-}
-.solution-5 .container {
-  padding-top: 50px;
-}
-.solution-5 .container .solution5-box {
-  width: 100%;
-}
-.solution-5 .container .solution5-box li {
+.solution2-1 .container .bread-nav li {
   float: left;
-  width: 390px;
-  height: 278px;
-  background-color: #f0f1f3;
-  margin-right: 13px;
-  margin-bottom: 13px;
-  overflow: hidden;
+  color: #666;
 }
-.solution-5 .container .solution5-box li.no-margin-right {
-  margin-right: 0;
+.solution2-1 .container .bread-nav li a:hover {
+  text-decoration: underline;
 }
-.solution-5 .container .solution5-box li > img {
-  display: block;
+.solution2-1 .container .bread-nav li span {
+  margin: 0 10px;
+}
+.solution2-1 .container .detail-btn {
+  margin-top: 90px;
+}
+.solution2-2 {
   width: 100%;
+  height: 600px;
+  background: url(../img/solution2_bg2.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.solution2-3 {
+  width: 100%;
+  height: 633px;
+}
+.solution2-3 .container {
+  background: url(../img/solution2_bg3.png) no-repeat;
+  background-position: 400px 0;
+}
+.solution2-3 .container .public-left-box .header .left-icon {
+  width: 45px;
+  height: 49px;
+  background-position: -10px -10px;
+  margin-top: 10px;
+}
+.solution2-4 {
+  width: 100%;
+  height: 600px;
+  background: url(../img/solution2_bg4.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.solution2-4 .header div.right-icon {
+  width: 47px;
+  height: 37px;
+  background-position: -72px -79px;
+}
+.solution2-4 .solution2-nav {
+  text-align: right;
+  color: #fff;
+}
+.solution2-5 {
+  width: 100%;
+  height: 592px;
+}
+.solution2-5 .container {
+  background: url(../img/solution2_bg5.png) 400px 100px no-repeat;
+}
+.solution2-5 .container .text-info {
+  width: 550px;
+}
+.solution2-5 .container .header div.left-icon {
+  width: 42px;
+  height: 41px;
+  background-position: -143px -10px;
+}
+.solution2-5 .container .detail-btn {
+  margin-top: 70px;
 }
