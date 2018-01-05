@@ -3,7 +3,7 @@
   var oHeader = $(".public-header");
   var oLogo = $(".public-header img");
   var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-  if(scrollTop > 50) { //页面刷新保留header的样式操作
+  if(scrollTop > 20) { //页面刷新保留header的样式操作
     oHeader.css({
       "background-color": "#fff",
       "color": "#000"
@@ -14,7 +14,7 @@
   function setHeadStyle() {
     //实时获取滚动条距离顶部的值
     scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-    if(scrollTop > 50) {
+    if(scrollTop > 20) {
       oHeader.css({
         "background-color": "#fff",
         "color": "#000"

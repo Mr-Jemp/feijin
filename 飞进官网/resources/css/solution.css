@@ -10,13 +10,14 @@
   padding-top: 150px;
 }
 .solution2-banner .public-title .public-title-top {
-  font-size: 48px;
+  font-size: 40px;
   color: #fff;
   font-weight: 600;
 }
 .solution2-banner .public-title .public-title-top .public-small-title {
-  font-size: 30px;
+  font-size: 24px;
   vertical-align: bottom;
+  color: #eee;
 }
 .solution2-banner .public-title .public-title-top::after {
   display: none;

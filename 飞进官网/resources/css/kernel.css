@@ -1,11 +1,30 @@
-body .public-header {
-  background: #fff;
-  color: #000;
+.kernel-banner {
+  width: 100%;
+  height: 380px;
+  background: url(../img/kernel_banner.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.kernel-banner .container .public-title {
+  padding-top: 150px;
+}
+.kernel-banner .container .public-title .public-title-top {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+}
+.kernel-banner .container .public-title .public-title-top .public-small-title {
+  vertical-align: bottom;
+  font-size: 24px;
+  color: #eee;
+}
+.kernel-banner .container .public-title .public-title-top:after {
+  display: none;
 }
 .kernel-1 {
   width: 100%;
-  min-height: 1382px;
-  padding-top: 100px;
+  min-height: 1180px;
+  padding-top: 45px;
   background-color: #fafafc;
 }
 .kernel-1 .list {

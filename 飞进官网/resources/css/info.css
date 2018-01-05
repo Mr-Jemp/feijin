@@ -1,6 +1,30 @@
-body .public-header {
-  background: #fff;
-  color: #000;
+.info-banner {
+  width: 100%;
+  height: 380px;
+  background: url(../img/info_banner.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.info-banner .container .public-title {
+  padding-top: 150px;
+}
+.info-banner .container .public-title .public-title-top {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+  padding-bottom: 0;
+}
+.info-banner .container .public-title .public-title-top .public-small-title {
+  vertical-align: bottom;
+  font-size: 24px;
+  color: #eee;
+}
+.info-banner .container .public-title .public-title-top:after {
+  display: none;
+}
+.info-banner .container .public-title .public-title-bottom {
+  font-size: 14px;
+  color: #fff;
 }
 .info-1 {
   width: 100%;

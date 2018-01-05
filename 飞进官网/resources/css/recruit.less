@@ -1,26 +1,32 @@
-body{
-    background-color: #fafafc;
-    .public-header{
-        background: #fff;
-        .header-nav{
-            color: #000;
-        }
-    }
-}
 
 .recruit-1{
     width: 100%;
-    min-height: 383px;
+    height: 380px;
+    background: url(../img/about_banner.png) center no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
     .container{
         padding-top: 100px;
         .public-title{
-            padding-bottom: 20px;
+            .public-title-top{
+                color: #fff;
+                font-size: 40px;
+                font-weight: 600;
+                padding-bottom: 0;
+                .public-small-title{
+                    vertical-align: bottom;
+                    font-size: 24px;
+                    color: #eee;
+                }
+                &:after{
+                    display: none;
+                }
+            }
         }
         .recruit1-nav{
             width: 563px;
             height: 40px;
-            margin: 0 auto;
-            border: 1px solid #dcdcdc;
+            margin: 50px auto 0;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
             border-radius: 5px;
@@ -37,6 +43,7 @@ body{
                 font-size: 14px;
                 color: #626262;
                 cursor: pointer;
+                background-color: #fff;
                 border-right: 1px solid #dcdcdc;
                 a{
                     display: block;
