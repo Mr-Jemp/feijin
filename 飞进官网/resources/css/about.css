@@ -188,6 +188,16 @@
   float: left;
   margin-right: 20px;
   overflow: hidden;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.about-5 .about5-photo-list li:hover {
+  -webkit-box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
+  -moz-box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
+  box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
 }
 .about-5 .about5-photo-list li > img {
   display: block;

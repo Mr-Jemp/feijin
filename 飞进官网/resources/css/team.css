@@ -135,6 +135,16 @@
   height: 220px;
   margin-right: 5px;
   overflow: hidden;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.team-3 .team3-photo-list li:hover {
+  -webkit-box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
+  -moz-box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
+  box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
 }
 .team-3 .team3-photo-list li.last-child {
   margin-right: 0;
@@ -170,6 +180,16 @@
   margin-bottom: 80px;
   background-color: #626262;
   overflow: hidden;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.team-4 .team4-photo-list li:hover {
+  -webkit-box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
+  -moz-box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
+  box-shadow: 0 0 15px rgba(50, 50, 50, 0.7);
 }
 .team-4 .team4-photo-list li.last-child {
   margin-right: 0;

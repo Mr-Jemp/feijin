@@ -74,6 +74,11 @@
   -o-transition: .5s;
   transition: .5s;
 }
+.solution-2 .solution2-list li:hover {
+  -webkit-box-shadow: 0 0 30px rgba(50, 50, 50, 0.8);
+  -moz-box-shadow: 0 0 30px rgba(50, 50, 50, 0.8);
+  box-shadow: 0 0 30px rgba(50, 50, 50, 0.8);
+}
 .solution-2 .solution2-list li .icon-box {
   padding-top: 115px;
   height: 160px;
@@ -106,6 +111,16 @@
   text-align: center;
   overflow: hidden;
   position: relative;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.solution-3 .container .solution3-box:hover {
+  -webkit-box-shadow: 0 0 40px rgba(167, 170, 174, 0.8);
+  -moz-box-shadow: 0 0 40px rgba(167, 170, 174, 0.8);
+  box-shadow: 0 0 40px rgba(167, 170, 174, 0.8);
 }
 .solution-3 .container .solution3-box img {
   position: absolute;
@@ -132,6 +147,16 @@
   text-align: center;
   overflow: hidden;
   position: relative;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.solution-4 .container .solution4-box:hover {
+  -webkit-box-shadow: 0 0 40px rgba(167, 170, 174, 0.8);
+  -moz-box-shadow: 0 0 40px rgba(167, 170, 174, 0.8);
+  box-shadow: 0 0 40px rgba(167, 170, 174, 0.8);
 }
 .solution-4 .container .solution4-box img {
   position: absolute;

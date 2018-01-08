@@ -193,6 +193,16 @@
             float: left;
             margin-right: 20px;
             overflow: hidden;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+            transition: .5s;
+            &:hover{
+                -webkit-box-shadow: 0 0 15px rgba(50,50,50,0.7);
+                -moz-box-shadow: 0 0 15px rgba(50,50,50,0.7);
+                box-shadow: 0 0 15px rgba(50,50,50,0.7);
+            }
             >img{
                 display: block;
                 width: 100%;
