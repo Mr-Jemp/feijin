@@ -90,9 +90,11 @@
 .about-3 .about3-text {
   width: 1061px;
   margin: 0 auto;
-  font-size: 16px;
+  font-size: 14px;
   color: #333;
   line-height: 30px;
+  text-indent: 30px;
+  letter-spacing: 1px;
 }
 .about-3 .about3-list {
   width: 1000px;
@@ -168,7 +170,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   width: 1090px;
-  text-indent: 20px;
+  text-indent: 30px;
   font-size: 14px;
   color: #292929;
   line-height: 30px;
