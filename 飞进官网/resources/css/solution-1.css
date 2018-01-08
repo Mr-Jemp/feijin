@@ -1,9 +1,3 @@
-body .public-header {
-  background: #fff;
-}
-body .public-header .header-nav {
-  color: #000;
-}
 .content-caption {
   padding: 20px 27px;
 }
@@ -14,14 +8,13 @@ body .public-header .header-nav {
 }
 .solution-1 {
   width: 100%;
-  min-height: 670px;
-  padding-top: 100px;
-  background: url(../img/solution_bg1_01.png) center 100px no-repeat;
-  background-size: 100% 450px;
+  min-height: 770px;
+  background: url(../img/solution_bg1_01.png) center top no-repeat;
+  background-size: 100% 380px;
 }
 .solution-1 .solution1-caption {
   position: absolute;
-  top: 118px;
+  top: 192px;
   left: 0;
   right: 0;
   margin: auto;
@@ -34,7 +27,7 @@ body .public-header .header-nav {
   width: 100%;
   min-height: 370px;
   position: absolute;
-  top: 245px;
+  top: 300px;
   background-color: #fff;
   -webkit-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
   -moz-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
@@ -49,6 +42,7 @@ body .public-header .header-nav {
   font-size: 14px;
   line-height: 25px;
   letter-spacing: 1px;
+  color: #555;
 }
 .solution-2 {
   width: 100%;
@@ -73,7 +67,6 @@ body .public-header .header-nav {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-top: 115px;
   overflow: hidden;
   -webkit-transition: .5s;
   -moz-transition: .5s;
@@ -81,100 +74,72 @@ body .public-header .header-nav {
   -o-transition: .5s;
   transition: .5s;
 }
-.solution-2 .solution2-list li > i {
+.solution-2 .solution2-list li .icon-box {
+  padding-top: 115px;
+  height: 160px;
+}
+.solution-2 .solution2-list li .icon-box i {
   display: inline-block;
-  background: url(../img/css_sprites_3.png) 0 0 no-repeat;
-}
-.solution-2 .solution2-list li.item-1 i {
-  width: 98px;
-  height: 98px;
-  background-position: -138px -138px;
-}
-.solution-2 .solution2-list li.item-2 i {
-  width: 99px;
-  height: 98px;
-  background-position: -20px -20px;
-}
-.solution-2 .solution2-list li.item-3 i {
-  width: 62px;
-  height: 98px;
-  background-position: -220px -256px;
-}
-.solution-2 .solution2-list li.item-4 i {
-  width: 103px;
-  height: 92px;
-  background-position: -258px -20px;
-}
-.solution-2 .solution2-list li.item-4 span {
-  padding-top: 71px;
+  background: url(../img/css_sprites7.png) 0 0 no-repeat;
 }
 .solution-2 .solution2-list li.no-margin-right {
   margin-right: 0;
 }
-.solution-2 .solution2-list li:hover {
-  -webkit-transition: .5s;
-  -moz-transition: .5s;
-  -ms-transition: .5s;
-  -o-transition: .5s;
-  transition: .5s;
-  background-color: #3874f4;
-  -webkit-box-shadow: 0 0 15px #3874F4;
-  -moz-box-shadow: 0 0 15px #3874F4;
-  box-shadow: 0 0 15px #3874F4;
-}
-.solution-2 .solution2-list li:hover span {
-  color: #fff;
-}
-.solution-2 .solution2-list li.item-1:hover i {
-  background-position: -20px -138px;
-}
-.solution-2 .solution2-list li.item-2:hover i {
-  background-position: -138px -20px;
-}
-.solution-2 .solution2-list li.item-3:hover i {
-  background-position: -300px -256px;
-}
-.solution-2 .solution2-list li.item-4:hover i {
-  background-position: -258px -131px;
-}
 .solution-2 .solution2-list li .solution2-item-text {
   display: block;
   font-size: 18px;
-  color: #3874f4;
-  padding: 65px 0;
+  color: #fff;
 }
 .solution-3 {
   width: 100%;
-  min-height: 725px;
+  min-height: 845px;
 }
 .solution-3 .container {
   padding-top: 20px;
 }
 .solution-3 .container .solution3-box {
-  height: 600px;
+  height: 700px;
   background: #fff;
   -webkit-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
   -moz-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
   box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
   text-align: center;
   overflow: hidden;
+  position: relative;
+}
+.solution-3 .container .solution3-box img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .solution-4 {
   width: 100%;
-  min-height: 745px;
+  min-height: 845px;
   background-color: #fafafc;
 }
 .solution-4 .container {
   padding-top: 20px;
 }
 .solution-4 .container .solution4-box {
-  height: 600px;
+  min-height: 650px;
   background: #fff;
   -webkit-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
   -moz-box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
   box-shadow: 0 0 10px rgba(167, 170, 174, 0.35);
   text-align: center;
   overflow: hidden;
+  position: relative;
+}
+.solution-4 .container .solution4-box img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .solution-5 {
   width: 100%;
@@ -201,4 +166,204 @@ body .public-header .header-nav {
 .solution-5 .container .solution5-box li > img {
   display: block;
   width: 100%;
+}
+.education .solution-2 .solution2-list li.item-1 {
+  background: url(../img/education_bg1.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.education .solution-2 .solution2-list li.item-1 i {
+  width: 98px;
+  height: 98px;
+  background-position: -128px -10px;
+}
+.education .solution-2 .solution2-list li.item-2 {
+  background: url(../img/education_bg2.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.education .solution-2 .solution2-list li.item-2 i {
+  width: 98px;
+  height: 98px;
+  background-position: -10px -10px;
+}
+.education .solution-2 .solution2-list li.item-3 {
+  background: url(../img/education_bg3.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.education .solution-2 .solution2-list li.item-3 i {
+  width: 60px;
+  height: 96px;
+  background-position: -464px -117px;
+}
+.education .solution-2 .solution2-list li.item-4 {
+  background: url(../img/education_bg4.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.education .solution-2 .solution2-list li.item-4 i {
+  width: 103px;
+  height: 92px;
+  background-position: -10px -129px;
+}
+.finance .solution-2 .solution2-list li.item-1 {
+  background: url(../img/finance_bg1.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.finance .solution-2 .solution2-list li.item-1 i {
+  width: 77px;
+  height: 76px;
+  background-position: -110px -329px;
+}
+.finance .solution-2 .solution2-list li.item-2 {
+  background: url(../img/finance_bg2.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.finance .solution-2 .solution2-list li.item-2 i {
+  width: 98px;
+  height: 98px;
+  background-position: -10px -10px;
+}
+.finance .solution-2 .solution2-list li.item-3 {
+  background: url(../img/finance_bg3.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.finance .solution-2 .solution2-list li.item-3 i {
+  width: 84px;
+  height: 85px;
+  background-position: -248px -106px;
+}
+.finance .solution-2 .solution2-list li.item-4 {
+  background: url(../img/finance_bg4.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.finance .solution-2 .solution2-list li.item-4 i {
+  width: 70px;
+  height: 86px;
+  background-position: -466px -10px;
+}
+.community .solution-2 .solution2-list li.item-1 {
+  background: url(../img/community_bg1.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.community .solution-2 .solution2-list li.item-1 i {
+  width: 67px;
+  height: 77px;
+  background-position: -465px -232px;
+}
+.community .solution-2 .solution2-list li.item-2 {
+  background: url(../img/community_bg2.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.community .solution-2 .solution2-list li.item-2 i {
+  width: 81px;
+  height: 81px;
+  background-position: -133px -128px;
+}
+.community .solution-2 .solution2-list li.item-3 {
+  background: url(../img/community_bg3.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.community .solution-2 .solution2-list li.item-3 i {
+  width: 81px;
+  height: 77px;
+  background-position: -365px -110px;
+}
+.community .solution-2 .solution2-list li.item-4 {
+  background: url(../img/community_bg4.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.community .solution-2 .solution2-list li.item-4 i {
+  width: 75px;
+  height: 82px;
+  background-position: -365px -207px;
+}
+.commerce .solution-2 .solution2-list li.item-1 {
+  background: url(../img/commerce_bg1.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.commerce .solution-2 .solution2-list li.item-1 i {
+  width: 97px;
+  height: 76px;
+  background-position: -247px -10px;
+}
+.commerce .solution-2 .solution2-list li.item-2 {
+  background: url(../img/commerce_bg2.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.commerce .solution-2 .solution2-list li.item-2 i {
+  width: 95px;
+  height: 69px;
+  background-position: -10px -240px;
+}
+.commerce .solution-2 .solution2-list li.item-3 {
+  background: url(../img/commerce_bg3.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.commerce .solution-2 .solution2-list li.item-3 i {
+  width: 76px;
+  height: 76px;
+  background-position: -206px -329px;
+}
+.commerce .solution-2 .solution2-list li.item-4 {
+  background: url(../img/commerce_bg4.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.commerce .solution-2 .solution2-list li.item-4 i {
+  width: 72px;
+  height: 72px;
+  background-position: -302px -329px;
+}
+.video .solution-2 .solution2-list li.item-1 {
+  background: url(../img/video_bg1.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.video .solution-2 .solution2-list li.item-1 i {
+  width: 79px;
+  height: 77px;
+  background-position: -10px -329px;
+}
+.video .solution-2 .solution2-list li.item-2 {
+  background: url(../img/video_bg2.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.video .solution-2 .solution2-list li.item-2 i {
+  width: 67px;
+  height: 69px;
+  background-position: -465px -329px;
+}
+.video .solution-2 .solution2-list li.item-3 {
+  background: url(../img/video_bg3.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.video .solution-2 .solution2-list li.item-3 i {
+  width: 81px;
+  height: 80px;
+  background-position: -364px -10px;
+}
+.video .solution-2 .solution2-list li.item-4 {
+  background: url(../img/video_bg4.png) center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.video .solution-2 .solution2-list li.item-4 i {
+  width: 58px;
+  height: 79px;
+  background-position: -10px -426px;
 }

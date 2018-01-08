@@ -188,7 +188,7 @@
 }
 .index-2 .index-2-1 .list li {
   float: left;
-  width: 218px;
+  width: 222px;
   min-height: 300px;
   border: 1px solid #97b5f5;
   -webkit-box-shadow: 1px 0 10px rgba(39, 119, 253, 0.35);
@@ -206,7 +206,7 @@
   -o-transition: .5s;
   transition: .5s;
 }
-.index-2 .index-2-1 .list li:last-child {
+.index-2 .index-2-1 .list li.last-child {
   margin-right: 0;
 }
 .index-2 .index-2-1 .list li:hover {

@@ -4,6 +4,11 @@
 index.html          首页
 kernel.html         核心业务
 solution.html       解决方案
+solution-1.html     教育
+solution-2.html     金融
+solution-3.html     社区
+solution-4.html     电商
+solution-5.html     视频
 case.html           成功案例
 case_detail         案例详情
 info.html           新闻中心
