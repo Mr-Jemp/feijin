@@ -186,6 +186,9 @@
   min-height: 315px;
   margin: 0 auto;
 }
+.index-2 .index-2-1 .list {
+  width: 100%;
+}
 .index-2 .index-2-1 .list li {
   float: left;
   width: 222px;
@@ -566,6 +569,9 @@
   padding: 20px 10px;
   font-size: 16px;
   color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .index-5 .list li .item-info {
   font-size: 14px;
