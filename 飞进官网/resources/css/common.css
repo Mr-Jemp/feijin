@@ -96,6 +96,9 @@
   float: left;
   position: relative;
 }
+.public-header .container .header-nav li.active {
+  color: #225da6;
+}
 .public-header .container .header-nav li.active .nav-hover {
   top: 0;
 }
