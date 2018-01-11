@@ -181,21 +181,6 @@
   background-size: 612px 270px;
   background-position: 625px 280px;
 }
-.solution2-1 .container .bread-nav {
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-}
-.solution2-1 .container .bread-nav li {
-  float: left;
-  color: #666;
-}
-.solution2-1 .container .bread-nav li a:hover {
-  text-decoration: underline;
-}
-.solution2-1 .container .bread-nav li span {
-  margin: 0 10px;
-}
 .solution2-1 .container .detail-btn {
   margin-top: 90px;
 }

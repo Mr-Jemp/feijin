@@ -7,8 +7,8 @@ body .public-header {
   background-color: #fafafc;
   margin-top: 100px;
 }
-.info-detail-1 .container {
-  padding-top: 30px;
+.info-detail-1 .container .bread-nav {
+  margin-bottom: 30px;
 }
 .info-detail-1 .left-box {
   float: left;
