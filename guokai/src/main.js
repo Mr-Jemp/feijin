@@ -6,6 +6,9 @@ import router from './router/index'
 import Nav from './components/public/Nav.vue'
 
 Vue.component("v-nav",Nav);
+import 'mint-ui/lib/style.min.css'
+// import {Toast} from 'mint-ui';
+
 
 Vue.config.productionTip = false;
 

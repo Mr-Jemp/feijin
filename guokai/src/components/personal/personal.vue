@@ -6,7 +6,11 @@
         <img src="../../assets/img/default_head.png" alt="">
       </div>
       <span class="nickname">张先生</span>
-      <div class="sign-box">
+      <div v-if="ifSign" class="is-sign">
+        <i></i>
+        <span>已连续签到一天</span>
+      </div>
+      <div v-else class="no-sign" @click="signIn">
         <i></i>
         <span>签到+100金币</span>
       </div>
@@ -23,7 +27,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="" class="item-box">
+        <router-link to="/details" class="item-box">
           <div class="left">
             <i class="item-icon"></i>
             <span class="item-text">明细</span>
@@ -32,7 +36,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="" class="item-box">
+        <router-link to="/collect" class="item-box">
           <div class="left">
             <i class="item-icon"></i>
             <span class="item-text">我的收藏</span>
@@ -49,7 +53,14 @@
 <script>
   export default {
     data() {
-      return {}
+      return {
+        ifSign: false,
+      }
+    },
+    methods:{
+      signIn(){
+        this.ifSign = true;
+      }
     }
   }
 </script>
@@ -99,7 +110,7 @@
     color: #fff;
     padding: 17/75rem 0;
   }
-  .sign-box{
+  .no-sign{
     width: 300/75rem;
     height: 47/75rem;
     -webkit-border-radius: 20/75rem;
@@ -116,6 +127,31 @@
       width: 26/75rem;
       height: 27/75rem;
       background: url("../../assets/img/sign_icon.png") 0 0 no-repeat;
+      background-size: cover;
+    }
+    span{
+      font-size: 26/75rem;
+      color: #fff;
+      padding-left: 12/75rem;
+    }
+  }
+  .is-sign{
+    width: 300/75rem;
+    height: 47/75rem;
+    -webkit-border-radius: 20/75rem;
+    -moz-border-radius: 20/75rem;
+    border-radius: 20/75rem;
+    background-color: rgba(255,255,255,.3);
+    display: flex;
+    align-items: center;
+    margin: 35/75rem auto;
+    text-align: center;
+    padding-left: 49/75rem;
+    i{
+      display: inline-block;
+      width: 29/75rem;
+      height: 29/75rem;
+      background: url("../../assets/img/check_icon.png") 0 0 no-repeat;
       background-size: cover;
     }
     span{

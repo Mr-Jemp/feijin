@@ -1,5 +1,5 @@
 <template>
-  <div id="nav">
+  <div class="my-nav">
     <ul>
       <li :class="{'active': current === 0}">
         <router-link to="/home">
@@ -31,13 +31,13 @@
 
 <script>
   export default {
-    name: "nav",
-    props: ['current'],
+    name: "my-nav",
+    props: ['current']
   }
 </script>
 
 <style lang="less">
-  #nav {
+  .my-nav {
     position: fixed;
     bottom: 0;
     width: 100%;

@@ -2,7 +2,7 @@
   <div class="home">
     <div class="public-header">
       <div class="search-wrap">
-        <router-link to="">
+        <router-link to="/suggest">
           <i class="search-icon"></i>
           <span>搜索课程名称</span>
         </router-link>
@@ -11,76 +11,13 @@
 
     <section class="container">
       <ul class="course-list clearFix">
-        <li>
-          <router-link to="">
+        <li v-for="item in courseList">
+          <router-link :to="'/cover?id='+item.id">
             <div class="item-img-box">
-              <img src="../../assets/img/course_img1.png" alt="">
+              <img :src="item.image" alt="">
             </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="item-img-box">
-              <img src="../../assets/img/course_img2.png" alt="">
-            </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="item-img-box">
-              <img src="../../assets/img/course_img3.png" alt="">
-            </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="item-img-box">
-              <img src="../../assets/img/course_img4.png" alt="">
-            </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="item-img-box">
-              <img src="../../assets/img/course_img1.png" alt="">
-            </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="item-img-box">
-              <img src="../../assets/img/course_img2.png" alt="">
-            </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="item-img-box">
-              <img src="../../assets/img/course_img3.png" alt="">
-            </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="item-img-box">
-              <img src="../../assets/img/course_img4.png" alt="">
-            </div>
-            <p class="item-caption">影响长时记忆效果的因素影响长时记忆效果的因素影响长时记忆效果的因素</p>
-            <span class="item-name">主讲：李老师</span>
+            <p class="item-caption">{{item.name}}</p>
+            <span class="item-name">主讲：{{item.teacher}}</span>
           </router-link>
         </li>
       </ul>
@@ -91,43 +28,96 @@
 </template>
 
 <script>
+  import {con} from "../../assets/js/common"
+
+  let openid;
+  export default {
+    data() {
+      return {
+        courseList: []
+      }
+    },
+    mounted() {
+      this.getOpenid(location.href);
+    },
+    methods: {
+      /**
+       * 获取openid
+       * @param url 页面url地址
+       */
+      getOpenid(url) {
+        if (url.indexOf("?") != -1) {
+          let obj = con.urlToObj(url);
+          openid = obj.openid;
+          localStorage.setItem("openid",JSON.stringify(openid));
+          this.getCourseList(openid);
+        }else{
+          let _openid = localStorage.getItem("openid");
+          this.getCourseList(JSON.parse(_openid));
+        }
+      },
+      /**
+       * 获取课程列表
+       * @param openid
+       */
+      getCourseList(openid) {
+        con.get("/api/course/list?openid=" + openid, (response) => {
+          if (response.result === 1) {
+            this.courseList = response.data.result;
+            //请求数据成功以后把微信带过来的一堆参数去除,设置当前页面的url地址为：
+            //http://weike.51feijin.com/wap/#/home
+            let _url = window.location.protocol + '//' + window.location.host + '/wap/#/home';
+            window.history.pushState({}, "", _url);
+          } else {
+            con.toast(response.msg);
+          }
+        })
+      }
+    }
+  }
 
 </script>
 
 <style lang="less" scoped>
-  #home{
+  #home {
     width: 100%;
   }
 
-  .container{
+  .container {
     padding-bottom: 96/75rem;
-    .course-list{
-      li{
+    .course-list {
+      li {
         float: left;
         margin: 10/75rem;
         width: 360/75rem;
         min-height: 310/75rem;
-        &:nth-of-type(even){
+        &:nth-of-type(even) {
           margin-left: 0;
         }
-        .item-img-box{
+        .item-img-box {
           width: 360/75rem;
           height: 210/75rem;
           background-color: #000;
           overflow: hidden;
-          img{
+          -webkit-border-radius: 5/75rem;
+          -moz-border-radius: 5/75rem;
+          border-radius: 5/75rem;
+          img {
             display: block;
             width: 100%;
+            -webkit-border-radius: 5/75rem;
+            -moz-border-radius: 5/75rem;
+            border-radius: 5/75rem;
           }
         }
-        .item-caption{
+        .item-caption {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
           font-size: 27/75rem;
           padding: 20/75rem 15/75rem;
         }
-        .item-name{
+        .item-name {
           font-size: 22/75rem;
           color: #666;
           display: block;

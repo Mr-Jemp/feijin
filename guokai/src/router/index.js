@@ -6,6 +6,12 @@ import Mentoring from "../components/mentoring/mentoring.vue"
 import Personal from "../components/personal/personal.vue"
 
 import Login from "../components/catalog/login.vue"
+import Cover from "../components/catalog/cover.vue"
+import Collect from "../components/catalog/collect.vue"
+import Details from "../components/catalog/details.vue"
+import Discuss from "../components/catalog/discuss.vue"
+import Video from "../components/catalog/video.vue"
+import Suggest from "../components/catalog/suggest.vue"
 
 
 Vue.use(Router);
@@ -34,6 +40,30 @@ export default new Router({
     {
       path: "/login",
       component: Login
+    },
+    {
+      path: "/cover",
+      component: Cover
+    },
+    {
+      path: "/collect",
+      component: Collect
+    },
+    {
+      path: "/details",
+      component: Details
+    },
+    {
+      path: "/discuss",
+      component: Discuss
+    },
+    {
+      path: "/video",
+      component: Video
+    },
+    {
+      path: "/suggest",
+      component: Suggest
     },
   ]
 })

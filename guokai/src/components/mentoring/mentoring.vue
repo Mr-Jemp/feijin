@@ -13,142 +13,146 @@
 
     <div class="public-header">
       <div class="search-wrap">
-        <router-link to="">
+        <router-link to="/suggest">
           <i class="search-icon"></i>
           <span>搜索课程名称</span>
         </router-link>
       </div>
     </div>
 
-    <div class="to-answer" v-if="type == 1">
-      <ul class="list">
-        <li>
-          <router-link to="">
-            <div class="box">
-              <div class="left-icon-box">问</div>
-              <div class="right-box">
-                <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
-                <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
-                <ul class="img-list clearFix">
-                  <li>
-                    <img src="../../assets/img/mentor_img1.png" alt="">
-                  </li>
-                  <li>
-                    <img src="../../assets/img/mentor_img2.png" alt="">
-                  </li>
-                  <li>
-                    <img src="../../assets/img/mentor_img3.png" alt="">
-                  </li>
-                </ul>
-                <p class="item-name">邓廷英 2017-03-07 提问</p>
-                <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
+    <transition name="fade-1">
+      <div class="to-answer" v-if="type == 1">
+        <ul class="list">
+          <li>
+            <router-link to="">
+              <div class="box">
+                <div class="left-icon-box">问</div>
+                <div class="right-box">
+                  <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
+                  <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
+                  <ul class="img-list clearFix">
+                    <li>
+                      <img src="../../assets/img/mentor_img1.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img2.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img3.png" alt="">
+                    </li>
+                  </ul>
+                  <p class="item-name">邓廷英 2017-03-07 提问</p>
+                  <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
+                </div>
               </div>
-            </div>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            <div class="box">
-              <div class="left-icon-box">问</div>
-              <div class="right-box">
-                <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
-                <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
-                <ul class="img-list clearFix">
-                  <li>
-                    <img src="../../assets/img/mentor_img1.png" alt="">
-                  </li>
-                  <li>
-                    <img src="../../assets/img/mentor_img2.png" alt="">
-                  </li>
-                  <li>
-                    <img src="../../assets/img/mentor_img3.png" alt="">
-                  </li>
-                </ul>
-                <p class="item-name">邓廷英 2017-03-07 提问</p>
-                <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="">
+              <div class="box">
+                <div class="left-icon-box">问</div>
+                <div class="right-box">
+                  <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
+                  <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
+                  <ul class="img-list clearFix">
+                    <li>
+                      <img src="../../assets/img/mentor_img1.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img2.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img3.png" alt="">
+                    </li>
+                  </ul>
+                  <p class="item-name">邓廷英 2017-03-07 提问</p>
+                  <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
+                </div>
               </div>
-            </div>
-          </router-link>
-        </li>
-      </ul>
-    </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </transition>
 
-    <div class="have-to-solve" v-if="type == 2">
-      <ul class="list">
-        <li>
-        <router-link to="">
-          <div class="box">
-            <div class="left-icon-box">问</div>
-            <div class="right-box">
-              <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
-              <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
-              <ul class="img-list clearFix">
-                <li>
-                  <img src="../../assets/img/mentor_img1.png" alt="">
-                </li>
-                <li>
-                  <img src="../../assets/img/mentor_img2.png" alt="">
-                </li>
-                <li>
-                  <img src="../../assets/img/mentor_img3.png" alt="">
-                </li>
-              </ul>
-              <p class="item-name">邓廷英 2017-03-07 提问</p>
-              <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
-            </div>
-          </div>
-          <div class="reply-box">
-            <div class="left-icon-box">答</div>
-            <div class="right-box">
-              <h4 class="item-caption">李志斌 2017-05-25<span class="label">回答</span></h4>
-              <p class="item-text">同学你好，请关注相关考试通知！</p>
-              <ul class="img-list clearFix">
-                <li>
-                  <img src="../../assets/img/mentor_img1.png" alt="">
-                </li>
-              </ul>
-            </div>
-          </div>
-        </router-link>
-      </li>
-        <li>
-          <router-link to="">
-            <div class="box">
-              <div class="left-icon-box">问</div>
-              <div class="right-box">
-                <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
-                <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
-                <ul class="img-list clearFix">
-                  <li>
-                    <img src="../../assets/img/mentor_img1.png" alt="">
-                  </li>
-                  <li>
-                    <img src="../../assets/img/mentor_img2.png" alt="">
-                  </li>
-                  <li>
-                    <img src="../../assets/img/mentor_img3.png" alt="">
-                  </li>
-                </ul>
-                <p class="item-name">邓廷英 2017-03-07 提问</p>
-                <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
+    <transition name="fade-2">
+      <div class="have-to-solve" v-if="type == 2">
+        <ul class="list">
+          <li>
+            <router-link to="">
+              <div class="box">
+                <div class="left-icon-box">问</div>
+                <div class="right-box">
+                  <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
+                  <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
+                  <ul class="img-list clearFix">
+                    <li>
+                      <img src="../../assets/img/mentor_img1.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img2.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img3.png" alt="">
+                    </li>
+                  </ul>
+                  <p class="item-name">邓廷英 2017-03-07 提问</p>
+                  <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
+                </div>
               </div>
-            </div>
-            <div class="reply-box">
-              <div class="left-icon-box">答</div>
-              <div class="right-box">
-                <h4 class="item-caption">李志斌 2017-05-25<span class="label">回答</span></h4>
-                <p class="item-text">同学你好，请关注相关考试通知！</p>
-                <ul class="img-list clearFix">
-                  <li>
-                    <img src="../../assets/img/mentor_img1.png" alt="">
-                  </li>
-                </ul>
+              <div class="reply-box">
+                <div class="left-icon-box">答</div>
+                <div class="right-box">
+                  <h4 class="item-caption">李志斌 2017-05-25<span class="label">回答</span></h4>
+                  <p class="item-text">同学你好，请关注相关考试通知！</p>
+                  <ul class="img-list clearFix">
+                    <li>
+                      <img src="../../assets/img/mentor_img1.png" alt="">
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </router-link>
-        </li>
-      </ul>
-    </div>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="">
+              <div class="box">
+                <div class="left-icon-box">问</div>
+                <div class="right-box">
+                  <h4 class="item-caption">老师请问管理学什么时候开始考试呢？</h4>
+                  <p class="item-text">我想知道管理学这个学期的期末考试时间是什么时候？是网考还是笔试？</p>
+                  <ul class="img-list clearFix">
+                    <li>
+                      <img src="../../assets/img/mentor_img1.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img2.png" alt="">
+                    </li>
+                    <li>
+                      <img src="../../assets/img/mentor_img3.png" alt="">
+                    </li>
+                  </ul>
+                  <p class="item-name">邓廷英 2017-03-07 提问</p>
+                  <p class="item-from">来自：影响长时记忆效果的因素>清楚什么是职业能力</p>
+                </div>
+              </div>
+              <div class="reply-box">
+                <div class="left-icon-box">答</div>
+                <div class="right-box">
+                  <h4 class="item-caption">李志斌 2017-05-25<span class="label">回答</span></h4>
+                  <p class="item-text">同学你好，请关注相关考试通知！</p>
+                  <ul class="img-list clearFix">
+                    <li>
+                      <img src="../../assets/img/mentor_img1.png" alt="">
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </transition>
 
     <v-nav :current="2"></v-nav>
   </div>
@@ -165,6 +169,20 @@
 </script>
 
 <style lang="less" scoped>
+  .fade-1-enter,.fade-2-enter{
+    opacity: 0;
+  }
+  .fade-1-enter-active,.fade-2-enter-active{
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+  }
+  .fade-1-enter-to,.fade-2-enter-to{
+    opacity: 1;
+  }
+
   #mentoring {
     width: 100%;
     min-height: 100vh;
@@ -197,7 +215,7 @@
         color: #fff;
         line-height: 80/75rem;
         span {
-          &.active{
+          &.active {
             border-bottom: 1px solid #fff;
           }
           padding-bottom: 8/75rem;
@@ -290,23 +308,23 @@
     }
   }
 
-  .have-to-solve{
-    .list{
-      .box{
-        .right-box{
+  .have-to-solve {
+    .list {
+      .box {
+        .right-box {
           padding-bottom: 20/75rem;
           border-bottom: 1px solid #e5e5e5;
         }
       }
-      .reply-box{
+      .reply-box {
         display: flex;
         justify-content: space-between;
         margin-top: 15/75rem;
-        .left-icon-box{
+        .left-icon-box {
           background-color: #23ac38;
         }
-        .right-box{
-          .label{
+        .right-box {
+          .label {
             color: #23ac38;
             margin-left: 10/75rem;
           }
