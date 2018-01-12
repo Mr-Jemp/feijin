@@ -125,6 +125,18 @@
 .info-2 .list-wrap .left-list .list-1 li > a .left-img-box img {
   display: block;
   width: 100%;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+.info-2 .list-wrap .left-list .list-1 li > a .left-img-box img:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
 }
 .info-2 .list-wrap .left-list .list-1 li > a .item-right {
   width: 613px;
