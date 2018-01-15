@@ -233,3 +233,8 @@ body .public-header {
   border-radius: 5px;
   cursor: pointer;
 }
+.applet-4 .applet4-btn a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
