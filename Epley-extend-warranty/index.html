@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+  </head>
+  <body style="font-size: 16px;">
+    <div id="app"></div>
+  </body>
+</html>
+<script>
+  if(document.documentElement.clientWidth > 600){//页面宽度大于600px让其宽度等于600px,字体大小等于60px，居中
+    document.documentElement.style.width = "600px";
+    document.documentElement.style.fontSize = "60px";
+    document.documentElement.style.margin = "0 auto";
+  }else{//否则让其根节点字体大小等于宽度/10px
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + "px";
+  }
+</script>

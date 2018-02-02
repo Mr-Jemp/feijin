@@ -1,0 +1,91 @@
+<template>
+  <div class="index">
+    <!--<v-header :title="title"/>-->
+
+    <!--轮播-->
+    <div class="swiper-container banner-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="item in bannerList">
+          <a>
+            <img src="../assets/img/banner_image1.png">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!--主内容-->
+    <div class="container">
+      <img src="../assets/img/index_image.png" alt="">
+      <p class="text">广州艾普利汽车服务有限公司，是一家专业汽车质保解决方案提供商，与英国知名质保公司、国内三大保险公司为战略合作伙伴。以汽车4S店、经销商集团、车行、二手车商为主要服务对象，以新车、在用车、二手车延长质保产品和平行进口车质保为主要产品，为客户提供产品定制，风险管理，营销培训，驻店支持，咨询辅导等相关服务。
+        艾普利质保专业团队，为客户定制个性化方案和咨询顾问式服务。提供真正的从产品设计，到落地服务一整套的质保服务解决方案。
+      </p>
+    </div>
+
+
+    <!--底部导航-->
+    <v-footer :active="1"/>
+
+  </div>
+</template>
+
+<script>
+  import {conf} from "../assets/js/main"
+  import "swiper/dist/css/swiper.min.css"
+  import Swiper from "swiper/dist/js/swiper.min"
+
+  let swiper1
+  export default {
+    name: 'index',
+    data() {
+      return {
+        title: "艾普利质保",
+        bannerList: [1, 2, 3],
+      }
+    },
+    created() {
+      conf.setTitle("艾普利质保");
+    },
+    mounted() {
+      this.initSwiper();
+    },
+    methods: {
+      initSwiper() {
+        swiper1 = new Swiper('.banner-swiper', {
+          loop: true,
+          pagination: {
+            el: ".swiper-pagination"
+          }
+        });
+      }
+    }
+  }
+</script>
+
+<style scoped lang="less">
+  .index{
+    padding-bottom: 100/75rem;
+  }
+  .swiper-container {
+    width: 100%;
+    height: 320/75rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .container{
+    padding: 0 30/75rem;
+    img{
+      display: block;
+      width: 100%;
+      margin: 25/75rem auto;
+    }
+    p{
+      font-size: 28/75rem;
+      line-height: 40/75rem;
+      text-indent: 50/75rem;
+    }
+  }
+</style>
