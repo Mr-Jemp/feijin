@@ -2,36 +2,143 @@
   <div class="forget-password">
     <ul class="list">
       <li>
-        <input type="tel" placeholder="请输入已绑定手机号码">
+        <input type="tel" placeholder="请输入已绑定手机号码" v-model="mobilePhone">
       </li>
       <li>
-        <input type="number" placeholder="请输入验证码">
-        <input type="button" v-model="getCodeBtn">
+        <input type="number" placeholder="请输入验证码" v-model="authCode">
+        <input type="button" v-model="getCodeBtn" @click="getAuthCode">
       </li>
       <li>
-        <input type="password" placeholder="设置新密码">
-        <i class="icon-show-password"></i>
+        <input type="password" id="pass" placeholder="设置新密码" v-model="newPassword">
+        <i class="icon-show-password" @click="showPassword"></i>
       </li>
     </ul>
 
-    <div :class="['btn', {'active': btnActive}]">确认</div>
+    <div :class="['btn', {'active': btnActive}]" @click="resetPassword">确认</div>
 
   </div>
 </template>
 
 <script>
   import {conf} from "../assets/js/main"
+  import $ from "jquery/dist/jquery.min"
+  import MD5 from "blueimp-md5/js/md5.min"
 
   export default {
     name: "forget-password",
     data() {
       return {
+        mobilePhone: "",
+        authCode: "",
+        newPassword: "",
         getCodeBtn: "获取验证码",
         btnActive: false,
+        disable: false,
+        num: 1
+      }
+    },
+    watch: {
+      mobilePhone(value) {
+        if(value && this.authCode && this.newPassword){
+          this.btnActive = true;
+        }else{
+          this.btnActive = false;
+        }
+        let reg = /^[1][3,4,5,7,8][0-9]{9}$/.test(value);
+        if (reg && value.trim().length === 11) {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
+      },
+      authCode(value) {
+        if(value && this.mobilePhone && this.newPassword){
+          this.btnActive = true;
+        }else{
+          this.btnActive = false;
+        }
+      },
+      newPassword(value) {
+        if(value && this.authCode && this.mobilePhone){
+          this.btnActive = true;
+        }else{
+          this.btnActive = false;
+        }
       }
     },
     created() {
       conf.setTitle("忘记密码");
+    },
+    methods: {
+      /**
+       * 获取验证码
+       */
+      getAuthCode() {
+        if(this.mobilePhone){
+          if(this.isMobile){
+            if(!this.disable){
+              this.disable = true;
+              conf.get("/api/security/sendForgetPasswordCode?mobile=" + this.mobilePhone, response => {
+                if(response.result === 1){
+                  conf.toast("发送成功，请注意查收");
+                  let countDown = 60;
+                  let timer = setInterval(() => {
+                    countDown--;
+                    this.getCodeBtn = countDown + "s后获取";
+                    if(countDown < 1){
+                      clearInterval(timer);
+                      this.getCodeBtn = "重新获取验证码";
+                      this.disable = false;
+                    }
+                  }, 1000)
+                }else{
+                  conf.toast(response.msg);
+                }
+              })
+            }
+          }else{
+            conf.toast("手机号码有误");
+          }
+        }else{
+          conf.toast("请输入手机号码");
+        }
+      },
+      /**
+       * 重置密码确认
+       */
+      resetPassword(){
+        if(this.btnActive){
+          if(this.isMobile){
+            conf.post("/api/security/forgetPassword", {
+              "username": this.mobilePhone,
+              "password": MD5(this.newPassword),
+              "mobileCode": this.authCode
+            }, response => {
+              if(response.result === 1){
+                conf.toast("重置密码成功");
+                setTimeout(() => {
+                  this.$router.push('/login');
+                }, 1000)
+              }else{
+                conf.toast(response.msg);
+              }
+            })
+          }else{
+            conf.toast("手机号码有误");
+          }
+        }
+      },
+      /**
+       * 控制密码是否明文显示
+       */
+      showPassword() {
+        this.num++;
+        if(this.num % 2 == 0){
+          $('#pass').attr("type", "text");
+        }else{
+          $('#pass').attr("type", "password");
+        }
+      }
     }
   }
 </script>

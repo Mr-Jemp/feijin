@@ -5,9 +5,9 @@
     <!--轮播-->
     <div class="swiper-container banner-swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="item in bannerList">
+        <div class="swiper-slide" v-for="item in bannerList" :key="item.id">
           <a>
-            <img src="../assets/img/banner_image1.png">
+            <img :src="item.image">
           </a>
         </div>
       </div>
@@ -15,11 +15,11 @@
     </div>
 
     <!--主内容-->
-    <div class="container">
-      <img src="../assets/img/index_image.png" alt="">
+    <div class="container" v-html="introduce.content">
+      <!--<img src="../assets/img/index_image.png" alt="">
       <p class="text">广州艾普利汽车服务有限公司，是一家专业汽车质保解决方案提供商，与英国知名质保公司、国内三大保险公司为战略合作伙伴。以汽车4S店、经销商集团、车行、二手车商为主要服务对象，以新车、在用车、二手车延长质保产品和平行进口车质保为主要产品，为客户提供产品定制，风险管理，营销培训，驻店支持，咨询辅导等相关服务。
         艾普利质保专业团队，为客户定制个性化方案和咨询顾问式服务。提供真正的从产品设计，到落地服务一整套的质保服务解决方案。
-      </p>
+      </p>-->
     </div>
 
 
@@ -40,14 +40,15 @@
     data() {
       return {
         title: "艾普利质保",
-        bannerList: [1, 2, 3],
+        bannerList: [],
+        introduce: ""
       }
     },
     created() {
       conf.setTitle("艾普利质保");
     },
     mounted() {
-      this.initSwiper();
+      this.getHomeData();
     },
     methods: {
       initSwiper() {
@@ -57,6 +58,23 @@
             el: ".swiper-pagination"
           }
         });
+      },
+
+      getHomeData(){
+        conf.loading("加载中...");
+        conf.get("/api/home/", response => {
+          if(response.result === 1){
+            setTimeout(() => {
+              conf.closeLoading();
+            },200);
+            this.bannerList = response.data.banners;
+            this.introduce = response.data.introduce;
+            this.initSwiper();
+          }else{
+            conf.closeLoading();
+            conf.toast(response.msg);
+          }
+        })
       }
     }
   }

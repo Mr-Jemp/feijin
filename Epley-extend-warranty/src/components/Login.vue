@@ -5,16 +5,16 @@
     <div class="form">
       <div class="mobile">
         <i class="icon-mobile"></i>
-        <input type="tel" placeholder="请输入手机号码" maxlength="11">
+        <input type="tel" placeholder="请输入手机号码" v-model="mobilePhone" maxlength="11">
       </div>
       <div class="password">
         <i class="icon-password"></i>
-        <input type="password" placeholder="请输入密码">
+        <input type="password" placeholder="请输入密码" v-model="password">
       </div>
 
       <router-link class="forget-password" to="/forgetPassword">忘记密码</router-link>
 
-      <div class="btn">登录</div>
+      <div class="btn" @click="fnLogin">登录</div>
     </div>
 
     <!--跳转注册-->
@@ -29,16 +29,57 @@
 
 <script>
   import {conf} from "../assets/js/main"
+  import MD5 from "blueimp-md5/js/md5.min"
 
   export default {
     name: "login",
     data() {
       return {
-
+        mobilePhone: "",
+        password: "",
+        onoff: false,
+        isMobile: false
+      }
+    },
+    watch: {
+      mobilePhone(value) {
+        let reg = /^[1][3,4,5,7,8][0-9]{9}$/.test(value);
+        if (reg && value.trim().length === 11) {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
       }
     },
     created() {
       conf.setTitle("登录");
+    },
+    methods: {
+      fnLogin() {
+        if(this.mobilePhone){
+          if(this.isMobile){
+            if(!this.onoff){
+              this.onoff = true;
+              conf.post("/api/security/login", {
+                "username": this.mobilePhone,
+                "password": MD5(this.password)
+              }, response => {
+                this.onoff = false;
+                if(response.result === 1){
+                  conf.toast("登陆成功");
+                  this.$router.push("/personal");
+                }else{
+                  conf.toast(response.msg);
+                }
+              })
+            }
+          }else{
+            conf.toast("手机号码有误");
+          }
+        }else{
+          conf.toast("请输入手机号码");
+        }
+      }
     }
   }
 </script>

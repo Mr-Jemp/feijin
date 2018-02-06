@@ -9,7 +9,7 @@
       </li>
     </ul>
 
-    <div class="btn-logout">退出当前账号</div>
+    <div class="btn-logout" @click="logout">退出当前账号</div>
   </div>
 </template>
 
@@ -23,6 +23,20 @@
     },
     created() {
       conf.setTitle("设置");
+    },
+    methods: {
+      logout() {
+        conf.post("/api/security/logout", {}, response => {
+          if(response.result === 1){
+            conf.toast(response.msg);
+            setTimeout(() => {
+              this.$router.push("/personal");
+            }, 1000);
+          }else{
+            conf.toast(response.msg);
+          }
+        })
+      }
     }
   }
 </script>

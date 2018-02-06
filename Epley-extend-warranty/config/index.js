@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api': {
+        target: 'http://yanbao.51feijin.com/api',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '',
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: '192.168.0.122', // can be overwritten by process.env.HOST

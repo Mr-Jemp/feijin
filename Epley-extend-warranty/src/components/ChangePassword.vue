@@ -2,34 +2,80 @@
   <div class="change-password">
     <ul class="list">
       <li>
-        <input type="password" placeholder="请输入旧密码">
+        <input type="password" placeholder="请输入旧密码" v-model="oldPassword">
       </li>
       <li>
-        <input type="password" placeholder="请输入新密码">
+        <input type="password" placeholder="请输入新密码" v-model="password">
       </li>
       <li>
-        <input type="password" placeholder="请再次输入新密码">
+        <input type="password" placeholder="请再次输入新密码" v-model="confirmPassword">
       </li>
     </ul>
 
-    <router-link class="forget-password" to="/forgetPassword">忘记密码</router-link>
+    <div class="forget">
+      <router-link class="forget-password" to="/forgetPassword">忘记密码</router-link>
+    </div>
 
-    <div :class="['btn', {'active': btnActive}]">确认</div>
+    <div :class="['btn', {'active': btnActive}]" @click="changePassword">确认</div>
   </div>
 </template>
 
 <script>
   import {conf} from "../assets/js/main"
+  import MD5 from "blueimp-md5/js/md5.min"
 
   export default {
     name: "change-password",
     data() {
       return {
         btnActive: false,
+        oldPassword: "",
+        password: "",
+        confirmPassword: "",
+      }
+    },
+    watch: {
+      oldPassword(val) {
+        if(val && this.confirmPassword && this.password){
+          this.btnActive = true;
+        }else{
+          this.btnActive = false;
+        }
+      },
+      password(val) {
+        if(val && this.oldPassword && this.confirmPassword){
+          this.btnActive = true;
+        }else{
+          this.btnActive = false;
+        }
+      },
+      confirmPassword(val) {
+        if(val && this.oldPassword && this.password){
+          this.btnActive = true;
+        }else{
+          this.btnActive = false;
+        }
       }
     },
     created() {
       conf.setTitle("修改密码");
+    },
+    methods: {
+      changePassword(){
+        if(this.btnActive){
+          conf.post("/api/security/modifypassword", {
+            "oldPassword": MD5(this.oldPassword),
+            "password": MD5(this.password),
+            "confirmPassword": MD5(this.confirmPassword)
+          }, response => {
+            if (response.result === 1) {
+              conf.toast(response.msg);
+            } else {
+              conf.toast(response.msg);
+            }
+          })
+        }
+      }
     }
   }
 </script>
@@ -56,12 +102,15 @@
     }
   }
 
-  .forget-password{
+  .forget{
     display: block;
     padding: 40/75rem 30/75rem;
     text-align: right;
-    font-size: 26/75rem;
-    color: #aebac5;
+
+    .forget-password{
+      font-size: 26/75rem;
+      color: #aebac5;
+    }
   }
 
   .btn{

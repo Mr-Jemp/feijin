@@ -4,9 +4,10 @@
     <div class="box">
       <img src="../assets/img/personal_bg.png">
 
-      <div class="tips">Hi，等你好久了！</div>
+      <div class="tips" v-if="isLogin == false">Hi，等你好久了！</div>
+      <div class="tips" v-else>Hi，{{username}}</div>
 
-      <div class="btn-wrap">
+      <div class="btn-wrap" v-show="isLogin == false">
         <router-link to="/register">注册</router-link>
         <router-link to="/login">登录</router-link>
       </div>
@@ -55,11 +56,27 @@
     name: "personal",
     data() {
       return {
-
+        username: '',
+        isLogin: false,
       }
     },
     created() {
       conf.setTitle("个人中心");
+    },
+    mounted() {
+      this.getUserInfo();
+    },
+    methods: {
+      getUserInfo() {
+        conf.get("/api/security/getUserInfo", response => {
+          if (response.result === 1) {
+            this.username = response.data.username;
+            this.isLogin = true;
+          } else {
+            conf.toast(response.msg);
+          }
+        })
+      }
     }
   }
 </script>
@@ -84,7 +101,7 @@
       height: 100%;
     }
 
-    .tips{
+    .tips {
       width: 100%;
       position: absolute;
       top: 80/75rem;
@@ -113,56 +130,56 @@
         -moz-border-radius: 60/75rem;
         border-radius: 60/75rem;
         margin-right: 45/75rem;
-        &:last-child{
+        &:last-child {
           margin-right: 0;
         }
       }
     }
   }
 
-  .list{
+  .list {
     margin-top: 20/75rem;
-    li{
+    li {
       padding: 0 30/75rem;
       height: 96/75rem;
       background-color: #fff;
-      &:last-child{
-        a{
+      &:last-child {
+        a {
           border-bottom: none;
         }
       }
-      a{
+      a {
         width: 100%;
         height: 100%;
         border-bottom: 1px solid #e6ebf4;
         display: flex;
         align-items: center;
-        span{
+        span {
           font-size: 30/75rem;
         }
-        i{
+        i {
           display: inline-block;
           background-repeat: no-repeat;
           background-position: center;
           -webkit-background-size: 100%;
           background-size: 100%;
           margin-right: 30/75rem;
-          &.icon-contract{
+          &.icon-contract {
             width: 28/75rem;
             height: 32/75rem;
             background-image: url("../assets/img/icon_contract.png");
           }
-          &.icon-message{
+          &.icon-message {
             width: 30/75rem;
             height: 34/75rem;
             background-image: url("../assets/img/icon_profile_message.png");
           }
-          &.icon-aipuli{
+          &.icon-aipuli {
             width: 32/75rem;
             height: 22/75rem;
             background-image: url("../assets/img/icon_profile_aipuli.png");
           }
-          &.icon-setting{
+          &.icon-setting {
             width: 32/75rem;
             height: 32/75rem;
             background-image: url("../assets/img/icon_profile_setting.png");
