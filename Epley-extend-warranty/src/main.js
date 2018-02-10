@@ -14,6 +14,10 @@ Vue.component("mt-cell", Cell);
 Vue.component("mt-index-list", IndexList);
 Vue.component("mt-index-section", IndexSection);
 
+//dropload部分
+import $ from "jquery/dist/jquery.min"
+import "./assets/css/dropload.css"
+
 
 //配合webpack来转译输出es5的js代码
 import "babel-polyfill"

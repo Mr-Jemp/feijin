@@ -3,7 +3,7 @@
     <!--应支付金额-->
     <div class="header">
       <span class="text">支付</span>
-      <span class="money">20,000元</span>
+      <span class="money">{{price}}元</span>
     </div>
 
     <div class="box">
@@ -26,7 +26,7 @@
         </li>
       </ul>
 
-      <div class="btn">确认支付</div>
+      <div class="btn" @click="fnPay">确认支付</div>
 
     </div>
 
@@ -41,73 +41,95 @@
     name: "payment",
     data() {
       return {
-        radioType: 1
+        radioType: 1,
+        id: this.$route.query.id,
+        price: this.$route.query.price
       }
     },
     created() {
       conf.setTitle("支付方式");
+      window.scrollTo(0, 0);
+    },
+    methods: {
+      /**
+       * 临时支付：临时接口
+       */
+      fnPay() {
+        conf.post("/api/order/pay", {
+          "id": this.id
+        }, response => {
+          if (response.result === 1) {
+            conf.toast("支付成功");
+            setTimeout(() => {
+              this.$router.replace("/serviceDetails?id=" + this.id);
+            }, 500)
+          } else {
+            conf.toast(response.msg);
+          }
+        })
+      }
     }
   }
 </script>
 
 <style scoped lang="less">
-  .header{
+  .header {
     height: 96/75rem;
     border-bottom: 1px solid #e5e5e5;
     line-height: 96/75rem;
     padding: 0 30/75rem;
     font-size: 30/75rem;
-    .text{
+    .text {
       color: #333;
     }
-    .money{
+    .money {
       color: #999;
       margin-left: 60/75rem;
     }
   }
 
-  .box{
+  .box {
     padding: 0 30/75rem;
-    .select-pay{
+    .select-pay {
       height: 87/75rem;
       line-height: 87/75rem;
       font-size: 26/75rem;
       color: #999;
     }
 
-    .pay-list{
-      li{
+    .pay-list {
+      li {
         height: 108/75rem;
         border-bottom: 1px solid #e5e5e5;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .left{
+        .left {
           display: flex;
           align-items: center;
-          i{
+          i {
             display: block;
             background-repeat: no-repeat;
             background-position: center;
             -webkit-background-size: 100%;
             background-size: 100%;
             margin-right: 20/75rem;
-            &.icon-alipay{
+            &.icon-alipay {
               width: 54/75rem;
               height: 56/75rem;
               background-image: url("../assets/img/icon_alipay.png");
             }
-            &.icon-wechat{
+            &.icon-wechat {
               width: 56/75rem;
               height: 56/75rem;
               background-image: url("../assets/img/icon_wechat.png");
             }
           }
-          span{
+          span {
             font-size: 32/75rem;
           }
         }
-        i.icon-radio{
+        i.icon-radio {
           display: block;
           width: 42/75rem;
           height: 42/75rem;
@@ -116,14 +138,14 @@
           -webkit-background-size: 100%;
           background-size: 100%;
           background-image: url("../assets/img/icon_checkbox.png");
-          &.active{
+          &.active {
             background-image: url("../assets/img/icon_checked.png");
           }
         }
       }
     }
 
-    .btn{
+    .btn {
       width: 690/75rem;
       height: 88/75rem;
       line-height: 88/75rem;

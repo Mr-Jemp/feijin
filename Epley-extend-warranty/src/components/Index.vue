@@ -5,8 +5,11 @@
     <!--轮播-->
     <div class="swiper-container banner-swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="item in bannerList" :key="item.id">
-          <a>
+        <div class="swiper-slide" v-for="item in bannerList">
+          <router-link to="" v-if="item.type === 0"><!--内链-->
+            <img :src="item.image">
+          </router-link>
+          <a v-else="item.type === 1" :href="item.href"><!--外链-->
             <img :src="item.image">
           </a>
         </div>
@@ -41,7 +44,7 @@
       return {
         title: "艾普利质保",
         bannerList: [],
-        introduce: ""
+        introduce: {}
       }
     },
     created() {
@@ -52,12 +55,19 @@
     },
     methods: {
       initSwiper() {
-        swiper1 = new Swiper('.banner-swiper', {
-          loop: true,
-          pagination: {
-            el: ".swiper-pagination"
-          }
-        });
+        setTimeout(() => {
+          swiper1 = new Swiper('.banner-swiper', {
+            loop: true,
+            pagination: {
+              el: ".swiper-pagination"
+            },
+            observer:true,//修改swiper自己或子元素时，自动初始化swiper
+            observeParents:true,//修改swiper的父元素时，自动初始化swiper
+            onSlideChangeEnd: function(swiper){
+              swiper.update(); //swiper更新
+            }
+          });
+        }, 0);
       },
 
       getHomeData(){
@@ -80,7 +90,7 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .index{
     padding-bottom: 100/75rem;
   }
@@ -90,11 +100,13 @@
 
     img {
       width: 100%;
+      height: 100%;
     }
   }
 
   .container{
     padding: 0 30/75rem;
+    width: 100%;
     img{
       display: block;
       width: 100%;

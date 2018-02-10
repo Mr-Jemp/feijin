@@ -21,14 +21,18 @@ import Setting from '../components/Setting'
 import ChangePassword from '../components/ChangePassword'
 //支付方式
 import Payment from '../components/Payment'
-//温馨提示
-import WarmPrompt from '../components/WarmPrompt'
 //上传资料
 import Upload from '../components/Upload'
 //延保服务
 import ExtendService from '../components/ExtendService'
 //服务详情
 import ServiceDetails from '../components/ServiceDetails'
+//关于艾普利
+import About from '../components/About'
+//系统消息
+import SystemMsg from '../components/SystemMsg'
+//消息详情
+import InfoDetail from '../components/InfoDetail'
 
 
 
@@ -93,11 +97,6 @@ export default new Router({
       component: Payment
     },
     {
-      path: '/warmPrompt',
-      name: 'warmPrompt',
-      component: WarmPrompt
-    },
-    {
       path: '/upload',
       name: 'upload',
       component: Upload
@@ -111,6 +110,21 @@ export default new Router({
       path: '/serviceDetails',
       name: 'serviceDetails',
       component: ServiceDetails
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
+    },
+    {
+      path: '/systemMsg',
+      name: 'systemMsg',
+      component: SystemMsg
+    },
+    {
+      path: '/infoDetail',
+      name: 'infoDetail',
+      component: InfoDetail
     },
   ]
 })

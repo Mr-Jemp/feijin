@@ -3,10 +3,14 @@
     <!--头部编号信息-->
     <div class="box1">
       <span class="left">服务编号：
-        <em v-if="passStatus">8887455556</em>
+        <em v-if="passStatus">{{detail.orderNo}}</em>
         <em v-else>(付款后自动生成)</em>
       </span>
-      <span class="status">审核已通过</span>
+      <span class="status" v-if="detail.status === 0 && detail.payStatus === 0">待支付</span>
+      <span class="status" v-else-if="detail.status === 0 && detail.payStatus === 1">待审核</span>
+      <span class="status" v-else-if="detail.status === 1 && detail.payStatus === 1">已完成</span>
+      <span class="status danger" v-else-if="detail.status === 2 && detail.payStatus === 1">已退回</span>
+      <span class="status danger" v-else-if="detail.status === 2 && detail.payStatus === 2">已退款</span>
     </div>
 
     <!--车主信息-->
@@ -21,23 +25,23 @@
       <ul class="list">
         <li>
           <span class="left-text">车主</span>
-          <span class="right-text">苏海文</span>
+          <span class="right-text">{{detail.nickname}}</span>
         </li>
         <li>
           <span class="left-text">联系人</span>
-          <span class="right-text">Hevien</span>
+          <span class="right-text">{{detail.realName}}</span>
         </li>
         <li>
           <span class="left-text">手机号</span>
-          <span class="right-text">13433665598</span>
+          <span class="right-text">{{detail.phone}}</span>
         </li>
         <li>
           <span class="left-text">联系地址</span>
-          <span class="right-text">广州市白云区第三大道汉州路广州市白云区</span>
+          <span class="right-text">{{detail.address}}</span>
         </li>
         <li>
           <span class="left-text">邮箱</span>
-          <span class="right-text">963568722@qq.com</span>
+          <span class="right-text">{{detail.email}}</span>
         </li>
       </ul>
 
@@ -57,60 +61,63 @@
       <ul class="list">
         <li>
           <span class="left-text">品牌</span>
-          <span class="right-text">保时捷</span>
+          <span class="right-text">{{detail.brand}}</span>
         </li>
         <li>
           <span class="left-text">车系</span>
-          <span class="right-text">豪华牌车系</span>
+          <span class="right-text">{{detail.carSeries}}</span>
         </li>
         <li>
           <span class="left-text">车型</span>
-          <span class="right-text">辉腾</span>
+          <span class="right-text">{{detail.carModel}}</span>
         </li>
         <li>
           <span class="left-text">配置版本</span>
-          <span class="right-text">高配版</span>
+          <span class="right-text">{{detail.configure}}</span>
         </li>
         <li>
           <span class="left-text">排量</span>
-          <span class="right-text">1.4L</span>
+          <span class="right-text">{{detail.volume}}</span>
         </li>
         <li>
           <span class="left-text">车牌号码</span>
-          <span class="right-text">粤A·88888</span>
+          <span class="right-text">{{detail.licensePlate}}</span>
         </li>
         <li>
           <span class="left-text">车辆识别号</span>
-          <span class="right-text">LGSDNSJKDSK23</span>
+          <span class="right-text">{{detail.recognitionCode}}</span>
         </li>
         <li>
           <span class="left-text">发动机号</span>
-          <span class="right-text">76110577</span>
+          <span class="right-text">{{detail.engineNumber}}</span>
         </li>
         <li>
           <span class="left-text">当前行驶里程</span>
-          <span class="right-text">200公里</span>
+          <span class="right-text">{{detail.steerMileage}}</span>
         </li>
         <li>
           <span class="left-text">注册日期</span>
-          <span class="right-text">2018-01-23</span>
+          <span class="right-text">{{detail.registerDate}}</span>
         </li>
         <li>
           <span class="left-text">使用性质</span>
-          <span class="right-text">非营运</span>
+          <span class="right-text" v-if="detail.nature === 0">未填写</span>
+          <span class="right-text" v-else-if="detail.nature === 1">营运</span>
+          <span class="right-text" v-else-if="detail.nature === 2">非营运</span>
         </li>
         <li>
           <span class="left-text">车龄</span>
-          <span class="right-text">2年</span>
+          <span class="right-text">{{detail.carAge}}个月</span>
         </li>
         <li>
           <span class="left-text">是否涡轮增压</span>
-          <span class="right-text">是</span>
+          <span class="right-text" v-if="detail.turbine === 1">是</span>
+          <span class="right-text" v-else-if="detail.turbine === 2">否</span>
         </li>
         <li>
           <span class="left-text">是否四驱</span>
-          <span class="right-text">是</span>
-        </li>
+          <span class="right-text" v-if="detail.quattro === 1">是</span>
+          <span class="right-text" v-else-if="detail.quattro === 2">否</span></li>
       </ul>
     </div>
 
@@ -126,60 +133,60 @@
       <ul class="list">
         <li>
           <span class="left-text">产品名称</span>
-          <span class="right-text">至尊保</span>
+          <span class="right-text">{{detail.productName}}</span>
         </li>
         <li>
           <span class="left-text">延保范围</span>
-          <span class="right-text">两大部件：发动机+变速箱</span>
+          <span class="right-text">{{detail.guaranteeScope}}</span>
         </li>
         <li>
           <span class="left-text">保障年限</span>
-          <span class="right-text">6个月</span>
+          <span class="right-text">{{detail.guaranteeDeadline}}个月</span>
         </li>
         <li>
           <span class="left-text">
             <em>保障里程</em>
             <em class="blue-text">(车辆最终保障里程不超过130,000公里)</em>
           </span>
-          <span class="right-text">20,000公里</span>
+          <span class="right-text">{{detail.guaranteeMileage}}公里</span>
         </li>
         <li>
           <span class="left-text">合约生效日期起止</span>
-          <span class="right-text">2018.1.23 - 2019.1.22</span>
+          <span class="right-text">{{detail.startTime}} - {{detail.endTime}}</span>
         </li>
         <li>
           <span class="left-text">赔付限额</span>
-          <span class="right-text">10,000元</span>
+          <span class="right-text">{{detail.guaranteePrice}}元</span>
         </li>
       </ul>
     </div>
 
     <!--审核通过-->
-    <div v-if="passStatus" class="wrapper">
+    <div v-show="contractStatus" class="wrapper">
       <!--服务费-->
       <div class="box5">
         <span class="left-text">服务费</span>
-        <span class="danger">&yen;3,000</span>
+        <span class="danger">&yen;{{detail.cost}}</span>
       </div>
 
-      <div class="btn" @click="contractStatus = true">查看电子合约</div>
+      <div class="btn" @click="showContract = true">查看电子合约</div>
     </div>
 
     <!--未付款-->
-    <div v-else class="wrapper">
+    <div class="wrapper" v-show="payStatus">
       <ul class="deal-list">
         <li>
-          <em>查看<span>准入条件</span></em>
+          <em>查看<span @click="condition = true">准入条件</span></em>
           <i v-if="entryStatus" class="icon-checked" @click="entryStatus = false"></i>
           <i v-else class="icon-checkbox" @click="entryStatus = true"></i>
         </li>
         <li>
-          <em>查看<span>保障范围</span></em>
+          <em>查看<span @click="safeguard = true">保障范围</span></em>
           <i v-if="scopeStatus" class="icon-checked" @click="scopeStatus = false"></i>
           <i v-else class="icon-checkbox" @click="scopeStatus = true"></i>
         </li>
         <li>
-          <em>查看<span>理赔流程</span></em>
+          <em>查看<span @click="claims = true">理赔流程</span></em>
           <i v-if="flowStatus" class="icon-checked" @click="flowStatus = false"></i>
           <i v-else class="icon-checkbox" @click="flowStatus = true"></i>
         </li>
@@ -187,20 +194,20 @@
 
       <!--充分阅读协议-->
       <div class="read">
-        <i v-if="readStatus" class="icon-checkeds"></i>
-        <i v-else class="icon-check"></i>
+        <i v-if="readStatus" class="icon-checkeds" @click="readStatus = false"></i>
+        <i v-else class="icon-check" @click="readStatus = true"></i>
 
         <p class="deal-text">我已充分了解以上内容、包括《准入条件》、《保障范围》、《理赔流程》，完全理解并勾选表示同意以上条件</p>
       </div>
+    </div>
 
-      <div class="footer">
-        <div class="left">服务费：<span>&yen;3,000</span></div>
-        <div class="btn-pay">确认支付</div>
-      </div>
+    <div class="footer" v-show="payStatus">
+      <div class="left">服务费：<span>&yen;{{detail.cost}}</span></div>
+      <div class="btn-pay" @click="confirmPay">确认支付</div>
     </div>
 
     <!--电子合约弹窗-->
-    <div v-show="contractStatus" class="e-contract">
+    <div v-show="showContract" class="e-contract">
       <div class="content">
         <h4 class="title">电子合约</h4>
 
@@ -213,10 +220,50 @@
           <p>电子合约内容</p>
 
           <h6 class="subhead">3、气缸体部分</h6>
-          <p>电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容</p>
+          <p>
+            电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容</p>
         </div>
       </div>
-      <div class="btn-close" @click="contractStatus = false"></div>
+      <div class="btn-close" @click="showContract = false"></div>
+    </div>
+
+    <!--查看准入条件弹窗-->
+    <div class="condition" v-show="condition">
+      <div class="content">
+        <h4 class="title">准入条件</h4>
+
+        <div class="wrap">
+          <p>
+            电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容</p>
+        </div>
+      </div>
+      <div class="btn-close" @click="condition = false"></div>
+    </div>
+
+    <!--查看保障范围弹窗-->
+    <div class="safeguard" v-show="safeguard">
+      <div class="content">
+        <h4 class="title">保障范围</h4>
+
+        <div class="wrap">
+          <p>
+            电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容</p>
+        </div>
+      </div>
+      <div class="btn-close" @click="safeguard = false"></div>
+    </div>
+
+    <!--查看理赔流程弹窗-->
+    <div class="claims" v-show="claims">
+      <div class="content">
+        <h4 class="title">理赔流程</h4>
+
+        <div class="wrap">
+          <p>
+            电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容电子合约内容</p>
+        </div>
+      </div>
+      <div class="btn-close" @click="claims = false"></div>
     </div>
 
   </div>
@@ -230,9 +277,11 @@
     data() {
       return {
         //是否通过审核
-        passStatus: true,
+        passStatus: false,
         //电子合约状态
         contractStatus: false,
+        //支付状态
+        payStatus: false,
         //准入条件选中状态
         entryStatus: true,
         //保障范围选中状态
@@ -241,10 +290,56 @@
         flowStatus: true,
         //是否阅读协议
         readStatus: true,
+        showContract: false,
+        id: this.$route.query.id,
+        detail: '',
+
+        /*准入条件弹窗*/
+        condition: false,
+        /*保障范围弹窗*/
+        safeguard: false,
+        /*理赔流程弹窗*/
+        claims: false,
       }
     },
     created() {
       conf.setTitle("服务详情");
+    },
+    mounted() {
+      this.getData();
+    },
+    methods: {
+      getData() {
+        conf.loading("加载中...");
+        conf.get("/api/order/detail?id=" + this.id, response => {
+          if (response.result === 1) {
+            setTimeout(() => {
+              conf.closeLoading();
+            }, 200);
+            this.detail = response.data;
+            if (response.data.status === 1 && response.data.payStatus === 1) {
+              this.passStatus = true;
+              this.contractStatus = true;
+            }
+            if (response.data.status === 0 && response.data.payStatus === 0) {//待支付
+              this.payStatus = true;
+            }
+            /*if (response.data.status === 0 && response.data.payStatus === 0) {
+
+            }*/
+          } else {
+            conf.closeLoading();
+            conf.toast(response.msg);
+          }
+        })
+      },
+      confirmPay() {
+        if (this.entryStatus && this.scopeStatus && this.flowStatus && this.readStatus) {
+          this.$router.push("/payment?id=" + this.id + "&price=" + this.detail.cost);
+        } else {
+          conf.toast("请勾选以上协议");
+        }
+      }
     }
   }
 </script>
@@ -366,7 +461,7 @@
     }
   }
 
-  .wrapper{
+  .wrapper {
     .btn {
       width: 100%;
       height: 88/75rem;
@@ -473,7 +568,7 @@
     }
   }
 
-  .e-contract {
+  .e-contract, .condition, .safeguard, .claims {
     position: fixed;
     top: 0;
     width: 100%;
@@ -481,30 +576,30 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, .5);
     z-index: 10;
-    .content{
+    .content {
       width: 690/75rem;
       height: 1046/75rem;
       background-color: #fff;
       -webkit-border-radius: 15/75rem;
       -moz-border-radius: 15/75rem;
       border-radius: 15/75rem;
-      margin: 110/75rem auto 0;
+      margin: 60/75rem auto 0;
       padding: 40/75rem;
-      .title{
+      .title {
         text-align: center;
         font-size: 36/75rem;
         color: #121212;
         margin-bottom: 30/75rem;
         font-weight: 600;
       }
-      .wrap{
+      .wrap {
         width: 100%;
         height: 886/75rem;
         overflow-y: scroll;
-        &::-webkit-scrollbar{
+        &::-webkit-scrollbar {
           display: none;
         }
-        img{
+        img {
           display: block;
           width: 100%;
         }

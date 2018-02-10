@@ -68,6 +68,10 @@
         }
         if(!this.password){
           return conf.toast("请输入密码");
+        }else{
+          if(this.password.trim().length < 6){
+            return conf.toast("密码长度不能小于六位");
+          }
         }
         if(!this.authCode){
           return conf.toast("请输入验证码");
@@ -128,10 +132,10 @@
 
 <style scoped lang="less">
   .register {
-    height: 100vh;
+    min-height: 100vh;
     background: url("../assets/img/login_bg.png") 0 0 no-repeat;
-    -webkit-background-size: cover;
-    background-size: cover;
+    -webkit-background-size: 100%;
+    background-size: 100%;
     text-align: center;
   }
 
@@ -216,7 +220,7 @@
   }
 
   .to-login {
-    margin-top: 280/75rem;
+    margin-top: 220/75rem;
     font-size: 28/75rem;
     span {
       color: #8e9da3;

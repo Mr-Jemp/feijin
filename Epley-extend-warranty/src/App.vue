@@ -15,6 +15,7 @@ export default {
 <style>
   body{
     color: #333;
+    min-height: 100vh;
   }
 
   li {

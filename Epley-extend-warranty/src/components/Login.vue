@@ -86,10 +86,10 @@
 
 <style scoped lang="less">
   .login{
-    height: 100vh;
+    min-height: 100vh;
     background: url("../assets/img/login_bg.png") 0 0 no-repeat;
-    -webkit-background-size: cover;
-    background-size: cover;
+    -webkit-background-size: 100%;
+    background-size: 100%;
     text-align: center;
   }
 

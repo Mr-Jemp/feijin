@@ -17,21 +17,22 @@
     <!--操作列表-->
     <ul class="list">
       <li>
-        <router-link to="">
+        <router-link to="/extendService">
           <i class="icon-contract"></i>
           <span>延保服务合约</span>
         </router-link>
       </li>
       <li>
-        <router-link to="">
+        <router-link to="/systemMsg">
           <i class="icon-message"></i>
           <span>系统消息</span>
         </router-link>
+        <div v-show="readNum > 0" class="label">{{readNum}}}</div>
       </li>
       <li>
-        <router-link to="">
+        <router-link to="/about">
           <i class="icon-aipuli"></i>
-          <span>关于艾普利</span>
+          <span>{{about}}</span>
         </router-link>
       </li>
       <li>
@@ -58,6 +59,8 @@
       return {
         username: '',
         isLogin: false,
+        readNum: "",
+        about: ""
       }
     },
     created() {
@@ -68,10 +71,12 @@
     },
     methods: {
       getUserInfo() {
-        conf.get("/api/security/getUserInfo", response => {
+        conf.get("/api/security/getUserInfo?random=" + Math.floor(Math.random() * 100000), response => {
           if (response.result === 1) {
-            this.username = response.data.username;
+            this.username = response.data.user.username;
             this.isLogin = true;
+            this.readNum = response.data.user.readNum;
+            this.about = response.data.about.name;
           } else {
             conf.toast(response.msg);
           }
@@ -143,6 +148,21 @@
       padding: 0 30/75rem;
       height: 96/75rem;
       background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .label{
+        width: 20/75rem;
+        height: 20/75rem;
+        background-color: red;
+        color: #fff;
+        text-align: center;
+        line-height: 20/75rem;
+        font-size: 12/75rem;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+      }
       &:last-child {
         a {
           border-bottom: none;
