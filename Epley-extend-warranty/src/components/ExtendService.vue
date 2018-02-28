@@ -38,7 +38,7 @@
           <div class="right">
             <router-link :to="{path: '/serviceDetails', query:{id:item.id}}" class="btn">查看详情</router-link>
             <a class="btn" v-if="item.status === 0 && item.payStatus === 0" @click="cancel(item.id)">取消合约</a>
-            <a class="btn" v-if="item.status === 2">查看原因</a>
+            <a class="btn" v-if="item.status === 2" @click="seaCause(item.remark)">查看原因</a>
             <router-link :to="{path: '/payment', query:{id:item.id,price:item.cost}}" class="btn"
                          v-if="item.payStatus === 0 && item.status === 0">去付款
             </router-link>
@@ -46,6 +46,17 @@
         </div>
       </li>
     </ul>
+
+    <!--失败原因弹窗-->
+    <div v-show="causeStatus" class="scope-window">
+      <div class="box">
+        <h3 class="title">退回原因</h3>
+        <div class="content-wrap">
+          <p>{{causeValue}}</p>
+        </div>
+      </div>
+      <div class="btn-close" @click="causeStatus = false"></div>
+    </div>
   </div>
 </template>
 
@@ -60,6 +71,8 @@
         page: 1,
         type: 0,
         orderList: [],
+        causeStatus: false,
+        causeValue: "",
         dropload: new Object(),
       }
     },
@@ -87,6 +100,9 @@
       });
     },
     methods: {
+      /**
+       * 获取列表数据
+       */
       getData(callback) {
         conf.get("/api/order/list?pageNo=" + this.page + "&status=" + this.type, response => {
           if (response.result === 1) {
@@ -104,6 +120,10 @@
           }
         })
       },
+      /**
+       * Nav导航切换
+       * @param status 当前导航的下标索引
+       */
       toggleNav(status) {
         this.type = status;
         this.page = 1;
@@ -124,7 +144,7 @@
         }, response => {
           if (response.result === 1) {
             conf.toast("取消成功");
-            /*此时调用接口页面并不会相应更新，只能重置dropload*/
+            /*此时调用getData方法页面并不会相应更新，只能重置dropload*/
             this.page = 1;
             this.orderList = [];
             this.$nextTick(function () {
@@ -136,6 +156,10 @@
             conf.toast(response.msg);
           }
         })
+      },
+      seaCause(cause) {
+        this.causeStatus = true;
+        this.causeValue = cause;
       }
     }
   }
@@ -158,7 +182,7 @@
     background-color: #fff;
     position: fixed;
     top: 0;
-    left: 0;
+    max-width: 600px;
     li {
       width: 25%;
       height: 100%;
@@ -263,6 +287,68 @@
           }
         }
       }
+    }
+  }
+
+  .scope-window {
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, .5);
+    padding: 30/75rem;
+    .box {
+      width: 100%;
+      height: 85%;
+      background-color: #fff;
+      -webkit-border-radius: 20/75rem;
+      -moz-border-radius: 20/75rem;
+      border-radius: 20/75rem;
+      padding: 40/75rem;
+      margin-top: 60/75rem;
+      overflow: hidden;
+
+      .title {
+        font-size: 36/75rem;
+        color: #121212;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 30/75rem;
+      }
+
+      .content-wrap {
+        height: 90%;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .main-title {
+          font-size: 32/75rem;
+          font-weight: 600;
+        }
+        .subhead {
+          font-size: 32/75rem;
+          font-weight: 600;
+          margin: 25/75rem 0;
+        }
+        p {
+          font-size: 28/75rem;
+          color: #666;
+          line-height: 40/75rem;
+        }
+      }
+    }
+
+    .btn-close {
+      width: 64/75rem;
+      height: 64/75rem;
+      background: url("../assets/img/button_close.png") 0 0 no-repeat;
+      -webkit-background-size: 100%;
+      background-size: 100%;
+      margin: 40/75rem auto;
     }
   }
 </style>

@@ -33,6 +33,8 @@ import About from '../components/About'
 import SystemMsg from '../components/SystemMsg'
 //消息详情
 import InfoDetail from '../components/InfoDetail'
+//banner内链页面
+import InsideChain from '../components/InsideChain'
 
 
 
@@ -125,6 +127,11 @@ export default new Router({
       path: '/infoDetail',
       name: 'infoDetail',
       component: InfoDetail
+    },
+    {
+      path: '/insideChain',
+      name: 'insideChain',
+      component: InsideChain
     },
   ]
 })

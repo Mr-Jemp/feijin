@@ -4,10 +4,10 @@
     <div class="box">
       <img src="../assets/img/personal_bg.png">
 
-      <div class="tips" v-if="isLogin == false">Hi，等你好久了！</div>
-      <div class="tips" v-else>Hi，{{username}}</div>
+      <div class="tips" v-if="isLogin === -1">Hi，等你好久了！</div>
+      <div class="tips" v-else-if="isLogin === 1">Hi，{{username}}</div>
 
-      <div class="btn-wrap" v-show="isLogin == false">
+      <div class="btn-wrap" v-show="isLogin === -1">
         <router-link to="/register">注册</router-link>
         <router-link to="/login">登录</router-link>
       </div>
@@ -17,17 +17,27 @@
     <!--操作列表-->
     <ul class="list">
       <li>
-        <router-link to="/extendService">
+        <router-link to="/extendService" v-if="isLogin">
           <i class="icon-contract"></i>
           <span>延保服务合约</span>
         </router-link>
+        <a v-else @click="tips">
+          <i class="icon-contract"></i>
+          <span>延保服务合约</span>
+        </a>
       </li>
       <li>
-        <router-link to="/systemMsg">
+        <div v-if="isLogin">
+          <router-link to="/systemMsg">
+            <i class="icon-message"></i>
+            <span>系统消息</span>
+          </router-link>
+          <div v-show="readNum > 0" class="label"></div>
+        </div>
+        <a v-else @click="tips">
           <i class="icon-message"></i>
           <span>系统消息</span>
-        </router-link>
-        <div v-show="readNum > 0" class="label">{{readNum}}}</div>
+        </a>
       </li>
       <li>
         <router-link to="/about">
@@ -36,10 +46,14 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/setting">
+        <router-link to="/setting" v-if="isLogin">
           <i class="icon-setting"></i>
           <span>设置</span>
         </router-link>
+        <a v-else @click="tips">
+          <i class="icon-setting"></i>
+          <span>设置</span>
+        </a>
       </li>
     </ul>
 
@@ -58,7 +72,8 @@
     data() {
       return {
         username: '',
-        isLogin: false,
+        //1 登录   0 初始   -1 未登录
+        isLogin: 0,
         readNum: "",
         about: ""
       }
@@ -67,26 +82,32 @@
       conf.setTitle("个人中心");
     },
     mounted() {
-      this.getUserInfo();
+        this.getUserInfo();
     },
     methods: {
       getUserInfo() {
         conf.get("/api/security/getUserInfo?random=" + Math.floor(Math.random() * 100000), response => {
-          if (response.result === 1) {
+          this.about = response.data.about.name;
+          if (response.data.user) {
             this.username = response.data.user.username;
-            this.isLogin = true;
+            this.isLogin = 1;
             this.readNum = response.data.user.readNum;
-            this.about = response.data.about.name;
           } else {
-            conf.toast(response.msg);
+            this.isLogin = -1;
           }
         })
+      },
+      tips() {
+        conf.toast("未登录，请先登录");
       }
     }
   }
 </script>
 
 <style scoped lang="less">
+  [v-cloak] {
+    display: none;
+  }
   .personal {
     min-height: 100vh;
     background-color: #f5f5f5;
@@ -151,14 +172,23 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .label{
-        width: 20/75rem;
-        height: 20/75rem;
+      &:nth-of-type(2){
+        >div{
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid #e6ebf4;
+          a{
+            border-bottom: none;
+          }
+        }
+      }
+      .label {
+        width: 15/75rem;
+        height: 15/75rem;
         background-color: red;
         color: #fff;
-        text-align: center;
-        line-height: 20/75rem;
-        font-size: 12/75rem;
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;

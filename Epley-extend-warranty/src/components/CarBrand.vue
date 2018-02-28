@@ -34,7 +34,7 @@
     methods: {
       getBrandList() {
         conf.loading("加载中...");
-        conf.get("/api/screening/brand/list", response => {
+        conf.get("/api/screening/brand/list?random=" + Math.floor(Math.random() * 100000), response => {
           if (response.result === 1) {
             conf.closeLoading();
             for (var i = 0; i < 26; i++) {
@@ -45,7 +45,13 @@
               item = response.data[i];
               this.carData[item.rank - 1].push(item);
             }
-          } else {
+          } else if(response.result === -2) {
+            conf.toast("未登录，请先登录");
+            conf.closeLoading();
+            setTimeout(() => {
+              this.$router.push("/login");
+            }, 500)
+          }else{
             conf.closeLoading();
             conf.toast(response.msg);
           }

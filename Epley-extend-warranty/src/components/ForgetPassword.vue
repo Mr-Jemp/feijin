@@ -145,7 +145,11 @@
 
 <style scoped lang="less">
   .forget-password {
-
+    width: 100%;
+    min-height: 100vh;
+    background: url("../assets/img/login_bg.png") 0 0 no-repeat;
+    -webkit-background-size: 100%;
+    background-size: 100%;
   }
 
   .list{
@@ -165,13 +169,13 @@
         font-size: 30/75rem;
         color: #333;
         &::-webkit-input-placeholder{
-          color: #aebac5;
+          color: #ddd;
         }
       }
       input[type="button"]{
         min-width: 160/75rem;
         text-align: center;
-        border: 1px solid #999;
+        border: 1px solid #ccc;
         -webkit-border-radius: 15/75rem;
         -moz-border-radius: 15/75rem;
         border-radius: 15/75rem;
@@ -179,7 +183,7 @@
         background-color: transparent;
         box-sizing: content-box;
         font-size: 28/75rem;
-        color: #666;
+        color: #ccc;
         outline: none;
       }
 

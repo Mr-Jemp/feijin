@@ -61,7 +61,7 @@
           if (response.result === 1) {
             conf.toast("支付成功");
             setTimeout(() => {
-              this.$router.replace("/serviceDetails?id=" + this.id);
+              this.$router.push("/serviceDetails?id=" + this.id + "&type=1");
             }, 500)
           } else {
             conf.toast(response.msg);

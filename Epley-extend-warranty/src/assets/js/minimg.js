@@ -25,7 +25,7 @@ export function minimg(filechooser, callback) {
 			var size = file.size / 1024 > 1024 ? (~~(10 * file.size / 1024 / 1024)) / 10 + "MB" : ~~(file.size / 1024) + "KB";
 			console.log(size);
 
-			reader.onload = function() {
+			reader.onloadend = function() {
 				var result = this.result;
 				var img = new Image();
 				img.src = result;

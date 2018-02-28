@@ -1,13 +1,15 @@
 <template>
   <div class="system-msg">
-    <router-link :to="'/infoDetail?id=' + item.id" class="box" v-for="item in msg.result">
-      <div class="child">
-        <div class="label" v-show="item.read"></div>
-        <p class="info">{{item.name}}</p>
-      </div>
-      <p class="time">{{item.time}}</p>
-    </router-link>
-
+    <div v-if="msg.result.length > 0">
+      <router-link :to="'/infoDetail?id=' + item.id" class="box" v-for="item in msg.result">
+        <div class="child">
+          <div class="label" v-show="item.read"></div>
+          <p class="info">{{item.name}}</p>
+        </div>
+        <p class="time">{{item.time}}</p>
+      </router-link>
+    </div>
+    <div v-else class="no-msg">暂无消息</div>
 
   </div>
 </template>
@@ -47,6 +49,10 @@
 <style scoped lang="less">
   .system-msg {
     padding: 30/75rem;
+  }
+  .no-msg{
+    text-align: center;
+    color: #666;
   }
 
   .box {

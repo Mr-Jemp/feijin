@@ -6,9 +6,9 @@
     <div class="swiper-container banner-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="item in bannerList">
-          <router-link to="" v-if="item.type === 0"><!--内链-->
+          <a class="type0" :data-content="item.content" v-if="item.type === 0"><!--内链-->
             <img :src="item.image">
-          </router-link>
+          </a>
           <a v-else="item.type === 1" :href="item.href"><!--外链-->
             <img :src="item.image">
           </a>
@@ -37,7 +37,7 @@
   import "swiper/dist/css/swiper.min.css"
   import Swiper from "swiper/dist/js/swiper.min"
 
-  let swiper1
+  let swiper1, self;
   export default {
     name: 'index',
     data() {
@@ -49,51 +49,70 @@
     },
     created() {
       conf.setTitle("艾普利质保");
+      self = this;
     },
     mounted() {
       this.getHomeData();
     },
     methods: {
+      /**
+       * 初始化swiper
+       */
       initSwiper() {
-        setTimeout(() => {
+        this.$nextTick(() => {
           swiper1 = new Swiper('.banner-swiper', {
             loop: true,
             pagination: {
               el: ".swiper-pagination"
             },
-            observer:true,//修改swiper自己或子元素时，自动初始化swiper
-            observeParents:true,//修改swiper的父元素时，自动初始化swiper
-            onSlideChangeEnd: function(swiper){
+            observer: true,//修改swiper自己或子元素时，自动初始化swiper
+            observeParents: true,//修改swiper的父元素时，自动初始化swiper
+            onSlideChangeEnd: function (swiper) {
               swiper.update(); //swiper更新
             }
           });
-        }, 0);
-      },
 
-      getHomeData(){
+          $(".banner-swiper .type0").click(function () {
+            self.skipInside($(this).attr("data-content"));
+          })
+
+        })
+      },
+      /**
+       * 获取首页数据
+       */
+      getHomeData() {
         conf.loading("加载中...");
         conf.get("/api/home/", response => {
-          if(response.result === 1){
-            setTimeout(() => {
-              conf.closeLoading();
-            },200);
+          if (response.result === 1) {
+            conf.closeLoading();
             this.bannerList = response.data.banners;
             this.introduce = response.data.introduce;
             this.initSwiper();
-          }else{
+          } else {
             conf.closeLoading();
             conf.toast(response.msg);
           }
         })
+      },
+      skipInside(content) {
+        try {
+          let con = content;
+          conf.setItem("content", con);
+          this.$router.push("/insideChain");
+        } catch (e) {
+          alert(e);
+        }
       }
     }
   }
 </script>
 
 <style lang="less">
-  .index{
+  .index {
     padding-bottom: 100/75rem;
   }
+
   .swiper-container {
     width: 100%;
     height: 320/75rem;
@@ -104,15 +123,15 @@
     }
   }
 
-  .container{
+  .container {
     padding: 0 30/75rem;
     width: 100%;
-    img{
+    img {
       display: block;
       width: 100%;
       margin: 25/75rem auto;
     }
-    p{
+    p {
       font-size: 28/75rem;
       line-height: 40/75rem;
       text-indent: 50/75rem;

@@ -21,8 +21,7 @@
             <i class="icon-delete" @click="frontSrc = '';ocrParams = {}"></i>
           </div>
           <div class="box" v-else>
-            <input type="file" @click="uploadFront($event)" id="input-file1" multiple="multiple" accept="image/*"
-                   capture="camera">
+            <input type="file" @click="uploadFront($event)" id="input-file1" accept="image/*">
           </div>
         </li>
         <li>
@@ -31,9 +30,7 @@
             <i class="icon-delete" @click="reverseSrc = ''"></i>
           </div>
           <div class="box" v-else>
-            <input type="file" @change="uploadReverse($event, 'reverseSrc', 'reverseName')" id="input-file2"
-                   multiple="multiple" accept="image/*"
-                   capture="camera">
+            <input type="file" @click="uploadReverse($event)" id="input-file2" accept="image/*">
           </div>
         </li>
       </ul>
@@ -53,9 +50,7 @@
             <i class="icon-delete" @click="mileageSrc = ''"></i>
           </div>
           <div class="box box2" v-else>
-            <input type="file" @change="uploadMileage($event, 'mileageSrc', 'mileageName')" id="input-file3"
-                   multiple="multiple" accept="image/*"
-                   capture="camera">
+            <input type="file" @click="uploadMileage($event)" id="input-file3" accept="image/*">
           </div>
         </li>
       </ul>
@@ -256,7 +251,7 @@
   import {conf} from "../assets/js/main"
   import {minimg} from "../assets/js/minimg"
 
-  let self, inputFile;
+  let self, inputFile, inputFile2, inputFile3;
   export default {
     name: "upload",
     data() {
@@ -332,12 +327,30 @@
         //个人或企业
         type: 1,
 
+        //保障里程
+        range: Number(this.$route.query.mileageVal),
+        //车龄
+        carAge: ""
 
       }
     },
     created() {
       conf.setTitle("上传资料");
       self = this;
+    },
+    mounted() {
+      let ran = this.range + 100000;
+      conf.setItem("range", ran);
+    },
+    watch: {
+      travelledDistance(val) {
+        if(val.length > 6){
+          this.travelledDistance = val.substr(0, 6);
+        }
+        if(val > (100000 + this.range)){
+          conf.toast("已超过最大保障里程");
+        }
+      }
     },
     methods: {
       /**
@@ -353,6 +366,12 @@
           "data": result.split(",")[1]
         }, response => {
           conf.closeLoading();
+          self.carAge = response.data.carAge;
+          if(self.carAge > 33){
+            inputFile.value = "";
+            return conf.toast("该车辆车龄不符合准入条件");
+          }
+
           var data = (new Function("return" + response.data.json))();
           var json = (new Function("return" + data.outputs[0].outputValue.dataValue))();
           self.frontSrc = response.data.src;
@@ -361,7 +380,6 @@
           if (json.success) {
             if (json.plate_num && json.vehicle_type && json.owner && json.vin && json.engine_num && json.register_date.length == 8) {
               self.ocrParams = json;
-              console.log(self.ocrParams)
             } else {
               conf.toast("识别失败，请重新上传");
               inputFile.value = "";
@@ -377,32 +395,32 @@
        * 上传行驶证反面
        * @param e
        */
-      uploadReverse(e, src, name) {
-        this.publicUpload(e, src, name);
+      uploadReverse(e) {
+        inputFile2 = document.getElementById("input-file2");
+        minimg(inputFile2, this.upReverse);
       },
       /**
        * 上传仪表盘照片
        */
-      uploadMileage(e, src, name) {
-        this.publicUpload(e, src, name);
+      uploadMileage(e) {
+        inputFile3 = document.getElementById("input-file3");
+        minimg(inputFile3, this.upMileage);
       },
-      publicUpload(e, src, name) {
-        var file = e.target.files[0];
-        var reader = new FileReader();
-        reader.onloadend = function () {
-          if (!self[src]) {
-            conf.post("/api/upload/image", {
-              "data": reader.result
-            }, response => {
-              self[src] = response.data.src;
-              self[name] = response.data.name;
-              if (e.target.value) {
-                e.target.value = "";
-              }
-            })
-          }
-        }
-        reader.readAsDataURL(file);
+      upReverse(result) {
+        conf.post("/api/upload/image", {
+          "data": result
+        }, response => {
+          self.reverseSrc = response.data.src;
+          self.reverseName = response.data.name;
+        })
+      },
+      upMileage(result) {
+        conf.post("/api/upload/image", {
+          "data": result
+        }, response => {
+          self.mileageSrc = response.data.src;
+          self.mileageName = response.data.name;
+        })
       },
       /**
        * 第一步
@@ -470,8 +488,8 @@
 
           conf.post("/api/order/edit/image", {
             "id": this.$route.query.id,
-            "drivingLicenseRear": this.frontName,
-            "drivingLicenseFront": this.reverseName,
+            "drivingLicenseRear": this.reverseName,
+            "drivingLicenseFront": this.frontName,
             "engineImage": this.mileageName,
             "carType": this.ocrParams.vehicle_type,
             "nickname": this.ocrParams.owner,
@@ -495,7 +513,7 @@
        * @returns {*|void}
        */
       stepThree() {
-        if(this.type == 1){
+        if(this.type == 1){//个人
           if (!this.contact) {
             return conf.toast("请输入联系人姓名");
           }
@@ -513,8 +531,14 @@
           }
           if (!this.travelledDistance) {
             return conf.toast("请输入您的已行驶里程");
+          }else{
+            let ran = this.range + 100000;
+            console.log(ran)
+            if(this.travelledDistance > ran){
+              return conf.toast("最大保障里程为"+ ran +"公里，已超过最大保障里程");
+            }
           }
-        }else{
+        }else{//企业
           if (!this.companyName) {
             return conf.toast("请输入企业名称");
           }
@@ -535,6 +559,11 @@
           }
           if (!this.travelledDistance) {
             return conf.toast("请输入您的已行驶里程");
+          }else{
+            let ran = this.range + 100000;
+            if(this.travelledDistance > ran){
+              return conf.toast("最大保障里程为"+ ran +"公里，已超过最大保障里程");
+            }
           }
         }
 
@@ -782,6 +811,7 @@
           }
           .km {
             color: #7c8e9e;
+            font-size: 26/75rem;
           }
           select {
             background: transparent;
